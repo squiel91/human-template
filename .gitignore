@@ -1,0 +1,16 @@
+# dependencies
+node_modules/
+
+# build output
+dist/
+
+# editor
+.vscode/
+
+# CLI files
+*.cli
+*.cli.*
+
+# Windows zone identifier files
+*:Zone.Identifier
+

@@ -1,0 +1,33 @@
+{% for block in content %}
+    {% case block.type %}
+        {% when 'heading' %}
+            {% if skip_h1 and block.level == 1 %}
+                {% continue %}
+            {% endif %}
+            {% assign tag = 'h' | append: block.level %}
+            <{{ tag }}>{{ block.text | escape }}</{{ tag }}>
+
+        {% when 'paragraph' %}
+            <p>{{ block.text | escape | newline_to_br }}</p>
+
+        {% when 'image' %}
+            <figure>
+                <img
+                    src="{{ block.image.url | escape_attr }}"
+                    alt="{{ block.image.alt | default: '' | escape_attr }}"
+                    loading="lazy"
+                    style="display: block; max-width: 100%; height: auto;"
+                >
+                {% if block.image.alt != blank %}
+                    <figcaption>{{ block.image.alt | escape }}</figcaption>
+                {% endif %}
+            </figure>
+
+        {% when 'html' %}
+            {% if block.code contains 'console.log' or block.code contains 'function' or block.code contains 'var ' or block.code contains 'const ' or block.code contains 'let ' %}
+                <script>{{ block.code }}</script>
+            {% else %}
+                {{ block.code }}
+            {% endif %}
+    {% endcase %}
+{% endfor %}

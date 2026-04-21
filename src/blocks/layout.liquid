@@ -1,0 +1,126 @@
+{%  assign layout_id = 'tiendu__layout-' | append: section.id | append: '-' | append: block.id %}
+{% assign desktop_image = block.settings.image_desktop %}
+{% assign tablet_image = block.settings.image_tablet | default: desktop_image %}
+{% assign mobile_image = block.settings.image_mobile | default: tablet_image %}
+<style>
+    #{{ layout_id }} {
+        {% if block.settings.background_color_desktop != blank %}
+            background-color: {{ block.settings.background_color_desktop }};
+        {% endif %}
+        {% if desktop_image != blank %}
+            background-image: url('{{ desktop_image }}');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        {% endif %}
+        {{ block.settings.css_styles_desktop }}
+    }
+
+    @media (width <= 64rem) {
+        #{{ layout_id }} {
+            {% if block.settings.background_color_tablet != blank %}
+                background-color: {{ block.settings.background_color_tablet }};
+            {% endif %}
+            {% if tablet_image != blank %}
+                background-image: url('{{ tablet_image }}');
+            {% endif %}
+            {{ block.settings.css_styles_tablet }}
+        }
+    }
+
+    @media (width <= 48rem) {
+        #{{ layout_id }} {
+            {% if block.settings.background_color_mobile != blank %}
+                background-color: {{ block.settings.background_color_mobile }};
+            {% endif %}
+            {% if mobile_image != blank %}
+                background-image: url('{{ mobile_image }}');
+            {% endif %}
+            {{ block.settings.css_styles_mobile }}
+        }
+    }
+</style>
+
+<div {{ block.shopify_attributes }} id="{{ layout_id }}" class="tiendu_layout">   
+    {% content_for 'blocks' %}
+</div>
+
+{% schema %}
+{
+    "name": "Layout",
+    "settings": [
+        {
+            "type": "header",
+            "content": "Laptop"
+        },
+        {
+            "type": "image",
+            "id": "image_desktop",
+            "label": "Imagen"
+        },
+        {
+            "type": "color",
+            "id": "background_color_desktop",
+            "label": "Color de fondo"
+        },
+        {
+            "type": "textarea",
+            "id": "css_styles_desktop",
+            "label": "Estilos CSS",
+            "info": "Los estilos serán heradados para el resto de los tamaños, a menos que se sobre-escriban."
+        },
+        {
+            "type": "header",
+            "content": "Tablet"
+        },
+        {
+            "type": "image",
+            "id": "image_tablet",
+            "label": "Imagen",
+            "info": "Si se deja vacio, se usa la imagen de laptop."
+        },
+        {
+            "type": "color",
+            "id": "background_color_tablet",
+            "label": "Color de fondo"
+        },
+        {
+            "type": "textarea",
+            "id": "css_styles_tablet",
+            "label": "Estilos CSS",
+            "info": "Los estilos serán heradados para teléfonos, a menos que se sobre-escriban."
+        },
+        {
+            "type": "header",
+            "content": "Mobile"
+        },
+        {
+            "type": "image",
+            "id": "image_mobile",
+            "label": "Imagen",
+            "info": "Si se deja vacio, se usa la imagen de tablet."
+        },
+        {
+            "type": "color",
+            "id": "background_color_mobile",
+            "label": "Color de fondo"
+        },
+        {
+            "type": "textarea",
+            "id": "css_styles_mobile",
+            "label": "Estilos CSS",
+            "info": "Se aplican unicamente al formato teléfono."
+        }
+    ],
+    "blocks": [
+        {
+            "type": "@theme"
+        }
+    ],
+    "presets": [
+        {
+            "name": "Layout genérico"
+        }
+    ]
+}
+{% endschema %}

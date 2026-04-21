@@ -1,0 +1,28 @@
+{%- comment -%}
+  Lucide icon: x
+  Usage:
+    {% render 'icon-x' %}
+    {% render 'icon-x', size: 32 %}
+    {% render 'icon-x', class: 'custom-class' %}
+    {% render 'icon-x', stroke_width: 1.5 %}
+{%- endcomment -%}
+{%- liquid
+  assign size = size | default: 24
+  assign stroke_width = stroke_width | default: 2
+-%}
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="{{ size }}"
+  height="{{ size }}"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="{{ stroke_width }}"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="lucide lucide-x{% if class %} {{ class }}{% endif %}"
+  aria-hidden="true"
+>
+<path d="M18 6 6 18" />
+  <path d="m6 6 12 12" />
+</svg>

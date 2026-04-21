@@ -1,0 +1,16 @@
+{% assign product_obj = closest.product | default: product %}
+
+{% if product_obj.description != blank or design_mode or preview_mode %}
+    <div {{ block.shopify_attributes }}>
+        <div class="tiendu-product-description__content">
+            {{ product_obj.description | default: '<p>Descripción del producto.</p>' }}
+        </div>
+    </div>
+{% endif %}
+
+{% schema %}
+{
+    "name": "product: Descripción",
+    "settings": []
+}
+{% endschema %}

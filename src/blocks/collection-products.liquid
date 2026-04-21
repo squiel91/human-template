@@ -1,0 +1,82 @@
+{% assign products_per_page = block.settings.products_per_page | default: section.settings.products_to_show | default: 12 %}
+
+<div {{ block.shopify_attributes }} style="display: contents;">
+    {% if request.page_type == 'collection' and collection != blank %}
+        {% paginate collection.products by products_per_page %}
+            {% for product in collection.products %}
+                {% content_for 'block', id: 'product_card', type: 'product', closest.product: product %}
+            {% endfor %}
+
+            {% if block.settings.show_pagination and paginate.pages > 1 %}
+                <nav class="tiendu-pagination" aria-label="Paginación de productos">
+                    {{ paginate | default_pagination }}
+                </nav>
+            {% endif %}
+        {% endpaginate %}
+    {% elsif section.settings.collection != blank %}
+        {% paginate section.settings.collection.products by products_per_page %}
+            {% for product in section.settings.collection.products %}
+                {% content_for 'block', id: 'product_card', type: 'product', closest.product: product %}
+            {% endfor %}
+
+            {% if block.settings.show_pagination and paginate.pages > 1 %}
+                <nav class="tiendu-pagination" aria-label="Paginación de productos">
+                    {{ paginate | default_pagination }}
+                </nav>
+            {% endif %}
+        {% endpaginate %}
+    {% elsif design_mode or preview_mode %}
+        {% for _i in (1..products_per_page) %}
+            {% content_for 'block', id: 'product_card', type: 'product', closest.product: null %}
+        {% endfor %}
+    {% endif %}
+</div>
+
+{% schema %}
+{
+    "name": "Productos de colección",
+    "max_blocks": 1,
+    "settings": [
+        {
+            "type": "number",
+            "id": "products_per_page",
+            "label": "Productos por página",
+            "default": 12
+        },
+        {
+            "type": "checkbox",
+            "id": "show_pagination",
+            "label": "Mostrar paginación",
+            "default": false
+        }
+    ],
+    "blocks": [
+        {
+            "type": "product"
+        }
+    ],
+    "presets": [
+        {
+            "name": "Productos de colección",
+            "blocks": {
+                "product_card": {
+                    "type": "product",
+                    "static": true,
+                    "settings": {
+                        "image_ratio": "square",
+                        "rounding": "none",
+                        "show_price": true,
+                        "css_styles_desktop": "",
+                        "css_styles_tablet": "",
+                        "css_styles_mobile": ""
+                    },
+                    "blocks": {}
+                }
+            },
+            "block_order": [
+                "product_card"
+            ]
+        }
+    ]
+}
+{% endschema %}

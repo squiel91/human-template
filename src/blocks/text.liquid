@@ -1,0 +1,279 @@
+{% assign generated_text_id = 'tiendu__text-' | append: section.id | append: '-' | append: block.id %}
+{% assign text_size_desktop = block.settings.size_desktop %}
+{% assign text_size_tablet = block.settings.size_tablet %}
+{% assign text_size_mobile = block.settings.size_mobile %}
+{% assign text_color_option = block.settings.color | default: 'primary' %}
+{% assign text_content = block.settings.text | default: default_text | default: default_content %}
+{% assign text_type = block.settings.text_type | default: 'text' %}
+{% assign text_id = text_id | default: generated_text_id %}
+{% assign text_class = text_class | default: '' %}
+
+{% case text_type %}
+    {% when 'paragraph' %}
+        {% assign text_tag = 'p' %}
+        {% assign text_font_family = 'var(--font-body-family)' %}
+    {% when 'page_title' %}
+        {% assign text_tag = 'h1' %}
+        {% assign text_font_family = 'var(--font-heading-family)' %}
+    {% when 'section_title' %}
+        {% assign text_tag = 'h2' %}
+        {% assign text_font_family = 'var(--font-heading-family)' %}
+    {% when 'subtitle' %}
+        {% assign text_tag = 'h3' %}
+        {% assign text_font_family = 'var(--font-heading-family)' %}
+    {% when 'heading_4' %}
+        {% assign text_tag = 'h4' %}
+        {% assign text_font_family = 'var(--font-heading-family)' %}
+    {% when 'heading_5' %}
+        {% assign text_tag = 'h5' %}
+        {% assign text_font_family = 'var(--font-heading-family)' %}
+    {% else %}
+        {% assign text_tag = 'span' %}
+        {% assign text_font_family = 'var(--font-body-family)' %}
+{% endcase %}
+
+{% case text_color_option %}
+    {% when 'secondary' %}
+        {% assign text_color = settings.secondary_color | default: '#00FF00' %}
+    {% when 'accent' %}
+        {% assign text_color = settings.accent_color | default: '#FF0000' %}
+    {% when 'custom' %}
+        {% assign text_color = block.settings.custom_color %}
+    {% else %}
+        {% assign text_color = settings.primary_color | default: '#0000FF' %}
+{% endcase %}
+
+{% capture text_decoration %}
+    {% if block.settings.underline %}underline{% endif %}{% if block.settings.underline and block.settings.line_through %} {% endif %}{% if block.settings.line_through %}line-through{% endif %}
+{% endcapture %}
+{% assign text_decoration_value = text_decoration | strip %}
+
+{% capture text_classes %}
+    tiendu-text
+    {% if text_size_desktop != 'inherit' %}
+        text-{{ text_size_desktop }}
+    {% endif %}
+    {% if text_size_tablet == 'inherit' %}
+        tablet:text-inherit
+    {% elsif text_size_tablet != blank %}
+        tablet:text-{{ text_size_tablet }}
+    {% endif %}
+    {% if text_size_mobile == 'inherit' %}
+        mobile:text-inherit
+    {% elsif text_size_mobile != blank %}
+        mobile:text-{{ text_size_mobile }}
+    {% endif %}
+{% endcapture %}
+
+<style>
+    #{{ text_id }} {
+        font-family: {{ text_font_family }};
+        {% if text_color != blank %}
+            color: {{ text_color }};
+        {% endif %}
+        {% if block.settings.bold %}
+            font-weight: 700;
+        {% endif %}
+        {% if block.settings.italic %}
+            font-style: italic;
+        {% endif %}
+        {% if text_decoration_value != blank %}
+            text-decoration: {{ text_decoration_value }};
+        {% endif %}
+        {{ block.settings.css_styles_desktop }}
+    }
+
+    @media (width <= 64rem) {
+        #{{ text_id }} {
+            {{ block.settings.css_styles_tablet }}
+        }
+    }
+
+    @media (width <= 48rem) {
+        #{{ text_id }} {
+            {{ block.settings.css_styles_mobile }}
+        }
+    }
+</style>
+
+<{{ text_tag }}
+    {{ block.shopify_attributes }}
+    id="{{ text_id }}"
+    class="{{ text_classes | strip }} {{ text_class | strip }}"
+>
+    {{ text_content }}
+</{{ text_tag }}>
+
+{% schema %}
+{
+    "name": "Texto",
+    "settings": [
+        {
+            "type": "text",
+            "id": "text",
+            "label": "Texto",
+            "default": "Lorem ipsum",
+            "placeholder": "Hola mundo..."
+        },
+        {
+            "type": "select",
+            "id": "text_type",
+            "label": "Tipo",
+            "default": "text",
+            "options": [
+                { "value": "text", "label": "Texto" },
+                { "value": "paragraph", "label": "Párrafo" },
+                { "value": "page_title", "label": "Título de página" },
+                { "value": "section_title", "label": "Título de sección" },
+                { "value": "subtitle", "label": "Subtítulo" },
+                { "value": "heading_4", "label": "H4" },
+                { "value": "heading_5", "label": "H5" }
+            ]
+        },
+        {
+            "type": "select",
+            "id": "color",
+            "label": "Color",
+            "default": "custom",
+            "options": [
+                { "value": "primary", "label": "Primario" },
+                { "value": "secondary", "label": "Secundario" },
+                { "value": "accent", "label": "Acento" },
+                { "value": "custom", "label": "Personalizado" }
+            ]
+        },
+        {
+            "type": "color",
+            "id": "custom_color",
+            "label": "Color personalizado"
+        },
+        {
+            "type": "checkbox",
+            "id": "bold",
+            "label": "Negrita",
+            "default": false
+        },
+        {
+            "type": "checkbox",
+            "id": "italic",
+            "label": "Italica",
+            "default": false
+        },
+        {
+            "type": "checkbox",
+            "id": "underline",
+            "label": "Subrayado",
+            "default": false
+        },
+        {
+            "type": "checkbox",
+            "id": "line_through",
+            "label": "Tachado",
+            "default": false
+        },
+        {
+            "type": "header",
+            "content": "Laptop"
+        },
+        {
+            "type": "select",
+            "id": "size_desktop",
+            "label": "Tamano",
+            "default": "inherit",
+            "options": [
+                { "value": "inherit", "label": "Heredado" },
+                { "value": "xs", "label": "XS" },
+                { "value": "sm", "label": "SM" },
+                { "value": "base", "label": "M" },
+                { "value": "lg", "label": "L" },
+                { "value": "xl", "label": "XL" },
+                { "value": "2xl", "label": "2XL" },
+                { "value": "3xl", "label": "3XL" },
+                { "value": "4xl", "label": "4XL" },
+                { "value": "5xl", "label": "5XL" },
+                { "value": "6xl", "label": "6XL" },
+                { "value": "7xl", "label": "7XL" },
+                { "value": "8xl", "label": "8XL" },
+                { "value": "9xl", "label": "9XL" }
+            ]
+        },
+        {
+            "type": "textarea",
+            "id": "css_styles_desktop",
+            "label": "Estilos CSS",
+            "info": "Los estilos serán heradados para el resto de los tamaños, a menos que se sobre-escriban."
+        },
+        {
+            "type": "header",
+            "content": "Tablet"
+        },
+        {
+            "type": "select",
+            "id": "size_tablet",
+            "label": "Tamano",
+            "default": "",
+            "options": [
+                { "value": "", "label": "Igual que laptop" },
+                { "value": "inherit", "label": "Heredado" },
+                { "value": "xs", "label": "XS" },
+                { "value": "sm", "label": "SM" },
+                { "value": "base", "label": "M" },
+                { "value": "lg", "label": "L" },
+                { "value": "xl", "label": "XL" },
+                { "value": "2xl", "label": "2XL" },
+                { "value": "3xl", "label": "3XL" },
+                { "value": "4xl", "label": "4XL" },
+                { "value": "5xl", "label": "5XL" },
+                { "value": "6xl", "label": "6XL" },
+                { "value": "7xl", "label": "7XL" },
+                { "value": "8xl", "label": "8XL" },
+                { "value": "9xl", "label": "9XL" }
+            ]
+        },
+        {
+            "type": "textarea",
+            "id": "css_styles_tablet",
+            "label": "Estilos CSS",
+            "info": "Los estilos serán heradados para teléfonos, a menos que se sobre-escriban."
+        },
+        {
+            "type": "header",
+            "content": "Mobile"
+        },
+        {
+            "type": "select",
+            "id": "size_mobile",
+            "label": "Tamano",
+            "default": "",
+            "options": [
+                { "value": "", "label": "Igual que tablet" },
+                { "value": "inherit", "label": "Heredado" },
+                { "value": "xs", "label": "XS" },
+                { "value": "sm", "label": "SM" },
+                { "value": "base", "label": "M" },
+                { "value": "lg", "label": "L" },
+                { "value": "xl", "label": "XL" },
+                { "value": "2xl", "label": "2XL" },
+                { "value": "3xl", "label": "3XL" },
+                { "value": "4xl", "label": "4XL" },
+                { "value": "5xl", "label": "5XL" },
+                { "value": "6xl", "label": "6XL" },
+                { "value": "7xl", "label": "7XL" },
+                { "value": "8xl", "label": "8XL" },
+                { "value": "9xl", "label": "9XL" }
+            ]
+        },
+        {
+            "type": "textarea",
+            "id": "css_styles_mobile",
+            "label": "Estilos CSS",
+            "info": "Se aplican unicamente al formato teléfono."
+        }
+    ],
+    "presets": [
+        {
+            "name": "Texto"
+        }
+    ]
+}
+{% endschema %}

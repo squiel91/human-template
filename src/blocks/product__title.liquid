@@ -1,0 +1,51 @@
+{% assign product_obj = closest.product | default: product %}
+{% assign fallback_text = product_obj.title | default: 'Nombre del producto' %}
+
+{% if product_obj or design_mode or preview_mode %}
+    <div {{ block.shopify_attributes }}>
+        {% content_for 'block', id: 'default-text', type: 'text', default_text: fallback_text %}
+    </div>
+{% endif %}
+
+{% schema %}
+{
+    "name": "product: Título",
+    "max_blocks": 1,
+    "blocks": [
+        {
+            "type": "text"
+        }
+    ],
+    "presets": [
+        {
+            "name": "product: Título",
+            "blocks": {
+                "default-text": {
+                    "type": "text",
+                    "static": true,
+                    "settings": {
+                        "text": "",
+                        "text_type": "page_title",
+                        "color": "custom",
+                        "custom_color": "#000000",
+                        "bold": true,
+                        "italic": false,
+                        "underline": false,
+                        "line_through": false,
+                        "size_desktop": "4xl",
+                        "size_tablet": "",
+                        "size_mobile": "",
+                        "css_styles_desktop": "",
+                        "css_styles_tablet": "",
+                        "css_styles_mobile": ""
+                    },
+                    "blocks": {}
+                }
+            },
+            "block_order": [
+                "default-text"
+            ]
+        }
+    ]
+}
+{% endschema %}

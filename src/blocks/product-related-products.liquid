@@ -1,0 +1,58 @@
+{% assign related_limit = block.settings.limit | default: 4 %}
+
+<div {{ block.shopify_attributes }} style="display: contents;">
+    {% if product != blank %}
+        {% paginate product.related_products by related_limit %}
+            {% for related_product in product.related_products %}
+                {% content_for 'block', id: 'product_card', type: 'product', closest.product: related_product %}
+            {% endfor %}
+        {% endpaginate %}
+    {% elsif design_mode or preview_mode %}
+        {% for _i in (1..related_limit) %}
+            {% content_for 'block', id: 'product_card', type: 'product', closest.product: null %}
+        {% endfor %}
+    {% endif %}
+</div>
+
+{% schema %}
+{
+    "name": "product: Relacionados",
+    "max_blocks": 1,
+    "settings": [
+        {
+            "type": "number",
+            "id": "limit",
+            "label": "Cantidad",
+            "default": 4
+        }
+    ],
+    "blocks": [
+        {
+            "type": "product"
+        }
+    ],
+    "presets": [
+        {
+            "name": "product: Relacionados",
+            "blocks": {
+                "product_card": {
+                    "type": "product",
+                    "static": true,
+                    "settings": {
+                        "image_ratio": "square",
+                        "rounding": "none",
+                        "show_price": true,
+                        "css_styles_desktop": "",
+                        "css_styles_tablet": "",
+                        "css_styles_mobile": ""
+                    },
+                    "blocks": {}
+                }
+            },
+            "block_order": [
+                "product_card"
+            ]
+        }
+    ]
+}
+{% endschema %}

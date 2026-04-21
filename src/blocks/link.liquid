@@ -1,0 +1,108 @@
+{% assign link_id = 'tiendu__link-' | append: section.id | append: '-' | append: block.id %}
+
+<style>
+    #{{ link_id }} {
+        display: inline-block;
+        text-decoration: none;
+        color: inherit;
+        {{ block.settings.css_styles_desktop }}
+    }
+
+    @media (width <= 64rem) {
+        #{{ link_id }} {
+            {{ block.settings.css_styles_tablet }}
+        }
+    }
+
+    @media (width <= 48rem) {
+        #{{ link_id }} {
+            {{ block.settings.css_styles_mobile }}
+        }
+    }
+</style>
+
+<a
+    {{ block.shopify_attributes }}
+    id="{{ link_id }}"
+    href="{{ block.settings.url | default: '#' }}"
+>
+    {% content_for 'blocks' %}
+</a>
+
+{% schema %}
+{
+    "name": "Link",
+    "settings": [
+        {
+            "type": "url",
+            "id": "url",
+            "label": "URL"
+        },
+        {
+            "type": "header",
+            "content": "Desktop"
+        },
+        {
+            "type": "textarea",
+            "id": "css_styles_desktop",
+            "label": "Estilos CSS",
+            "info": "Los estilos serán heradados para el resto de los tamaños, a menos que se sobre-escriban."
+        },
+        {
+            "type": "header",
+            "content": "Tablet"
+        },
+        {
+            "type": "textarea",
+            "id": "css_styles_tablet",
+            "label": "Estilos CSS",
+            "info": "Los estilos serán heradados para teléfonos, a menos que se sobre-escriban."
+        },
+        {
+            "type": "header",
+            "content": "Mobile"
+        },
+        {
+            "type": "textarea",
+            "id": "css_styles_mobile",
+            "label": "Estilos CSS",
+            "info": "Se aplican unicamente al formato teléfono."
+        }
+    ],
+    "blocks": [
+        {
+            "type": "@theme"
+        }
+    ],
+    "presets": [
+        {
+            "name": "Link",
+            "blocks": {
+                "text": {
+                    "type": "text",
+                    "settings": {
+                        "text": "Nuevo link",
+                        "text_type": "text",
+                        "color": "primary",
+                        "custom_color": "",
+                        "bold": false,
+                        "italic": true,
+                        "underline": false,
+                        "line_through": false,
+                        "size_desktop": "inherit",
+                        "size_tablet": "",
+                        "size_mobile": "",
+                        "css_styles_desktop": "",
+                        "css_styles_tablet": "",
+                        "css_styles_mobile": ""
+                    },
+                    "blocks": {}
+                }
+            },
+            "block_order": [
+                "text"
+            ]
+        }
+    ]
+}
+{% endschema %}

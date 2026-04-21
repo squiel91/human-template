@@ -1,0 +1,83 @@
+{% assign product_obj = closest.product | default: product %}
+{% assign compare_label = blank %}
+
+{% if product_page and product_page.price and product_page.price.compare_at_price_in_cents != blank %}
+    {% capture compare_label %}{% if product_page.price.compare_is_from %}Desde {% endif %}{{ product_page.price.compare_at_price_in_cents | money }}{% endcapture %}
+{% elsif product_obj and product_obj.variants and product_obj.variants.size > 0 %}
+    {% assign shared_compare = blank %}
+    {% assign compare_consistent = true %}
+    {% assign has_comparable_variant = false %}
+    {% for variant in product_obj.variants %}
+        {% if variant.priceInCents == blank or variant.compareAtPriceInCents == blank or variant.compareAtPriceInCents <= variant.priceInCents %}
+            {% assign compare_consistent = false %}
+        {% else %}
+            {% assign has_comparable_variant = true %}
+            {% if shared_compare == blank %}
+                {% assign shared_compare = variant.compareAtPriceInCents %}
+            {% elsif shared_compare != variant.compareAtPriceInCents %}
+                {% assign compare_consistent = false %}
+            {% endif %}
+        {% endif %}
+    {% endfor %}
+
+    {% if compare_consistent and has_comparable_variant and shared_compare != blank %}
+        {% capture compare_label %}{{ shared_compare | money }}{% endcapture %}
+    {% endif %}
+{% elsif product_obj and product_obj.baseCompareAtPriceInCents != blank and product_obj.basePriceInCents != blank and product_obj.baseCompareAtPriceInCents > product_obj.basePriceInCents %}
+    {% capture compare_label %}{{ product_obj.baseCompareAtPriceInCents | money }}{% endcapture %}
+{% endif %}
+
+{% assign fallback_text = compare_label | default: '$ 2.490' %}
+
+{% if compare_label != blank or design_mode or preview_mode %}
+    <div data-product-compare-wrap {{ block.shopify_attributes }}{% if compare_label == blank %} hidden{% endif %}>
+        {% if block.blocks and block.blocks.size > 0 %}
+            {% content_for 'block', id: 'default-text', type: 'text', default_content: fallback_text, text_id: 'product-compare' %}
+        {% else %}
+            <span id="product-compare" style="font-size: 1.5rem; color: #94a3b8; text-decoration: line-through;">{{ fallback_text }}</span>
+        {% endif %}
+    </div>
+{% endif %}
+
+{% schema %}
+{
+    "name": "product: Precio compare",
+    "max_blocks": 1,
+    "blocks": [
+        {
+            "type": "text"
+        }
+    ],
+    "presets": [
+        {
+            "name": "product: Precio compare",
+            "blocks": {
+                "default-text": {
+                    "type": "text",
+                    "static": true,
+                    "settings": {
+                        "text": "",
+                        "text_type": "text",
+                        "color": "custom",
+                        "custom_color": "#94a3b8",
+                        "bold": false,
+                        "italic": false,
+                        "underline": false,
+                        "line_through": true,
+                        "size_desktop": "2xl",
+                        "size_tablet": "",
+                        "size_mobile": "",
+                        "css_styles_desktop": "",
+                        "css_styles_tablet": "",
+                        "css_styles_mobile": ""
+                    },
+                    "blocks": {}
+                }
+            },
+            "block_order": [
+                "default-text"
+            ]
+        }
+    ]
+}
+{% endschema %}

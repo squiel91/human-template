@@ -1,0 +1,29 @@
+{%- comment -%}
+  Lucide icon: text-align-start
+  Usage:
+    {% render 'icon-text-align-start' %}
+    {% render 'icon-text-align-start', size: 32 %}
+    {% render 'icon-text-align-start', class: 'custom-class' %}
+    {% render 'icon-text-align-start', stroke_width: 1.5 %}
+{%- endcomment -%}
+{%- liquid
+  assign size = size | default: 24
+  assign stroke_width = stroke_width | default: 2
+-%}
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="{{ size }}"
+  height="{{ size }}"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="{{ stroke_width }}"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="lucide lucide-text-align-start{% if class %} {{ class }}{% endif %}"
+  aria-hidden="true"
+>
+<path d="M21 5H3" />
+  <path d="M15 12H3" />
+  <path d="M17 19H3" />
+</svg>

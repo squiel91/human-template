@@ -1,0 +1,127 @@
+{% assign icon_id = 'tiendu__icon-' | append: section.id | append: '-' | append: block.id %}
+{% assign icon_name = block.settings.icon | default: 'search' %}
+{% assign icon_color_option = block.settings.color | default: 'primary' %}
+
+{% case icon_color_option %}
+    {% when 'secondary' %}
+        {% assign icon_color = settings.secondary_color | default: '#00FF00' %}
+    {% when 'accent' %}
+        {% assign icon_color = settings.accent_color | default: '#FF0000' %}
+    {% when 'custom' %}
+        {% assign icon_color = block.settings.custom_color %}
+    {% else %}
+        {% assign icon_color = settings.primary_color | default: '#0000FF' %}
+{% endcase %}
+
+{% case block.settings.size %}
+    {% when 'sm' %}
+        {% assign icon_size = 16 %}
+    {% when 'lg' %}
+        {% assign icon_size = 32 %}
+    {% when 'xl' %}
+        {% assign icon_size = 40 %}
+    {% else %}
+        {% assign icon_size = 24 %}
+{% endcase %}
+
+<style>
+    #{{ icon_id }} {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        line-height: 0;
+        {% if icon_color != blank %}
+            color: {{ icon_color }};
+        {% endif %}
+    }
+</style>
+
+<span {{ block.shopify_attributes }} id="{{ icon_id }}" aria-hidden="true">
+    {% case icon_name %}
+        {% when 'text-align-start' %}
+            {% render 'icon-text-align-start', size: icon_size, stroke_width: block.settings.stroke_width %}
+        {% when 'arrow-right' %}
+            {% render 'icon-arrow-right', size: icon_size, stroke_width: block.settings.stroke_width %}
+        {% when 'shopping-bag' %}
+            {% render 'icon-shopping-bag', size: icon_size, stroke_width: block.settings.stroke_width %}
+        {% when 'forward' %}
+            {% render 'icon-forward', size: icon_size, stroke_width: block.settings.stroke_width %}
+        {% when 'plus' %}
+            {% render 'icon-plus', size: icon_size, stroke_width: block.settings.stroke_width %}
+        {% when 'x' %}
+            {% render 'icon-x', size: icon_size, stroke_width: block.settings.stroke_width %}
+    {% else %}
+        {% render 'icon-search', size: icon_size, stroke_width: block.settings.stroke_width %}
+    {% endcase %}
+</span>
+
+{% schema %}
+{
+    "name": "Icono",
+    "settings": [
+        {
+            "type": "select",
+            "id": "icon",
+            "label": "Icono",
+            "default": "search",
+            "options": [
+                { "value": "text-align-start", "label": "Text align start" },
+                { "value": "search", "label": "Search" },
+                { "value": "arrow-right", "label": "Arrow right" },
+                { "value": "shopping-bag", "label": "Shopping bag" },
+                { "value": "forward", "label": "Forward" },
+                { "value": "plus", "label": "Plus" },
+                { "value": "x", "label": "X" }
+            ]
+        },
+        {
+            "type": "select",
+            "id": "color",
+            "label": "Color",
+            "default": "custom",
+            "options": [
+                { "value": "primary", "label": "Primario" },
+                { "value": "secondary", "label": "Secundario" },
+                { "value": "accent", "label": "Acento" },
+                { "value": "custom", "label": "Personalizado" }
+            ]
+        },
+        {
+            "type": "color",
+            "id": "custom_color",
+            "label": "Color personalizado",
+            "default": "#000000"
+        },
+        {
+            "type": "select",
+            "id": "size",
+            "label": "Tamano",
+            "default": "md",
+            "options": [
+                { "value": "sm", "label": "Sm" },
+                { "value": "md", "label": "Md" },
+                { "value": "lg", "label": "Lg" },
+                { "value": "xl", "label": "Xl" }
+            ]
+        },
+        {
+            "type": "select",
+            "id": "stroke_width",
+            "label": "Stroke width",
+            "default": "2",
+            "options": [
+                { "value": "1", "label": "1" },
+                { "value": "1.5", "label": "1.5" },
+                { "value": "2", "label": "2" },
+                { "value": "2.5", "label": "2.5" },
+                { "value": "3", "label": "3" }
+            ]
+        }
+    ],
+    "presets": [
+        {
+            "name": "Icono"
+        }
+    ]
+}
+{% endschema %}

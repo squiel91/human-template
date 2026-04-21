@@ -1,0 +1,289 @@
+<section class="tiendu-main-product" data-product-root style="padding: 32px 0;">
+    {% if section.blocks and section.blocks.size > 0 %}
+        {% content_for 'blocks' %}
+    {% elsif design_mode or preview_mode %}
+        <div>Agrega bloques para construir la página de producto.</div>
+    {% endif %}
+
+    <script id="product-json" type="application/json">{{ product | json }}</script>
+</section>
+
+{% schema %}
+{
+    "name": "Producto principal",
+    "enabled_on": {
+        "templates": ["product"]
+    },
+    "max_blocks": 1,
+    "settings": [],
+    "blocks": [
+        {
+            "type": "layout"
+        }
+    ],
+    "presets": [
+        {
+            "name": "Producto principal",
+            "blocks": {
+                "layout_outer": {
+                    "type": "layout",
+                    "settings": {
+                        "image_desktop": "",
+                        "background_color_desktop": "",
+                        "css_styles_desktop": "padding: 0 8px;",
+                        "image_tablet": "",
+                        "background_color_tablet": "",
+                        "css_styles_tablet": "",
+                        "image_mobile": "",
+                        "background_color_mobile": "",
+                        "css_styles_mobile": ""
+                    },
+                    "blocks": {
+                        "layout_inner": {
+                            "type": "layout",
+                            "settings": {
+                                "image_desktop": "",
+                                "background_color_desktop": "",
+                                "css_styles_desktop": "max-width: 1024px; margin: 0 auto; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 40px;",
+                                "image_tablet": "",
+                                "background_color_tablet": "",
+                                "css_styles_tablet": "grid-template-columns: 1fr; gap: 28px;",
+                                "image_mobile": "",
+                                "background_color_mobile": "",
+                                "css_styles_mobile": "grid-template-columns: 1fr; gap: 24px;"
+                            },
+                            "blocks": {
+                                "gallery": {
+                                    "type": "product__gallery",
+                                    "settings": {}
+                                },
+                                "content_column": {
+                                    "type": "layout",
+                                    "settings": {
+                                        "image_desktop": "",
+                                        "background_color_desktop": "",
+                                        "css_styles_desktop": "display: flex; flex-direction: column; gap: 16px; justify-content: flex-start;",
+                                        "image_tablet": "",
+                                        "background_color_tablet": "",
+                                        "css_styles_tablet": "",
+                                        "image_mobile": "",
+                                        "background_color_mobile": "",
+                                        "css_styles_mobile": ""
+                                    },
+                                    "blocks": {
+                                        "title": {
+                                            "type": "product__title",
+                                            "settings": {},
+                                            "blocks": {
+                                                "default-text": {
+                                                    "type": "text",
+                                                    "static": true,
+                                                    "settings": {
+                                                        "text": "",
+                                                        "text_type": "page_title",
+                                                        "color": "custom",
+                                                        "custom_color": "#000000",
+                                                        "bold": true,
+                                                        "italic": false,
+                                                        "underline": false,
+                                                        "line_through": false,
+                                                        "size_desktop": "4xl",
+                                                        "size_tablet": "",
+                                                        "size_mobile": "",
+                                                        "css_styles_desktop": "",
+                                                        "css_styles_tablet": "",
+                                                        "css_styles_mobile": ""
+                                                    },
+                                                    "blocks": {}
+                                                }
+                                            },
+                                            "block_order": [
+                                                "default-text"
+                                            ]
+                                        },
+                                        "pricing_row": {
+                                            "type": "layout",
+                                            "settings": {
+                                                "image_desktop": "",
+                                                "background_color_desktop": "",
+                                                "css_styles_desktop": "display: flex; align-items: center; gap: 12px; flex-wrap: wrap;",
+                                                "image_tablet": "",
+                                                "background_color_tablet": "",
+                                                "css_styles_tablet": "",
+                                                "image_mobile": "",
+                                                "background_color_mobile": "",
+                                                "css_styles_mobile": ""
+                                            },
+                                            "blocks": {
+                                                "price": {
+                                                    "type": "product__price",
+                                                    "settings": {},
+                                                    "blocks": {
+                                                        "default-text": {
+                                                            "type": "text",
+                                                            "static": true,
+                                                            "settings": {
+                                                                "text": "",
+                                                                "text_type": "text",
+                                                                "color": "custom",
+                                                                "custom_color": "#000000",
+                                                                "bold": true,
+                                                                "italic": false,
+                                                                "underline": false,
+                                                                "line_through": false,
+                                                                "size_desktop": "2xl",
+                                                                "size_tablet": "",
+                                                                "size_mobile": "",
+                                                                "css_styles_desktop": "",
+                                                                "css_styles_tablet": "",
+                                                                "css_styles_mobile": ""
+                                                            },
+                                                            "blocks": {}
+                                                        }
+                                                    },
+                                                    "block_order": [
+                                                        "default-text"
+                                                    ]
+                                                },
+                                                "compare_price": {
+                                                    "type": "product__compare-price",
+                                                    "settings": {},
+                                                    "blocks": {
+                                                        "default-text": {
+                                                            "type": "text",
+                                                            "static": true,
+                                                            "settings": {
+                                                                "text": "",
+                                                                "text_type": "text",
+                                                                "color": "custom",
+                                                                "custom_color": "#94a3b8",
+                                                                "bold": false,
+                                                                "italic": false,
+                                                                "underline": false,
+                                                                "line_through": true,
+                                                                "size_desktop": "2xl",
+                                                                "size_tablet": "",
+                                                                "size_mobile": "",
+                                                                "css_styles_desktop": "",
+                                                                "css_styles_tablet": "",
+                                                                "css_styles_mobile": ""
+                                                            },
+                                                            "blocks": {}
+                                                        }
+                                                    },
+                                                    "block_order": [
+                                                        "default-text"
+                                                    ]
+                                                }
+                                            },
+                                            "block_order": [
+                                                "price",
+                                                "compare_price"
+                                            ]
+                                        },
+                                        "add_to_cart": {
+                                            "type": "button",
+                                            "settings": {
+                                                "text": "Agregar al carrito",
+                                                "link": "",
+                                                "action": "add_to_cart",
+                                                "icon_position": "before",
+                                                "color": "primary",
+                                                "size": "md",
+                                                "variant": "primary",
+                                                "rounding": "none",
+                                                "css_styles_desktop": "width: 100%; margin-top: 8px;",
+                                                "css_styles_tablet": "",
+                                                "css_styles_mobile": ""
+                                            },
+                                            "blocks": {
+                                                "icon": {
+                                                    "type": "icon",
+                                                    "settings": {
+                                                        "icon": "plus",
+                                                        "color": "custom",
+                                                        "custom_color": "#ffffff",
+                                                        "size": "md",
+                                                        "stroke_width": "2"
+                                                    },
+                                                    "blocks": {}
+                                                }
+                                            },
+                                            "block_order": [
+                                                "icon"
+                                            ]
+                                        },
+                                        "share": {
+                                            "type": "product__share",
+                                            "settings": {},
+                                            "blocks": {
+                                                "share-button": {
+                                                    "type": "button",
+                                                    "static": true,
+                                                    "settings": {
+                                                        "text": "",
+                                                        "link": "",
+                                                        "action": "share",
+                                                        "icon_position": "after",
+                                                        "color": "primary",
+                                                        "size": "md",
+                                                        "variant": "secondary",
+                                                        "rounding": "none",
+                                                        "css_styles_desktop": "width: 100%;",
+                                                        "css_styles_tablet": "",
+                                                        "css_styles_mobile": ""
+                                                    },
+                                                    "blocks": {
+                                                        "icon": {
+                                                            "type": "icon",
+                                                            "settings": {
+                                                                "icon": "forward",
+                                                                "color": "custom",
+                                                                "custom_color": "#000000",
+                                                                "size": "md",
+                                                                "stroke_width": "2"
+                                                            },
+                                                            "blocks": {}
+                                                        }
+                                                    },
+                                                    "block_order": [
+                                                        "icon"
+                                                    ]
+                                                }
+                                            },
+                                            "block_order": [
+                                                "share-button"
+                                            ]
+                                        },
+                                        "selectors": {
+                                            "type": "product__attribute-selectors",
+                                            "settings": {}
+                                        }
+                                    },
+                                    "block_order": [
+                                        "title",
+                                        "pricing_row",
+                                        "selectors",
+                                        "add_to_cart",
+                                        "share"
+                                    ]
+                                }
+                            },
+                            "block_order": [
+                                "gallery",
+                                "content_column"
+                            ]
+                        }
+                    },
+                    "block_order": [
+                        "layout_inner"
+                    ]
+                }
+            },
+            "block_order": [
+                "layout_outer"
+            ]
+        }
+    ]
+}
+{% endschema %}

@@ -1,0 +1,151 @@
+{% assign gallery_id = 'tiendu__product-gallery-' | append: section.id | append: '-' | append: block.id %}
+{% assign product_obj = closest.product | default: product %}
+{% assign gallery_images = product_page.gallery_images %}
+{% assign primary_image = product_obj.coverImage %}
+{% assign placeholder_image = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 400'%3E%3Crect width='400' height='400' fill='%23e5e7eb'/%3E%3Cpath d='M120 280l55-70 45 55 35-45 65 60H120z' fill='%239ca3af'/%3E%3Ccircle cx='155' cy='145' r='28' fill='%239ca3af'/%3E%3C/svg%3E" %}
+
+{% if gallery_images == blank and primary_image != blank %}
+    {% assign gallery_images = product_obj.images %}
+{% endif %}
+
+{% assign first_image = blank %}
+{% if gallery_images and gallery_images.size > 0 %}
+    {% assign first_image = gallery_images.first %}
+{% elsif primary_image != blank %}
+    {% assign first_image = primary_image %}
+{% endif %}
+
+<style>
+    #{{ gallery_id }} {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    #{{ gallery_id }} .tiendu-product-gallery__stage {
+        position: relative;
+        overflow: hidden;
+        background: #f3f4f6;
+        aspect-ratio: 1 / 1;
+    }
+
+    #{{ gallery_id }} .tiendu-product-gallery__main-image {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    #{{ gallery_id }} .tiendu-product-gallery__nav {
+        position: absolute;
+        top: 50%;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 2.5rem;
+        height: 2.5rem;
+        border: none;
+        background: rgba(255, 255, 255, 0.92);
+        color: #000000;
+        cursor: pointer;
+        transform: translateY(-50%);
+    }
+
+    #{{ gallery_id }} .tiendu-product-gallery__nav:disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
+    }
+
+    #{{ gallery_id }} .tiendu-product-gallery__nav--prev {
+        left: 12px;
+    }
+
+    #{{ gallery_id }} .tiendu-product-gallery__nav--prev svg {
+        transform: rotate(180deg);
+    }
+
+    #{{ gallery_id }} .tiendu-product-gallery__nav--next {
+        right: 12px;
+    }
+
+    #{{ gallery_id }} .tiendu-product-gallery__thumbs {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+    }
+
+    #{{ gallery_id }} .tiendu-product-gallery__thumb {
+        width: 72px;
+        height: 72px;
+        padding: 0;
+        border: 1px solid transparent;
+        background: #ffffff;
+        cursor: pointer;
+        overflow: hidden;
+    }
+
+    #{{ gallery_id }} .tiendu-product-gallery__thumb[aria-current='true'] {
+        border-color: #000000;
+    }
+
+    #{{ gallery_id }} .tiendu-product-gallery__thumb img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    @media (width <= 48rem) {
+        #{{ gallery_id }} .tiendu-product-gallery__thumb {
+            width: 56px;
+            height: 56px;
+        }
+    }
+</style>
+
+{% if product_obj or design_mode or preview_mode %}
+    <div {{ block.shopify_attributes }} id="{{ gallery_id }}" data-product-gallery-root>
+        <div class="tiendu-product-gallery__stage">
+            <img
+                class="tiendu-product-gallery__main-image"
+                src="{{ first_image.url | default: placeholder_image }}"
+                alt="{{ first_image.alt | default: product_obj.title | escape }}"
+                data-product-gallery-main-image
+            >
+
+            <button class="tiendu-product-gallery__nav tiendu-product-gallery__nav--prev" type="button" data-product-gallery-prev{% if gallery_images == blank or gallery_images.size <= 1 %} hidden{% endif %}>
+                {% render 'icon-arrow-right', size: 18, stroke_width: 2 %}
+            </button>
+
+            <button class="tiendu-product-gallery__nav tiendu-product-gallery__nav--next" type="button" data-product-gallery-next{% if gallery_images == blank or gallery_images.size <= 1 %} hidden{% endif %}>
+                {% render 'icon-arrow-right', size: 18, stroke_width: 2 %}
+            </button>
+        </div>
+
+        <div class="tiendu-product-gallery__thumbs" data-product-gallery-thumbs{% if gallery_images == blank or gallery_images.size <= 1 %} hidden{% endif %}>
+            {% if gallery_images and gallery_images.size > 0 %}
+                {% for image in gallery_images %}
+                    <button
+                        class="tiendu-product-gallery__thumb"
+                        type="button"
+                        data-product-gallery-thumb
+                        data-image-url="{{ image.url | escape_attr }}"
+                        data-image-alt="{{ image.alt | default: product_obj.title | escape_attr }}"
+                        data-image-index="{{ forloop.index0 }}"
+                        {% if image.id != blank %}data-image-id="{{ image.id }}"{% endif %}
+                        aria-current="{% if forloop.first %}true{% else %}false{% endif %}"
+                    >
+                        <img src="{{ image.url | escape_attr }}" alt="{{ image.alt | default: product_obj.title | escape_attr }}" loading="lazy">
+                    </button>
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+{% endif %}
+
+{% schema %}
+{
+    "name": "product: Galería",
+    "settings": []
+}
+{% endschema %}

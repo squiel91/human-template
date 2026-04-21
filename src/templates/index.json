@@ -1,0 +1,305 @@
+{
+  "sections": {
+    "static-banner_xk1zfl": {
+      "type": "static-banner",
+      "settings": {},
+      "blocks": {
+        "layout_8b4dm2": {
+          "type": "layout",
+          "settings": {
+            "css_styles_desktop": "padding: 0 8px;",
+            "css_styles_tablet": "",
+            "css_styles_mobile": ""
+          },
+          "static": false,
+          "blocks": {
+            "layout_8b4dml": {
+              "type": "layout",
+              "settings": {
+                "css_styles_desktop": "max-width: 1024px;\nmargin: 0 auto;\ndisplay: grid;\ngrid-template-columns: repeat(2, 1fr);\ngap: 40px;",
+                "css_styles_tablet": "",
+                "css_styles_mobile": ""
+              },
+              "static": false,
+              "blocks": {
+                "image_1huia1": {
+                  "type": "image",
+                  "settings": {
+                    "size": "full",
+                    "image_ratio": "square",
+                    "rounding": "none",
+                    "image": "https://tiendu.cloud/images/1776788025274-woman-7508618-1280-jpg.webp",
+                    "alt": ""
+                  },
+                  "static": false
+                },
+                "layout_iok57r": {
+                  "type": "layout",
+                  "settings": {
+                    "css_styles_desktop": "display: flex;\nflex-direction: column;\njustify-content: center;\nalign-items: flex-start;\ngap: 8px;",
+                    "css_styles_tablet": "",
+                    "css_styles_mobile": ""
+                  },
+                  "static": false,
+                  "blocks": {
+                    "text_id1pjk": {
+                      "type": "text",
+                      "settings": {
+                        "text": "Date una vuelta",
+                        "text_type": "page_title",
+                        "color": "custom",
+                        "bold": false,
+                        "italic": false,
+                        "underline": false,
+                        "line_through": false,
+                        "size_desktop": "5xl",
+                        "size_tablet": "",
+                        "size_mobile": "",
+                        "css_styles_desktop": "margin-bottom: .3em;\nfont-weight: bold; ",
+                        "css_styles_tablet": "",
+                        "css_styles_mobile": ""
+                      },
+                      "static": false
+                    },
+                    "text_1s4kq4": {
+                      "type": "text",
+                      "settings": {
+                        "text": "Somos una butique donde encontras todas las primociones de verano.",
+                        "text_type": "paragraph",
+                        "color": "custom",
+                        "bold": false,
+                        "italic": false,
+                        "underline": false,
+                        "line_through": false,
+                        "size_desktop": "inherit",
+                        "size_tablet": "",
+                        "size_mobile": "",
+                        "css_styles_desktop": "",
+                        "css_styles_tablet": "",
+                        "css_styles_mobile": ""
+                      },
+                      "static": false
+                    },
+                    "button_o2vrue": {
+                      "type": "button",
+                      "settings": {
+                        "text": "Ver productos",
+                        "action": "none",
+                        "icon_position": "after",
+                        "color": "primary",
+                        "size": "md",
+                        "variant": "primary",
+                        "rounding": "none",
+                        "link": "",
+                        "css_styles_desktop": "",
+                        "css_styles_tablet": "",
+                        "css_styles_mobile": ""
+                      },
+                      "static": false
+                    }
+                  },
+                  "block_order": [
+                    "text_id1pjk",
+                    "text_1s4kq4",
+                    "button_o2vrue"
+                  ]
+                }
+              },
+              "block_order": [
+                "image_1huia1",
+                "layout_iok57r"
+              ]
+            }
+          },
+          "block_order": [
+            "layout_8b4dml"
+          ]
+        }
+      },
+      "block_order": [
+        "layout_8b4dm2"
+      ]
+    },
+    "featured-collection_1po5cg": {
+      "type": "featured-collection",
+      "settings": {
+        "products_to_show": 4,
+        "collection": "remeras"
+      },
+      "blocks": {
+        "layout_outer": {
+          "type": "layout",
+          "settings": {
+            "image_desktop": "",
+            "background_color_desktop": "",
+            "css_styles_desktop": "padding: 0 8px;",
+            "image_tablet": "",
+            "background_color_tablet": "",
+            "css_styles_tablet": "",
+            "image_mobile": "",
+            "background_color_mobile": "",
+            "css_styles_mobile": ""
+          },
+          "static": false,
+          "blocks": {
+            "layout_inner": {
+              "type": "layout",
+              "settings": {
+                "image_desktop": "",
+                "background_color_desktop": "",
+                "css_styles_desktop": "max-width: 1024px; margin: 0 auto; display: flex; flex-direction: column; gap: 32px;",
+                "image_tablet": "",
+                "background_color_tablet": "",
+                "css_styles_tablet": "gap: 24px;",
+                "image_mobile": "",
+                "background_color_mobile": "",
+                "css_styles_mobile": "gap: 20px;"
+              },
+              "static": false,
+              "blocks": {
+                "layout_header": {
+                  "type": "layout",
+                  "settings": {
+                    "image_desktop": "",
+                    "background_color_desktop": "",
+                    "css_styles_desktop": "display: flex; align-items: center; justify-content: space-between; gap: 16px;",
+                    "image_tablet": "",
+                    "background_color_tablet": "",
+                    "css_styles_tablet": "",
+                    "image_mobile": "",
+                    "background_color_mobile": "",
+                    "css_styles_mobile": "flex-direction: column; align-items: flex-start;"
+                  },
+                  "static": false,
+                  "blocks": {
+                    "title": {
+                      "type": "_text-for-featured-collection",
+                      "settings": {},
+                      "static": false,
+                      "blocks": {
+                        "default-text": {
+                          "type": "text",
+                          "settings": {
+                            "text": "",
+                            "text_type": "section_title",
+                            "color": "custom",
+                            "bold": true,
+                            "italic": false,
+                            "underline": false,
+                            "line_through": false,
+                            "size_desktop": "2xl",
+                            "size_tablet": "",
+                            "size_mobile": "",
+                            "custom_color": "#000000",
+                            "css_styles_desktop": "",
+                            "css_styles_tablet": "",
+                            "css_styles_mobile": ""
+                          },
+                          "static": true
+                        }
+                      },
+                      "block_order": [
+                        "default-text"
+                      ]
+                    },
+                    "cta": {
+                      "type": "_button-for-featured-collection",
+                      "settings": {},
+                      "static": false,
+                      "blocks": {
+                        "default-button": {
+                          "type": "button",
+                          "settings": {
+                            "text": "Ver más",
+                            "action": "none",
+                            "icon_position": "after",
+                            "color": "primary",
+                            "size": "md",
+                            "variant": "secondary",
+                            "rounding": "none",
+                            "link": "",
+                            "css_styles_desktop": "",
+                            "css_styles_tablet": "",
+                            "css_styles_mobile": ""
+                          },
+                          "static": true
+                        }
+                      },
+                      "block_order": [
+                        "default-button"
+                      ]
+                    }
+                  },
+                  "block_order": [
+                    "title",
+                    "cta"
+                  ]
+                },
+                "layout_grid": {
+                  "type": "layout",
+                  "settings": {
+                    "image_desktop": "",
+                    "background_color_desktop": "",
+                    "css_styles_desktop": "display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px;",
+                    "image_tablet": "",
+                    "background_color_tablet": "",
+                    "css_styles_tablet": "grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px;",
+                    "image_mobile": "",
+                    "background_color_mobile": "",
+                    "css_styles_mobile": "grid-template-columns: 1fr; gap: 16px;"
+                  },
+                  "static": false,
+                  "blocks": {
+                    "products": {
+                      "type": "collection-products",
+                      "settings": {
+                        "products_per_page": 12,
+                        "show_pagination": false
+                      },
+                      "static": false,
+                      "blocks": {
+                        "product_card": {
+                          "type": "product",
+                          "settings": {
+                            "image_ratio": "square",
+                            "rounding": "none",
+                            "show_price": true,
+                            "transition_to_second_image": false,
+                            "css_styles_desktop": "",
+                            "css_styles_tablet": "",
+                            "css_styles_mobile": ""
+                          },
+                          "static": true
+                        }
+                      },
+                      "block_order": [
+                        "product_card"
+                      ]
+                    }
+                  },
+                  "block_order": [
+                    "products"
+                  ]
+                }
+              },
+              "block_order": [
+                "layout_header",
+                "layout_grid"
+              ]
+            }
+          },
+          "block_order": [
+            "layout_inner"
+          ]
+        }
+      },
+      "block_order": [
+        "layout_outer"
+      ]
+    }
+  },
+  "order": [
+    "static-banner_xk1zfl",
+    "featured-collection_1po5cg"
+  ]
+}

@@ -1,0 +1,48 @@
+{% assign fallback_text = page.title | default: 'Título de la página' %}
+
+<div class="tiendu-page-title-header" {{ block.shopify_attributes }}>
+    {% content_for 'block', type: 'text', id: 'page-heading', default_text: fallback_text %}
+</div>
+
+{% schema %}
+{
+    "name": "Título de la página",
+    "max_blocks": 1,
+    "blocks": [
+        {
+            "type": "text"
+        }
+    ],
+    "presets": [
+        {
+            "name": "Título de la página",
+            "blocks": {
+                "page-heading": {
+                    "type": "text",
+                    "static": true,
+                    "settings": {
+                        "text": "",
+                        "text_type": "page_title",
+                        "color": "custom",
+                        "custom_color": "#000000",
+                        "bold": true,
+                        "italic": false,
+                        "underline": false,
+                        "line_through": false,
+                        "size_desktop": "4xl",
+                        "size_tablet": "",
+                        "size_mobile": "",
+                        "css_styles_desktop": "",
+                        "css_styles_tablet": "",
+                        "css_styles_mobile": ""
+                    },
+                    "blocks": {}
+                }
+            },
+            "block_order": [
+                "page-heading"
+            ]
+        }
+    ]
+}
+{% endschema %}

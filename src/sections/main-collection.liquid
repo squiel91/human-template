@@ -1,0 +1,146 @@
+<section class="tiendu-main-collection" style="padding: 32px 0;">
+    {% if section.blocks and section.blocks.size > 0 %}
+        {% content_for 'blocks' %}
+    {% elsif design_mode or preview_mode %}
+        <div>Agrega bloques para construir la página de colección.</div>
+    {% endif %}
+</section>
+
+{% schema %}
+{
+    "name": "Colección principal",
+    "enabled_on": {
+        "templates": ["collection"]
+    },
+    "max_blocks": 1,
+    "settings": [],
+    "blocks": [
+        {
+            "type": "layout"
+        }
+    ],
+    "presets": [
+        {
+            "name": "Colección principal",
+            "blocks": {
+                "layout_outer": {
+                    "type": "layout",
+                    "settings": {
+                        "image_desktop": "",
+                        "background_color_desktop": "",
+                        "css_styles_desktop": "padding: 0 8px;",
+                        "image_tablet": "",
+                        "background_color_tablet": "",
+                        "css_styles_tablet": "",
+                        "image_mobile": "",
+                        "background_color_mobile": "",
+                        "css_styles_mobile": ""
+                    },
+                    "blocks": {
+                        "layout_inner": {
+                            "type": "layout",
+                            "settings": {
+                                "image_desktop": "",
+                                "background_color_desktop": "",
+                                "css_styles_desktop": "max-width: 1024px; margin: 0 auto; display: flex; flex-direction: column; gap: 32px;",
+                                "image_tablet": "",
+                                "background_color_tablet": "",
+                                "css_styles_tablet": "gap: 24px;",
+                                "image_mobile": "",
+                                "background_color_mobile": "",
+                                "css_styles_mobile": "gap: 20px;"
+                            },
+                            "blocks": {
+                                "title": {
+                                    "type": "_text-for-featured-collection",
+                                    "settings": {},
+                                    "blocks": {
+                                        "default-text": {
+                                            "type": "text",
+                                            "static": true,
+                                            "settings": {
+                                                "text": "",
+                                                "text_type": "page_title",
+                                                "color": "custom",
+                                                "custom_color": "#000000",
+                                                "bold": true,
+                                                "italic": false,
+                                                "underline": false,
+                                                "line_through": false,
+                                                "size_desktop": "3xl",
+                                                "size_tablet": "",
+                                                "size_mobile": "",
+                                                "css_styles_desktop": "",
+                                                "css_styles_tablet": "",
+                                                "css_styles_mobile": ""
+                                            },
+                                            "blocks": {}
+                                        }
+                                    },
+                                    "block_order": [
+                                        "default-text"
+                                    ]
+                                },
+                                "layout_grid": {
+                                    "type": "layout",
+                                    "settings": {
+                                        "image_desktop": "",
+                                        "background_color_desktop": "",
+                                        "css_styles_desktop": "display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px;",
+                                        "image_tablet": "",
+                                        "background_color_tablet": "",
+                                        "css_styles_tablet": "grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px;",
+                                        "image_mobile": "",
+                                        "background_color_mobile": "",
+                                        "css_styles_mobile": "grid-template-columns: 1fr; gap: 16px;"
+                                    },
+                                    "blocks": {
+                                        "products": {
+                                            "type": "collection-products",
+                                            "settings": {
+                                                "products_per_page": 12,
+                                                "show_pagination": true
+                                            },
+                                            "blocks": {
+                                                "product_card": {
+                                                    "type": "product",
+                                                    "static": true,
+                                                    "settings": {
+                                                        "image_ratio": "square",
+                                                        "rounding": "none",
+                                                        "show_price": true,
+                                                        "css_styles_desktop": "",
+                                                        "css_styles_tablet": "",
+                                                        "css_styles_mobile": ""
+                                                    },
+                                                    "blocks": {}
+                                                }
+                                            },
+                                            "block_order": [
+                                                "product_card"
+                                            ]
+                                        }
+                                    },
+                                    "block_order": [
+                                        "products"
+                                    ]
+                                }
+                            },
+                            "block_order": [
+                                "title",
+                                "layout_grid"
+                            ]
+                        }
+                    },
+                    "block_order": [
+                        "layout_inner"
+                    ]
+                }
+            },
+            "block_order": [
+                "layout_outer"
+            ]
+        }
+    ]
+}
+{% endschema %}

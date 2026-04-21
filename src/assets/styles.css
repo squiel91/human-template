@@ -1,0 +1,479 @@
+body {
+    padding: 0;
+    margin: 0;
+}
+
+.tiendu-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    font-weight: 700;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: opacity 0.2s ease, background-color 0.2s ease;
+}
+
+.tiendu-button__label:empty {
+    display: none;
+}
+
+.tiendu-button__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.tiendu-button__icon[hidden] {
+    display: none !important;
+}
+
+.tiendu-button__icon--loading {
+    animation: tiendu-spin 1s linear infinite;
+}
+
+.tiendu-button__badge {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 1.1rem;
+    height: 1.1rem;
+    padding: 0;
+    border-radius: 9999px;
+    background-color: var(--color-primary, #0000FF);
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.tiendu-button__badge[hidden] {
+    display: none !important;
+}
+
+.tiendu-pagination {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 2rem;
+    grid-column: 1 / -1;
+}
+
+.tiendu-pagination > * {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.tiendu-pagination a,
+.tiendu-pagination span {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 2.25rem;
+    min-height: 2.25rem;
+    padding: 0.5rem 0.75rem;
+    color: inherit;
+    text-decoration: none;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    background: white;
+}
+
+.tiendu-pagination a:hover {
+    background: rgba(0, 0, 0, 0.04);
+}
+
+.tiendu-pagination .active,
+.tiendu-pagination [aria-current='page'] {
+    background: var(--color-primary, #0000ff);
+    border-color: var(--color-primary, #0000ff);
+    color: white;
+}
+
+.tiendu-variant-selector {
+    display: grid;
+    gap: 1rem;
+}
+
+.tiendu-variant-selector__field {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.tiendu-variant-selector__legend {
+    font-size: 0.875rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.tiendu-variant-selector__chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.option-chip,
+.variant-select__trigger,
+.variant-select__option {
+    border: 1px solid rgba(0, 0, 0, 0.16);
+    background: white;
+    color: #111827;
+    height: 2.5rem;
+    font: inherit;
+    padding: 0;
+    appearance: none;
+    -webkit-appearance: none;
+    border-radius: 0;
+}
+
+.option-chip {
+    display: inline-flex;
+    align-items: center;
+    overflow: hidden;
+    padding: 0;
+    cursor: pointer;
+}
+
+.option-chip[aria-pressed='true'] {
+    border-color: #000000;
+}
+
+.option-chip:disabled,
+.variant-select__option:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.option-chip__label,
+.variant-select__option-label {
+    padding: 0 1rem;
+}
+
+.option-chip--text .option-chip__label {
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+.variant-select {
+    position: relative;
+    min-width: 14rem;
+}
+
+.variant-select__trigger {
+    width: 100%;
+    display: inline-flex;
+    align-items: center;
+    text-align: left;
+    cursor: pointer;
+    padding-right: 1rem;
+}
+
+.variant-select__label {
+    flex: 1;
+    padding: 0 0.75rem;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.variant-select__label--placeholder {
+    color: #6b7280;
+}
+
+.variant-select__trigger-swatch {
+    width: 2.5rem;
+    height: 100%;
+    flex-shrink: 0;
+    overflow: hidden;
+    align-self: stretch;
+}
+
+.variant-select__trigger-swatch--hidden {
+    display: none;
+}
+
+.variant-select__swatch {
+    width: 2.5rem;
+    height: 100%;
+    flex-shrink: 0;
+    display: inline-flex;
+    align-self: stretch;
+    overflow: hidden;
+    background: #e5e7eb;
+}
+
+.variant-select__swatch img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.variant-select__menu {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: calc(100% + 0.4rem);
+    z-index: 20;
+    display: flex;
+    flex-direction: column;
+    background: white;
+    border: 1px solid rgba(0, 0, 0, 0.16);
+    max-height: 15rem;
+    overflow: auto;
+}
+
+.variant-select__menu[hidden] {
+    display: none !important;
+}
+
+.variant-select__option {
+    display: inline-flex;
+    align-items: center;
+    text-align: left;
+    cursor: pointer;
+    border-top: 0;
+    width: 100%;
+}
+
+.variant-select__option[aria-selected='true'] {
+    background: rgba(0, 0, 0, 0.04);
+}
+
+@keyframes tiendu-spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.text-inherit {
+    font-size: inherit;
+    line-height: inherit;
+}
+
+.text-xs {
+    font-size: 0.75rem;
+    line-height: 1rem;
+}
+
+.text-sm {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+}
+
+.text-base {
+    font-size: 1rem;
+    line-height: 1.5rem;
+}
+
+.text-lg {
+    font-size: 1.125rem;
+    line-height: 1.75rem;
+}
+
+.text-xl {
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+}
+
+.text-2xl {
+    font-size: 1.5rem;
+    line-height: 2rem;
+}
+
+.text-3xl {
+    font-size: 1.875rem;
+    line-height: 2.25rem;
+}
+
+.text-4xl {
+    font-size: 2.25rem;
+    line-height: 2.5rem;
+}
+
+.text-5xl {
+    font-size: 3rem;
+    line-height: 1;
+}
+
+.text-6xl {
+    font-size: 3.75rem;
+    line-height: 1;
+}
+
+.text-7xl {
+    font-size: 4.5rem;
+    line-height: 1;
+}
+
+.text-8xl {
+    font-size: 6rem;
+    line-height: 1;
+}
+
+.text-9xl {
+    font-size: 8rem;
+    line-height: 1;
+}
+
+@media (width <= 64rem) {
+    .tablet\:text-inherit {
+        font-size: inherit;
+        line-height: inherit;
+    }
+
+    .tablet\:text-inherit {
+        font-size: inherit;
+        line-height: inherit;
+    }
+
+    .tablet\:text-xs {
+        font-size: 0.75rem;
+        line-height: 1rem;
+    }
+
+    .tablet\:text-sm {
+        font-size: 0.875rem;
+        line-height: 1.25rem;
+    }
+
+    .tablet\:text-base {
+        font-size: 1rem;
+        line-height: 1.5rem;
+    }
+
+    .tablet\:text-lg {
+        font-size: 1.125rem;
+        line-height: 1.75rem;
+    }
+
+    .tablet\:text-xl {
+        font-size: 1.25rem;
+        line-height: 1.75rem;
+    }
+
+    .tablet\:text-2xl {
+        font-size: 1.5rem;
+        line-height: 2rem;
+    }
+
+    .tablet\:text-3xl {
+        font-size: 1.875rem;
+        line-height: 2.25rem;
+    }
+
+    .tablet\:text-4xl {
+        font-size: 2.25rem;
+        line-height: 2.5rem;
+    }
+
+    .tablet\:text-5xl {
+        font-size: 3rem;
+        line-height: 1;
+    }
+
+    .tablet\:text-6xl {
+        font-size: 3.75rem;
+        line-height: 1;
+    }
+
+    .tablet\:text-7xl {
+        font-size: 4.5rem;
+        line-height: 1;
+    }
+
+    .tablet\:text-8xl {
+        font-size: 6rem;
+        line-height: 1;
+    }
+
+    .tablet\:text-9xl {
+        font-size: 8rem;
+        line-height: 1;
+    }
+}
+
+@media (width <= 48rem) {
+    .mobile\:text-inherit {
+        font-size: inherit;
+        line-height: inherit;
+    }
+
+    .mobile\:text-xs {
+        font-size: 0.75rem;
+        line-height: 1rem;
+    }
+
+    .mobile\:text-sm {
+        font-size: 0.875rem;
+        line-height: 1.25rem;
+    }
+
+    .mobile\:text-base {
+        font-size: 1rem;
+        line-height: 1.5rem;
+    }
+
+    .mobile\:text-lg {
+        font-size: 1.125rem;
+        line-height: 1.75rem;
+    }
+
+    .mobile\:text-xl {
+        font-size: 1.25rem;
+        line-height: 1.75rem;
+    }
+
+    .mobile\:text-2xl {
+        font-size: 1.5rem;
+        line-height: 2rem;
+    }
+
+    .mobile\:text-3xl {
+        font-size: 1.875rem;
+        line-height: 2.25rem;
+    }
+
+    .mobile\:text-4xl {
+        font-size: 2.25rem;
+        line-height: 2.5rem;
+    }
+
+    .mobile\:text-5xl {
+        font-size: 3rem;
+        line-height: 1;
+    }
+
+    .mobile\:text-6xl {
+        font-size: 3.75rem;
+        line-height: 1;
+    }
+
+    .mobile\:text-7xl {
+        font-size: 4.5rem;
+        line-height: 1;
+    }
+
+    .mobile\:text-8xl {
+        font-size: 6rem;
+        line-height: 1;
+    }
+
+    .mobile\:text-9xl {
+        font-size: 8rem;
+        line-height: 1;
+    }
+}

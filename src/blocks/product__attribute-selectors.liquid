@@ -1,0 +1,87 @@
+{% assign product_obj = closest.product | default: product %}
+
+{% if product_obj or design_mode or preview_mode %}
+    <div id="variant-selector" class="tiendu-variant-selector" {{ block.shopify_attributes }}>
+        {% for attribute in product_obj.attributes %}
+            {% assign selected_value_id = blank %}
+            {% assign selected_value_label = 'Selecciona una opción' %}
+            {% assign selected_value_color = blank %}
+            {% assign selected_value_image_url = blank %}
+            {% assign has_selected_value = false %}
+            {% assign attribute_id_str = attribute.id | append: '' %}
+            {% for selected_attribute in product_page.default_attribute_values %}
+                {% assign selected_attribute_id_str = selected_attribute.attribute_id | append: '' %}
+                {% if selected_attribute_id_str == attribute_id_str %}
+                    {% assign selected_value_id = selected_attribute.value_id %}
+                    {% assign has_selected_value = true %}
+                {% endif %}
+            {% endfor %}
+
+            {% if attribute.displayType == 'dropdown' %}
+                {% for value in attribute.values %}
+                    {% assign selected_value_id_str = selected_value_id | append: '' %}
+                    {% assign value_id_str = value.id | append: '' %}
+                    {% if has_selected_value and selected_value_id_str == value_id_str %}
+                        {% assign selected_value_label = value.value %}
+                        {% assign selected_value_color = value.color %}
+                        {% if value.image != blank and value.image.url != blank %}
+                            {% assign selected_value_image_url = value.image.url %}
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+
+                <fieldset class="tiendu-variant-selector__field">
+                    <legend class="tiendu-variant-selector__legend">{{ attribute.name | escape }}</legend>
+                    <div class="variant-select" data-attribute-id="{{ attribute.id }}">
+                        <button class="variant-select__trigger" type="button" data-variant-select-trigger aria-haspopup="listbox" aria-expanded="false">
+                            <span class="variant-select__trigger-swatch{% if has_selected_value == false or selected_value_image_url == blank and selected_value_color == blank %} variant-select__trigger-swatch--hidden{% endif %}" data-variant-select-trigger-swatch aria-hidden="true">
+                                {% if has_selected_value and selected_value_image_url != blank %}
+                                    <span class="variant-select__swatch"><img src="{{ selected_value_image_url | escape_attr }}" alt="" loading="lazy"></span>
+                                {% elsif has_selected_value and selected_value_color != blank %}
+                                    <span class="variant-select__swatch" style="background: {{ selected_value_color | escape_attr }};"></span>
+                                {% endif %}
+                            </span>
+                            <span class="variant-select__label{% if has_selected_value == false %} variant-select__label--placeholder{% endif %}" data-variant-select-label>{{ selected_value_label | escape }}</span>
+                            {% render 'icon-chevron-down', size: 16, stroke_width: 2 %}
+                        </button>
+                        <div class="variant-select__menu" data-variant-select-menu role="listbox" hidden>
+                            {% for value in attribute.values %}
+                                <button class="variant-select__option" type="button" data-value-id="{{ value.id }}" data-label="{{ value.value | escape_attr }}"{% if value.color != blank %} data-color="{{ value.color | escape_attr }}"{% endif %}{% if value.image != blank and value.image.url != blank %} data-image-url="{{ value.image.url | escape_attr }}"{% endif %} aria-selected="{% if selected_value_id == value.id %}true{% else %}false{% endif %}">
+                                    {% if value.image != blank and value.image.url != blank %}
+                                        <span class="variant-select__swatch"><img src="{{ value.image.url | escape_attr }}" alt="" loading="lazy"></span>
+                                    {% elsif value.color != blank %}
+                                        <span class="variant-select__swatch" style="background: {{ value.color | escape_attr }};"></span>
+                                    {% endif %}
+                                    <span class="variant-select__option-label">{{ value.value | escape }}</span>
+                                </button>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </fieldset>
+            {% else %}
+                <fieldset class="tiendu-variant-selector__field" data-attribute-name="{{ attribute.name | escape_attr }}">
+                    <legend class="tiendu-variant-selector__legend">{{ attribute.name | escape }}</legend>
+                    <div class="tiendu-variant-selector__chips">
+                        {% for value in attribute.values %}
+                            <button type="button" class="option-chip{% if value.image == blank and value.color == blank %} option-chip--text{% endif %}" data-attribute-id="{{ attribute.id }}" data-value-id="{{ value.id }}" aria-pressed="{% if selected_value_id == value.id %}true{% else %}false{% endif %}">
+                                {% if value.image != blank and value.image.url != blank %}
+                                    <span class="variant-select__swatch"><img src="{{ value.image.url | escape_attr }}" alt="" loading="lazy"></span>
+                                {% elsif value.color != blank %}
+                                    <span class="variant-select__swatch" style="background: {{ value.color | escape_attr }};"></span>
+                                {% endif %}
+                                <span class="option-chip__label">{{ value.value | escape }}</span>
+                            </button>
+                        {% endfor %}
+                    </div>
+                </fieldset>
+            {% endif %}
+        {% endfor %}
+    </div>
+{% endif %}
+
+{% schema %}
+{
+    "name": "product: Selectores de atributos",
+    "settings": []
+}
+{% endschema %}

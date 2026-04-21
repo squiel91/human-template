@@ -1,0 +1,103 @@
+[
+    {
+        "name": "Colores",
+        "settings": [
+            {
+                "type": "color",
+                "id": "primary_color",
+                "label": "Color primario",
+                "default": "#0000FF"
+            },
+            {
+                "type": "color",
+                "id": "secondary_color",
+                "label": "Color secundario",
+                "default": "#00FF00"
+            },
+            {
+                "type": "color",
+                "id": "accent_color",
+                "label": "Color de acento",
+                "default": "#FF0000"
+            },
+            {
+                "type": "color",
+                "id": "background_color",
+                "label": "Color de fondo",
+                "default": "#EFEFEF"
+            }
+        ]
+    },
+    {
+        "name": "Contenedor",
+        "settings": [
+            {
+                "type": "text",
+                "id": "max_width",
+                "label": "Ancho máximo del contenedor",
+                "placeholder": "1024px",
+                "default": "1024px"
+            },
+            {
+                "type": "text",
+                "id": "horizontal_padding",
+                "label": "espaciado en los lados",
+                "default": "8px"
+            }
+        ]
+    },
+    {
+        "name": "Tipografía",
+        "settings": [
+            {
+                "type": "font_picker",
+                "id": "type_body_font",
+                "label": "Fuente de texto",
+                "default": "roboto_n4"
+            },
+            {
+                "type": "font_picker",
+                "id": "type_heading_font",
+                "label": "Fuente de títulos",
+                "default": "roboto_n4"
+            }
+        ]
+    },
+    {
+        "name": "Búsqueda y metadatos",
+        "settings": [
+            {
+                "type": "text",
+                "id": "seo_site_name_override",
+                "label": "Título del sitio",
+                "info": "Si queda vacío, se usa el nombre de la tienda.",
+                "default": ""
+            },
+            {
+                "type": "textarea",
+                "id": "seo_default_description",
+                "label": "Descripción por defecto",
+                "info": "Se usa cuando la página no tiene descripción SEO ni descripción propia.",
+                "default": ""
+            },
+            {
+                "type": "text",
+                "id": "seo_home_title",
+                "label": "Título de página de inicio",
+                "info": "Si queda vacío, se usará el título del sitio.",
+                "default": ""
+            },
+            {
+                "type": "image",
+                "id": "seo_default_share_image",
+                "label": "Imagen para compartir",
+                "info": "Se usa como imagen por defecto para compartir."
+            },
+            {
+                "type": "image",
+                "id": "seo_favicon_url",
+                "label": "Favicon"
+            }
+        ]
+    }
+]

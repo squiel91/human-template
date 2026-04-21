@@ -1,0 +1,323 @@
+{% assign button_id = 'tiendu__button-' | append: section.id | append: '-' | append: block.id %}
+{% assign button_color = block.settings.color | default: 'primary' %}
+{% assign button_variant = block.settings.variant | default: 'primary' %}
+{% assign button_size = block.settings.size | default: 'md' %}
+{% assign button_rounding = block.settings.rounding | default: 'full' %}
+{% assign button_link = block.settings.link | default: default_url %}
+{% assign button_text = block.settings.text | default: default_label | default: default_text %}
+{% assign icon_position = block.settings.icon_position | default: 'after' %}
+{% assign button_action = block.settings.action | default: 'none' %}
+{% assign action_product = closest.product | default: product %}
+{% assign action_variant = blank %}
+{% if action_product and action_product.variants and action_product.variants.size > 0 %}
+    {% assign action_variant = action_product.variants.first %}
+{% endif %}
+{% assign button_has_loading_state = false %}
+{% if button_action == 'search' or button_action == 'cart' or button_action == 'add_to_cart' %}
+    {% assign button_has_loading_state = true %}
+{% endif %}
+{% assign button_has_icon = false %}
+{% if block.blocks and block.blocks.size > 0 %}
+    {% assign button_has_icon = true %}
+{% endif %}
+{% assign button_is_icon_only = false %}
+{% if button_text == blank and button_has_icon %}
+    {% assign button_is_icon_only = true %}
+{% endif %}
+
+{% case button_color %}
+    {% when 'secondary' %}
+        {% assign theme_color = settings.secondary_color | default: '#00FF00' %}
+    {% when 'accent' %}
+        {% assign theme_color = settings.accent_color | default: '#FF0000' %}
+    {% when 'none' %}
+        {% assign theme_color = 'transparent' %}
+    {% else %}
+        {% assign theme_color = settings.primary_color | default: '#0000FF' %}
+{% endcase %}
+
+{% case button_size %}
+    {% when 'sm' %}
+        {% assign button_padding = '0.5rem 0.875rem' %}
+        {% assign button_icon_only_padding = '0.5rem' %}
+        {% assign button_font_size = '0.875rem' %}
+        {% assign button_loader_size = 16 %}
+    {% when 'lg' %}
+        {% assign button_padding = '0.875rem 1.5rem' %}
+        {% assign button_icon_only_padding = '0.875rem' %}
+        {% assign button_font_size = '1.125rem' %}
+        {% assign button_loader_size = 32 %}
+    {% else %}
+        {% assign button_padding = '0.75rem 1.125rem' %}
+        {% assign button_icon_only_padding = '0.75rem' %}
+        {% assign button_font_size = '1rem' %}
+        {% assign button_loader_size = 24 %}
+{% endcase %}
+
+{% case button_rounding %}
+    {% when 'none' %}
+        {% assign button_border_radius = '0' %}
+    {% when 'sm' %}
+        {% assign button_border_radius = '0.125rem' %}
+    {% when 'md' %}
+        {% assign button_border_radius = '0.375rem' %}
+    {% when 'lg' %}
+        {% assign button_border_radius = '0.5rem' %}
+    {% when 'xl' %}
+        {% assign button_border_radius = '0.75rem' %}
+    {% when '2xl' %}
+        {% assign button_border_radius = '1rem' %}
+    {% when '3xl' %}
+        {% assign button_border_radius = '1.5rem' %}
+    {% else %}
+        {% assign button_border_radius = '9999px' %}
+{% endcase %}
+
+<style>
+    #{{ button_id }} {
+        {% if button_is_icon_only %}
+            padding: {{ button_icon_only_padding }};
+        {% else %}
+            padding: {{ button_padding }};
+        {% endif %}
+        font-size: {{ button_font_size }};
+        border-radius: {{ button_border_radius }};
+        {% if button_variant == 'secondary' %}
+            background-color: transparent;
+            color: {{ settings.primary_color | default: '#0000FF' }};
+        {% else %}
+            background-color: {{ theme_color }};
+            color: {% if button_color == 'none' %}{{ settings.primary_color | default: '#0000FF' }}{% else %}white{% endif %};
+        {% endif %}
+        {{ block.settings.css_styles_desktop }}
+    }
+
+    @media (width <= 64rem) {
+        #{{ button_id }} {
+            {{ block.settings.css_styles_tablet }}
+        }
+    }
+
+    @media (width <= 48rem) {
+        #{{ button_id }} {
+            {{ block.settings.css_styles_mobile }}
+        }
+    }
+
+    #{{ button_id }}:hover {
+        {% if button_variant == 'secondary' %}
+            background-color: rgba(0, 0, 0, 0.06);
+        {% else %}
+            opacity: 0.9;
+        {% endif %}
+    }
+
+    #{{ button_id }}[disabled] {
+        opacity: 0.7;
+        cursor: wait;
+    }
+
+    #{{ button_id }} .tiendu-button__badge[hidden] {
+        display: none;
+    }
+</style>
+
+{% if button_link != blank %}
+    <a
+        {{ block.shopify_attributes }}
+        class="tiendu-button"
+        id="{{ button_id }}"
+        href="{{ button_link }}"
+    >
+        {% if icon_position == 'before' and button_has_icon %}
+            <span class="tiendu-button__icon"{% if button_action != 'none' %} data-button-action-icon="default"{% endif %}>
+                {% content_for 'blocks' %}
+            </span>
+            {% if button_has_loading_state %}
+                <span class="tiendu-button__icon tiendu-button__icon--loading" data-button-action-icon="loader" hidden>
+                    {% render 'icon-loader-circle', size: button_loader_size, stroke_width: 2 %}
+                </span>
+            {% endif %}
+        {% endif %}
+        <span class="tiendu-button__label">{{ button_text }}</span>
+        {% if icon_position == 'after' and button_has_icon %}
+            <span class="tiendu-button__icon"{% if button_action != 'none' %} data-button-action-icon="default"{% endif %}>
+                {% content_for 'blocks' %}
+            </span>
+            {% if button_has_loading_state %}
+                <span class="tiendu-button__icon tiendu-button__icon--loading" data-button-action-icon="loader" hidden>
+                    {% render 'icon-loader-circle', size: button_loader_size, stroke_width: 2 %}
+                </span>
+            {% endif %}
+        {% endif %}
+    </a>
+{% else %}
+    <button
+        {{ block.shopify_attributes }}
+        class="tiendu-button"
+        id="{{ button_id }}"
+        type="button"
+        {% if button_action != 'none' %}data-button-action="{{ button_action }}"{% endif %}
+        {% if button_action == 'add_to_cart' and action_variant != blank %}data-product-variant-id="{{ action_variant.id }}"{% endif %}
+    >
+        {% if icon_position == 'before' and button_has_icon %}
+            <span class="tiendu-button__icon"{% if button_action != 'none' %} data-button-action-icon="default"{% endif %}>
+                {% content_for 'blocks' %}
+            </span>
+            {% if button_has_loading_state %}
+                <span class="tiendu-button__icon tiendu-button__icon--loading" data-button-action-icon="loader" hidden>
+                    {% render 'icon-loader-circle', size: button_loader_size, stroke_width: 2 %}
+                </span>
+            {% endif %}
+        {% endif %}
+        <span class="tiendu-button__label"{% if button_action == 'share' %} data-share-label{% endif %}>{{ button_text }}</span>
+        {% if icon_position == 'after' and button_has_icon %}
+            <span class="tiendu-button__icon"{% if button_action != 'none' %} data-button-action-icon="default"{% endif %}>
+                {% content_for 'blocks' %}
+            </span>
+            {% if button_has_loading_state %}
+                <span class="tiendu-button__icon tiendu-button__icon--loading" data-button-action-icon="loader" hidden>
+                    {% render 'icon-loader-circle', size: button_loader_size, stroke_width: 2 %}
+                </span>
+            {% endif %}
+        {% endif %}
+        {% if button_action == 'cart' %}
+            <span class="tiendu-button__badge" id="cart-quantity-badge" hidden>0</span>
+        {% endif %}
+    </button>
+{% endif %}
+
+{% schema %}
+{
+    "name": "Button",
+    "settings": [
+        {
+            "type": "text",
+            "id": "text",
+            "label": "Texto",
+            "default": "Ver más",
+            "placeholder": "Hola mundo..."
+        },
+        {
+            "type": "url",
+            "id": "link",
+            "label": "Link"
+        },
+        {
+            "type": "select",
+            "id": "action",
+            "label": "Acción",
+            "default": "none",
+            "options": [
+                { "value": "none", "label": "Ninguna" },
+                { "value": "menu", "label": "Abrir menú" },
+                { "value": "close_menu", "label": "Cerrar menú" },
+                { "value": "search", "label": "Abrir buscador" },
+                { "value": "cart", "label": "Abrir carrito" },
+                { "value": "add_to_cart", "label": "Agregar al carrito" },
+                { "value": "share", "label": "Compartir" }
+            ]
+        },
+        {
+            "type": "select",
+            "id": "icon_position",
+            "label": "Posición del icono",
+            "default": "after",
+            "options": [
+                { "value": "before", "label": "Antes" },
+                { "value": "after", "label": "Después" }
+            ]
+        },
+        {
+            "type": "select",
+            "id": "color",
+            "label": "Color",
+            "default": "primary",
+            "options": [
+                { "value": "primary", "label": "Primary" },
+                { "value": "secondary", "label": "Secondary" },
+                { "value": "accent", "label": "Accent" },
+                { "value": "none", "label": "Sin color" }
+            ]
+        },
+        {
+            "type": "select",
+            "id": "size",
+            "label": "Tamano",
+            "default": "md",
+            "options": [
+                { "value": "sm", "label": "Sm" },
+                { "value": "md", "label": "Md" },
+                { "value": "lg", "label": "Lg" }
+            ]
+        },
+        {
+            "type": "select",
+            "id": "variant",
+            "label": "Variante",
+            "default": "primary",
+            "options": [
+                { "value": "primary", "label": "Primary" },
+                { "value": "secondary", "label": "Secondary" }
+            ]
+        },
+        {
+            "type": "select",
+            "id": "rounding",
+            "label": "Redondeado",
+            "default": "full",
+            "options": [
+                { "value": "none", "label": "None" },
+                { "value": "sm", "label": "Sm" },
+                { "value": "md", "label": "Md" },
+                { "value": "lg", "label": "Lg" },
+                { "value": "xl", "label": "Xl" },
+                { "value": "2xl", "label": "2xl" },
+                { "value": "3xl", "label": "3xl" },
+                { "value": "full", "label": "Full" }
+            ]
+        },
+        {
+            "type": "header",
+            "content": "Desktop"
+        },
+        {
+            "type": "textarea",
+            "id": "css_styles_desktop",
+            "label": "Estilos CSS",
+            "info": "Los estilos serán heradados para el resto de los tamaños, a menos que se sobre-escriban."
+        },
+        {
+            "type": "header",
+            "content": "Tablet"
+        },
+        {
+            "type": "textarea",
+            "id": "css_styles_tablet",
+            "label": "Estilos CSS",
+            "info": "Los estilos serán heradados para teléfonos, a menos que se sobre-escriban."
+        },
+        {
+            "type": "header",
+            "content": "Mobile"
+        },
+        {
+            "type": "textarea",
+            "id": "css_styles_mobile",
+            "label": "Estilos CSS",
+            "info": "Se aplican unicamente al formato teléfono."
+        }
+    ],
+    "max_blocks": 1,
+    "blocks": [
+        {
+            "type": "icon"
+        }
+    ],
+    "presets": [
+        {
+            "name": "Button"
+        }
+    ]
+}
+{% endschema %}

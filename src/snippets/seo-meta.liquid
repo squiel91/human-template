@@ -1,0 +1,33 @@
+<title>{{ seo_title | escape }}</title>
+<meta name="description" content="{{ seo_description | escape_attr }}">
+<meta name="robots" content="{{ seo_robots | escape_attr }}">
+<meta name="application-name" content="{{ seo_store_name | escape_attr }}">
+<link rel="canonical" href="{{ seo_url | escape_attr }}">
+
+{% if store.country_code != blank %}
+<meta property="og:locale" content="es_{{ store.country_code | escape_attr }}">
+{% endif %}
+<meta property="og:site_name" content="{{ seo_store_name | escape_attr }}">
+<meta property="og:type" content="{{ seo_type | escape_attr }}">
+<meta property="og:title" content="{{ seo_title | escape_attr }}">
+<meta property="og:description" content="{{ seo_description | escape_attr }}">
+<meta property="og:url" content="{{ seo_url | escape_attr }}">
+
+<meta name="twitter:card" content="{% if seo_image_url != blank %}summary_large_image{% else %}summary{% endif %}">
+<meta name="twitter:title" content="{{ seo_title | escape_attr }}">
+<meta name="twitter:description" content="{{ seo_description | escape_attr }}">
+
+{% if seo_image_url != blank %}
+    <meta property="og:image" content="{{ seo_image_url | escape_attr }}">
+    <meta name="twitter:image" content="{{ seo_image_url | escape_attr }}">
+    <meta property="og:image:alt" content="{{ seo_image_alt | default: seo_title | escape_attr }}">
+    {% if seo_image_width != blank %}<meta property="og:image:width" content="{{ seo_image_width }}">{% endif %}
+    {% if seo_image_height != blank %}<meta property="og:image:height" content="{{ seo_image_height }}">{% endif %}
+{% endif %}
+
+{% if request.page_type == 'article' and blogPost and blogPost.createdAt != blank %}
+    <meta property="article:published_time" content="{{ blogPost.createdAt | escape_attr }}">
+{% endif %}
+{% if request.page_type == 'article' and blogPost and blogPost.updatedAt != blank %}
+    <meta property="article:modified_time" content="{{ blogPost.updatedAt | escape_attr }}">
+{% endif %}

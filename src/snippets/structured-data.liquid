@@ -1,0 +1,115 @@
+{% assign organization_description = seo_store_description | strip_html | strip | truncate: 160 %}
+{% assign webpage_type = 'WebPage' %}
+{% assign structured_language = 'es' %}
+{% if store.country_code != blank %}
+    {% assign structured_language = 'es-' | append: store.country_code %}
+{% endif %}
+{% if request.page_type == 'collection' or request.page_type == 'list-collections' %}
+    {% assign webpage_type = 'CollectionPage' %}
+{% elsif request.page_type == 'search' %}
+    {% assign webpage_type = 'SearchResultsPage' %}
+{% endif %}
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": {{ seo_store_name | json }},
+    "url": {{ store.url | json }}{% if organization_description != blank %},
+    "description": {{ organization_description | json }}{% endif %}{% if store.email_address != blank %},
+    "email": {{ store.email_address | json }}{% endif %}{% if store.whatsapp_number != blank %},
+    "telephone": {{ store.whatsapp_number | json }}{% endif %}
+}
+</script>
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": {{ seo_store_name | json }},
+    "url": {{ store.url | json }},
+    "potentialAction": {
+        "@type": "SearchAction",
+        "target": {{ store.url | append: '/busqueda?q={search_term_string}' | json }},
+        "query-input": "required name=search_term_string"
+    }
+}
+</script>
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": {{ webpage_type | json }},
+    "name": {{ seo_title | json }},
+    "description": {{ seo_description | json }},
+    "url": {{ seo_url | json }},
+    "inLanguage": {{ structured_language | json }},
+    "isPartOf": {
+        "@type": "WebSite",
+        "name": {{ seo_store_name | json }},
+        "url": {{ store.url | json }}
+    }
+}
+</script>
+
+{% if request.page_type == 'product' and product %}
+    {% assign structured_price_in_cents = blank %}
+    {% assign structured_description = product.seo.description | default: product.description | default: seo_store_description | strip_html | strip %}
+    {% if product_page and product_page.price and product_page.price.price_in_cents != blank %}
+        {% assign structured_price_in_cents = product_page.price.price_in_cents %}
+    {% elsif product.basePriceInCents != blank %}
+        {% assign structured_price_in_cents = product.basePriceInCents %}
+    {% endif %}
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Product",
+        "name": {{ product.title | json }},
+        "url": {{ seo_url | json }},
+        "description": {{ structured_description | json }}{% if seo_image_url != blank %},
+        "image": [{{ seo_image_url | json }}]{% endif %}{% if product.sku != blank %},
+        "sku": {{ product.sku | json }}{% endif %},
+        "brand": {
+            "@type": "Brand",
+            "name": {{ seo_store_name | json }}
+        }{% if structured_price_in_cents != blank %},
+        "offers": {
+            "@type": "Offer",
+            "priceCurrency": {{ store.currency.code | json }},
+            "price": {{ structured_price_in_cents | divided_by: 100.0 }},
+            "availability": "https://schema.org/{% if product_page and product_page.stock_note and product_page.stock_note.tone == 'error' %}OutOfStock{% else %}InStock{% endif %}",
+            "url": {{ seo_url | json }}
+        }{% endif %}{% if product.reviewsQuantity > 0 and product.averageRating != blank %},
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": {{ product.averageRating | round: 1 }},
+            "reviewCount": {{ product.reviewsQuantity }}
+        }{% endif %}
+    }
+    </script>
+{% endif %}
+
+{% if request.page_type == 'article' and blogPost %}
+    {% assign article_structured_description = blogPost.seo.description | default: blogPost.excerpt | default: seo_store_description | strip_html | strip %}
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": {{ blogPost.title | json }},
+        "description": {{ article_structured_description | json }},
+        "url": {{ seo_url | json }}{% if seo_image_url != blank %},
+        "image": [{{ seo_image_url | json }}]{% endif %}{% if blogPost.createdAt != blank %},
+        "datePublished": {{ blogPost.createdAt | json }}{% endif %}{% if blogPost.updatedAt != blank %},
+        "dateModified": {{ blogPost.updatedAt | json }}{% endif %},
+        "author": {
+            "@type": "Person",
+            "name": {{ blogPost.manager.name | default: seo_store_name | json }}
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": {{ seo_store_name | json }}
+        }
+    }
+    </script>
+{% endif %}

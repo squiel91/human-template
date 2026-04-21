@@ -1,0 +1,28 @@
+{%- comment -%}
+  Lucide icon: arrow-right
+  Usage:
+    {% render 'icon-arrow-right' %}
+    {% render 'icon-arrow-right', size: 32 %}
+    {% render 'icon-arrow-right', class: 'custom-class' %}
+    {% render 'icon-arrow-right', stroke_width: 1.5 %}
+{%- endcomment -%}
+{%- liquid
+  assign size = size | default: 24
+  assign stroke_width = stroke_width | default: 2
+-%}
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="{{ size }}"
+  height="{{ size }}"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="{{ stroke_width }}"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="lucide lucide-arrow-right{% if class %} {{ class }}{% endif %}"
+  aria-hidden="true"
+>
+<path d="M5 12h14" />
+  <path d="m12 5 7 7-7 7" />
+</svg>

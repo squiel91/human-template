@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        {% assign seo_default_share_image = settings.seo_default_share_image %}
+        {% assign seo_favicon_image = settings.seo_favicon_url %}
+        {% assign seo_store_name = settings.seo_site_name_override | default: store.name | default: shop.name | default: 'Tienda' %}
+        {% assign seo_store_description = settings.seo_default_description | default: store.description | default: shop.description | default: seo_store_name %}
+        {% assign seo_title = page_title | default: seo_store_name %}
+        {% assign seo_description = page_description %}
+        {% assign seo_url = canonical_url | default: store.url | append: request.path %}
+        {% assign seo_type = 'website' %}
+        {% assign seo_robots = 'index,follow' %}
+        {% assign seo_image_url = seo_default_share_image.url %}
+        {% assign seo_image_width = blank %}
+        {% assign seo_image_height = blank %}
+        {% assign seo_image_alt = blank %}
+        {% assign search_query = blank %}
+        {% assign product_share_image = blank %}
+
+        {% if seo_default_share_image and seo_default_share_image.url != blank %}
+            {% assign seo_image_width = seo_default_share_image.width %}
+            {% assign seo_image_height = seo_default_share_image.height %}
+        {% endif %}
+
+        {% if request.page_type == 'index' %}
+            {% assign seo_title = settings.seo_home_title | default: seo_store_name | default: page_title %}
+            {% assign seo_description = page_description | default: seo_store_description %}
+        {% elsif request.page_type == 'product' and product %}
+            {% assign seo_type = 'product' %}
+            {% if product.seo.title != blank %}
+                {% assign seo_title = product.seo.title %}
+            {% elsif product.title != blank %}
+                {% assign seo_title = product.title | append: ' | ' | append: seo_store_name %}
+            {% else %}
+                {% assign seo_title = seo_store_name %}
+            {% endif %}
+            {% assign seo_description = product.seo.description | default: product.description | default: page_description | default: seo_store_description %}
+            {% if product.coverImage and product.coverImage.url != blank %}
+                {% assign product_share_image = product.coverImage %}
+            {% elsif product.images and product.images.size > 0 %}
+                {% assign product_share_image = product.images.first %}
+            {% endif %}
+            {% if product_share_image and product_share_image.url != blank %}
+                {% assign seo_image_url = product_share_image.url %}
+                {% assign seo_image_width = product_share_image.width %}
+                {% assign seo_image_height = product_share_image.height %}
+                {% assign seo_image_alt = product_share_image.alt | default: product.title %}
+            {% endif %}
+        {% elsif request.page_type == 'collection' and collection %}
+            {% if collection.seo.title != blank %}
+                {% assign seo_title = collection.seo.title %}
+            {% elsif collection.name != blank %}
+                {% assign seo_title = collection.name | append: ' | ' | append: seo_store_name %}
+            {% else %}
+                {% assign seo_title = seo_store_name %}
+            {% endif %}
+            {% assign seo_description = collection.seo.description | default: collection.description | default: page_description | default: seo_store_description %}
+            {% if collection.coverImage and collection.coverImage.url != blank %}
+                {% assign seo_image_url = collection.coverImage.url %}
+                {% assign seo_image_width = collection.coverImage.width %}
+                {% assign seo_image_height = collection.coverImage.height %}
+                {% assign seo_image_alt = collection.coverImage.alt | default: collection.name %}
+            {% endif %}
+        {% elsif request.page_type == 'page' and page %}
+            {% if page.seo.title != blank %}
+                {% assign seo_title = page.seo.title %}
+            {% elsif page.title != blank %}
+                {% assign seo_title = page.title | append: ' | ' | append: seo_store_name %}
+            {% else %}
+                {% assign seo_title = seo_store_name %}
+            {% endif %}
+            {% assign seo_description = page.seo.description | default: page_description | default: seo_store_description %}
+            {% if page.coverImage and page.coverImage.url != blank %}
+                {% assign seo_image_url = page.coverImage.url %}
+                {% assign seo_image_width = page.coverImage.width %}
+                {% assign seo_image_height = page.coverImage.height %}
+                {% assign seo_image_alt = page.coverImage.alt | default: page.title %}
+            {% endif %}
+        {% elsif request.page_type == 'article' and blogPost %}
+            {% assign seo_type = 'article' %}
+            {% if blogPost.seo.title != blank %}
+                {% assign seo_title = blogPost.seo.title %}
+            {% elsif blogPost.title != blank %}
+                {% assign seo_title = blogPost.title | append: ' | ' | append: seo_store_name %}
+            {% else %}
+                {% assign seo_title = seo_store_name %}
+            {% endif %}
+            {% assign seo_description = blogPost.seo.description | default: blogPost.excerpt | default: page_description | default: seo_store_description %}
+            {% if blogPost.coverImage and blogPost.coverImage.url != blank %}
+                {% assign seo_image_url = blogPost.coverImage.url %}
+                {% assign seo_image_width = blogPost.coverImage.width %}
+                {% assign seo_image_height = blogPost.coverImage.height %}
+                {% assign seo_image_alt = blogPost.coverImage.alt | default: blogPost.title %}
+            {% endif %}
+        {% elsif request.page_type == 'search' %}
+            {% assign seo_robots = 'noindex,follow' %}
+            {% assign search_query = search.terms | default: search_query | strip %}
+            {% if search_query != blank %}
+                {% assign seo_title = 'Resultados para "' | append: search_query | append: '" | ' | append: seo_store_name %}
+                {% if page_description != blank %}
+                    {% assign seo_description = page_description %}
+                {% else %}
+                    {% assign seo_description = 'Resultados de búsqueda en ' | append: seo_store_name %}
+                {% endif %}
+            {% else %}
+                {% if page_title != blank %}
+                    {% assign seo_title = page_title %}
+                {% else %}
+                    {% assign seo_title = 'Búsqueda | ' | append: seo_store_name %}
+                {% endif %}
+                {% assign seo_description = page_description | default: seo_store_description %}
+            {% endif %}
+        {% elsif request.page_type == '404' %}
+            {% assign seo_robots = 'noindex,follow' %}
+            {% if page_title != blank %}
+                {% assign seo_title = page_title %}
+            {% else %}
+                {% assign seo_title = 'Página no encontrada | ' | append: seo_store_name %}
+            {% endif %}
+            {% assign seo_description = page_description | default: seo_store_description %}
+        {% else %}
+            {% assign seo_description = seo_description | default: seo_store_description %}
+        {% endif %}
+
+        {% assign seo_title = seo_title | strip %}
+        {% assign seo_description = seo_description | default: seo_store_description | strip_html | strip | truncate: 160 %}
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        {% if seo_favicon_image and seo_favicon_image.url != blank %}
+            <link rel="icon" href="{{ seo_favicon_image.url | escape_attr }}">
+            <link rel="apple-touch-icon" href="{{ seo_favicon_image.url | escape_attr }}">
+        {% endif %}
+        {% render 'seo-meta', seo_title: seo_title, seo_description: seo_description, seo_url: seo_url, seo_type: seo_type, seo_robots: seo_robots, seo_store_name: seo_store_name, seo_image_url: seo_image_url, seo_image_width: seo_image_width, seo_image_height: seo_image_height, seo_image_alt: seo_image_alt %}
+        {% render 'structured-data', seo_title: seo_title, seo_description: seo_description, seo_url: seo_url, seo_store_name: seo_store_name, seo_image_url: seo_image_url %}
+
+        {% assign body_font = settings.type_body_font %}
+        {% assign body_font_bold = body_font | font_modify: 'weight', 'bold' %}
+        {% assign body_font_italic = body_font | font_modify: 'style', 'italic' %}
+        {% assign heading_font = settings.type_heading_font | default: body_font %}
+        {% assign heading_font_bold = heading_font | font_modify: 'weight', 'bold' | default: heading_font %}
+        {% assign heading_font_italic = heading_font | font_modify: 'style', 'italic' %}
+        {{ 'styles.css' | asset_url | stylesheet_tag }}
+        <script type="importmap">
+            {
+                "imports": {
+                    "tiendu-sdk": "{{ 'tiendu-sdk.js' | asset_url }}"
+                }
+            }
+        </script>
+        <script type="module" src="{{ 'theme.js' | asset_url }}"></script>
+        <style>
+            {% if body_font %}
+                {{ body_font | font_face: font_display: 'swap' }}
+            {% endif %}
+            {% if body_font_bold %}
+                {{ body_font_bold | font_face: font_display: 'swap' }}
+            {% endif %}
+            {% if body_font_italic %}
+                {{ body_font_italic | font_face: font_display: 'swap' }}
+            {% endif %}
+            {% if heading_font and heading_font.picker_value != body_font.picker_value %}
+                {{ heading_font | font_face: font_display: 'swap' }}
+            {% endif %}
+            {% if heading_font_bold and heading_font_bold.picker_value != body_font_bold.picker_value %}
+                {{ heading_font_bold | font_face: font_display: 'swap' }}
+            {% endif %}
+            {% if heading_font_italic and heading_font_italic.picker_value != body_font_italic.picker_value %}
+                {{ heading_font_italic | font_face: font_display: 'swap' }}
+            {% endif %}
+
+            :root {
+                --font-body-family: {{ body_font.family | json | default: '"Arial"' }}, {{ body_font.fallback_families | default: 'sans-serif' }};
+                --font-heading-family: {{ heading_font.family | default: body_font.family | default: 'Arial' | json }}, {{ heading_font.fallback_families | default: body_font.fallback_families | default: 'sans-serif' }};
+            }
+
+            body {
+                font-family: var(--font-body-family);
+            }
+
+            h1,
+            h2,
+            h3,
+            h4,
+            h5,
+            h6 {
+                font-family: var(--font-heading-family);
+            }
+        </style>
+        {{ meta_tracking_script }}
+        {{ google_tracking_script }}
+        {{ content_for_header }}
+    </head>
+    <body style="background-color: {{ settings.background_color |  default: "white" }};">
+        {{ meta_tracking_noscript }}
+        {% sections 'header-group' %}
+
+        <main>
+            {{ content_for_layout }}
+        </main>
+
+        {% sections 'footer-group' %}
+    </body>
+</html>

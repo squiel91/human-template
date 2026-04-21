@@ -1,0 +1,50 @@
+{% assign current_collection = blank %}
+{% if request.page_type == 'collection' and collection != blank %}
+    {% assign current_collection = collection %}
+{% elsif section.settings.collection != blank %}
+    {% assign current_collection = section.settings.collection %}
+{% endif %}
+{% assign fallback_url = current_collection.url | default: '' %}
+
+<div {{ block.shopify_attributes }}>
+    {% content_for 'block', id: 'default-button', type: 'button', default_url: fallback_url %}
+</div>
+
+{% schema %}
+{
+    "name": "Botón para colección destacada",
+    "max_blocks": 1,
+    "blocks": [
+        {
+            "type": "button"
+        }
+    ],
+    "presets": [
+        {
+            "name": "Botón para colección destacada",
+            "blocks": {
+                "default-button": {
+                    "type": "button",
+                    "static": true,
+                    "settings": {
+                        "text": "Ver más",
+                        "link": "",
+                        "icon_position": "after",
+                        "color": "primary",
+                        "size": "md",
+                        "variant": "secondary",
+                        "rounding": "none",
+                        "css_styles_desktop": "",
+                        "css_styles_tablet": "",
+                        "css_styles_mobile": ""
+                    },
+                    "blocks": {}
+                }
+            },
+            "block_order": [
+                "default-button"
+            ]
+        }
+    ]
+}
+{% endschema %}

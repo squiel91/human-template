@@ -1,0 +1,210 @@
+{% content_for "blocks" %}
+
+{% schema %}
+{
+    "name": "Banner estatico",
+    "max_blocks": 1,
+    "settings": [],
+    "blocks": [
+        {
+            "type": "@theme"
+        }
+    ],
+    "presets": [
+        {
+            "name": "Básico",
+            "settings": {},
+            "blocks": {
+                "layout_8b45m2": {
+                    "type": "layout",
+                    "settings": {
+                        "css_styles_desktop": "padding: 0 8px;",
+                        "css_styles_tablet": "",
+                        "css_styles_mobile": "",
+                        "background_color_desktop": "#e8e8e8",
+                        "image_desktop": ""
+                    },
+                    "static": false,
+                    "blocks": {
+                        "layout_8b4dml": {
+                            "type": "layout",
+                            "settings": {
+                                "css_styles_desktop": "max-width: 1024px;\nmargin: 0 auto;\nmin-height: 400px;\ndisplay: flex;\njustify-content: center;\nflex-direction: column;\nalign-items: flex-start;\ngap: 16px;",
+                                "css_styles_tablet": "",
+                                "css_styles_mobile": "",
+                                "background_color_tablet": "",
+                                "background_color_desktop": "",
+                                "image_desktop": "",
+                                "background_color_mobile": ""
+                            },
+                            "static": false,
+                            "blocks": {
+                                "button_o2vrue": {
+                                    "type": "button",
+                                    "settings": {
+                                        "text": "Ver productos",
+                                        "color": "primary",
+                                        "size": "md",
+                                        "variant": "primary",
+                                        "rounding": "none",
+                                        "link": "",
+                                        "icon_position": "after",
+                                        "css_styles_desktop": "",
+                                        "css_styles_tablet": "",
+                                        "css_styles_mobile": ""
+                                    },
+                                    "static": false
+                                },
+                                "text_1s4kq4": {
+                                    "type": "text",
+                                    "settings": {
+                                        "text": "Somos una butique donde encontras todas las primociones de verano.",
+                                        "text_type": "paragraph",
+                                        "size_desktop": "lg",
+                                        "size_tablet": "",
+                                        "size_mobile": "",
+                                        "css_styles_desktop": "",
+                                        "css_styles_tablet": "",
+                                        "css_styles_mobile": ""
+                                    },
+                                    "static": false
+                                },
+                                "text_id1pjk": {
+                                    "type": "text",
+                                    "settings": {
+                                        "text": "Date una vuelta",
+                                        "text_type": "page_title",
+                                        "size_desktop": "6xl",
+                                        "size_tablet": "",
+                                        "size_mobile": "",
+                                        "css_styles_desktop": "font-weight: bold; ",
+                                        "css_styles_tablet": "",
+                                        "css_styles_mobile": ""
+                                    },
+                                    "static": false
+                                }
+                            },
+                            "block_order": [
+                                "text_id1pjk",
+                                "text_1s4kq4",
+                                "button_o2vrue"
+                            ]
+                        }
+                    },
+                    "block_order": [
+                        "layout_8b4dml"
+                    ]
+                }
+            },
+            "block_order": [
+                "layout_8b45m2"
+            ]
+        },
+        {
+            "name": "Con imágen de lado",
+            "blocks": {
+                "layout_8b4dm2": {
+                    "type": "layout",
+                    "settings": {
+                        "css_styles_desktop": "padding: 0 8px;",
+                        "css_styles_tablet": "",
+                        "css_styles_mobile": ""
+                    },
+                    "blocks": {
+                        "layout_8b4dml": {
+                            "type": "layout",
+                            "settings": {
+                                "css_styles_desktop": "max-width: 1024px;\nmargin: 0 auto;\ndisplay: grid;\ngrid-template-columns: repeat(2, 1fr);\ngap: 40px;",
+                                "css_styles_tablet": "",
+                                "css_styles_mobile": ""
+                            },
+                            "blocks": {
+                                "layout_iok57r": {
+                                    "type": "layout",
+                                    "settings": {
+                                        "css_styles_desktop": "display: flex;\nflex-direction: column;\njustify-content: center;\nalign-items: flex-start;\ngap: 8px;",
+                                        "css_styles_tablet": "",
+                                        "css_styles_mobile": ""
+                                    },
+                                    "blocks": {
+                                        "text_id1pjk": {
+                                            "type": "text",
+                                            "settings": {
+                                                "text": "Date una vuelta",
+                                                "text_type": "page_title",
+                                                "size_desktop": "5xl",
+                                                "size_tablet": "",
+                                                "size_mobile": "",
+                                                "css_styles_desktop": "margin-bottom: .3em;\nfont-weight: bold; ",
+                                                "css_styles_tablet": "",
+                                                "css_styles_mobile": ""
+                                            },
+                                            "blocks": {}
+                                        },
+                                        "text_1s4kq4": {
+                                            "type": "text",
+                                            "settings": {
+                                                "text": "Somos una butique donde encontras todas las primociones de verano.",
+                                                "text_type": "paragraph",
+                                                "size_desktop": "inherit",
+                                                "size_tablet": "",
+                                                "size_mobile": "",
+                                                "css_styles_desktop": "",
+                                                "css_styles_tablet": "",
+                                                "css_styles_mobile": ""
+                                            },
+                                            "blocks": {}
+                                        },
+                                        "button_o2vrue": {
+                                            "type": "button",
+                                            "settings": {
+                                                "text": "Ver productos",
+                                                "link": "",
+                                                "icon_position": "after",
+                                                "color": "primary",
+                                                "size": "md",
+                                                "variant": "primary",
+                                                "rounding": "none",
+                                                "css_styles_desktop": "",
+                                                "css_styles_tablet": "",
+                                                "css_styles_mobile": ""
+                                            },
+                                            "blocks": {}
+                                        }
+                                    },
+                                    "block_order": [
+                                        "text_id1pjk",
+                                        "text_1s4kq4",
+                                        "button_o2vrue"
+                                    ]
+                                },
+                                "image_1huia1": {
+                                    "type": "image",
+                                    "settings": {
+                                        "size": "full",
+                                        "image_ratio": "square",
+                                        "rounding": "none",
+                                        "image": "http://cnd.localhost:4000/images/1776091068199-lapido-jpg.webp",
+                                        "alt": ""
+                                    },
+                                    "blocks": {}
+                                }
+                            },
+                            "block_order": [
+                                "image_1huia1",
+                                "layout_iok57r"
+                            ]
+                        }
+                    },
+                    "block_order": [
+                        "layout_8b4dml"
+                    ]
+                }
+            },
+            "block_order": [
+                "layout_8b4dm2"
+            ]
+        }
+    ]
+}
+{% endschema %}
