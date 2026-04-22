@@ -2,9 +2,63 @@
   "type": "header",
   "name": "Header group",
   "sections": {
+    "top-banner_default": {
+      "type": "top-banner",
+      "settings": {
+        "link": ""
+      },
+      "blocks": {
+        "layout_banner": {
+          "type": "layout",
+          "settings": {
+            "image_desktop": "",
+            "background_color_desktop": "",
+            "css_styles_desktop": "display: flex; justify-content: center; align-items: center; background-color: var(--color-primary); padding: 10px 8px;",
+            "image_tablet": "",
+            "background_color_tablet": "",
+            "css_styles_tablet": "",
+            "image_mobile": "",
+            "background_color_mobile": "",
+            "css_styles_mobile": ""
+          },
+          "static": false,
+          "blocks": {
+            "text_banner": {
+              "type": "text",
+              "settings": {
+                "text": "Envío GRATIS para pedidos mayores a $2.000",
+                "text_type": "text",
+                "color": "custom",
+                "custom_color": "#FFFFFF",
+                "bold": true,
+                "italic": false,
+                "underline": false,
+                "line_through": false,
+                "alignment": "center",
+                "size_desktop": "sm",
+                "size_tablet": "",
+                "size_mobile": "",
+                "css_styles_desktop": "",
+                "css_styles_tablet": "",
+                "css_styles_mobile": ""
+              },
+              "static": false
+            }
+          },
+          "block_order": [
+            "text_banner"
+          ]
+        }
+      },
+      "block_order": [
+        "layout_banner"
+      ]
+    },
     "header_f74h03": {
       "type": "header",
-      "settings": {},
+      "settings": {
+        "sticky_header": true
+      },
       "blocks": {
         "layout_outer": {
           "type": "layout",
@@ -414,6 +468,7 @@
     }
   },
   "order": [
+    "top-banner_default",
     "header_f74h03"
   ]
 }

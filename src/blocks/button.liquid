@@ -156,12 +156,12 @@
         {{ block.shopify_attributes }}
         class="tiendu-button"
         id="{{ button_id }}"
-        type="button"
-        {% if button_action != 'none' %}data-button-action="{{ button_action }}"{% endif %}
+        type="{% if button_action == 'submit' %}submit{% else %}button{% endif %}"
+        {% if button_action != 'none' and button_action != 'submit' %}data-button-action="{{ button_action }}"{% endif %}
         {% if button_action == 'add_to_cart' and action_variant != blank %}data-product-variant-id="{{ action_variant.id }}"{% endif %}
     >
         {% if icon_position == 'before' and button_has_icon %}
-            <span class="tiendu-button__icon"{% if button_action != 'none' %} data-button-action-icon="default"{% endif %}>
+            <span class="tiendu-button__icon"{% if button_action != 'none' and button_action != 'submit' %} data-button-action-icon="default"{% endif %}>
                 {% content_for 'blocks' %}
             </span>
             {% if button_has_loading_state %}
@@ -172,7 +172,7 @@
         {% endif %}
         <span class="tiendu-button__label"{% if button_action == 'share' %} data-share-label{% endif %}>{{ button_text }}</span>
         {% if icon_position == 'after' and button_has_icon %}
-            <span class="tiendu-button__icon"{% if button_action != 'none' %} data-button-action-icon="default"{% endif %}>
+            <span class="tiendu-button__icon"{% if button_action != 'none' and button_action != 'submit' %} data-button-action-icon="default"{% endif %}>
                 {% content_for 'blocks' %}
             </span>
             {% if button_has_loading_state %}
@@ -215,7 +215,8 @@
                 { "value": "search", "label": "Abrir buscador" },
                 { "value": "cart", "label": "Abrir carrito" },
                 { "value": "add_to_cart", "label": "Agregar al carrito" },
-                { "value": "share", "label": "Compartir" }
+                { "value": "share", "label": "Compartir" },
+                { "value": "submit", "label": "Enviar formulario" }
             ]
         },
         {

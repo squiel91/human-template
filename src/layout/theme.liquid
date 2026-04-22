@@ -172,6 +172,10 @@
             :root {
                 --font-body-family: {{ body_font.family | json | default: '"Arial"' }}, {{ body_font.fallback_families | default: 'sans-serif' }};
                 --font-heading-family: {{ heading_font.family | default: body_font.family | default: 'Arial' | json }}, {{ heading_font.fallback_families | default: body_font.fallback_families | default: 'sans-serif' }};
+                --color-primary: {{ settings.primary_color | default: '#0000FF' }};
+                --color-secondary: {{ settings.secondary_color | default: '#00FF00' }};
+                --color-accent: {{ settings.accent_color | default: '#FF0000' }};
+                --color-background: {{ settings.background_color | default: '#EFEFEF' }};
             }
 
             body {

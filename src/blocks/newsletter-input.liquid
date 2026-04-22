@@ -1,0 +1,95 @@
+{% assign input_id = 'tiendu__newsletter-input-' | append: section.id | append: '-' | append: block.id %}
+{% assign placeholder = block.settings.placeholder | default: 'tu@email.com' %}
+
+<style>
+    #{{ input_id }} {
+        flex: 1;
+        min-width: 0;
+        padding: 0.75rem 1rem;
+        font-size: 1rem;
+        border: 1px solid rgba(0, 0, 0, 0.2);
+        border-radius: 0.375rem;
+        background: white;
+        color: inherit;
+        font-family: inherit;
+        {{ block.settings.css_styles_desktop }}
+    }
+
+    @media (width <= 64rem) {
+        #{{ input_id }} {
+            {{ block.settings.css_styles_tablet }}
+        }
+    }
+
+    @media (width <= 48rem) {
+        #{{ input_id }} {
+            {{ block.settings.css_styles_mobile }}
+        }
+    }
+
+    #{{ input_id }}::placeholder {
+        color: #9ca3af;
+    }
+
+    #{{ input_id }}:focus {
+        outline: 2px solid var(--color-primary, #0000FF);
+        outline-offset: 2px;
+    }
+</style>
+
+<input
+    {{ block.shopify_attributes }}
+    id="{{ input_id }}"
+    type="email"
+    name="email"
+    placeholder="{{ placeholder }}"
+    required
+    aria-label="Email"
+    data-newsletter-email
+>
+
+{% schema %}
+{
+    "name": "Input newsletter",
+    "settings": [
+        {
+            "type": "text",
+            "id": "placeholder",
+            "label": "Placeholder",
+            "default": "tu@email.com"
+        },
+        {
+            "type": "header",
+            "content": "Desktop"
+        },
+        {
+            "type": "textarea",
+            "id": "css_styles_desktop",
+            "label": "Estilos CSS"
+        },
+        {
+            "type": "header",
+            "content": "Tablet"
+        },
+        {
+            "type": "textarea",
+            "id": "css_styles_tablet",
+            "label": "Estilos CSS"
+        },
+        {
+            "type": "header",
+            "content": "Mobile"
+        },
+        {
+            "type": "textarea",
+            "id": "css_styles_mobile",
+            "label": "Estilos CSS"
+        }
+    ],
+    "presets": [
+        {
+            "name": "Input newsletter"
+        }
+    ]
+}
+{% endschema %}

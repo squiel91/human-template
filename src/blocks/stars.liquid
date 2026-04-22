@@ -1,0 +1,144 @@
+{% assign stars_id = 'tiendu__stars-' | append: section.id | append: '-' | append: block.id %}
+{% assign rating = block.settings.rating | default: 5 %}
+{% assign star_color = block.settings.color | default: 'primary' %}
+{% assign star_size = block.settings.size | default: 'md' %}
+{% assign star_count = block.settings.star_count | default: 5 %}
+
+{% case star_color %}
+    {% when 'secondary' %}
+        {% assign color_value = settings.secondary_color | default: '#00FF00' %}
+    {% when 'accent' %}
+        {% assign color_value = settings.accent_color | default: '#FF0000' %}
+    {% when 'custom' %}
+        {% assign color_value = block.settings.custom_color %}
+    {% else %}
+        {% assign color_value = settings.primary_color | default: '#0000FF' %}
+{% endcase %}
+
+{% case star_size %}
+    {% when 'sm' %}{% assign size_value = '0.875rem' %}
+    {% when 'lg' %}{% assign size_value = '1.5rem' %}
+    {% when 'xl' %}{% assign size_value = '2rem' %}
+    {% else %}{% assign size_value = '1.125rem' %}
+{% endcase %}
+
+<style>
+    #{{ stars_id }} {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.125rem;
+        color: {{ color_value }};
+        font-size: {{ size_value }};
+        line-height: 1;
+        {{ block.settings.css_styles_desktop }}
+    }
+
+    @media (width <= 64rem) {
+        #{{ stars_id }} {
+            {{ block.settings.css_styles_tablet }}
+        }
+    }
+
+    @media (width <= 48rem) {
+        #{{ stars_id }} {
+            {{ block.settings.css_styles_mobile }}
+        }
+    }
+</style>
+
+<div {{ block.shopify_attributes }} id="{{ stars_id }}" class="tiendu-stars">
+    {% for i in (1..star_count) %}
+        {% if i <= rating %}
+            <span aria-hidden="true">★</span>
+        {% else %}
+            <span aria-hidden="true" style="opacity: 0.3;">★</span>
+        {% endif %}
+    {% endfor %}
+</div>
+
+{% schema %}
+{
+    "name": "Estrellas",
+    "settings": [
+        {
+            "type": "range",
+            "id": "rating",
+            "label": "Calificación",
+            "min": 0,
+            "max": 5,
+            "step": 0.5,
+            "default": 5
+        },
+        {
+            "type": "range",
+            "id": "star_count",
+            "label": "Cantidad de estrellas",
+            "min": 1,
+            "max": 5,
+            "step": 1,
+            "default": 5
+        },
+        {
+            "type": "select",
+            "id": "color",
+            "label": "Color",
+            "default": "primary",
+            "options": [
+                { "value": "primary", "label": "Primario" },
+                { "value": "secondary", "label": "Secundario" },
+                { "value": "accent", "label": "Acento" },
+                { "value": "custom", "label": "Personalizado" }
+            ]
+        },
+        {
+            "type": "color",
+            "id": "custom_color",
+            "label": "Color personalizado"
+        },
+        {
+            "type": "select",
+            "id": "size",
+            "label": "Tamaño",
+            "default": "md",
+            "options": [
+                { "value": "sm", "label": "Sm" },
+                { "value": "md", "label": "Md" },
+                { "value": "lg", "label": "Lg" },
+                { "value": "xl", "label": "Xl" }
+            ]
+        },
+        {
+            "type": "header",
+            "content": "Desktop"
+        },
+        {
+            "type": "textarea",
+            "id": "css_styles_desktop",
+            "label": "Estilos CSS"
+        },
+        {
+            "type": "header",
+            "content": "Tablet"
+        },
+        {
+            "type": "textarea",
+            "id": "css_styles_tablet",
+            "label": "Estilos CSS"
+        },
+        {
+            "type": "header",
+            "content": "Mobile"
+        },
+        {
+            "type": "textarea",
+            "id": "css_styles_mobile",
+            "label": "Estilos CSS"
+        }
+    ],
+    "presets": [
+        {
+            "name": "Estrellas"
+        }
+    ]
+}
+{% endschema %}

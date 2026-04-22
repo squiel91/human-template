@@ -1,10 +1,19 @@
-{% content_for "blocks" %}
+<nav class="header-nav" aria-label="Navegacion principal"{% if section.settings.sticky_header %} data-header-sticky-root style="position: sticky; top: 0; z-index: 30; width: 100%; background-color: {{ settings.background_color | default: 'white' }};"{% endif %}>
+    {% content_for "blocks" %}
+</nav>
 
 {% schema %}
 {
     "name": "Header",
     "max_blocks": 1,
-    "settings": [],
+    "settings": [
+        {
+            "type": "checkbox",
+            "id": "sticky_header",
+            "label": "Fijar arriba",
+            "default": true
+        }
+    ],
     "blocks": [
         {
             "type": "@theme"

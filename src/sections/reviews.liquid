@@ -1,0 +1,364 @@
+<section class="tiendu-reviews" style="padding: 64px 0;">
+    {% if section.blocks and section.blocks.size > 0 %}
+        {% content_for 'blocks' %}
+    {% elsif design_mode or preview_mode %}
+        <div>Agrega bloques para construir la sección de opiniones.</div>
+    {% endif %}
+</section>
+
+{% schema %}
+{
+    "name": "Opiniones",
+    "max_blocks": 1,
+    "settings": [],
+    "blocks": [
+        {
+            "type": "layout"
+        }
+    ],
+    "presets": [
+        {
+            "name": "Opiniones",
+            "blocks": {
+                "layout_outer": {
+                    "type": "layout",
+                    "settings": {
+                        "image_desktop": "",
+                        "background_color_desktop": "",
+                        "css_styles_desktop": "padding: 0 8px;",
+                        "image_tablet": "",
+                        "background_color_tablet": "",
+                        "css_styles_tablet": "",
+                        "image_mobile": "",
+                        "background_color_mobile": "",
+                        "css_styles_mobile": ""
+                    },
+                    "blocks": {
+                        "layout_inner": {
+                            "type": "layout",
+                            "settings": {
+                                "image_desktop": "",
+                                "background_color_desktop": "",
+                                "css_styles_desktop": "max-width: 1024px; margin: 0 auto; display: flex; flex-direction: column; gap: 40px;",
+                                "image_tablet": "",
+                                "background_color_tablet": "",
+                                "css_styles_tablet": "gap: 32px;",
+                                "image_mobile": "",
+                                "background_color_mobile": "",
+                                "css_styles_mobile": "gap: 24px;"
+                            },
+                            "blocks": {
+                                "layout_header": {
+                                    "type": "layout",
+                                    "settings": {
+                                        "image_desktop": "",
+                                        "background_color_desktop": "",
+                                        "css_styles_desktop": "display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; flex-wrap: wrap;",
+                                        "image_tablet": "",
+                                        "background_color_tablet": "",
+                                        "css_styles_tablet": "",
+                                        "image_mobile": "",
+                                        "background_color_mobile": "",
+                                        "css_styles_mobile": "flex-direction: column; align-items: flex-start;"
+                                    },
+                                    "blocks": {
+                                        "layout_header_left": {
+                                            "type": "layout",
+                                            "settings": {
+                                                "image_desktop": "",
+                                                "background_color_desktop": "",
+                                                "css_styles_desktop": "display: flex; flex-direction: column; gap: 8px;",
+                                                "image_tablet": "",
+                                                "background_color_tablet": "",
+                                                "css_styles_tablet": "",
+                                                "image_mobile": "",
+                                                "background_color_mobile": "",
+                                                "css_styles_mobile": ""
+                                            },
+                                            "blocks": {
+                                                "label": {
+                                                    "type": "text",
+                                                    "settings": {
+                                                        "text": "OPINIONES",
+                                                        "text_type": "text",
+                                                        "color": "custom",
+                                                        "custom_color": "#666666",
+                                                        "bold": false,
+                                                        "italic": false,
+                                                        "underline": false,
+                                                        "line_through": false,
+                                                        "alignment": "inherit",
+                                                        "size_desktop": "sm",
+                                                        "size_tablet": "",
+                                                        "size_mobile": "",
+                                                        "css_styles_desktop": "letter-spacing: 0.1em; text-transform: uppercase;",
+                                                        "css_styles_tablet": "",
+                                                        "css_styles_mobile": ""
+                                                    },
+                                                    "blocks": {}
+                                                },
+                                                "heading": {
+                                                    "type": "text",
+                                                    "settings": {
+                                                        "text": "Lo que dicen nuestros clientes.",
+                                                        "text_type": "section_title",
+                                                        "color": "custom",
+                                                        "custom_color": "#000000",
+                                                        "bold": true,
+                                                        "italic": false,
+                                                        "underline": false,
+                                                        "line_through": false,
+                                                        "alignment": "inherit",
+                                                        "size_desktop": "4xl",
+                                                        "size_tablet": "",
+                                                        "size_mobile": "",
+                                                        "css_styles_desktop": "",
+                                                        "css_styles_tablet": "",
+                                                        "css_styles_mobile": ""
+                                                    },
+                                                    "blocks": {}
+                                                }
+                                            },
+                                            "block_order": [
+                                                "label",
+                                                "heading"
+                                            ]
+                                        },
+                                        "layout_header_right": {
+                                            "type": "layout",
+                                            "settings": {
+                                                "image_desktop": "",
+                                                "background_color_desktop": "",
+                                                "css_styles_desktop": "display: flex; flex-direction: column; align-items: flex-end; gap: 4px;",
+                                                "image_tablet": "",
+                                                "background_color_tablet": "",
+                                                "css_styles_tablet": "",
+                                                "image_mobile": "",
+                                                "background_color_mobile": "",
+                                                "css_styles_mobile": "align-items: flex-start;"
+                                            },
+                                            "blocks": {
+                                                "aggregate_rating": {
+                                                    "type": "layout",
+                                                    "settings": {
+                                                        "image_desktop": "",
+                                                        "background_color_desktop": "",
+                                                        "css_styles_desktop": "display: flex; align-items: center; gap: 12px;",
+                                                        "image_tablet": "",
+                                                        "background_color_tablet": "",
+                                                        "css_styles_tablet": "",
+                                                        "image_mobile": "",
+                                                        "background_color_mobile": "",
+                                                        "css_styles_mobile": ""
+                                                    },
+                                                    "blocks": {
+                                                        "stars": {
+                                                            "type": "stars",
+                                                            "settings": {
+                                                                "rating": 5,
+                                                                "star_count": 5,
+                                                                "color": "custom",
+                                                                "custom_color": "#c05621",
+                                                                "size": "sm",
+                                                                "css_styles_desktop": "",
+                                                                "css_styles_tablet": "",
+                                                                "css_styles_mobile": ""
+                                                            },
+                                                            "blocks": {}
+                                                        },
+                                                        "rating_text": {
+                                                            "type": "text",
+                                                            "settings": {
+                                                                "text": "4.9 / 5",
+                                                                "text_type": "text",
+                                                                "color": "custom",
+                                                                "custom_color": "#000000",
+                                                                "bold": true,
+                                                                "italic": false,
+                                                                "underline": false,
+                                                                "line_through": false,
+                                                                "alignment": "inherit",
+                                                                "size_desktop": "base",
+                                                                "size_tablet": "",
+                                                                "size_mobile": "",
+                                                                "css_styles_desktop": "",
+                                                                "css_styles_tablet": "",
+                                                                "css_styles_mobile": ""
+                                                            },
+                                                            "blocks": {}
+                                                        }
+                                                    },
+                                                    "block_order": [
+                                                        "stars",
+                                                        "rating_text"
+                                                    ]
+                                                },
+                                                "reviews_count": {
+                                                    "type": "text",
+                                                    "settings": {
+                                                        "text": "Sobre 3.400 reseñas",
+                                                        "text_type": "text",
+                                                        "color": "custom",
+                                                        "custom_color": "#666666",
+                                                        "bold": false,
+                                                        "italic": false,
+                                                        "underline": false,
+                                                        "line_through": false,
+                                                        "alignment": "inherit",
+                                                        "size_desktop": "sm",
+                                                        "size_tablet": "",
+                                                        "size_mobile": "",
+                                                        "css_styles_desktop": "",
+                                                        "css_styles_tablet": "",
+                                                        "css_styles_mobile": ""
+                                                    },
+                                                    "blocks": {}
+                                                }
+                                            },
+                                            "block_order": [
+                                                "aggregate_rating",
+                                                "reviews_count"
+                                            ]
+                                        }
+                                    },
+                                    "block_order": [
+                                        "layout_header_left",
+                                        "layout_header_right"
+                                    ]
+                                },
+                                "layout_grid": {
+                                    "type": "layout",
+                                    "settings": {
+                                        "image_desktop": "",
+                                        "background_color_desktop": "",
+                                        "css_styles_desktop": "display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;",
+                                        "image_tablet": "",
+                                        "background_color_tablet": "",
+                                        "css_styles_tablet": "grid-template-columns: repeat(2, 1fr);",
+                                        "image_mobile": "",
+                                        "background_color_mobile": "",
+                                        "css_styles_mobile": "grid-template-columns: 1fr;"
+                                    },
+                                    "blocks": {
+                                        "review_1": {
+                                            "type": "review",
+                                            "settings": {
+                                                "quote": "Cambiar el tema fue muy simple y nuestra tienda se ve mucho más profesional.",
+                                                "author_name": "Sofía P.",
+                                                "author_role": "Dueña, Estudio Verde",
+                                                "background_color": "#ffffff",
+                                                "rounding": "md",
+                                                "css_styles_desktop": "",
+                                                "css_styles_tablet": "",
+                                                "css_styles_mobile": ""
+                                            },
+                                            "blocks": {
+                                                "stars": {
+                                                    "type": "stars",
+                                                    "settings": {
+                                                        "rating": 5,
+                                                        "star_count": 5,
+                                                        "color": "custom",
+                                                        "custom_color": "#c05621",
+                                                        "size": "sm",
+                                                        "css_styles_desktop": "",
+                                                        "css_styles_tablet": "",
+                                                        "css_styles_mobile": ""
+                                                    },
+                                                    "blocks": {}
+                                                }
+                                            },
+                                            "block_order": [
+                                                "stars"
+                                            ]
+                                        },
+                                        "review_2": {
+                                            "type": "review",
+                                            "settings": {
+                                                "quote": "Lo que más me gustó es que destaca los productos sin distraer al cliente.",
+                                                "author_name": "Mateo L.",
+                                                "author_role": "Fundador, Taller 19",
+                                                "background_color": "#ffffff",
+                                                "rounding": "md",
+                                                "css_styles_desktop": "",
+                                                "css_styles_tablet": "",
+                                                "css_styles_mobile": ""
+                                            },
+                                            "blocks": {
+                                                "stars": {
+                                                    "type": "stars",
+                                                    "settings": {
+                                                        "rating": 5,
+                                                        "star_count": 5,
+                                                        "color": "custom",
+                                                        "custom_color": "#c05621",
+                                                        "size": "sm",
+                                                        "css_styles_desktop": "",
+                                                        "css_styles_tablet": "",
+                                                        "css_styles_mobile": ""
+                                                    },
+                                                    "blocks": {}
+                                                }
+                                            },
+                                            "block_order": [
+                                                "stars"
+                                            ]
+                                        },
+                                        "review_3": {
+                                            "type": "review",
+                                            "settings": {
+                                                "quote": "Desde que lo instalamos, las conversiones subieron y el rebote bajó.",
+                                                "author_name": "Camila D.",
+                                                "author_role": "Ecommerce, La Casa",
+                                                "background_color": "#ffffff",
+                                                "rounding": "md",
+                                                "css_styles_desktop": "",
+                                                "css_styles_tablet": "",
+                                                "css_styles_mobile": ""
+                                            },
+                                            "blocks": {
+                                                "stars": {
+                                                    "type": "stars",
+                                                    "settings": {
+                                                        "rating": 5,
+                                                        "star_count": 5,
+                                                        "color": "custom",
+                                                        "custom_color": "#c05621",
+                                                        "size": "sm",
+                                                        "css_styles_desktop": "",
+                                                        "css_styles_tablet": "",
+                                                        "css_styles_mobile": ""
+                                                    },
+                                                    "blocks": {}
+                                                }
+                                            },
+                                            "block_order": [
+                                                "stars"
+                                            ]
+                                        }
+                                    },
+                                    "block_order": [
+                                        "review_1",
+                                        "review_2",
+                                        "review_3"
+                                    ]
+                                }
+                            },
+                            "block_order": [
+                                "layout_header",
+                                "layout_grid"
+                            ]
+                        }
+                    },
+                    "block_order": [
+                        "layout_inner"
+                    ]
+                }
+            },
+            "block_order": [
+                "layout_outer"
+            ]
+        }
+    ]
+}
+{% endschema %}

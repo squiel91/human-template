@@ -581,6 +581,26 @@ const initProductShareButtons = () => {
   }
 }
 
+const initStickyHeaders = () => {
+  const stickyRoots = Array.from(document.querySelectorAll('[data-header-sticky-root]'))
+
+  for (const stickyRoot of stickyRoots) {
+    if (!(stickyRoot instanceof HTMLElement)) continue
+
+    const sectionWrapper = stickyRoot.closest('[data-section-type="header"]')
+    const stickyTarget = sectionWrapper instanceof HTMLElement ? sectionWrapper : stickyRoot
+
+    stickyTarget.style.position = 'sticky'
+    stickyTarget.style.top = '0'
+    stickyTarget.style.zIndex = '30'
+    stickyTarget.style.width = '100%'
+
+    if (!stickyTarget.style.backgroundColor && stickyRoot instanceof HTMLElement) {
+      stickyTarget.style.backgroundColor = stickyRoot.style.backgroundColor || 'white'
+    }
+  }
+}
+
 const bindButtonAction = (button) => {
   if (!(button instanceof HTMLElement)) return
   if (button.dataset.bound === 'true') return
@@ -664,6 +684,55 @@ const bindButtonAction = (button) => {
   })
 }
 
+const isValidEmail = (email) => {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(email).toLowerCase())
+}
+
+const initNewsletterForms = () => {
+  const forms = Array.from(document.querySelectorAll('[data-newsletter-form]'))
+
+  for (const form of forms) {
+    if (!(form instanceof HTMLFormElement)) continue
+    if (form.dataset.newsletterBound === 'true') continue
+
+    form.dataset.newsletterBound = 'true'
+    const submitButton = form.querySelector('button[type="submit"]')
+    const emailInput = form.querySelector('[data-newsletter-email]')
+    const defaultButtonText = submitButton instanceof HTMLButtonElement ? submitButton.textContent : 'Suscribirme'
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault()
+
+      if (!(emailInput instanceof HTMLInputElement)) return
+
+      const email = emailInput.value.trim()
+      if (!isValidEmail(email)) {
+        window.alert('Por favor ingresá un email válido.')
+        return
+      }
+
+      if (submitButton instanceof HTMLButtonElement) {
+        submitButton.disabled = true
+        submitButton.textContent = 'Enviando...'
+      }
+
+      try {
+        const tiendu = getTiendu()
+        await tiendu.subscribers.add(email)
+        window.alert('¡Te mandamos un email! Ahora solo te falta tocar el botón de ese email para confirmar tu subscripción.')
+        emailInput.value = ''
+      } catch {
+        window.alert('No se pudo completar la suscripción. Intentá de nuevo más tarde.')
+      } finally {
+        if (submitButton instanceof HTMLButtonElement) {
+          submitButton.disabled = false
+          submitButton.textContent = defaultButtonText
+        }
+      }
+    })
+  }
+}
+
 const initButtonActions = () => {
   const buttons = Array.from(document.querySelectorAll('[data-button-action]'))
   for (const button of buttons) {
@@ -675,6 +744,8 @@ const initButtonActions = () => {
   initProductViewTracking()
   initVariantSelectors()
   initProductShareButtons()
+  initStickyHeaders()
+  initNewsletterForms()
 
   if (buttons.some((button) => button.dataset.buttonAction === 'cart')) {
     void syncCartQuantity()

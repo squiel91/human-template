@@ -1,0 +1,188 @@
+<section class="tiendu-newsletter" style="padding: 64px 0;">
+    {% if section.blocks and section.blocks.size > 0 %}
+        {% content_for 'blocks' %}
+    {% elsif design_mode or preview_mode %}
+        <div>Agrega bloques para construir la sección de newsletter.</div>
+    {% endif %}
+</section>
+
+{% schema %}
+{
+    "name": "Newsletter",
+    "max_blocks": 1,
+    "settings": [],
+    "blocks": [
+        {
+            "type": "layout"
+        }
+    ],
+    "presets": [
+        {
+            "name": "Newsletter",
+            "blocks": {
+                "layout_outer": {
+                    "type": "layout",
+                    "settings": {
+                        "image_desktop": "",
+                        "background_color_desktop": "",
+                        "css_styles_desktop": "padding: 0 8px;",
+                        "image_tablet": "",
+                        "background_color_tablet": "",
+                        "css_styles_tablet": "",
+                        "image_mobile": "",
+                        "background_color_mobile": "",
+                        "css_styles_mobile": ""
+                    },
+                    "blocks": {
+                        "layout_inner": {
+                            "type": "layout",
+                            "settings": {
+                                "image_desktop": "",
+                                "background_color_desktop": "",
+                                "css_styles_desktop": "max-width: 1024px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 20px; text-align: center;",
+                                "image_tablet": "",
+                                "background_color_tablet": "",
+                                "css_styles_tablet": "gap: 16px;",
+                                "image_mobile": "",
+                                "background_color_mobile": "",
+                                "css_styles_mobile": "gap: 12px;"
+                            },
+                            "blocks": {
+                                "label": {
+                                    "type": "text",
+                                    "settings": {
+                                        "text": "NEWSLETTER",
+                                        "text_type": "text",
+                                        "color": "custom",
+                                        "custom_color": "#666666",
+                                        "bold": false,
+                                        "italic": false,
+                                        "underline": false,
+                                        "line_through": false,
+                                        "alignment": "center",
+                                        "size_desktop": "sm",
+                                        "size_tablet": "",
+                                        "size_mobile": "",
+                                        "css_styles_desktop": "letter-spacing: 0.1em; text-transform: uppercase;",
+                                        "css_styles_tablet": "",
+                                        "css_styles_mobile": ""
+                                    },
+                                    "blocks": {}
+                                },
+                                "heading": {
+                                    "type": "text",
+                                    "settings": {
+                                        "text": "Sumate a la lista.",
+                                        "text_type": "section_title",
+                                        "color": "custom",
+                                        "custom_color": "#000000",
+                                        "bold": true,
+                                        "italic": false,
+                                        "underline": false,
+                                        "line_through": false,
+                                        "alignment": "center",
+                                        "size_desktop": "4xl",
+                                        "size_tablet": "",
+                                        "size_mobile": "",
+                                        "css_styles_desktop": "",
+                                        "css_styles_tablet": "",
+                                        "css_styles_mobile": ""
+                                    },
+                                    "blocks": {}
+                                },
+                                "description": {
+                                    "type": "text",
+                                    "settings": {
+                                        "text": "Novedades, lanzamientos y acceso anticipado a ofertas. Sin spam — podés salir cuando quieras.",
+                                        "text_type": "paragraph",
+                                        "color": "custom",
+                                        "custom_color": "#444444",
+                                        "bold": false,
+                                        "italic": false,
+                                        "underline": false,
+                                        "line_through": false,
+                                        "alignment": "center",
+                                        "size_desktop": "base",
+                                        "size_tablet": "",
+                                        "size_mobile": "",
+                                        "css_styles_desktop": "max-width: 640px;",
+                                        "css_styles_tablet": "",
+                                        "css_styles_mobile": ""
+                                    },
+                                    "blocks": {}
+                                },
+                                "form": {
+                                    "type": "newsletter-form",
+                                    "settings": {},
+                                    "blocks": {
+                                        "form_layout": {
+                                            "type": "layout",
+                                            "settings": {
+                                                "image_desktop": "",
+                                                "background_color_desktop": "",
+                                                "css_styles_desktop": "display: flex; align-items: stretch; gap: 8px; width: 100%; max-width: 480px;",
+                                                "image_tablet": "",
+                                                "background_color_tablet": "",
+                                                "css_styles_tablet": "",
+                                                "image_mobile": "",
+                                                "background_color_mobile": "",
+                                                "css_styles_mobile": ""
+                                            },
+                                            "blocks": {
+                                                "email_input": {
+                                                    "type": "newsletter-input",
+                                                    "settings": {
+                                                        "placeholder": "tu@email.com",
+                                                        "css_styles_desktop": "",
+                                                        "css_styles_tablet": "",
+                                                        "css_styles_mobile": ""
+                                                    },
+                                                    "blocks": {}
+                                                },
+                                                "submit_button": {
+                                                    "type": "button",
+                                                    "settings": {
+                                                        "text": "Suscribirme",
+                                                        "action": "submit",
+                                                        "color": "primary",
+                                                        "size": "md",
+                                                        "variant": "primary",
+                                                        "rounding": "md",
+                                                        "css_styles_desktop": "",
+                                                        "css_styles_tablet": "",
+                                                        "css_styles_mobile": ""
+                                                    },
+                                                    "blocks": {}
+                                                }
+                                            },
+                                            "block_order": [
+                                                "email_input",
+                                                "submit_button"
+                                            ]
+                                        }
+                                    },
+                                    "block_order": [
+                                        "form_layout"
+                                    ]
+                                }
+                            },
+                            "block_order": [
+                                "label",
+                                "heading",
+                                "description",
+                                "form"
+                            ]
+                        }
+                    },
+                    "block_order": [
+                        "layout_inner"
+                    ]
+                }
+            },
+            "block_order": [
+                "layout_outer"
+            ]
+        }
+    ]
+}
+{% endschema %}

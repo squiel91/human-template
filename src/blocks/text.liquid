@@ -43,6 +43,19 @@
         {% assign text_color = settings.primary_color | default: '#0000FF' %}
 {% endcase %}
 
+{% case block.settings.alignment %}
+    {% when 'left' %}
+        {% assign text_alignment = 'left' %}
+    {% when 'center' %}
+        {% assign text_alignment = 'center' %}
+    {% when 'justify' %}
+        {% assign text_alignment = 'justify' %}
+    {% when 'right' %}
+        {% assign text_alignment = 'right' %}
+    {% else %}
+        {% assign text_alignment = '' %}
+{% endcase %}
+
 {% capture text_decoration %}
     {% if block.settings.underline %}underline{% endif %}{% if block.settings.underline and block.settings.line_through %} {% endif %}{% if block.settings.line_through %}line-through{% endif %}
 {% endcapture %}
@@ -79,6 +92,9 @@
         {% endif %}
         {% if text_decoration_value != blank %}
             text-decoration: {{ text_decoration_value }};
+        {% endif %}
+        {% if text_alignment != blank %}
+            text-align: {{ text_alignment }};
         {% endif %}
         {{ block.settings.css_styles_desktop }}
     }
@@ -146,6 +162,19 @@
             "type": "color",
             "id": "custom_color",
             "label": "Color personalizado"
+        },
+        {
+            "type": "select",
+            "id": "alignment",
+            "label": "Alineación",
+            "default": "inherit",
+            "options": [
+                { "value": "inherit", "label": "Heredado" },
+                { "value": "left", "label": "Izquierda" },
+                { "value": "center", "label": "Centrado" },
+                { "value": "justify", "label": "Justificado" },
+                { "value": "right", "label": "Derecha" }
+            ]
         },
         {
             "type": "checkbox",
