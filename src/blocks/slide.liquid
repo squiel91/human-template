@@ -1,0 +1,86 @@
+{% assign block_attributes = block.tiendu_attributes | default: block.shopify_attributes %}
+
+<article class="tiendu-carousel__slide" data-tiendu-carousel-slide aria-hidden="false" {{ block_attributes }}>
+    {% if block.blocks and block.blocks.size > 0 %}
+        <div class="tiendu-carousel__slide-content">
+            {% content_for 'blocks' %}
+        </div>
+    {% endif %}
+</article>
+
+{% schema %}
+{
+    "name": "Slide",
+    "max_blocks": 1,
+    "settings": [],
+    "blocks": [
+        {
+            "type": "layout"
+        }
+    ],
+    "presets": [
+        {
+            "name": "Slide",
+            "blocks": {
+                "content": {
+                    "type": "layout",
+                    "settings": {
+                        "background_color_desktop": "#f5efe8",
+                        "css_styles_desktop": "display: flex; align-items: flex-end; min-height: inherit; padding: 0 8px;"
+                    },
+                    "blocks": {
+                        "inner": {
+                            "type": "layout",
+                            "settings": {
+                                "css_styles_desktop": "display: flex; flex-direction: column; justify-content: flex-end; align-items: flex-start; gap: 16px; min-height: inherit; width: 100%; max-width: 1024px; margin: 0 auto; padding: 48px 0;",
+                                "css_styles_tablet": "padding: 40px 0;",
+                                "css_styles_mobile": "padding: 32px 0;"
+                            },
+                            "blocks": {
+                                "title": {
+                                    "type": "text",
+                                    "settings": {
+                                        "text": "Título del slide",
+                                        "text_type": "section_title",
+                                        "bold": true,
+                                        "size_desktop": "4xl",
+                                        "css_styles_desktop": "max-width: 48ch;"
+                                    }
+                                },
+                                "description": {
+                                    "type": "text",
+                                    "settings": {
+                                        "text": "Descripción del slide para acompañar el mensaje principal.",
+                                        "text_type": "paragraph",
+                                        "css_styles_desktop": "max-width: 60ch; line-height: 1.6;"
+                                    }
+                                },
+                                "cta": {
+                                    "type": "button",
+                                    "settings": {
+                                        "text": "Ver más",
+                                        "variant": "primary",
+                                        "rounding": "md",
+                                        "link": "/productos"
+                                    }
+                                }
+                            },
+                            "block_order": [
+                                "title",
+                                "description",
+                                "cta"
+                            ]
+                        }
+                    },
+                    "block_order": [
+                        "inner"
+                    ]
+                }
+            },
+            "block_order": [
+                "content"
+            ]
+        }
+    ]
+}
+{% endschema %}

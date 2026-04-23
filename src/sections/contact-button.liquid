@@ -1,0 +1,82 @@
+{% assign contact_button_id = 'tiendu__contact-button-' | append: section.id %}
+
+<style>
+    #{{ contact_button_id }} {
+        position: fixed;
+        right: 24px;
+        bottom: 24px;
+        z-index: 40;
+        display: flex;
+        pointer-events: none;
+    }
+
+    #{{ contact_button_id }} > * {
+        pointer-events: auto;
+    }
+
+    @media (width <= 48rem) {
+        #{{ contact_button_id }} {
+            right: 16px;
+            bottom: 16px;
+        }
+    }
+</style>
+
+<section id="{{ contact_button_id }}" class="tiendu-contact-button">
+    {% if section.blocks and section.blocks.size > 0 %}
+        {% content_for 'blocks' %}
+    {% elsif design_mode or preview_mode %}
+        <div>Agrega un botón para contacto.</div>
+    {% endif %}
+</section>
+
+{% schema %}
+{
+    "name": "Botón de contacto",
+    "enabled_on": {
+        "groups": ["footer"]
+    },
+    "max_blocks": 1,
+    "settings": [],
+    "blocks": [
+        {
+            "type": "button"
+        }
+    ],
+    "presets": [
+        {
+            "name": "Botón de contacto",
+            "blocks": {
+                "button": {
+                    "type": "button",
+                    "settings": {
+                        "text": "",
+                        "link": "https://wa.me/59899424414?text=Hola! Tengo una consulta de algo que vi en su tienda web.",
+                        "open_in_new_tab": true,
+                        "css_styles_desktop": "padding: 14px; box-shadow: 0 12px 32px rgba(0, 0, 0, 0.18);",
+                        "css_styles_mobile": "box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);"
+                    },
+                    "blocks": {
+                        "icon": {
+                            "type": "icon",
+                            "settings": {
+                                "icon": "messages-square",
+                                "color": "custom",
+                                "custom_color": "#ffffff",
+                                "size": "lg",
+                                "stroke_width": "1.5"
+                            }
+                        }
+                    },
+                    "block_order": [
+                        "icon"
+                    ]
+                }
+            },
+            "block_order": [
+                "button"
+            ]
+        }
+    ]
+}
+{% endschema %}

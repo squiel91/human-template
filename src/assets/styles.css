@@ -3,6 +3,11 @@ body {
     margin: 0;
 }
 
+.tiendu-no-default-margin {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
 .tiendu-button {
     display: inline-flex;
     align-items: center;
@@ -83,6 +88,121 @@ body {
     text-decoration: none;
     border: 1px solid rgba(0, 0, 0, 0.12);
     background: white;
+}
+
+.tiendu-carousel {
+    position: relative;
+    width: 100%;
+    min-height: var(--carousel-min-height-mobile, 0rem);
+    overflow: hidden;
+}
+
+.tiendu-carousel__viewport,
+.tiendu-carousel__track,
+.tiendu-carousel__slide,
+.tiendu-carousel__slide-content {
+    min-height: inherit;
+}
+
+.tiendu-carousel__viewport {
+    overflow: hidden;
+    touch-action: pan-y;
+    user-select: none;
+}
+
+.tiendu-carousel__track {
+    display: flex;
+    min-height: inherit;
+    will-change: transform;
+}
+
+.tiendu-carousel__slide {
+    position: relative;
+    display: block;
+    flex: 0 0 100%;
+}
+
+.tiendu-carousel__slide-content {
+    position: relative;
+    z-index: 1;
+}
+
+.tiendu-carousel__controls {
+    position: absolute;
+    left: 50%;
+    bottom: 1rem;
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transform: translateX(-50%);
+}
+
+.tiendu-carousel__arrow {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: rgba(255, 255, 255, 0.82);
+    cursor: pointer;
+    transition: color 0.2s ease, opacity 0.2s ease;
+}
+
+.tiendu-carousel__arrow:hover {
+    color: #ffffff;
+}
+
+.tiendu-carousel__arrow:disabled {
+    opacity: 0.4;
+    cursor: default;
+}
+
+.tiendu-carousel__arrow-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.tiendu-carousel__arrow-icon--prev {
+    transform: rotate(180deg);
+}
+
+.tiendu-carousel__dots {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+}
+
+.tiendu-carousel__dot {
+    width: 0.5rem;
+    height: 0.5rem;
+    padding: 0;
+    border: 1px solid transparent;
+    border-radius: 9999px;
+    background: rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.tiendu-carousel__dot.is-active {
+    background: #ffffff;
+    transform: scale(1.08);
+}
+
+@media (width >= 48rem) {
+    .tiendu-carousel {
+        min-height: var(--carousel-min-height-tablet, var(--carousel-min-height-mobile, 0rem));
+    }
+}
+
+@media (width >= 64rem) {
+    .tiendu-carousel {
+        min-height: var(--carousel-min-height-desktop, var(--carousel-min-height-tablet, var(--carousel-min-height-mobile, 0rem)));
+    }
 }
 
 .tiendu-pagination a:hover {

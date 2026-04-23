@@ -7,6 +7,7 @@
 {% assign button_text = block.settings.text | default: default_label | default: default_text %}
 {% assign icon_position = block.settings.icon_position | default: 'after' %}
 {% assign button_action = block.settings.action | default: 'none' %}
+{% assign button_open_in_new_tab = block.settings.open_in_new_tab %}
 {% assign action_product = closest.product | default: product %}
 {% assign action_variant = blank %}
 {% if action_product and action_product.variants and action_product.variants.size > 0 %}
@@ -128,6 +129,7 @@
         class="tiendu-button"
         id="{{ button_id }}"
         href="{{ button_link }}"
+        {% if button_open_in_new_tab %}target="_blank" rel="noopener noreferrer"{% endif %}
     >
         {% if icon_position == 'before' and button_has_icon %}
             <span class="tiendu-button__icon"{% if button_action != 'none' %} data-button-action-icon="default"{% endif %}>
@@ -204,6 +206,12 @@
             "label": "Link"
         },
         {
+            "type": "checkbox",
+            "id": "open_in_new_tab",
+            "label": "Abrir en una nueva tab",
+            "default": false
+        },
+        {
             "type": "select",
             "id": "action",
             "label": "Acción",
@@ -212,6 +220,7 @@
                 { "value": "none", "label": "Ninguna" },
                 { "value": "menu", "label": "Abrir menú" },
                 { "value": "close_menu", "label": "Cerrar menú" },
+                { "value": "close_popup", "label": "Cerrar popup" },
                 { "value": "search", "label": "Abrir buscador" },
                 { "value": "cart", "label": "Abrir carrito" },
                 { "value": "add_to_cart", "label": "Agregar al carrito" },

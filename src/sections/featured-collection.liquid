@@ -164,14 +164,68 @@
                                                     "type": "product",
                                                     "static": true,
                                                     "settings": {
-                                                        "image_ratio": "square",
                                                         "rounding": "none",
-                                                        "show_price": true,
                                                         "css_styles_desktop": "",
                                                         "css_styles_tablet": "",
                                                         "css_styles_mobile": ""
                                                     },
-                                                    "blocks": {}
+                                                    "blocks": {
+                                                        "card_wrap": {
+                                                            "type": "layout",
+                                                            "settings": {
+                                                                "css_styles_desktop": "display: flex; flex-direction: column; gap: 8px;",
+                                                                "css_styles_tablet": "",
+                                                                "css_styles_mobile": ""
+                                                            },
+                                                            "blocks": {
+                                                                "card_image": {
+                                                                    "type": "product__image",
+                                                                    "settings": {
+                                                                        "image_ratio": "square",
+                                                                        "rounding": "none",
+                                                                        "transition_to_second_image": false,
+                                                                        "css_styles_desktop": "",
+                                                                        "css_styles_tablet": "",
+                                                                        "css_styles_mobile": ""
+                                                                    },
+                                                                    "blocks": {}
+                                                                },
+                                                                "card_title": {
+                                                                    "type": "product__title",
+                                                                    "settings": {},
+                                                                    "blocks": {
+                                                                        "default-text": {
+                                                                            "type": "text",
+                                                                            "static": true,
+                                                                            "settings": {
+                                                                                "custom_color": "#000000"
+                                                                            },
+                                                                            "blocks": {}
+                                                                        }
+                                                                    },
+                                                                    "block_order": ["default-text"]
+                                                                },
+                                                                "card_price": {
+                                                                    "type": "product__price",
+                                                                    "settings": {},
+                                                                    "blocks": {
+                                                                        "default-text": {
+                                                                            "type": "text",
+                                                                            "static": true,
+                                                                            "settings": {
+                                                                                "custom_color": "#000000",
+                                                                                "bold": true
+                                                                            },
+                                                                            "blocks": {}
+                                                                        }
+                                                                    },
+                                                                    "block_order": ["default-text"]
+                                                                }
+                                                            },
+                                                            "block_order": ["card_image", "card_title", "card_price"]
+                                                        }
+                                                    },
+                                                    "block_order": ["card_wrap"]
                                                 }
                                             },
                                             "block_order": [

@@ -2,7 +2,8 @@
 {% assign rating = block.settings.rating | default: 5 %}
 {% assign star_color = block.settings.color | default: 'primary' %}
 {% assign star_size = block.settings.size | default: 'md' %}
-{% assign star_count = block.settings.star_count | default: 5 %}
+{% assign star_count = 5 %}
+{% assign fill_percentage = rating | times: 100.0 | divided_by: star_count %}
 
 {% case star_color %}
     {% when 'secondary' %}
@@ -16,21 +17,67 @@
 {% endcase %}
 
 {% case star_size %}
-    {% when 'sm' %}{% assign size_value = '0.875rem' %}
-    {% when 'lg' %}{% assign size_value = '1.5rem' %}
-    {% when 'xl' %}{% assign size_value = '2rem' %}
-    {% else %}{% assign size_value = '1.125rem' %}
+    {% when 'sm' %}
+        {% assign size_value = '0.875rem' %}
+        {% assign icon_size = 14 %}
+    {% when 'lg' %}
+        {% assign size_value = '1.5rem' %}
+        {% assign icon_size = 24 %}
+    {% when 'xl' %}
+        {% assign size_value = '2rem' %}
+        {% assign icon_size = 32 %}
+    {% else %}
+        {% assign size_value = '1.125rem' %}
+        {% assign icon_size = 18 %}
 {% endcase %}
+
+{% capture star_icon %}
+    {% render 'icon-star', size: icon_size, stroke_width: 2 %}
+{% endcapture %}
 
 <style>
     #{{ stars_id }} {
         display: inline-flex;
         align-items: center;
-        gap: 0.125rem;
         color: {{ color_value }};
-        font-size: {{ size_value }};
         line-height: 1;
         {{ block.settings.css_styles_desktop }}
+    }
+
+    #{{ stars_id }} .tiendu-stars__container {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.125rem;
+    }
+
+    #{{ stars_id }} svg {
+        display: block;
+        width: {{ size_value }};
+        height: {{ size_value }};
+        flex: 0 0 auto;
+        fill: currentColor;
+        stroke: currentColor;
+    }
+
+    #{{ stars_id }} .tiendu-stars__background,
+    #{{ stars_id }} .tiendu-stars__fill {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.125rem;
+    }
+
+    #{{ stars_id }} .tiendu-stars__background {
+        color: #d1d5db;
+    }
+
+    #{{ stars_id }} .tiendu-stars__fill {
+        position: absolute;
+        top: 0;
+        left: 0;
+        overflow: hidden;
+        color: inherit;
+        width: {{ fill_percentage }}%;
     }
 
     @media (width <= 64rem) {
@@ -47,13 +94,18 @@
 </style>
 
 <div {{ block.shopify_attributes }} id="{{ stars_id }}" class="tiendu-stars">
-    {% for i in (1..star_count) %}
-        {% if i <= rating %}
-            <span aria-hidden="true">★</span>
-        {% else %}
-            <span aria-hidden="true" style="opacity: 0.3;">★</span>
-        {% endif %}
-    {% endfor %}
+    <div class="tiendu-stars__container">
+        <div class="tiendu-stars__background" aria-hidden="true">
+            {% for i in (1..star_count) %}
+                {{ star_icon }}
+            {% endfor %}
+        </div>
+        <div class="tiendu-stars__fill" aria-hidden="true">
+            {% for i in (1..star_count) %}
+                {{ star_icon }}
+            {% endfor %}
+        </div>
+    </div>
 </div>
 
 {% schema %}
@@ -66,16 +118,7 @@
             "label": "Calificación",
             "min": 0,
             "max": 5,
-            "step": 0.5,
-            "default": 5
-        },
-        {
-            "type": "range",
-            "id": "star_count",
-            "label": "Cantidad de estrellas",
-            "min": 1,
-            "max": 5,
-            "step": 1,
+            "step": 0.1,
             "default": 5
         },
         {

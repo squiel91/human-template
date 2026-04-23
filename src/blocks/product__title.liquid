@@ -3,7 +3,11 @@
 
 {% if product_obj or design_mode or preview_mode %}
     <div {{ block.shopify_attributes }}>
-        {% content_for 'block', id: 'default-text', type: 'text', default_text: fallback_text %}
+        {% if block.blocks and block.blocks.size > 0 %}
+            {% content_for 'block', id: 'default-text', type: 'text', default_text: fallback_text, default_content: fallback_text %}
+        {% else %}
+            <span>{{ fallback_text }}</span>
+        {% endif %}
     </div>
 {% endif %}
 

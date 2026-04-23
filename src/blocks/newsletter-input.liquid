@@ -1,10 +1,14 @@
 {% assign input_id = 'tiendu__newsletter-input-' | append: section.id | append: '-' | append: block.id %}
 {% assign placeholder = block.settings.placeholder | default: 'tu@email.com' %}
+{% assign input_type = block.settings.input_type | default: 'email' %}
 
 <style>
     #{{ input_id }} {
+        display: block;
         flex: 1;
+        width: 100%;
         min-width: 0;
+        box-sizing: border-box;
         padding: 0.75rem 1rem;
         font-size: 1rem;
         border: 1px solid rgba(0, 0, 0, 0.2);
@@ -40,18 +44,33 @@
 <input
     {{ block.shopify_attributes }}
     id="{{ input_id }}"
-    type="email"
-    name="email"
+    type="{{ input_type }}"
+    name="{{ input_type }}"
     placeholder="{{ placeholder }}"
     required
-    aria-label="Email"
+    aria-label="{{ input_type | capitalize }}"
     data-newsletter-email
 >
 
 {% schema %}
 {
-    "name": "Input newsletter",
+    "name": "Input",
     "settings": [
+        {
+            "type": "select",
+            "id": "input_type",
+            "label": "Tipo",
+            "default": "email",
+            "options": [
+                { "value": "text", "label": "Text" },
+                { "value": "email", "label": "Email" },
+                { "value": "password", "label": "Password" },
+                { "value": "tel", "label": "Tel" },
+                { "value": "number", "label": "Number" },
+                { "value": "search", "label": "Search" },
+                { "value": "url", "label": "URL" }
+            ]
+        },
         {
             "type": "text",
             "id": "placeholder",
@@ -88,7 +107,7 @@
     ],
     "presets": [
         {
-            "name": "Input newsletter"
+            "name": "Input"
         }
     ]
 }

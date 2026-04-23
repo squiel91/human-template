@@ -1,0 +1,144 @@
+{% assign height_desktop = block.settings.height_desktop | default: '0rem' %}
+{% assign height_tablet = block.settings.height_tablet | default: height_desktop %}
+{% assign height_mobile = block.settings.height_mobile | default: height_tablet %}
+{% assign autoplay_seconds = block.settings.autoplay_seconds | default: 5 %}
+{% assign block_attributes = block.tiendu_attributes | default: block.shopify_attributes %}
+
+<div
+    class="tiendu-carousel"
+    data-tiendu-carousel
+    data-autoplay-enabled="{% if block.settings.autoplay %}true{% else %}false{% endif %}"
+    data-autoplay-interval="{{ autoplay_seconds | times: 1000 }}"
+    style="--carousel-min-height-mobile: {{ height_mobile }}; --carousel-min-height-tablet: {{ height_tablet }}; --carousel-min-height-desktop: {{ height_desktop }};"
+    {{ block_attributes }}
+>
+    {% if block.blocks and block.blocks.size > 0 %}
+        <div class="tiendu-carousel__viewport" data-role="viewport" data-dragging="false">
+            <div class="tiendu-carousel__track" data-role="track">
+                {% content_for 'blocks' %}
+            </div>
+        </div>
+
+        {% if block.settings.show_arrows or block.settings.show_dots %}
+            <div class="tiendu-carousel__controls" aria-label="Controles del carrusel">
+                {% if block.settings.show_arrows %}
+                    <button class="tiendu-carousel__arrow tiendu-carousel__arrow--prev" type="button" data-role="prev-image" aria-label="Slide anterior"{% if block.blocks.size <= 1 %} hidden{% endif %}>
+                        <span class="tiendu-carousel__arrow-icon tiendu-carousel__arrow-icon--prev">{% render 'icon-arrow-right', size: 16, stroke_width: 2.5 %}</span>
+                    </button>
+                {% endif %}
+
+                {% if block.settings.show_dots %}
+                    <div class="tiendu-carousel__dots" data-role="dots" role="tablist" aria-label="Slides del carrusel"{% if block.blocks.size <= 1 %} hidden{% endif %}>
+                        {% for child_block in block.blocks %}
+                            <button class="tiendu-carousel__dot{% if forloop.first %} is-active{% endif %}" type="button" data-dot-index="{{ forloop.index0 }}" role="tab" aria-label="Ir al slide {{ forloop.index }}" aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"></button>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+
+                {% if block.settings.show_arrows %}
+                    <button class="tiendu-carousel__arrow tiendu-carousel__arrow--next" type="button" data-role="next-image" aria-label="Slide siguiente"{% if block.blocks.size <= 1 %} hidden{% endif %}>
+                        <span class="tiendu-carousel__arrow-icon">{% render 'icon-arrow-right', size: 16, stroke_width: 2.5 %}</span>
+                    </button>
+                {% endif %}
+            </div>
+        {% endif %}
+    {% elsif design_mode or preview_mode %}
+        <div style="padding: 4rem 1rem; text-align: center;">Agrega slides dentro de este carrusel.</div>
+    {% endif %}
+</div>
+
+{% schema %}
+{
+    "name": "Carrusel",
+    "max_blocks": 8,
+    "settings": [
+        {
+            "type": "select",
+            "id": "height_desktop",
+            "label": "Altura desktop",
+            "options": [
+                { "value": "0rem", "label": "Sin altura mínima" },
+                { "value": "20rem", "label": "20rem" },
+                { "value": "24rem", "label": "24rem" },
+                { "value": "28rem", "label": "28rem" },
+                { "value": "32rem", "label": "32rem" },
+                { "value": "36rem", "label": "36rem" },
+                { "value": "40rem", "label": "40rem" },
+                { "value": "44rem", "label": "44rem" }
+            ],
+            "default": "0rem"
+        },
+        {
+            "type": "select",
+            "id": "height_tablet",
+            "label": "Altura tablet",
+            "options": [
+                { "value": "", "label": "Igual a desktop" },
+                { "value": "0rem", "label": "Sin altura mínima" },
+                { "value": "20rem", "label": "20rem" },
+                { "value": "24rem", "label": "24rem" },
+                { "value": "28rem", "label": "28rem" },
+                { "value": "32rem", "label": "32rem" },
+                { "value": "36rem", "label": "36rem" },
+                { "value": "40rem", "label": "40rem" },
+                { "value": "44rem", "label": "44rem" }
+            ],
+            "default": ""
+        },
+        {
+            "type": "select",
+            "id": "height_mobile",
+            "label": "Altura mobile",
+            "options": [
+                { "value": "", "label": "Igual a tablet" },
+                { "value": "0rem", "label": "Sin altura mínima" },
+                { "value": "20rem", "label": "20rem" },
+                { "value": "24rem", "label": "24rem" },
+                { "value": "28rem", "label": "28rem" },
+                { "value": "32rem", "label": "32rem" },
+                { "value": "36rem", "label": "36rem" },
+                { "value": "40rem", "label": "40rem" },
+                { "value": "44rem", "label": "44rem" }
+            ],
+            "default": ""
+        },
+        {
+            "type": "checkbox",
+            "id": "show_arrows",
+            "label": "Mostrar flechas",
+            "default": true
+        },
+        {
+            "type": "checkbox",
+            "id": "show_dots",
+            "label": "Mostrar puntos",
+            "default": true
+        },
+        {
+            "type": "checkbox",
+            "id": "autoplay",
+            "label": "Autoplay",
+            "default": true
+        },
+        {
+            "type": "range",
+            "id": "autoplay_seconds",
+            "label": "Autoplay segundos",
+            "min": 1,
+            "max": 10,
+            "step": 1,
+            "default": 5
+        }
+    ],
+    "blocks": [
+        {
+            "type": "slide"
+        }
+    ],
+    "presets": [
+        {
+            "name": "Carrusel"
+        }
+    ]
+}
+{% endschema %}

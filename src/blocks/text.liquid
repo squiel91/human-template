@@ -7,6 +7,7 @@
 {% assign text_type = block.settings.text_type | default: 'text' %}
 {% assign text_id = text_id | default: generated_text_id %}
 {% assign text_class = text_class | default: '' %}
+{% assign vertical_margin = block.settings.vertical_margin | default: 'none' %}
 
 {% case text_type %}
     {% when 'paragraph' %}
@@ -63,6 +64,9 @@
 
 {% capture text_classes %}
     tiendu-text
+    {% if vertical_margin == 'none' %}
+        tiendu-no-default-margin
+    {% endif %}
     {% if text_size_desktop != 'inherit' %}
         text-{{ text_size_desktop }}
     {% endif %}
@@ -144,6 +148,16 @@
                 { "value": "subtitle", "label": "Subtítulo" },
                 { "value": "heading_4", "label": "H4" },
                 { "value": "heading_5", "label": "H5" }
+            ]
+        },
+        {
+            "type": "select",
+            "id": "vertical_margin",
+            "label": "Margen vertical",
+            "default": "none",
+            "options": [
+                { "value": "none", "label": "Sin espaciado vertical" },
+                { "value": "default", "label": "Margen vertical por defecto" }
             ]
         },
         {

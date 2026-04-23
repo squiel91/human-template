@@ -2,6 +2,11 @@ import Tiendu from 'tiendu-sdk'
 
 const getTiendu = () => Tiendu()
 const COPY_RESET_MS = 1800
+const POPUP_STORAGE_PREFIX = 'tiendu:popup:'
+const SWIPE_PROGRESS_THRESHOLD = 0.25
+const CAROUSEL_AUTOPLAY_INTERVAL = 5000
+
+const clamp = (value, min, max) => Math.max(min, Math.min(max, value))
 
 const setActionButtonLoading = (button, loading) => {
   for (const iconNode of button.querySelectorAll('[data-button-action-icon]')) {
@@ -57,6 +62,47 @@ const setSideMenuOpen = (open) => {
   }, closeDelayMs)
 }
 
+const getPopupStorage = () => {
+  try {
+    return window.localStorage
+  } catch {
+    return null
+  }
+}
+
+const syncPopupBodyState = () => {
+  const hasOpenPopup = document.querySelector('[data-newsletter-popup-root]:not([hidden])')
+  document.body.classList.toggle('tiendu-popup-open', Boolean(hasOpenPopup))
+}
+
+const getPopupStorageKey = (root) => {
+  const configuredKey = String(root?.dataset.popupKey || '').trim()
+  return `${POPUP_STORAGE_PREFIX}${configuredKey || root?.id || 'default'}`
+}
+
+const setPopupOpen = (root, open) => {
+  if (!(root instanceof HTMLElement)) return
+  root.hidden = !open
+  root.setAttribute('aria-hidden', open ? 'false' : 'true')
+  syncPopupBodyState()
+}
+
+const dismissPopup = (root, persist = true) => {
+  if (!(root instanceof HTMLElement)) return
+
+  if (root.__popupTimer) {
+    window.clearTimeout(root.__popupTimer)
+    root.__popupTimer = null
+  }
+
+  if (persist) {
+    const storage = getPopupStorage()
+    storage?.setItem(getPopupStorageKey(root), 'dismissed')
+  }
+
+  setPopupOpen(root, false)
+}
+
 const initSideMenu = () => {
   const root = document.querySelector('[data-side-menu-root]')
   if (!(root instanceof HTMLElement)) return
@@ -82,6 +128,38 @@ const initSideMenu = () => {
   if (root.dataset.keydownBound !== 'true') {
     root.dataset.keydownBound = 'true'
     document.addEventListener('keydown', onKeydown)
+  }
+}
+
+const initNewsletterPopups = () => {
+  const roots = Array.from(document.querySelectorAll('[data-newsletter-popup-root]'))
+
+  for (const root of roots) {
+    if (!(root instanceof HTMLElement)) continue
+    if (root.dataset.popupBound === 'true') continue
+
+    root.dataset.popupBound = 'true'
+
+    const forceOpen = root.dataset.popupForceOpen === 'true'
+    const storage = getPopupStorage()
+    const isDismissed = storage?.getItem(getPopupStorageKey(root)) === 'dismissed'
+    const delaySeconds = Math.max(0, Number(root.dataset.popupDelaySeconds || '0') || 0)
+
+    if (forceOpen) {
+      setPopupOpen(root, true)
+      continue
+    }
+
+    if (isDismissed) {
+      setPopupOpen(root, false)
+      continue
+    }
+
+    setPopupOpen(root, false)
+    root.__popupTimer = window.setTimeout(() => {
+      root.__popupTimer = null
+      setPopupOpen(root, true)
+    }, delaySeconds * 1000)
   }
 }
 
@@ -155,6 +233,277 @@ const initProductGalleries = () => {
 
     setActiveIndex(activeIndex)
     syncButtons()
+  }
+}
+
+const createCarousel = (root) => {
+  const existingCleanup = root.__tienduCarouselCleanup
+  if (typeof existingCleanup === 'function') existingCleanup()
+
+  const viewport = root.querySelector('[data-role="viewport"]')
+  const track = root.querySelector('[data-role="track"]')
+  const dots = root.querySelector('[data-role="dots"]')
+  const prevButton = root.querySelector('[data-role="prev-image"]')
+  const nextButton = root.querySelector('[data-role="next-image"]')
+  const slides = Array.from(track?.querySelectorAll('[data-tiendu-carousel-slide]') || [])
+
+  if (!(viewport instanceof HTMLElement) || !(track instanceof HTMLElement) || slides.length === 0) {
+    return null
+  }
+
+  let currentIndex = 0
+  let autoplayTimer = null
+  let suppressClick = false
+  const drag = {
+    active: false,
+    pointerId: null,
+    startX: 0,
+    offsetX: 0,
+  }
+
+  const parsedAutoplayInterval = Number(root.dataset.autoplayInterval)
+  const autoplayEnabled = root.dataset.autoplayEnabled === 'true'
+  const autoplayInterval = Number.isFinite(parsedAutoplayInterval) && parsedAutoplayInterval > 0
+    ? parsedAutoplayInterval
+    : CAROUSEL_AUTOPLAY_INTERVAL
+
+  const hasMultiple = () => slides.length > 1
+  const maxIndex = Math.max(0, slides.length - 1)
+  const slideWidth = () => viewport.clientWidth || 1
+
+  const stopAutoplay = () => {
+    if (autoplayTimer == null) return
+    window.clearTimeout(autoplayTimer)
+    autoplayTimer = null
+  }
+
+  const queueAutoplay = () => {
+    stopAutoplay()
+    if (!hasMultiple()) return
+    if (!autoplayEnabled) return
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+
+    autoplayTimer = window.setTimeout(() => {
+      autoplayTimer = null
+      next()
+      queueAutoplay()
+    }, autoplayInterval)
+  }
+
+  const updateTrack = ({ animate }) => {
+    const baseTranslate = -currentIndex * slideWidth()
+    const dragOffset = drag.active ? drag.offsetX : 0
+    track.style.transition = animate && !drag.active
+      ? 'transform 320ms cubic-bezier(0.22, 1, 0.36, 1)'
+      : 'none'
+    track.style.transform = `translate3d(${baseTranslate + dragOffset}px, 0, 0)`
+  }
+
+  const syncSlides = () => {
+    for (const [index, slide] of slides.entries()) {
+      slide.setAttribute('aria-hidden', index === currentIndex ? 'false' : 'true')
+    }
+  }
+
+  const syncDots = () => {
+    if (!(dots instanceof HTMLElement)) return
+    for (const button of dots.querySelectorAll('[data-dot-index]')) {
+      const index = Number(button.getAttribute('data-dot-index'))
+      const isActive = index === currentIndex
+      button.classList.toggle('is-active', isActive)
+      button.setAttribute('aria-selected', isActive ? 'true' : 'false')
+    }
+  }
+
+  const syncControls = () => {
+    const multiple = hasMultiple()
+    if (prevButton instanceof HTMLButtonElement) {
+      prevButton.hidden = !multiple
+      prevButton.disabled = !multiple
+    }
+    if (nextButton instanceof HTMLButtonElement) {
+      nextButton.hidden = !multiple
+      nextButton.disabled = !multiple
+    }
+    if (dots instanceof HTMLElement) dots.hidden = !multiple
+  }
+
+  const goTo = (index, { animate = true, force = false } = {}) => {
+    const nextIndex = clamp(index, 0, maxIndex)
+    if (nextIndex === currentIndex && !drag.active && !force) return
+    currentIndex = nextIndex
+    syncSlides()
+    syncDots()
+    syncControls()
+    updateTrack({ animate })
+  }
+
+  const next = () => {
+    if (!hasMultiple()) return
+    goTo(currentIndex === maxIndex ? 0 : currentIndex + 1, {
+      animate: true,
+      force: currentIndex === maxIndex,
+    })
+  }
+
+  const prev = () => {
+    if (!hasMultiple()) return
+    goTo(currentIndex === 0 ? maxIndex : currentIndex - 1, {
+      animate: true,
+      force: currentIndex === 0,
+    })
+  }
+
+  const startAutoplay = () => {
+    queueAutoplay()
+  }
+
+  const resolveReleaseIndex = (offsetX) => {
+    const threshold = Math.max(slideWidth(), 1) * SWIPE_PROGRESS_THRESHOLD
+    if (Math.abs(offsetX) < threshold) return currentIndex
+    if (offsetX < 0) return clamp(currentIndex + 1, 0, maxIndex)
+    if (offsetX > 0) return clamp(currentIndex - 1, 0, maxIndex)
+    return currentIndex
+  }
+
+  const handlePointerDown = (event) => {
+    if (!hasMultiple()) return
+    if (event.button !== undefined && event.button !== 0) return
+
+    const interactiveTarget = event.target instanceof Element
+      ? event.target.closest('a, button, input, select, textarea, summary')
+      : null
+    if (interactiveTarget && viewport.contains(interactiveTarget)) return
+
+    stopAutoplay()
+    drag.active = true
+    drag.pointerId = event.pointerId
+    drag.startX = event.clientX
+    drag.offsetX = 0
+    viewport.setPointerCapture?.(event.pointerId)
+    viewport.dataset.dragging = 'true'
+    updateTrack({ animate: false })
+  }
+
+  const handlePointerMove = (event) => {
+    if (!drag.active) return
+    if (drag.pointerId !== null && event.pointerId !== drag.pointerId) return
+
+    const rawDelta = event.clientX - drag.startX
+    let delta = rawDelta
+    if ((currentIndex === 0 && rawDelta > 0) || (currentIndex === maxIndex && rawDelta < 0)) {
+      delta = rawDelta * 0.35
+    }
+
+    drag.offsetX = delta
+    updateTrack({ animate: false })
+  }
+
+  const handlePointerEnd = (event) => {
+    if (!drag.active) return
+    if (drag.pointerId !== null && event.pointerId !== drag.pointerId) return
+
+    viewport.releasePointerCapture?.(event.pointerId)
+    viewport.dataset.dragging = 'false'
+
+    const moved = Math.abs(drag.offsetX)
+    const nextIndex = resolveReleaseIndex(drag.offsetX)
+    drag.active = false
+    drag.pointerId = null
+    drag.offsetX = 0
+    suppressClick = moved > 6
+
+    goTo(nextIndex, { animate: true, force: true })
+    startAutoplay()
+  }
+
+  const handleViewportClick = (event) => {
+    if (!suppressClick) return
+    event.preventDefault()
+    event.stopPropagation()
+    suppressClick = false
+  }
+
+  const handlePrevClick = () => {
+    prev()
+    startAutoplay()
+  }
+
+  const handleNextClick = () => {
+    next()
+    startAutoplay()
+  }
+
+  const handleDotClick = (event) => {
+    const button = event.target instanceof Element ? event.target.closest('[data-dot-index]') : null
+    if (!(button instanceof HTMLButtonElement)) return
+
+    const index = Number(button.dataset.dotIndex)
+    if (!Number.isFinite(index)) return
+
+    goTo(index, { animate: true })
+    startAutoplay()
+  }
+
+  const handleMouseEnter = () => stopAutoplay()
+  const handleMouseLeave = () => startAutoplay()
+  const handleFocusIn = () => stopAutoplay()
+  const handleFocusOut = (event) => {
+    if (event.relatedTarget instanceof Node && root.contains(event.relatedTarget)) return
+    startAutoplay()
+  }
+  const handleResize = () => updateTrack({ animate: false })
+
+  viewport.addEventListener('pointerdown', handlePointerDown)
+  viewport.addEventListener('pointermove', handlePointerMove)
+  viewport.addEventListener('pointerup', handlePointerEnd)
+  viewport.addEventListener('pointercancel', handlePointerEnd)
+  viewport.addEventListener('click', handleViewportClick)
+  prevButton?.addEventListener('click', handlePrevClick)
+  nextButton?.addEventListener('click', handleNextClick)
+  dots?.addEventListener('click', handleDotClick)
+  root.addEventListener('mouseenter', handleMouseEnter)
+  root.addEventListener('mouseleave', handleMouseLeave)
+  root.addEventListener('focusin', handleFocusIn)
+  root.addEventListener('focusout', handleFocusOut)
+  window.addEventListener('resize', handleResize)
+
+  syncSlides()
+  syncDots()
+  syncControls()
+  updateTrack({ animate: false })
+  startAutoplay()
+
+  const destroy = () => {
+    stopAutoplay()
+    viewport.removeEventListener('pointerdown', handlePointerDown)
+    viewport.removeEventListener('pointermove', handlePointerMove)
+    viewport.removeEventListener('pointerup', handlePointerEnd)
+    viewport.removeEventListener('pointercancel', handlePointerEnd)
+    viewport.removeEventListener('click', handleViewportClick)
+    prevButton?.removeEventListener('click', handlePrevClick)
+    nextButton?.removeEventListener('click', handleNextClick)
+    dots?.removeEventListener('click', handleDotClick)
+    root.removeEventListener('mouseenter', handleMouseEnter)
+    root.removeEventListener('mouseleave', handleMouseLeave)
+    root.removeEventListener('focusin', handleFocusIn)
+    root.removeEventListener('focusout', handleFocusOut)
+    window.removeEventListener('resize', handleResize)
+    delete root.__tienduCarouselCleanup
+  }
+
+  root.__tienduCarouselCleanup = destroy
+  return { destroy }
+}
+
+const initCarousels = (scope = document) => {
+  const root = scope instanceof HTMLElement ? scope : document.documentElement
+  const carousels = root.matches('[data-tiendu-carousel]')
+    ? [root]
+    : Array.from(root.querySelectorAll('[data-tiendu-carousel]'))
+
+  for (const carousel of carousels) {
+    createCarousel(carousel)
   }
 }
 
@@ -630,6 +979,13 @@ const bindButtonAction = (button) => {
         setSideMenuOpen(false)
       }
 
+      if (action === 'close_popup') {
+        const popupRoot = button.closest('[data-newsletter-popup-root]')
+        if (popupRoot instanceof HTMLElement) {
+          dismissPopup(popupRoot)
+        }
+      }
+
       if (action === 'search') {
         await tiendu.search.open({ query: button.dataset.searchQuery || '' })
       }
@@ -721,6 +1077,11 @@ const initNewsletterForms = () => {
         await tiendu.subscribers.add(email)
         window.alert('¡Te mandamos un email! Ahora solo te falta tocar el botón de ese email para confirmar tu subscripción.')
         emailInput.value = ''
+
+        const popupRoot = form.closest('[data-newsletter-popup-root]')
+        if (popupRoot instanceof HTMLElement) {
+          dismissPopup(popupRoot)
+        }
       } catch {
         window.alert('No se pudo completar la suscripción. Intentá de nuevo más tarde.')
       } finally {
@@ -746,6 +1107,8 @@ const initButtonActions = () => {
   initProductShareButtons()
   initStickyHeaders()
   initNewsletterForms()
+  initNewsletterPopups()
+  initCarousels()
 
   if (buttons.some((button) => button.dataset.buttonAction === 'cart')) {
     void syncCartQuantity()

@@ -1,16 +1,5 @@
-{% assign product_card_id = 'tiendu__product-' | append: section.id | append: '-' | append: block.id %}
 {% assign product_object = closest.product | default: product %}
-{% if product_object != blank %}
-    {% assign product_card_id = product_card_id | append: '-' | append: product_object.id %}
-{% endif %}
-{% assign product_image = product_object.coverImage %}
-{% assign secondary_product_image = blank %}
-{% if product_object.images and product_object.images.size > 1 %}
-    {% assign secondary_product_image = product_object.images[1] %}
-{% endif %}
-{% assign product_title = product_object.title | default: 'Producto' %}
 {% assign product_url = product_object.url | default: '#' %}
-{% assign placeholder_image = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 400'%3E%3Crect width='400' height='400' fill='%23e5e7eb'/%3E%3Cpath d='M120 280l55-70 45 55 35-45 65 60H120z' fill='%239ca3af'/%3E%3Ccircle cx='155' cy='145' r='28' fill='%239ca3af'/%3E%3C/svg%3E" %}
 
 {% case block.settings.rounding %}
     {% when 'none' %}
@@ -31,136 +20,30 @@
         {% assign product_border_radius = '9999px' %}
 {% endcase %}
 
-{% case block.settings.image_ratio %}
-    {% when 'portrait' %}
-        {% assign product_aspect_ratio = '3 / 4' %}
-    {% when 'landscape' %}
-        {% assign product_aspect_ratio = '4 / 3' %}
-    {% when 'wide' %}
-        {% assign product_aspect_ratio = '16 / 9' %}
-    {% else %}
-        {% assign product_aspect_ratio = '1 / 1' %}
-{% endcase %}
-
-{% assign product_price_in_cents = product_object.basePriceInCents %}
-{% if product_price_in_cents != blank %}
-    {% assign product_price_major = product_price_in_cents | divided_by: 100.0 %}
-{% endif %}
-
-<style>
-    #{{ product_card_id }} {
+<a
+    {{ block.shopify_attributes }}
+    href="{{ product_url }}"
+    style="
         display: flex;
         flex-direction: column;
-        gap: 12px;
+        gap: 8px;
         text-decoration: none;
         color: inherit;
+        border-radius: {{ product_border_radius }};
         {{ block.settings.css_styles_desktop }}
-    }
-
-    #{{ product_card_id }} .tiendu-product__image {
-        display: block;
-        width: 100%;
-        height: 100%;
-        aspect-ratio: {{ product_aspect_ratio }};
-        object-fit: cover;
-        border-radius: {{ product_border_radius }};
-        background-color: #f3f4f6;
-    }
-
-    #{{ product_card_id }} .tiendu-product__image-wrap {
-        position: relative;
-        overflow: hidden;
-        border-radius: {{ product_border_radius }};
-        background-color: #f3f4f6;
-        aspect-ratio: {{ product_aspect_ratio }};
-    }
-
-    #{{ product_card_id }} .tiendu-product__image--secondary {
-        position: absolute;
-        inset: 0;
-        opacity: 0;
-        transition: opacity 0.24s ease;
-    }
-
-    {% if block.settings.transition_to_second_image and secondary_product_image != blank %}
-        #{{ product_card_id }}:hover .tiendu-product__image--secondary,
-        #{{ product_card_id }}:focus-visible .tiendu-product__image--secondary {
-            opacity: 1;
-        }
+    "
+>
+    {% if block.blocks and block.blocks.size > 0 %}
+        {% content_for 'blocks' %}
+    {% elsif design_mode or preview_mode %}
+        <div>Agrega bloques al producto (título, precio, etc.).</div>
     {% endif %}
-
-    #{{ product_card_id }} .tiendu-product__content {
-        display: flex;
-        flex-direction: column;
-        gap: 4px;
-    }
-
-    #{{ product_card_id }} .tiendu-product__title {
-        font-size: 1rem;
-        line-height: 1.4;
-        color: inherit;
-    }
-
-    #{{ product_card_id }} .tiendu-product__price {
-        font-size: 0.875rem;
-        line-height: 1.25rem;
-        opacity: 0.8;
-    }
-
-    @media (width <= 64rem) {
-        #{{ product_card_id }} {
-            {{ block.settings.css_styles_tablet }}
-        }
-    }
-
-    @media (width <= 48rem) {
-        #{{ product_card_id }} {
-            {{ block.settings.css_styles_mobile }}
-        }
-    }
-</style>
-
-<a {{ block.shopify_attributes }} id="{{ product_card_id }}" href="{{ product_url }}">
-    <div class="tiendu-product__image-wrap">
-        <img
-            class="tiendu-product__image"
-            src="{{ product_image.url | default: placeholder_image }}"
-            alt="{{ product_image.alt | default: product_title | escape }}"
-        >
-        {% if block.settings.transition_to_second_image and secondary_product_image != blank %}
-            <img
-                class="tiendu-product__image tiendu-product__image--secondary"
-                src="{{ secondary_product_image.url | default: placeholder_image }}"
-                alt="{{ secondary_product_image.alt | default: product_title | escape }}"
-                aria-hidden="true"
-            >
-        {% endif %}
-    </div>
-
-    <div class="tiendu-product__content">
-        <span class="tiendu-product__title">{{ product_title }}</span>
-        {% if block.settings.show_price and product_price_in_cents != blank %}
-            <span class="tiendu-product__price">{{ store.currency.symbol }}{{ product_price_major }}</span>
-        {% endif %}
-    </div>
 </a>
 
 {% schema %}
 {
     "name": "Producto",
     "settings": [
-        {
-            "type": "select",
-            "id": "image_ratio",
-            "label": "Ratio",
-            "default": "square",
-            "options": [
-                { "value": "square", "label": "Cuadrada (1:1)" },
-                { "value": "portrait", "label": "Vertical (3:4)" },
-                { "value": "landscape", "label": "Horizontal (4:3)" },
-                { "value": "wide", "label": "Panorámica (16:9)" }
-            ]
-        },
         {
             "type": "select",
             "id": "rounding",
@@ -178,27 +61,13 @@
             ]
         },
         {
-            "type": "checkbox",
-            "id": "show_price",
-            "label": "Mostrar precio",
-            "default": true
-        },
-        {
-            "type": "checkbox",
-            "id": "transition_to_second_image",
-            "label": "Transicionar a segunda imagen",
-            "info": "Al pasar el ratón/cursor sobre el item.",
-            "default": false
-        },
-        {
             "type": "header",
             "content": "Desktop"
         },
         {
             "type": "textarea",
             "id": "css_styles_desktop",
-            "label": "Estilos CSS",
-            "info": "Los estilos serán heradados para el resto de los tamaños, a menos que se sobre-escriban."
+            "label": "Estilos CSS"
         },
         {
             "type": "header",
@@ -207,8 +76,7 @@
         {
             "type": "textarea",
             "id": "css_styles_tablet",
-            "label": "Estilos CSS",
-            "info": "Los estilos serán heradados para teléfonos, a menos que se sobre-escriban."
+            "label": "Estilos CSS"
         },
         {
             "type": "header",
@@ -217,8 +85,12 @@
         {
             "type": "textarea",
             "id": "css_styles_mobile",
-            "label": "Estilos CSS",
-            "info": "Se aplican unicamente al formato teléfono."
+            "label": "Estilos CSS"
+        }
+    ],
+    "blocks": [
+        {
+            "type": "@theme"
         }
     ],
     "presets": [
