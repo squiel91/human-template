@@ -280,15 +280,27 @@
                                 "card_image": {
                                   "type": "product__image",
                                   "settings": {
-                                    "image_ratio": "square",
-                                    "rounding": "none",
                                     "transition_to_second_image": false,
                                     "css_styles_desktop": "",
                                     "css_styles_tablet": "",
                                     "css_styles_mobile": ""
                                   },
                                   "static": false,
-                                  "blocks": {}
+                                  "blocks": {
+                                    "default-image": {
+                                      "type": "image",
+                                      "settings": {
+                                        "size": "full",
+                                        "image_ratio": "product_default",
+                                        "rounding": "none",
+                                        "alt": ""
+                                      },
+                                      "static": true
+                                    }
+                                  },
+                                  "block_order": [
+                                    "default-image"
+                                  ]
                                 },
                                 "card_title": {
                                   "type": "product__title",

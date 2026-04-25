@@ -67,7 +67,9 @@
 {
     "name": "Popup newsletter",
     "enabled_on": {
-        "groups": ["footer"]
+        "groups": [
+            "footer"
+        ]
     },
     "max_blocks": 1,
     "settings": [
@@ -112,7 +114,6 @@
                             "settings": {
                                 "text": "NEWSLETTER",
                                 "size_desktop": "sm",
-                                "color": "custom",
                                 "custom_color": "#f9fafb",
                                 "css_styles_desktop": "letter-spacing: 0.12em; text-transform: uppercase;"
                             }
@@ -124,7 +125,6 @@
                                 "text_type": "section_title",
                                 "bold": true,
                                 "size_desktop": "3xl",
-                                "color": "custom",
                                 "custom_color": "#ffffff",
                                 "css_styles_desktop": "max-width: 12ch; text-shadow: 0 10px 24px rgba(0, 0, 0, 0.3);"
                             }
@@ -134,7 +134,6 @@
                             "settings": {
                                 "text": "Dejanos tu email y te mandamos el descuento para tu próximo pedido.",
                                 "text_type": "paragraph",
-                                "color": "custom",
                                 "custom_color": "#f3f4f6",
                                 "css_styles_desktop": "max-width: 32ch; line-height: 1.5; text-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);"
                             }
@@ -151,6 +150,7 @@
                                         "email_input": {
                                             "type": "newsletter-input",
                                             "settings": {
+                                                "rounding": "theme",
                                                 "placeholder": "Ingresá tu email",
                                                 "css_styles_desktop": "width: 100%;"
                                             }
@@ -160,8 +160,7 @@
                                             "settings": {
                                                 "text": "Suscribirme",
                                                 "action": "submit",
-                                                "variant": "primary",
-                                                "rounding": "md",
+                                                "rounding": "theme",
                                                 "css_styles_desktop": "width: 100%; justify-content: center;"
                                             }
                                         }
@@ -182,7 +181,7 @@
                                 "text": "No gracias, prefiero pagar el precio completo",
                                 "action": "close_popup",
                                 "variant": "secondary",
-                                "rounding": "md",
+                                "rounding": "theme",
                                 "css_styles_desktop": "width: 100%; justify-content: center; color: white; border-color: rgba(255, 255, 255, 0.4); background: rgba(255, 255, 255, 0.08); backdrop-filter: blur(4px);"
                             }
                         }

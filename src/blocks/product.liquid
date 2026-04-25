@@ -1,7 +1,11 @@
 {% assign product_object = closest.product | default: product %}
 {% assign product_url = product_object.url | default: '#' %}
 
-{% case block.settings.rounding %}
+{% assign product_rounding = block.settings.rounding | default: 'theme' %}
+
+{% case product_rounding %}
+    {% when 'theme' %}
+        {% assign product_border_radius = 'var(--product-image-border-radius, 0)' %}
     {% when 'none' %}
         {% assign product_border_radius = '0' %}
     {% when 'sm' %}
@@ -48,16 +52,44 @@
             "type": "select",
             "id": "rounding",
             "label": "Redondeado",
-            "default": "none",
+            "default": "theme",
             "options": [
-                { "value": "none", "label": "None" },
-                { "value": "sm", "label": "Sm" },
-                { "value": "md", "label": "Md" },
-                { "value": "lg", "label": "Lg" },
-                { "value": "xl", "label": "Xl" },
-                { "value": "2xl", "label": "2xl" },
-                { "value": "3xl", "label": "3xl" },
-                { "value": "full", "label": "Full" }
+                {
+                    "value": "theme",
+                    "label": "Defecto del tema"
+                },
+                {
+                    "value": "none",
+                    "label": "None"
+                },
+                {
+                    "value": "sm",
+                    "label": "Sm"
+                },
+                {
+                    "value": "md",
+                    "label": "Md"
+                },
+                {
+                    "value": "lg",
+                    "label": "Lg"
+                },
+                {
+                    "value": "xl",
+                    "label": "Xl"
+                },
+                {
+                    "value": "2xl",
+                    "label": "2xl"
+                },
+                {
+                    "value": "3xl",
+                    "label": "3xl"
+                },
+                {
+                    "value": "full",
+                    "label": "Full"
+                }
             ]
         },
         {

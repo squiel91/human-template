@@ -1,5 +1,13 @@
 {% assign product_obj = closest.product | default: product %}
 {% assign price_label = blank %}
+{% assign price_text_id = 'product-price' %}
+
+{% if closest.product != blank or request.page_type != 'product' %}
+    {% assign price_text_id = 'product-price-' | append: section.id | append: '-' | append: block.id %}
+    {% if product_obj.id != blank %}
+        {% assign price_text_id = price_text_id | append: '-' | append: product_obj.id %}
+    {% endif %}
+{% endif %}
 
 {% if product_page and product_page.price and product_page.price.price_in_cents != blank %}
     {% capture price_label %}{% if product_page.price.price_is_from %}Desde {% endif %}{{ product_page.price.price_in_cents | money }}{% endcapture %}
@@ -20,7 +28,9 @@
     {% if min_price != blank %}
         {% capture price_label %}{% if max_price != blank and max_price > min_price %}Desde {% endif %}{{ min_price | money }}{% endcapture %}
     {% endif %}
-{% elsif product_obj and product_obj.basePriceInCents != blank %}
+{% endif %}
+
+{% if price_label == blank and product_obj and product_obj.basePriceInCents != blank %}
     {% capture price_label %}{{ product_obj.basePriceInCents | money }}{% endcapture %}
 {% endif %}
 
@@ -28,10 +38,16 @@
 
 {% if price_label != blank or design_mode or preview_mode %}
     <div data-product-price-wrap {{ block.shopify_attributes }}{% if price_label == blank %} hidden{% endif %}>
-        {% if block.blocks and block.blocks.size > 0 %}
-            {% content_for 'block', id: 'default-text', type: 'text', default_content: fallback_text, text_id: 'product-price' %}
+        {% if block.children and block.children.size > 0 %}
+            {% for child_block in block.children %}
+                {% assign child_price_text_id = price_text_id %}
+                {% if child_block.id != 'default-text' %}
+                    {% assign child_price_text_id = price_text_id | append: '-' | append: child_block.id %}
+                {% endif %}
+                {% content_for 'block', id: child_block.id, type: child_block.type, default_content: fallback_text, text_id: child_price_text_id %}
+            {% endfor %}
         {% else %}
-            <span id="product-price" style="font-size: 1.5rem; font-weight: 700;">{{ fallback_text }}</span>
+            <span id="{{ price_text_id }}" style="font-size: 1.5rem; font-weight: 700;">{{ fallback_text }}</span>
         {% endif %}
     </div>
 {% endif %}
@@ -53,22 +69,10 @@
                     "type": "text",
                     "static": true,
                     "settings": {
-                        "text": "",
-                        "text_type": "text",
-                        "color": "custom",
                         "custom_color": "#000000",
                         "bold": true,
-                        "italic": false,
-                        "underline": false,
-                        "line_through": false,
-                        "size_desktop": "2xl",
-                        "size_tablet": "",
-                        "size_mobile": "",
-                        "css_styles_desktop": "",
-                        "css_styles_tablet": "",
-                        "css_styles_mobile": ""
-                    },
-                    "blocks": {}
+                        "size_desktop": "2xl"
+                    }
                 }
             },
             "block_order": [

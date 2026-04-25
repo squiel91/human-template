@@ -47,6 +47,78 @@
         ]
     },
     {
+        "name": "Redondeado",
+        "settings": [
+            {
+                "type": "select",
+                "id": "button_input_rounding",
+                "label": "Botones e inputs",
+                "default": "md",
+                "options": [
+                    { "value": "none", "label": "None" },
+                    { "value": "sm", "label": "Sm" },
+                    { "value": "md", "label": "Md" },
+                    { "value": "lg", "label": "Lg" },
+                    { "value": "xl", "label": "Xl" },
+                    { "value": "2xl", "label": "2xl" },
+                    { "value": "3xl", "label": "3xl" },
+                    { "value": "full", "label": "Full" }
+                ]
+            },
+            {
+                "type": "select",
+                "id": "product_image_rounding",
+                "label": "Imágenes de producto",
+                "default": "none",
+                "options": [
+                    { "value": "none", "label": "None" },
+                    { "value": "sm", "label": "Sm" },
+                    { "value": "md", "label": "Md" },
+                    { "value": "lg", "label": "Lg" },
+                    { "value": "xl", "label": "Xl" },
+                    { "value": "2xl", "label": "2xl" },
+                    { "value": "3xl", "label": "3xl" },
+                    { "value": "full", "label": "Full" }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "Imágenes",
+        "settings": [
+            {
+                "type": "select",
+                "id": "product_image_ratio",
+                "label": "Proporción de imágen de los productos",
+                "info": "Se usa cuando una imagen tiene seleccionada la opción Por defecto del producto.",
+                "default": "square",
+                "options": [
+                    { "value": "proportional", "label": "Proporción de la imagen" },
+                    { "value": "square", "label": "Cuadrada (1:1)" },
+                    { "value": "portrait", "label": "Vertical (3:4)" },
+                    { "value": "landscape", "label": "Horizontal (4:3)" },
+                    { "value": "wide", "label": "Panorámica (16:9)" },
+                    { "value": "ultrawide", "label": "Ultrawide (21:9)" }
+                ]
+            },
+            {
+                "type": "select",
+                "id": "collection_image_ratio",
+                "label": "Proporción de imágen de las categoría",
+                "info": "Se usa cuando una imagen tiene seleccionada la opción Por defecto de la categoría.",
+                "default": "square",
+                "options": [
+                    { "value": "proportional", "label": "Proporción de la imagen" },
+                    { "value": "square", "label": "Cuadrada (1:1)" },
+                    { "value": "portrait", "label": "Vertical (3:4)" },
+                    { "value": "landscape", "label": "Horizontal (4:3)" },
+                    { "value": "wide", "label": "Panorámica (16:9)" },
+                    { "value": "ultrawide", "label": "Ultrawide (21:9)" }
+                ]
+            }
+        ]
+    },
+    {
         "name": "Tipografía",
         "settings": [
             {

@@ -10,7 +10,9 @@
 {
     "name": "Descripción del producto",
     "enabled_on": {
-        "templates": ["product"]
+        "templates": [
+            "product"
+        ]
     },
     "max_blocks": 1,
     "settings": [],
@@ -26,29 +28,13 @@
                 "layout_outer": {
                     "type": "layout",
                     "settings": {
-                        "image_desktop": "",
-                        "background_color_desktop": "",
-                        "css_styles_desktop": "padding: 0 8px;",
-                        "image_tablet": "",
-                        "background_color_tablet": "",
-                        "css_styles_tablet": "",
-                        "image_mobile": "",
-                        "background_color_mobile": "",
-                        "css_styles_mobile": ""
+                        "css_styles_desktop": "padding: 0 var(--container-horizontal-padding, 8px);"
                     },
                     "blocks": {
                         "layout_inner": {
                             "type": "layout",
                             "settings": {
-                                "image_desktop": "",
-                                "background_color_desktop": "",
-                                "css_styles_desktop": "max-width: 1024px; margin: 0 auto; display: flex; flex-direction: column; gap: 20px;",
-                                "image_tablet": "",
-                                "background_color_tablet": "",
-                                "css_styles_tablet": "",
-                                "image_mobile": "",
-                                "background_color_mobile": "",
-                                "css_styles_mobile": ""
+                                "css_styles_desktop": "max-width: var(--container-max-width, 1024px); margin: 0 auto; display: flex; flex-direction: column; gap: 20px;"
                             },
                             "blocks": {
                                 "title": {
@@ -56,24 +42,13 @@
                                     "settings": {
                                         "text": "Descripción",
                                         "text_type": "section_title",
-                                        "color": "custom",
                                         "custom_color": "#000000",
                                         "bold": true,
-                                        "italic": false,
-                                        "underline": false,
-                                        "line_through": false,
-                                        "size_desktop": "2xl",
-                                        "size_tablet": "",
-                                        "size_mobile": "",
-                                        "css_styles_desktop": "",
-                                        "css_styles_tablet": "",
-                                        "css_styles_mobile": ""
-                                    },
-                                    "blocks": {}
+                                        "size_desktop": "2xl"
+                                    }
                                 },
                                 "description": {
-                                    "type": "product__description",
-                                    "settings": {}
+                                    "type": "product__description"
                                 }
                             },
                             "block_order": [

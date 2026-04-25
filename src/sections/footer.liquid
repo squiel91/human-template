@@ -17,57 +17,29 @@
                 "layout_outer": {
                     "type": "layout",
                     "settings": {
-                        "image_desktop": "",
-                        "background_color_desktop": "",
-                        "css_styles_desktop": "padding: 0 8px;",
-                        "image_tablet": "",
-                        "background_color_tablet": "",
-                        "css_styles_tablet": "",
-                        "image_mobile": "",
-                        "background_color_mobile": "",
-                        "css_styles_mobile": ""
+                        "css_styles_desktop": "padding: 0 var(--container-horizontal-padding, 8px);"
                     },
                     "blocks": {
                         "layout_inner": {
                             "type": "layout",
                             "settings": {
-                                "image_desktop": "",
-                                "background_color_desktop": "",
-                                "css_styles_desktop": "max-width: 1024px;\nmargin: 0 auto;\ndisplay: flex;\nflex-direction: column;\ngap: 48px;\npadding: 64px 0 32px;",
-                                "image_tablet": "",
-                                "background_color_tablet": "",
+                                "css_styles_desktop": "max-width: var(--container-max-width, 1024px);\nmargin: 0 auto;\ndisplay: flex;\nflex-direction: column;\ngap: 48px;\npadding: 64px 0 32px;",
                                 "css_styles_tablet": "gap: 32px;\npadding: 48px 0 24px;",
-                                "image_mobile": "",
-                                "background_color_mobile": "",
                                 "css_styles_mobile": "gap: 24px;\npadding: 40px 0 24px;"
                             },
                             "blocks": {
                                 "layout_columns": {
                                     "type": "layout",
                                     "settings": {
-                                        "image_desktop": "",
-                                        "background_color_desktop": "",
                                         "css_styles_desktop": "display: grid;\ngrid-template-columns: repeat(3, minmax(0, 1fr));\ngap: 40px;",
-                                        "image_tablet": "",
-                                        "background_color_tablet": "",
                                         "css_styles_tablet": "gap: 24px;",
-                                        "image_mobile": "",
-                                        "background_color_mobile": "",
                                         "css_styles_mobile": "grid-template-columns: 1fr;\ngap: 32px;"
                                     },
                                     "blocks": {
                                         "layout_business": {
                                             "type": "layout",
                                             "settings": {
-                                                "image_desktop": "",
-                                                "background_color_desktop": "",
-                                                "css_styles_desktop": "display: flex;\nflex-direction: column;\ngap: 12px;",
-                                                "image_tablet": "",
-                                                "background_color_tablet": "",
-                                                "css_styles_tablet": "",
-                                                "image_mobile": "",
-                                                "background_color_mobile": "",
-                                                "css_styles_mobile": ""
+                                                "css_styles_desktop": "display: flex;\nflex-direction: column;\ngap: 12px;"
                                             },
                                             "blocks": {
                                                 "text_business_title": {
@@ -75,40 +47,18 @@
                                                     "settings": {
                                                         "text": "Tu negocio",
                                                         "text_type": "subtitle",
-                                                        "color": "custom",
-                                                        "custom_color": "",
                                                         "bold": true,
-                                                        "italic": false,
-                                                        "underline": false,
-                                                        "line_through": false,
-                                                        "size_desktop": "xl",
-                                                        "size_tablet": "",
-                                                        "size_mobile": "",
-                                                        "css_styles_desktop": "",
-                                                        "css_styles_tablet": "",
-                                                        "css_styles_mobile": ""
-                                                    },
-                                                    "blocks": {}
+                                                        "size_desktop": "xl"
+                                                    }
                                                 },
                                                 "text_business_body": {
                                                     "type": "text",
                                                     "settings": {
                                                         "text": "Una selección cuidada de productos, promociones y novedades para que tu tienda se vea clara y actual.",
                                                         "text_type": "paragraph",
-                                                        "color": "custom",
-                                                        "custom_color": "",
-                                                        "bold": false,
-                                                        "italic": false,
-                                                        "underline": false,
-                                                        "line_through": false,
                                                         "size_desktop": "base",
-                                                        "size_tablet": "",
-                                                        "size_mobile": "",
-                                                        "css_styles_desktop": "max-width: 32ch;\nopacity: 0.8;",
-                                                        "css_styles_tablet": "",
-                                                        "css_styles_mobile": ""
-                                                    },
-                                                    "blocks": {}
+                                                        "css_styles_desktop": "max-width: 32ch;\nopacity: 0.8;"
+                                                    }
                                                 }
                                             },
                                             "block_order": [
@@ -119,15 +69,7 @@
                                         "layout_collections": {
                                             "type": "layout",
                                             "settings": {
-                                                "image_desktop": "",
-                                                "background_color_desktop": "",
-                                                "css_styles_desktop": "display: flex;\nflex-direction: column;\ngap: 10px;",
-                                                "image_tablet": "",
-                                                "background_color_tablet": "",
-                                                "css_styles_tablet": "",
-                                                "image_mobile": "",
-                                                "background_color_mobile": "",
-                                                "css_styles_mobile": ""
+                                                "css_styles_desktop": "display: flex;\nflex-direction: column;\ngap: 10px;"
                                             },
                                             "blocks": {
                                                 "text_collections_title": {
@@ -135,49 +77,26 @@
                                                     "settings": {
                                                         "text": "Colecciones",
                                                         "text_type": "subtitle",
-                                                        "color": "custom",
-                                                        "custom_color": "",
                                                         "bold": true,
-                                                        "italic": false,
-                                                        "underline": false,
-                                                        "line_through": false,
                                                         "size_desktop": "lg",
-                                                        "size_tablet": "",
-                                                        "size_mobile": "",
-                                                        "css_styles_desktop": "margin-bottom: 6px;",
-                                                        "css_styles_tablet": "",
-                                                        "css_styles_mobile": ""
-                                                    },
-                                                    "blocks": {}
+                                                        "css_styles_desktop": "margin-bottom: 6px;"
+                                                    }
                                                 },
                                                 "link_collection_one": {
                                                     "type": "link",
                                                     "settings": {
-                                                        "url": "",
-                                                        "css_styles_desktop": "",
-                                                        "css_styles_tablet": "",
-                                                        "css_styles_mobile": ""
+                                                        "url": ""
                                                     },
                                                     "blocks": {
                                                         "text": {
                                                             "type": "text",
                                                             "settings": {
                                                                 "text": "Verano",
-                                                                "text_type": "text",
                                                                 "color": "primary",
-                                                                "custom_color": "",
-                                                                "bold": false,
                                                                 "italic": true,
-                                                                "underline": false,
-                                                                "line_through": false,
                                                                 "size_desktop": "base",
-                                                                "size_tablet": "",
-                                                                "size_mobile": "",
-                                                                "css_styles_desktop": "opacity: 0.8;",
-                                                                "css_styles_tablet": "",
-                                                                "css_styles_mobile": ""
-                                                            },
-                                                            "blocks": {}
+                                                                "css_styles_desktop": "opacity: 0.8;"
+                                                            }
                                                         }
                                                     },
                                                     "block_order": [
@@ -187,31 +106,18 @@
                                                 "link_collection_two": {
                                                     "type": "link",
                                                     "settings": {
-                                                        "url": "",
-                                                        "css_styles_desktop": "",
-                                                        "css_styles_tablet": "",
-                                                        "css_styles_mobile": ""
+                                                        "url": ""
                                                     },
                                                     "blocks": {
                                                         "text": {
                                                             "type": "text",
                                                             "settings": {
                                                                 "text": "Nuevos ingresos",
-                                                                "text_type": "text",
                                                                 "color": "primary",
-                                                                "custom_color": "",
-                                                                "bold": false,
                                                                 "italic": true,
-                                                                "underline": false,
-                                                                "line_through": false,
                                                                 "size_desktop": "base",
-                                                                "size_tablet": "",
-                                                                "size_mobile": "",
-                                                                "css_styles_desktop": "opacity: 0.8;",
-                                                                "css_styles_tablet": "",
-                                                                "css_styles_mobile": ""
-                                                            },
-                                                            "blocks": {}
+                                                                "css_styles_desktop": "opacity: 0.8;"
+                                                            }
                                                         }
                                                     },
                                                     "block_order": [
@@ -221,31 +127,18 @@
                                                 "link_collection_three": {
                                                     "type": "link",
                                                     "settings": {
-                                                        "url": "",
-                                                        "css_styles_desktop": "",
-                                                        "css_styles_tablet": "",
-                                                        "css_styles_mobile": ""
+                                                        "url": ""
                                                     },
                                                     "blocks": {
                                                         "text": {
                                                             "type": "text",
                                                             "settings": {
                                                                 "text": "Favoritos",
-                                                                "text_type": "text",
                                                                 "color": "primary",
-                                                                "custom_color": "",
-                                                                "bold": false,
                                                                 "italic": true,
-                                                                "underline": false,
-                                                                "line_through": false,
                                                                 "size_desktop": "base",
-                                                                "size_tablet": "",
-                                                                "size_mobile": "",
-                                                                "css_styles_desktop": "opacity: 0.8;",
-                                                                "css_styles_tablet": "",
-                                                                "css_styles_mobile": ""
-                                                            },
-                                                            "blocks": {}
+                                                                "css_styles_desktop": "opacity: 0.8;"
+                                                            }
                                                         }
                                                     },
                                                     "block_order": [
@@ -263,15 +156,7 @@
                                         "layout_info": {
                                             "type": "layout",
                                             "settings": {
-                                                "image_desktop": "",
-                                                "background_color_desktop": "",
-                                                "css_styles_desktop": "display: flex;\nflex-direction: column;\ngap: 10px;",
-                                                "image_tablet": "",
-                                                "background_color_tablet": "",
-                                                "css_styles_tablet": "",
-                                                "image_mobile": "",
-                                                "background_color_mobile": "",
-                                                "css_styles_mobile": ""
+                                                "css_styles_desktop": "display: flex;\nflex-direction: column;\ngap: 10px;"
                                             },
                                             "blocks": {
                                                 "text_info_title": {
@@ -279,49 +164,26 @@
                                                     "settings": {
                                                         "text": "+ Información",
                                                         "text_type": "subtitle",
-                                                        "color": "custom",
-                                                        "custom_color": "",
                                                         "bold": true,
-                                                        "italic": false,
-                                                        "underline": false,
-                                                        "line_through": false,
                                                         "size_desktop": "lg",
-                                                        "size_tablet": "",
-                                                        "size_mobile": "",
-                                                        "css_styles_desktop": "margin-bottom: 6px;",
-                                                        "css_styles_tablet": "",
-                                                        "css_styles_mobile": ""
-                                                    },
-                                                    "blocks": {}
+                                                        "css_styles_desktop": "margin-bottom: 6px;"
+                                                    }
                                                 },
                                                 "link_info_one": {
                                                     "type": "link",
                                                     "settings": {
-                                                        "url": "",
-                                                        "css_styles_desktop": "",
-                                                        "css_styles_tablet": "",
-                                                        "css_styles_mobile": ""
+                                                        "url": ""
                                                     },
                                                     "blocks": {
                                                         "text": {
                                                             "type": "text",
                                                             "settings": {
                                                                 "text": "Sobre nosotros",
-                                                                "text_type": "text",
                                                                 "color": "primary",
-                                                                "custom_color": "",
-                                                                "bold": false,
                                                                 "italic": true,
-                                                                "underline": false,
-                                                                "line_through": false,
                                                                 "size_desktop": "base",
-                                                                "size_tablet": "",
-                                                                "size_mobile": "",
-                                                                "css_styles_desktop": "opacity: 0.8;",
-                                                                "css_styles_tablet": "",
-                                                                "css_styles_mobile": ""
-                                                            },
-                                                            "blocks": {}
+                                                                "css_styles_desktop": "opacity: 0.8;"
+                                                            }
                                                         }
                                                     },
                                                     "block_order": [
@@ -331,31 +193,18 @@
                                                 "link_info_two": {
                                                     "type": "link",
                                                     "settings": {
-                                                        "url": "",
-                                                        "css_styles_desktop": "",
-                                                        "css_styles_tablet": "",
-                                                        "css_styles_mobile": ""
+                                                        "url": ""
                                                     },
                                                     "blocks": {
                                                         "text": {
                                                             "type": "text",
                                                             "settings": {
                                                                 "text": "Envios y cambios",
-                                                                "text_type": "text",
                                                                 "color": "primary",
-                                                                "custom_color": "",
-                                                                "bold": false,
                                                                 "italic": true,
-                                                                "underline": false,
-                                                                "line_through": false,
                                                                 "size_desktop": "base",
-                                                                "size_tablet": "",
-                                                                "size_mobile": "",
-                                                                "css_styles_desktop": "opacity: 0.8;",
-                                                                "css_styles_tablet": "",
-                                                                "css_styles_mobile": ""
-                                                            },
-                                                            "blocks": {}
+                                                                "css_styles_desktop": "opacity: 0.8;"
+                                                            }
                                                         }
                                                     },
                                                     "block_order": [
@@ -365,31 +214,18 @@
                                                 "link_info_three": {
                                                     "type": "link",
                                                     "settings": {
-                                                        "url": "",
-                                                        "css_styles_desktop": "",
-                                                        "css_styles_tablet": "",
-                                                        "css_styles_mobile": ""
+                                                        "url": ""
                                                     },
                                                     "blocks": {
                                                         "text": {
                                                             "type": "text",
                                                             "settings": {
                                                                 "text": "Contacto",
-                                                                "text_type": "text",
                                                                 "color": "primary",
-                                                                "custom_color": "",
-                                                                "bold": false,
                                                                 "italic": true,
-                                                                "underline": false,
-                                                                "line_through": false,
                                                                 "size_desktop": "base",
-                                                                "size_tablet": "",
-                                                                "size_mobile": "",
-                                                                "css_styles_desktop": "opacity: 0.8;",
-                                                                "css_styles_tablet": "",
-                                                                "css_styles_mobile": ""
-                                                            },
-                                                            "blocks": {}
+                                                                "css_styles_desktop": "opacity: 0.8;"
+                                                            }
                                                         }
                                                     },
                                                     "block_order": [
@@ -414,22 +250,11 @@
                                 "text_legal": {
                                     "type": "text",
                                     "settings": {
-                                        "text": "\u00ae 2026 Todos los derechos registrados.",
+                                        "text": "® 2026 Todos los derechos registrados.",
                                         "text_type": "paragraph",
-                                        "color": "custom",
-                                        "custom_color": "",
-                                        "bold": false,
-                                        "italic": false,
-                                        "underline": false,
-                                        "line_through": false,
                                         "size_desktop": "sm",
-                                        "size_tablet": "",
-                                        "size_mobile": "",
-                                        "css_styles_desktop": "opacity: 0.7;",
-                                        "css_styles_tablet": "",
-                                        "css_styles_mobile": ""
-                                    },
-                                    "blocks": {}
+                                        "css_styles_desktop": "opacity: 0.7;"
+                                    }
                                 }
                             },
                             "block_order": [

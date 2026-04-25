@@ -26,13 +26,13 @@
                     "type": "layout",
                     "settings": {
                         "background_color_desktop": "#f5efe8",
-                        "css_styles_desktop": "display: flex; align-items: flex-end; min-height: inherit; padding: 0 8px;"
+                        "css_styles_desktop": "display: flex; align-items: flex-end; min-height: inherit; padding: 0 var(--container-horizontal-padding, 8px);"
                     },
                     "blocks": {
                         "inner": {
                             "type": "layout",
                             "settings": {
-                                "css_styles_desktop": "display: flex; flex-direction: column; justify-content: flex-end; align-items: flex-start; gap: 16px; min-height: inherit; width: 100%; max-width: 1024px; margin: 0 auto; padding: 48px 0;",
+                                "css_styles_desktop": "display: flex; flex-direction: column; justify-content: flex-end; align-items: flex-start; gap: 16px; min-height: inherit; width: 100%; max-width: var(--container-max-width, 1024px); margin: 0 auto; padding: 48px 0;",
                                 "css_styles_tablet": "padding: 40px 0;",
                                 "css_styles_mobile": "padding: 32px 0;"
                             },
@@ -59,8 +59,7 @@
                                     "type": "button",
                                     "settings": {
                                         "text": "Ver más",
-                                        "variant": "primary",
-                                        "rounding": "md",
+                                        "rounding": "theme",
                                         "link": "/productos"
                                     }
                                 }

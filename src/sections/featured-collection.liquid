@@ -41,69 +41,36 @@
                 "layout_outer": {
                     "type": "layout",
                     "settings": {
-                        "image_desktop": "",
-                        "background_color_desktop": "",
-                        "css_styles_desktop": "padding: 0 8px;",
-                        "image_tablet": "",
-                        "background_color_tablet": "",
-                        "css_styles_tablet": "",
-                        "image_mobile": "",
-                        "background_color_mobile": "",
-                        "css_styles_mobile": ""
+                        "css_styles_desktop": "padding: 0 var(--container-horizontal-padding, 8px);"
                     },
                     "blocks": {
                         "layout_inner": {
                             "type": "layout",
                             "settings": {
-                                "image_desktop": "",
-                                "background_color_desktop": "",
-                                "css_styles_desktop": "max-width: 1024px; margin: 0 auto; display: flex; flex-direction: column; gap: 32px;",
-                                "image_tablet": "",
-                                "background_color_tablet": "",
+                                "css_styles_desktop": "max-width: var(--container-max-width, 1024px); margin: 0 auto; display: flex; flex-direction: column; gap: 32px;",
                                 "css_styles_tablet": "gap: 24px;",
-                                "image_mobile": "",
-                                "background_color_mobile": "",
                                 "css_styles_mobile": "gap: 20px;"
                             },
                             "blocks": {
                                 "layout_header": {
                                     "type": "layout",
                                     "settings": {
-                                        "image_desktop": "",
-                                        "background_color_desktop": "",
                                         "css_styles_desktop": "display: flex; align-items: center; justify-content: space-between; gap: 16px;",
-                                        "image_tablet": "",
-                                        "background_color_tablet": "",
-                                        "css_styles_tablet": "",
-                                        "image_mobile": "",
-                                        "background_color_mobile": "",
                                         "css_styles_mobile": "flex-direction: column; align-items: flex-start;"
                                     },
                                     "blocks": {
                                         "title": {
                                             "type": "_text-for-featured-collection",
-                                            "settings": {},
                                             "blocks": {
                                                 "default-text": {
                                                     "type": "text",
                                                     "static": true,
                                                     "settings": {
-                                                        "text": "",
                                                         "text_type": "section_title",
-                                                        "color": "custom",
                                                         "custom_color": "#000000",
                                                         "bold": true,
-                                                        "italic": false,
-                                                        "underline": false,
-                                                        "line_through": false,
-                                                        "size_desktop": "2xl",
-                                                        "size_tablet": "",
-                                                        "size_mobile": "",
-                                                        "css_styles_desktop": "",
-                                                        "css_styles_tablet": "",
-                                                        "css_styles_mobile": ""
-                                                    },
-                                                    "blocks": {}
+                                                        "size_desktop": "2xl"
+                                                    }
                                                 }
                                             },
                                             "block_order": [
@@ -112,24 +79,15 @@
                                         },
                                         "cta": {
                                             "type": "_button-for-featured-collection",
-                                            "settings": {},
                                             "blocks": {
                                                 "default-button": {
                                                     "type": "button",
                                                     "static": true,
                                                     "settings": {
                                                         "text": "Ver más",
-                                                        "link": "",
-                                                        "icon_position": "after",
-                                                        "color": "primary",
-                                                        "size": "md",
                                                         "variant": "secondary",
-                                                        "rounding": "none",
-                                                        "css_styles_desktop": "",
-                                                        "css_styles_tablet": "",
-                                                        "css_styles_mobile": ""
-                                                    },
-                                                    "blocks": {}
+                                                        "rounding": "theme"
+                                                    }
                                                 }
                                             },
                                             "block_order": [
@@ -145,87 +103,114 @@
                                 "layout_grid": {
                                     "type": "layout",
                                     "settings": {
-                                        "image_desktop": "",
-                                        "background_color_desktop": "",
                                         "css_styles_desktop": "display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px;",
-                                        "image_tablet": "",
-                                        "background_color_tablet": "",
                                         "css_styles_tablet": "grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px;",
-                                        "image_mobile": "",
-                                        "background_color_mobile": "",
                                         "css_styles_mobile": "grid-template-columns: 1fr; gap: 16px;"
                                     },
                                     "blocks": {
                                         "products": {
                                             "type": "collection-products",
-                                            "settings": {},
                                             "blocks": {
                                                 "product_card": {
                                                     "type": "product",
                                                     "static": true,
-                                                    "settings": {
-                                                        "rounding": "none",
-                                                        "css_styles_desktop": "",
-                                                        "css_styles_tablet": "",
-                                                        "css_styles_mobile": ""
-                                                    },
                                                     "blocks": {
                                                         "card_wrap": {
                                                             "type": "layout",
                                                             "settings": {
-                                                                "css_styles_desktop": "display: flex; flex-direction: column; gap: 8px;",
-                                                                "css_styles_tablet": "",
-                                                                "css_styles_mobile": ""
+                                                                "css_styles_desktop": "display: flex; flex-direction: column; gap: 8px;"
                                                             },
                                                             "blocks": {
                                                                 "card_image": {
                                                                     "type": "product__image",
                                                                     "settings": {
-                                                                        "image_ratio": "square",
-                                                                        "rounding": "none",
-                                                                        "transition_to_second_image": false,
-                                                                        "css_styles_desktop": "",
-                                                                        "css_styles_tablet": "",
-                                                                        "css_styles_mobile": ""
+                                                                        "transition_to_second_image": false
                                                                     },
-                                                                    "blocks": {}
+                                                                    "blocks": {
+                                                                        "default-image": {
+                                                                            "type": "image",
+                                                                            "static": true,
+                                                                            "settings": {
+                                                                                "size": "full",
+                                                                                "image_ratio": "product_default",
+                                                                                "rounding": "theme"
+                                                                            }
+                                                                        }
+                                                                    },
+                                                                    "block_order": [
+                                                                        "default-image"
+                                                                    ]
                                                                 },
                                                                 "card_title": {
                                                                     "type": "product__title",
-                                                                    "settings": {},
                                                                     "blocks": {
                                                                         "default-text": {
                                                                             "type": "text",
                                                                             "static": true,
                                                                             "settings": {
                                                                                 "custom_color": "#000000"
-                                                                            },
-                                                                            "blocks": {}
+                                                                            }
                                                                         }
                                                                     },
-                                                                    "block_order": ["default-text"]
+                                                                    "block_order": [
+                                                                        "default-text"
+                                                                    ]
                                                                 },
-                                                                "card_price": {
-                                                                    "type": "product__price",
-                                                                    "settings": {},
+                                                                "card_pricing": {
+                                                                    "type": "layout",
+                                                                    "settings": {
+                                                                        "css_styles_desktop": "display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap;"
+                                                                    },
                                                                     "blocks": {
-                                                                        "default-text": {
-                                                                            "type": "text",
-                                                                            "static": true,
-                                                                            "settings": {
-                                                                                "custom_color": "#000000",
-                                                                                "bold": true
+                                                                        "card_price": {
+                                                                            "type": "product__price",
+                                                                            "blocks": {
+                                                                                "default-text": {
+                                                                                    "type": "text",
+                                                                                    "static": true,
+                                                                                    "settings": {
+                                                                                        "custom_color": "#000000",
+                                                                                        "bold": true
+                                                                                    }
+                                                                                }
                                                                             },
-                                                                            "blocks": {}
+                                                                            "block_order": [
+                                                                                "default-text"
+                                                                            ]
+                                                                        },
+                                                                        "card_compare_price": {
+                                                                            "type": "product__compare-price",
+                                                                            "blocks": {
+                                                                                "default-text": {
+                                                                                    "type": "text",
+                                                                                    "static": true,
+                                                                                    "settings": {
+                                                                                        "custom_color": "#94a3b8",
+                                                                                        "line_through": true
+                                                                                    }
+                                                                                }
+                                                                            },
+                                                                            "block_order": [
+                                                                                "default-text"
+                                                                            ]
                                                                         }
                                                                     },
-                                                                    "block_order": ["default-text"]
+                                                                    "block_order": [
+                                                                        "card_price",
+                                                                        "card_compare_price"
+                                                                    ]
                                                                 }
                                                             },
-                                                            "block_order": ["card_image", "card_title", "card_price"]
+                                                            "block_order": [
+                                                                "card_image",
+                                                                "card_title",
+                                                                "card_pricing"
+                                                            ]
                                                         }
                                                     },
-                                                    "block_order": ["card_wrap"]
+                                                    "block_order": [
+                                                        "card_wrap"
+                                                    ]
                                                 }
                                             },
                                             "block_order": [

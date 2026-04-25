@@ -14,6 +14,20 @@
 {% elsif primary_image != blank %}
     {% assign first_image = primary_image %}
 {% endif %}
+{% assign gallery_image_ratio = settings.product_image_ratio | default: 'square' %}
+
+{% case gallery_image_ratio %}
+    {% when 'portrait' %}
+        {% assign gallery_aspect_ratio = '3 / 4' %}
+    {% when 'landscape' %}
+        {% assign gallery_aspect_ratio = '4 / 3' %}
+    {% when 'wide' %}
+        {% assign gallery_aspect_ratio = '16 / 9' %}
+    {% when 'ultrawide' %}
+        {% assign gallery_aspect_ratio = '21 / 9' %}
+    {% else %}
+        {% assign gallery_aspect_ratio = '1 / 1' %}
+{% endcase %}
 
 <style>
     #{{ gallery_id }} {
@@ -26,14 +40,23 @@
         position: relative;
         overflow: hidden;
         background: #f3f4f6;
-        aspect-ratio: 1 / 1;
+        {% if gallery_image_ratio == 'proportional' %}
+            height: auto;
+        {% else %}
+            aspect-ratio: {{ gallery_aspect_ratio }};
+        {% endif %}
     }
 
     #{{ gallery_id }} .tiendu-product-gallery__main-image {
         display: block;
         width: 100%;
-        height: 100%;
-        object-fit: cover;
+        {% if gallery_image_ratio == 'proportional' %}
+            height: auto;
+            object-fit: contain;
+        {% else %}
+            height: 100%;
+            object-fit: cover;
+        {% endif %}
     }
 
     #{{ gallery_id }} .tiendu-product-gallery__nav {
@@ -76,7 +99,11 @@
 
     #{{ gallery_id }} .tiendu-product-gallery__thumb {
         width: 72px;
-        height: 72px;
+        {% if gallery_image_ratio == 'proportional' %}
+            height: auto;
+        {% else %}
+            aspect-ratio: {{ gallery_aspect_ratio }};
+        {% endif %}
         padding: 0;
         border: 1px solid transparent;
         background: #ffffff;
@@ -91,14 +118,18 @@
     #{{ gallery_id }} .tiendu-product-gallery__thumb img {
         display: block;
         width: 100%;
-        height: 100%;
-        object-fit: cover;
+        {% if gallery_image_ratio == 'proportional' %}
+            height: auto;
+            object-fit: contain;
+        {% else %}
+            height: 100%;
+            object-fit: cover;
+        {% endif %}
     }
 
     @media (width <= 48rem) {
         #{{ gallery_id }} .tiendu-product-gallery__thumb {
             width: 56px;
-            height: 56px;
         }
     }
 </style>

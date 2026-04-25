@@ -140,6 +140,44 @@
         {% assign heading_font = settings.type_heading_font | default: body_font %}
         {% assign heading_font_bold = heading_font | font_modify: 'weight', 'bold' | default: heading_font %}
         {% assign heading_font_italic = heading_font | font_modify: 'style', 'italic' %}
+        {% assign button_input_rounding = settings.button_input_rounding | default: 'md' %}
+        {% assign product_image_rounding = settings.product_image_rounding | default: 'none' %}
+        {% case button_input_rounding %}
+            {% when 'sm' %}
+                {% assign button_input_border_radius = '0.125rem' %}
+            {% when 'md' %}
+                {% assign button_input_border_radius = '0.375rem' %}
+            {% when 'lg' %}
+                {% assign button_input_border_radius = '0.5rem' %}
+            {% when 'xl' %}
+                {% assign button_input_border_radius = '0.75rem' %}
+            {% when '2xl' %}
+                {% assign button_input_border_radius = '1rem' %}
+            {% when '3xl' %}
+                {% assign button_input_border_radius = '1.5rem' %}
+            {% when 'full' %}
+                {% assign button_input_border_radius = '9999px' %}
+            {% else %}
+                {% assign button_input_border_radius = '0' %}
+        {% endcase %}
+        {% case product_image_rounding %}
+            {% when 'sm' %}
+                {% assign product_image_border_radius = '0.125rem' %}
+            {% when 'md' %}
+                {% assign product_image_border_radius = '0.375rem' %}
+            {% when 'lg' %}
+                {% assign product_image_border_radius = '0.5rem' %}
+            {% when 'xl' %}
+                {% assign product_image_border_radius = '0.75rem' %}
+            {% when '2xl' %}
+                {% assign product_image_border_radius = '1rem' %}
+            {% when '3xl' %}
+                {% assign product_image_border_radius = '1.5rem' %}
+            {% when 'full' %}
+                {% assign product_image_border_radius = '9999px' %}
+            {% else %}
+                {% assign product_image_border_radius = '0' %}
+        {% endcase %}
         {{ 'styles.css' | asset_url | stylesheet_tag }}
         <script type="importmap">
             {
@@ -176,6 +214,10 @@
                 --color-secondary: {{ settings.secondary_color | default: '#00FF00' }};
                 --color-accent: {{ settings.accent_color | default: '#FF0000' }};
                 --color-background: {{ settings.background_color | default: '#EFEFEF' }};
+                --container-max-width: {{ settings.max_width | default: '1024px' }};
+                --container-horizontal-padding: {{ settings.horizontal_padding | default: '8px' }};
+                --button-input-border-radius: {{ button_input_border_radius }};
+                --product-image-border-radius: {{ product_image_border_radius }};
             }
 
             body {

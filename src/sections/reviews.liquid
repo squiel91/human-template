@@ -23,13 +23,13 @@
                 "layout_outer": {
                     "type": "layout",
                     "settings": {
-                        "css_styles_desktop": "padding: 0 8px;"
+                        "css_styles_desktop": "padding: 0 var(--container-horizontal-padding, 8px);"
                     },
                     "blocks": {
                         "layout_inner": {
                             "type": "layout",
                             "settings": {
-                                "css_styles_desktop": "max-width: 1024px; margin: 0 auto; display: flex; flex-direction: column; gap: 40px;",
+                                "css_styles_desktop": "max-width: var(--container-max-width, 1024px); margin: 0 auto; display: flex; flex-direction: column; gap: 40px;",
                                 "css_styles_tablet": "gap: 32px;",
                                 "css_styles_mobile": "gap: 24px;"
                             },
@@ -51,7 +51,6 @@
                                                     "type": "text",
                                                     "settings": {
                                                         "text": "OPINIONES",
-                                                        "color": "custom",
                                                         "custom_color": "#666666",
                                                         "size_desktop": "sm",
                                                         "css_styles_desktop": "letter-spacing: 0.1em; text-transform: uppercase;"
@@ -62,7 +61,6 @@
                                                     "settings": {
                                                         "text": "Lo que dicen nuestros clientes.",
                                                         "text_type": "section_title",
-                                                        "color": "custom",
                                                         "custom_color": "#000000",
                                                         "bold": true,
                                                         "size_desktop": "4xl"
@@ -98,7 +96,6 @@
                                                             "type": "text",
                                                             "settings": {
                                                                 "text": "4.9 / 5",
-                                                                "color": "custom",
                                                                 "custom_color": "#000000",
                                                                 "bold": true
                                                             }
@@ -113,7 +110,6 @@
                                                     "type": "text",
                                                     "settings": {
                                                         "text": "Sobre 3.400 reseñas",
-                                                        "color": "custom",
                                                         "custom_color": "#666666",
                                                         "size_desktop": "sm"
                                                     }

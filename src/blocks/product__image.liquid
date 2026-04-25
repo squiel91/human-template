@@ -5,67 +5,23 @@
 {% if product_obj.images and product_obj.images.size > 1 %}
     {% assign secondary_image = product_obj.images[1] %}
 {% endif %}
-{% assign placeholder_image = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 400'%3E%3Crect width='400' height='400' fill='%23e5e7eb'/%3E%3Cpath d='M120 280l55-70 45 55 35-45 65 60H120z' fill='%239ca3af'/%3E%3Ccircle cx='155' cy='145' r='28' fill='%239ca3af'/%3E%3C/svg%3E" %}
-
-{% case block.settings.image_ratio %}
-    {% when 'portrait' %}
-        {% assign aspect_ratio = '3 / 4' %}
-    {% when 'landscape' %}
-        {% assign aspect_ratio = '4 / 3' %}
-    {% when 'wide' %}
-        {% assign aspect_ratio = '16 / 9' %}
-    {% else %}
-        {% assign aspect_ratio = '1 / 1' %}
-{% endcase %}
-
-{% case block.settings.rounding %}
-    {% when 'sm' %}
-        {% assign border_radius = '0.125rem' %}
-    {% when 'md' %}
-        {% assign border_radius = '0.375rem' %}
-    {% when 'lg' %}
-        {% assign border_radius = '0.5rem' %}
-    {% when 'xl' %}
-        {% assign border_radius = '0.75rem' %}
-    {% when '2xl' %}
-        {% assign border_radius = '1rem' %}
-    {% when '3xl' %}
-        {% assign border_radius = '1.5rem' %}
-    {% when 'full' %}
-        {% assign border_radius = '9999px' %}
-    {% else %}
-        {% assign border_radius = '0' %}
-{% endcase %}
+{% assign fallback_alt = product_obj.title | default: 'Imagen del producto' %}
+{% assign child_blocks = block.children | default: block.blocks %}
+{% assign secondary_image_url = secondary_image.url | default: secondary_image %}
+{% assign transition_to_second_image = false %}
+{% if block.settings.transition_to_second_image == true or block.settings.transition_to_second_image == 'true' %}
+    {% assign transition_to_second_image = true %}
+{% endif %}
+{% assign product_hover_image = blank %}
+{% if transition_to_second_image and secondary_image_url != blank %}
+    {% assign product_hover_image = secondary_image %}
+{% endif %}
 
 <style>
     #{{ image_id }} {
-        position: relative;
-        overflow: hidden;
-        aspect-ratio: {{ aspect_ratio }};
-        border-radius: {{ border_radius }};
-        background-color: #f3f4f6;
+        display: block;
         {{ block.settings.css_styles_desktop }}
     }
-
-    #{{ image_id }} .tiendu-product-image__img {
-        display: block;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
-
-    #{{ image_id }} .tiendu-product-image__img--secondary {
-        position: absolute;
-        inset: 0;
-        opacity: 0;
-        transition: opacity 0.24s ease;
-    }
-
-    {% if block.settings.transition_to_second_image and secondary_image != blank %}
-        #{{ image_id }}:hover .tiendu-product-image__img--secondary {
-            opacity: 1;
-        }
-    {% endif %}
 
     @media (width <= 64rem) {
         #{{ image_id }} {
@@ -81,21 +37,23 @@
 </style>
 
 {% if product_obj or design_mode or preview_mode %}
-    <div {{ block.shopify_attributes }} id="{{ image_id }}">
-        <img
-            class="tiendu-product-image__img"
-            src="{{ primary_image.url | default: placeholder_image }}"
-            alt="{{ primary_image.alt | default: product_obj.title | escape }}"
-            loading="lazy"
-        >
-        {% if block.settings.transition_to_second_image and secondary_image != blank %}
-            <img
-                class="tiendu-product-image__img tiendu-product-image__img--secondary"
-                src="{{ secondary_image.url }}"
-                alt="{{ secondary_image.alt | default: product_obj.title | escape }}"
-                aria-hidden="true"
-                loading="lazy"
-            >
+    <div {{ block.shopify_attributes }} id="{{ image_id }}" class="tiendu-product-image">
+        {% if child_blocks and child_blocks.size > 0 %}
+            {% for child_block in child_blocks %}
+                {% if forloop.index == 1 %}
+                    {% if product_hover_image != blank %}
+                        {% content_for 'block', id: child_block.id, type: child_block.type, default_image: primary_image, default_alt: fallback_alt, hover_image: product_hover_image %}
+                    {% else %}
+                        {% content_for 'block', id: child_block.id, type: child_block.type, default_image: primary_image, default_alt: fallback_alt %}
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
+        {% else %}
+            {% if product_hover_image != blank %}
+                {% content_for 'block', id: 'default-image', type: 'image', default_image: primary_image, default_alt: fallback_alt, hover_image: product_hover_image %}
+            {% else %}
+                {% content_for 'block', id: 'default-image', type: 'image', default_image: primary_image, default_alt: fallback_alt %}
+            {% endif %}
         {% endif %}
     </div>
 {% endif %}
@@ -103,51 +61,69 @@
 {% schema %}
 {
     "name": "product: Imagen",
+    "max_blocks": 1,
     "settings": [
-        {
-            "type": "select",
-            "id": "image_ratio",
-            "label": "Ratio",
-            "default": "square",
-            "options": [
-                { "value": "square", "label": "Cuadrada (1:1)" },
-                { "value": "portrait", "label": "Vertical (3:4)" },
-                { "value": "landscape", "label": "Horizontal (4:3)" },
-                { "value": "wide", "label": "Panorámica (16:9)" }
-            ]
-        },
-        {
-            "type": "select",
-            "id": "rounding",
-            "label": "Redondeado",
-            "default": "none",
-            "options": [
-                { "value": "none", "label": "None" },
-                { "value": "sm", "label": "Sm" },
-                { "value": "md", "label": "Md" },
-                { "value": "lg", "label": "Lg" },
-                { "value": "xl", "label": "Xl" },
-                { "value": "2xl", "label": "2xl" },
-                { "value": "3xl", "label": "3xl" },
-                { "value": "full", "label": "Full" }
-            ]
-        },
         {
             "type": "checkbox",
             "id": "transition_to_second_image",
             "label": "Transicionar a segunda imagen",
-            "info": "Al pasar el ratón sobre la tarjeta.",
+            "info": "Al pasar el ratón sobre la imagen, si el producto tiene una segunda imagen.",
             "default": false
         },
-        { "type": "header", "content": "Desktop" },
-        { "type": "textarea", "id": "css_styles_desktop", "label": "Estilos CSS" },
-        { "type": "header", "content": "Tablet" },
-        { "type": "textarea", "id": "css_styles_tablet", "label": "Estilos CSS" },
-        { "type": "header", "content": "Mobile" },
-        { "type": "textarea", "id": "css_styles_mobile", "label": "Estilos CSS" }
+        {
+            "type": "header",
+            "content": "Desktop"
+        },
+        {
+            "type": "textarea",
+            "id": "css_styles_desktop",
+            "label": "Estilos CSS"
+        },
+        {
+            "type": "header",
+            "content": "Tablet"
+        },
+        {
+            "type": "textarea",
+            "id": "css_styles_tablet",
+            "label": "Estilos CSS"
+        },
+        {
+            "type": "header",
+            "content": "Mobile"
+        },
+        {
+            "type": "textarea",
+            "id": "css_styles_mobile",
+            "label": "Estilos CSS"
+        }
+    ],
+    "blocks": [
+        {
+            "type": "image"
+        }
     ],
     "presets": [
-        { "name": "product: Imagen" }
+        {
+            "name": "product: Imagen",
+            "settings": {
+                "transition_to_second_image": false
+            },
+            "blocks": {
+                "default-image": {
+                    "type": "image",
+                    "static": true,
+                    "settings": {
+                        "size": "full",
+                        "image_ratio": "product_default",
+                        "rounding": "theme"
+                    }
+                }
+            },
+            "block_order": [
+                "default-image"
+            ]
+        }
     ]
 }
 {% endschema %}
