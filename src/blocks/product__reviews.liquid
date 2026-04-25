@@ -1,0 +1,49 @@
+{% assign product_obj = closest.product | default: product %}
+{% assign average_rating = product_obj.averageRating %}
+{% assign child_blocks = block.children | default: block.blocks %}
+{% assign rating_value = average_rating | default: 0 %}
+{% assign can_render_reviews = false %}
+{% if product_obj != blank or design_mode or preview_mode %}
+    {% assign can_render_reviews = true %}
+{% endif %}
+
+{% if can_render_reviews %}
+    <div {{ block.shopify_attributes }}>
+        {% if child_blocks and child_blocks.size > 0 %}
+            {% for child_block in child_blocks %}
+                {% content_for 'block', id: child_block.id, type: child_block.type, default_rating: rating_value %}
+            {% endfor %}
+        {% else %}
+            {% content_for 'block', id: 'default-stars', type: 'stars', default_rating: rating_value %}
+        {% endif %}
+    </div>
+{% endif %}
+
+{% schema %}
+{
+    "name": "product: Reviews",
+    "max_blocks": 1,
+    "blocks": [
+        {
+            "type": "stars"
+        }
+    ],
+    "presets": [
+        {
+            "name": "product: Reviews",
+            "blocks": {
+                "default-stars": {
+                    "type": "stars",
+                    "static": true,
+                    "settings": {
+                        "show_value_and_quantity": true
+                    }
+                }
+            },
+            "block_order": [
+                "default-stars"
+            ]
+        }
+    ]
+}
+{% endschema %}

@@ -104,6 +104,21 @@
                                                                         "default-text"
                                                                     ]
                                                                 },
+                                                                "card_reviews": {
+                                                                    "type": "product__reviews",
+                                                                    "blocks": {
+                                                                        "default-stars": {
+                                                                            "type": "stars",
+                                                                            "static": true,
+                                                                            "settings": {
+                                                                                "show_value_and_quantity": true
+                                                                            }
+                                                                        }
+                                                                    },
+                                                                    "block_order": [
+                                                                        "default-stars"
+                                                                    ]
+                                                                },
                                                                 "card_pricing": {
                                                                     "type": "layout",
                                                                     "settings": {
@@ -151,6 +166,7 @@
                                                             "block_order": [
                                                                 "card_image",
                                                                 "card_title",
+                                                                "card_reviews",
                                                                 "card_pricing"
                                                             ]
                                                         }

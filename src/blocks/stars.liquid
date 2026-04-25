@@ -1,9 +1,18 @@
 {% assign stars_id = 'tiendu__stars-' | append: section.id | append: '-' | append: block.id %}
-{% assign rating = block.settings.rating | default: 5 %}
+{% assign rating = default_rating %}
+{% if rating == blank %}
+    {% assign rating = block.settings.rating | default: 5 %}
+{% endif %}
+{% assign reviews_quantity = default_reviews_quantity | default: 0 %}
 {% assign star_color = block.settings.color | default: 'primary' %}
 {% assign star_size = block.settings.size | default: 'md' %}
+{% assign show_value_and_quantity = false %}
+{% if block.settings.show_value_and_quantity == true or block.settings.show_value_and_quantity == 'true' %}
+    {% assign show_value_and_quantity = true %}
+{% endif %}
 {% assign star_count = 5 %}
 {% assign fill_percentage = rating | times: 100.0 | divided_by: star_count %}
+{% assign rating_label = rating | round: 1 %}
 
 {% case star_color %}
     {% when 'secondary' %}
@@ -39,7 +48,7 @@
     #{{ stars_id }} {
         display: inline-flex;
         align-items: center;
-        color: {{ color_value }};
+        gap: 0.5rem;
         line-height: 1;
         {{ block.settings.css_styles_desktop }}
     }
@@ -49,6 +58,7 @@
         display: inline-flex;
         align-items: center;
         gap: 0.125rem;
+        color: {{ color_value }};
     }
 
     #{{ stars_id }} svg {
@@ -80,6 +90,14 @@
         width: {{ fill_percentage }}%;
     }
 
+    #{{ stars_id }} .tiendu-stars__value {
+        display: inline-flex;
+        align-items: center;
+        font-size: 0.875rem;
+        text-align: center;
+        white-space: nowrap;
+    }
+
     @media (width <= 64rem) {
         #{{ stars_id }} {
             {{ block.settings.css_styles_tablet }}
@@ -106,6 +124,9 @@
             {% endfor %}
         </div>
     </div>
+    {% if show_value_and_quantity %}
+        <span class="tiendu-stars__value">{{ rating_label }} ({{ reviews_quantity }})</span>
+    {% endif %}
 </div>
 
 {% schema %}
@@ -173,6 +194,12 @@
                     "label": "Xl"
                 }
             ]
+        },
+        {
+            "type": "checkbox",
+            "id": "show_value_and_quantity",
+            "label": "Show value and quantity",
+            "default": false
         },
         {
             "type": "header",

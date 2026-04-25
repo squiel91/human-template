@@ -326,9 +326,91 @@
                                     }
                                   },
                                   "block_order": ["default-text"]
+                                },
+                                "card_reviews": {
+                                  "type": "product__reviews",
+                                  "settings": {},
+                                  "static": false,
+                                  "blocks": {
+                                    "default-stars": {
+                                      "type": "stars",
+                                      "static": true,
+                                      "settings": {
+                                        "show_value_and_quantity": true
+                                      }
+                                    }
+                                  },
+                                  "block_order": ["default-stars"]
+                                },
+                                "card_pricing": {
+                                  "type": "layout",
+                                  "settings": {
+                                    "css_styles_desktop": "display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap;",
+                                    "css_styles_tablet": "",
+                                    "css_styles_mobile": ""
+                                  },
+                                  "static": false,
+                                  "blocks": {
+                                    "card_price": {
+                                      "type": "product__price",
+                                      "settings": {},
+                                      "static": false,
+                                      "blocks": {
+                                        "default-text": {
+                                          "type": "text",
+                                          "static": true,
+                                          "settings": {
+                                            "text": "",
+                                            "text_type": "paragraph",
+                                            "color": "custom",
+                                            "bold": true,
+                                            "italic": false,
+                                            "underline": false,
+                                            "line_through": false,
+                                            "size_desktop": "inherit",
+                                            "size_tablet": "",
+                                            "size_mobile": "",
+                                            "css_styles_desktop": "",
+                                            "css_styles_tablet": "",
+                                            "css_styles_mobile": ""
+                                          }
+                                        }
+                                      },
+                                      "block_order": ["default-text"]
+                                    },
+                                    "card_compare_price": {
+                                      "type": "product__compare-price",
+                                      "settings": {},
+                                      "static": false,
+                                      "blocks": {
+                                        "default-text": {
+                                          "type": "text",
+                                          "settings": {
+                                            "text": "",
+                                            "text_type": "paragraph",
+                                            "color": "custom",
+                                            "bold": false,
+                                            "italic": false,
+                                            "underline": false,
+                                            "line_through": true,
+                                            "size_desktop": "inherit",
+                                            "size_tablet": "",
+                                            "size_mobile": "",
+                                            "custom_color": "#94a3b8",
+                                            "css_styles_desktop": "",
+                                            "css_styles_tablet": "",
+                                            "css_styles_mobile": ""
+                                          },
+                                          "static": true
+                                        }
+                                      },
+                                      "block_order": ["default-text"]
+                                    }
+                                  },
+                                  "block_order": ["card_price", "card_compare_price"]
                                 }
                               },
-                              "block_order": ["card_image", "card_title"]
+                              "block_order": ["card_image", "card_title", "card_reviews", "card_pricing"]
                             }
                           },
                           "block_order": ["card_wrap"]

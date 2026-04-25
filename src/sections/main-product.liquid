@@ -73,6 +73,22 @@
                                                 "default-text"
                                             ]
                                         },
+                                        "reviews": {
+                                            "type": "product__reviews",
+                                            "blocks": {
+                                                "default-stars": {
+                                                    "type": "stars",
+                                                    "static": true,
+                                                    "settings": {
+                                                        "size": "lg",
+                                                        "show_value_and_quantity": true
+                                                    }
+                                                }
+                                            },
+                                            "block_order": [
+                                                "default-stars"
+                                            ]
+                                        },
                                         "pricing_row": {
                                             "type": "layout",
                                             "settings": {
@@ -189,6 +205,7 @@
                                     },
                                     "block_order": [
                                         "title",
+                                        "reviews",
                                         "pricing_row",
                                         "selectors",
                                         "quantity",

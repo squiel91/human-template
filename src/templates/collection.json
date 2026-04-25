@@ -156,6 +156,23 @@
                                     "default-text"
                                   ]
                                 },
+                                "card_reviews": {
+                                  "type": "product__reviews",
+                                  "settings": {},
+                                  "static": false,
+                                  "blocks": {
+                                    "default-stars": {
+                                      "type": "stars",
+                                      "settings": {
+                                        "show_value_and_quantity": true
+                                      },
+                                      "static": true
+                                    }
+                                  },
+                                  "block_order": [
+                                    "default-stars"
+                                  ]
+                                },
                                 "card_pricing": {
                                   "type": "layout",
                                   "settings": {
@@ -234,6 +251,7 @@
                               "block_order": [
                                 "card_image",
                                 "card_title",
+                                "card_reviews",
                                 "card_pricing"
                               ]
                             }
