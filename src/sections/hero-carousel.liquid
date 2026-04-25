@@ -2,7 +2,7 @@
     {% if section.blocks and section.blocks.size > 0 %}
         {% content_for 'blocks' %}
     {% elsif design_mode or preview_mode %}
-        <div style="padding: 4rem 1rem; text-align: center;">Agrega un carrusel a esta sección.</div>
+        <div style="padding: 4rem 1rem; text-align: center;">Add a carousel to this section.</div>
     {% endif %}
 </section>
 
@@ -29,9 +29,9 @@
                 "carousel": {
                     "type": "carousel",
                     "settings": {
-                        "height_desktop": "36rem",
-                        "height_tablet": "32rem",
-                        "height_mobile": "28rem",
+                        "height_desktop": "28rem",
+                        "height_tablet": "",
+                        "height_mobile": "",
                         "show_arrows": true,
                         "show_dots": true,
                         "autoplay": true,
@@ -39,126 +39,10 @@
                     },
                     "blocks": {
                         "slide_1": {
-                            "type": "slide",
-                            "blocks": {
-                                "content": {
-                                    "type": "layout",
-                                    "settings": {
-                                        "background_color_desktop": "#f5efe8",
-                                        "css_styles_desktop": "display: flex; align-items: flex-end; min-height: inherit; padding: 0 8px;"
-                                    },
-                                    "blocks": {
-                                        "inner": {
-                                            "type": "layout",
-                                            "settings": {
-                                                "css_styles_desktop": "display: flex; flex-direction: column; justify-content: flex-end; align-items: flex-start; gap: 16px; min-height: inherit; width: 100%; max-width: 1024px; margin: 0 auto; padding: 48px 0;",
-                                                "css_styles_tablet": "padding: 40px 0;",
-                                                "css_styles_mobile": "padding: 32px 0;"
-                                            },
-                                            "blocks": {
-                                                "title": {
-                                                    "type": "text",
-                                                    "settings": {
-                                                        "text": "Nueva temporada, nueva energía.",
-                                                        "text_type": "section_title",
-                                                        "bold": true,
-                                                        "size_desktop": "4xl",
-                                                        "css_styles_desktop": "max-width: 48ch;"
-                                                    }
-                                                },
-                                                "description": {
-                                                    "type": "text",
-                                                    "settings": {
-                                                        "text": "Descubrí piezas seleccionadas para renovar tu tienda con una propuesta clara y actual.",
-                                                        "text_type": "paragraph",
-                                                        "css_styles_desktop": "max-width: 60ch; line-height: 1.6;"
-                                                    }
-                                                },
-                                                "cta": {
-                                                    "type": "button",
-                                                    "settings": {
-                                                        "text": "Ver colección",
-                                                        "rounding": "theme",
-                                                        "link": "/categorias"
-                                                    }
-                                                }
-                                            },
-                                            "block_order": [
-                                                "title",
-                                                "description",
-                                                "cta"
-                                            ]
-                                        }
-                                    },
-                                    "block_order": [
-                                        "inner"
-                                    ]
-                                }
-                            },
-                            "block_order": [
-                                "content"
-                            ]
+                            "type": "slide"
                         },
                         "slide_2": {
-                            "type": "slide",
-                            "blocks": {
-                                "content": {
-                                    "type": "layout",
-                                    "settings": {
-                                        "background_color_desktop": "#eceff4",
-                                        "css_styles_desktop": "display: flex; align-items: flex-end; min-height: inherit; padding: 0 8px;"
-                                    },
-                                    "blocks": {
-                                        "inner": {
-                                            "type": "layout",
-                                            "settings": {
-                                                "css_styles_desktop": "display: flex; flex-direction: column; justify-content: flex-end; align-items: flex-start; gap: 16px; min-height: inherit; width: 100%; max-width: 1024px; margin: 0 auto; padding: 48px 0;",
-                                                "css_styles_tablet": "padding: 40px 0;",
-                                                "css_styles_mobile": "padding: 32px 0;"
-                                            },
-                                            "blocks": {
-                                                "title": {
-                                                    "type": "text",
-                                                    "settings": {
-                                                        "text": "Piezas que convierten mejor.",
-                                                        "text_type": "section_title",
-                                                        "bold": true,
-                                                        "size_desktop": "4xl",
-                                                        "css_styles_desktop": "max-width: 48ch;"
-                                                    }
-                                                },
-                                                "description": {
-                                                    "type": "text",
-                                                    "settings": {
-                                                        "text": "Armá un recorrido visual más fuerte con destacados, novedades y ofertas en una sola experiencia.",
-                                                        "text_type": "paragraph",
-                                                        "css_styles_desktop": "max-width: 60ch; line-height: 1.6;"
-                                                    }
-                                                },
-                                                "cta": {
-                                                    "type": "button",
-                                                    "settings": {
-                                                        "text": "Explorar ahora",
-                                                        "rounding": "theme",
-                                                        "link": "/productos"
-                                                    }
-                                                }
-                                            },
-                                            "block_order": [
-                                                "title",
-                                                "description",
-                                                "cta"
-                                            ]
-                                        }
-                                    },
-                                    "block_order": [
-                                        "inner"
-                                    ]
-                                }
-                            },
-                            "block_order": [
-                                "content"
-                            ]
+                            "type": "slide"
                         }
                     },
                     "block_order": [

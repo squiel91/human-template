@@ -60,15 +60,15 @@
 
 {% schema %}
 {
-    "name": "product: Imagen",
+    "name": "product: Image",
     "max_blocks": 1,
     "settings": [
         {
             "type": "checkbox",
             "id": "transition_to_second_image",
-            "label": "Transicionar a segunda imagen",
-            "info": "Al pasar el ratón sobre la imagen, si el producto tiene una segunda imagen.",
-            "default": false
+            "label": "Transition to second image",
+            "info": "On mouse hover, if the product has a second image.",
+            "default": true
         },
         {
             "type": "header",
@@ -77,7 +77,7 @@
         {
             "type": "textarea",
             "id": "css_styles_desktop",
-            "label": "Estilos CSS"
+            "label": "CSS styles"
         },
         {
             "type": "header",
@@ -86,7 +86,7 @@
         {
             "type": "textarea",
             "id": "css_styles_tablet",
-            "label": "Estilos CSS"
+            "label": "CSS styles"
         },
         {
             "type": "header",
@@ -95,7 +95,7 @@
         {
             "type": "textarea",
             "id": "css_styles_mobile",
-            "label": "Estilos CSS"
+            "label": "CSS styles"
         }
     ],
     "blocks": [
@@ -105,9 +105,9 @@
     ],
     "presets": [
         {
-            "name": "product: Imagen",
+            "name": "product: Image",
             "settings": {
-                "transition_to_second_image": false
+                "transition_to_second_image": true
             },
             "blocks": {
                 "default-image": {

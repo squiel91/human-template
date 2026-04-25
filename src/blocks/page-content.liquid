@@ -3,14 +3,14 @@
         {% if page.content != blank %}
             {% render 'content-blocks', content: page.content, skip_h1: true %}
         {% else %}
-            <p>Contenido de la página.</p>
+            <p>Page content.</p>
         {% endif %}
     </div>
 {% endif %}
 
 {% schema %}
 {
-    "name": "Contenido de la página",
+    "name": "Page content",
     "settings": []
 }
 {% endschema %}

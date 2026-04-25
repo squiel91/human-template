@@ -26,13 +26,19 @@
                     "type": "layout",
                     "settings": {
                         "background_color_desktop": "#f5efe8",
-                        "css_styles_desktop": "display: flex; align-items: flex-end; min-height: inherit; padding: 0 var(--container-horizontal-padding, 8px);"
+                        "css_styles_desktop": "position: relative; display: flex; align-items: flex-end; min-height: inherit; padding: 0 var(--container-horizontal-padding, 8px);"
                     },
                     "blocks": {
+                        "overlay": {
+                            "type": "layout",
+                            "settings": {
+                                "css_styles_desktop": "position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, .75)); z-index: 0;"
+                            }
+                        },
                         "inner": {
                             "type": "layout",
                             "settings": {
-                                "css_styles_desktop": "display: flex; flex-direction: column; justify-content: flex-end; align-items: flex-start; gap: 16px; min-height: inherit; width: 100%; max-width: var(--container-max-width, 1024px); margin: 0 auto; padding: 48px 0;",
+                                "css_styles_desktop": "position: relative; z-index: 1; display: flex; flex-direction: column; justify-content: flex-end; align-items: flex-start; gap: 16px; min-height: inherit; width: 100%; max-width: var(--container-max-width, 1024px); margin: 0 auto; padding: 48px 0;",
                                 "css_styles_tablet": "padding: 40px 0;",
                                 "css_styles_mobile": "padding: 32px 0;"
                             },
@@ -42,6 +48,8 @@
                                     "settings": {
                                         "text": "Título del slide",
                                         "text_type": "section_title",
+                                        "color": "custom",
+                                        "custom_color": "#FFFFFF",
                                         "bold": true,
                                         "size_desktop": "4xl",
                                         "css_styles_desktop": "max-width: 48ch;"
@@ -52,6 +60,9 @@
                                     "settings": {
                                         "text": "Descripción del slide para acompañar el mensaje principal.",
                                         "text_type": "paragraph",
+                                        "color": "custom",
+                                        "custom_color": "#FFFFFF",
+                                        "size_desktop": "lg",
                                         "css_styles_desktop": "max-width: 60ch; line-height: 1.6;"
                                     }
                                 },
@@ -59,6 +70,7 @@
                                     "type": "button",
                                     "settings": {
                                         "text": "Ver más",
+                                        "size": "lg",
                                         "rounding": "theme",
                                         "link": "/productos"
                                     }
@@ -72,6 +84,7 @@
                         }
                     },
                     "block_order": [
+                        "overlay",
                         "inner"
                     ]
                 }

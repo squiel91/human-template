@@ -4,7 +4,7 @@
             {% if section.blocks and section.blocks.size > 0 %}
                 {% content_for 'blocks' %}
             {% elsif design_mode or preview_mode %}
-                <div>Agrega bloques para construir la página.</div>
+                <div>Add blocks to build the page.</div>
             {% endif %}
         </div>
     </div>
@@ -12,7 +12,7 @@
 
 {% schema %}
 {
-    "name": "Página principal",
+    "name": "Main page",
     "enabled_on": {
         "templates": [
             "page"
@@ -42,7 +42,7 @@
     ],
     "presets": [
         {
-            "name": "Página principal",
+            "name": "Main page",
             "blocks": {
                 "page-wrapper": {
                     "type": "layout",
@@ -58,7 +58,6 @@
                                     "static": true,
                                     "settings": {
                                         "text_type": "page_title",
-                                        "custom_color": "#000000",
                                         "bold": true,
                                         "size_desktop": "4xl"
                                     }

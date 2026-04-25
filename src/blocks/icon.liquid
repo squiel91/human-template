@@ -1,6 +1,6 @@
 {% assign icon_id = 'tiendu__icon-' | append: section.id | append: '-' | append: block.id %}
 {% assign icon_name = block.settings.icon | default: 'search' %}
-{% assign icon_color_option = block.settings.color | default: 'primary' %}
+{% assign icon_color_option = block.settings.color | default: 'custom' %}
 
 {% case icon_color_option %}
     {% when 'secondary' %}
@@ -59,12 +59,12 @@
 
 {% schema %}
 {
-    "name": "Icono",
+    "name": "Icon",
     "settings": [
         {
             "type": "select",
             "id": "icon",
-            "label": "Icono",
+            "label": "Icon",
             "default": "search",
             "options": [
                 {
@@ -109,32 +109,31 @@
             "options": [
                 {
                     "value": "primary",
-                    "label": "Primario"
+                    "label": "Primary"
                 },
                 {
                     "value": "secondary",
-                    "label": "Secundario"
+                    "label": "Secondary"
                 },
                 {
                     "value": "accent",
-                    "label": "Acento"
+                    "label": "Accent"
                 },
                 {
                     "value": "custom",
-                    "label": "Personalizado"
+                    "label": "Custom"
                 }
             ]
         },
         {
             "type": "color",
             "id": "custom_color",
-            "label": "Color personalizado",
-            "default": "#000000"
+            "label": "Custom color"
         },
         {
             "type": "select",
             "id": "size",
-            "label": "Tamano",
+            "label": "Size",
             "default": "md",
             "options": [
                 {
@@ -186,7 +185,11 @@
     ],
     "presets": [
         {
-            "name": "Icono"
+            "name": "Icon",
+            "settings": {
+                "color": "custom",
+                "custom_color": ""
+            }
         }
     ]
 }

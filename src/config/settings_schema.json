@@ -1,58 +1,64 @@
 [
     {
-        "name": "Colores",
+        "name": "Colors",
         "settings": [
             {
                 "type": "color",
                 "id": "primary_color",
-                "label": "Color primario",
+                "label": "Primary color",
                 "default": "#0000FF"
             },
             {
                 "type": "color",
                 "id": "secondary_color",
-                "label": "Color secundario",
+                "label": "Secondary color",
                 "default": "#00FF00"
             },
             {
                 "type": "color",
                 "id": "accent_color",
-                "label": "Color de acento",
+                "label": "Accent color",
                 "default": "#FF0000"
             },
             {
                 "type": "color",
                 "id": "background_color",
-                "label": "Color de fondo",
+                "label": "Background color",
                 "default": "#EFEFEF"
+            },
+            {
+                "type": "color",
+                "id": "text_color",
+                "label": "Text color",
+                "info": "If left empty, the automatic color is used. If not available, black is used."
             }
         ]
     },
     {
-        "name": "Contenedor",
+        "name": "Container",
         "settings": [
             {
                 "type": "text",
                 "id": "max_width",
-                "label": "Ancho máximo del contenedor",
+                "label": "Container max width",
                 "placeholder": "1024px",
                 "default": "1024px"
             },
             {
                 "type": "text",
                 "id": "horizontal_padding",
-                "label": "espaciado en los lados",
+                "label": "Side spacing",
                 "default": "8px"
             }
         ]
     },
     {
-        "name": "Redondeado",
+        "name": "Rounding",
         "settings": [
             {
                 "type": "select",
                 "id": "button_input_rounding",
-                "label": "Botones e inputs",
+                "label": "Buttons and inputs",
                 "default": "md",
                 "options": [
                     { "value": "none", "label": "None" },
@@ -68,7 +74,7 @@
             {
                 "type": "select",
                 "id": "product_image_rounding",
-                "label": "Imágenes de producto",
+                "label": "Product images",
                 "default": "none",
                 "options": [
                     { "value": "none", "label": "None" },
@@ -84,86 +90,86 @@
         ]
     },
     {
-        "name": "Imágenes",
+        "name": "Images",
         "settings": [
             {
                 "type": "select",
                 "id": "product_image_ratio",
-                "label": "Proporción de imágen de los productos",
-                "info": "Se usa cuando una imagen tiene seleccionada la opción Por defecto del producto.",
+                "label": "Product image ratio",
+                "info": "Used when an image has the product default option selected.",
                 "default": "square",
                 "options": [
-                    { "value": "proportional", "label": "Proporción de la imagen" },
-                    { "value": "square", "label": "Cuadrada (1:1)" },
-                    { "value": "portrait", "label": "Vertical (3:4)" },
-                    { "value": "landscape", "label": "Horizontal (4:3)" },
-                    { "value": "wide", "label": "Panorámica (16:9)" },
+                    { "value": "proportional", "label": "Image proportion" },
+                    { "value": "square", "label": "Square (1:1)" },
+                    { "value": "portrait", "label": "Portrait (3:4)" },
+                    { "value": "landscape", "label": "Landscape (4:3)" },
+                    { "value": "wide", "label": "Wide (16:9)" },
                     { "value": "ultrawide", "label": "Ultrawide (21:9)" }
                 ]
             },
             {
                 "type": "select",
                 "id": "collection_image_ratio",
-                "label": "Proporción de imágen de las categoría",
-                "info": "Se usa cuando una imagen tiene seleccionada la opción Por defecto de la categoría.",
+                "label": "Collection image ratio",
+                "info": "Used when an image has the collection default option selected.",
                 "default": "square",
                 "options": [
-                    { "value": "proportional", "label": "Proporción de la imagen" },
-                    { "value": "square", "label": "Cuadrada (1:1)" },
-                    { "value": "portrait", "label": "Vertical (3:4)" },
-                    { "value": "landscape", "label": "Horizontal (4:3)" },
-                    { "value": "wide", "label": "Panorámica (16:9)" },
+                    { "value": "proportional", "label": "Image proportion" },
+                    { "value": "square", "label": "Square (1:1)" },
+                    { "value": "portrait", "label": "Portrait (3:4)" },
+                    { "value": "landscape", "label": "Landscape (4:3)" },
+                    { "value": "wide", "label": "Wide (16:9)" },
                     { "value": "ultrawide", "label": "Ultrawide (21:9)" }
                 ]
             }
         ]
     },
     {
-        "name": "Tipografía",
+        "name": "Typography",
         "settings": [
             {
                 "type": "font_picker",
                 "id": "type_body_font",
-                "label": "Fuente de texto",
+                "label": "Body font",
                 "default": "roboto_n4"
             },
             {
                 "type": "font_picker",
                 "id": "type_heading_font",
-                "label": "Fuente de títulos",
+                "label": "Heading font",
                 "default": "roboto_n4"
             }
         ]
     },
     {
-        "name": "Búsqueda y metadatos",
+        "name": "Search and metadata",
         "settings": [
             {
                 "type": "text",
                 "id": "seo_site_name_override",
-                "label": "Título del sitio",
-                "info": "Si queda vacío, se usa el nombre de la tienda.",
+                "label": "Site title",
+                "info": "If left empty, the store name is used.",
                 "default": ""
             },
             {
                 "type": "textarea",
                 "id": "seo_default_description",
-                "label": "Descripción por defecto",
-                "info": "Se usa cuando la página no tiene descripción SEO ni descripción propia.",
+                "label": "Default description",
+                "info": "Used when the page has no SEO description or custom description.",
                 "default": ""
             },
             {
                 "type": "text",
                 "id": "seo_home_title",
-                "label": "Título de página de inicio",
-                "info": "Si queda vacío, se usará el título del sitio.",
+                "label": "Home page title",
+                "info": "If left empty, the site title will be used.",
                 "default": ""
             },
             {
                 "type": "image",
                 "id": "seo_default_share_image",
-                "label": "Imagen para compartir",
-                "info": "Se usa como imagen por defecto para compartir."
+                "label": "Share image",
+                "info": "Used as the default image for sharing."
             },
             {
                 "type": "image",

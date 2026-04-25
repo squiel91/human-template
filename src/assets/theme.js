@@ -1,12 +1,11 @@
 import Tiendu from 'tiendu-sdk'
+import { clamp, createSwipeController } from 'carousel-utils'
 
 const getTiendu = () => Tiendu()
 const COPY_RESET_MS = 1800
 const POPUP_STORAGE_PREFIX = 'tiendu:popup:'
 const SWIPE_PROGRESS_THRESHOLD = 0.25
 const CAROUSEL_AUTOPLAY_INTERVAL = 5000
-
-const clamp = (value, min, max) => Math.max(min, Math.min(max, value))
 
 const setActionButtonLoading = (button, loading) => {
   for (const iconNode of button.querySelectorAll('[data-button-action-icon]')) {
@@ -170,42 +169,94 @@ const initProductGalleries = () => {
     if (!(root instanceof HTMLElement)) continue
     if (root.dataset.bound === 'true') continue
 
-    const mainImage = root.querySelector('[data-product-gallery-main-image]')
+    const stage = root.querySelector('[data-product-gallery-stage]')
+    const track = root.querySelector('[data-product-gallery-track]')
+    const slides = Array.from(root.querySelectorAll('[data-product-gallery-slide]'))
     const thumbs = Array.from(root.querySelectorAll('[data-product-gallery-thumb]'))
     const prevButton = root.querySelector('[data-product-gallery-prev]')
     const nextButton = root.querySelector('[data-product-gallery-next]')
+    const modal = root.querySelector('[data-product-gallery-modal]')
+    const modalImage = root.querySelector('[data-product-gallery-modal-image]')
+    const modalCloseButtons = Array.from(root.querySelectorAll('[data-product-gallery-modal-close]'))
 
-    if (!(mainImage instanceof HTMLImageElement) || thumbs.length === 0) continue
+    if (!(stage instanceof HTMLElement) || !(track instanceof HTMLElement) || slides.length === 0) continue
 
     root.dataset.bound = 'true'
+    let modalCloseTimer = null
 
     let activeIndex = thumbs.findIndex((thumb) => thumb.getAttribute('aria-current') === 'true')
     if (activeIndex < 0) activeIndex = 0
 
     const syncButtons = () => {
       if (prevButton instanceof HTMLButtonElement) {
-        prevButton.disabled = thumbs.length <= 1
+        prevButton.disabled = slides.length <= 1
       }
 
       if (nextButton instanceof HTMLButtonElement) {
-        nextButton.disabled = thumbs.length <= 1
+        nextButton.disabled = slides.length <= 1
       }
     }
 
     const setActiveIndex = (index) => {
-      const nextIndex = ((index % thumbs.length) + thumbs.length) % thumbs.length
+      const nextIndex = ((index % slides.length) + slides.length) % slides.length
       const nextThumb = thumbs[nextIndex]
-      if (!(nextThumb instanceof HTMLElement)) return
 
       activeIndex = nextIndex
-      mainImage.src = nextThumb.dataset.imageUrl || mainImage.src
-      mainImage.alt = nextThumb.dataset.imageAlt || mainImage.alt
+      stage.style.setProperty('--product-gallery-index', String(activeIndex))
+      stage.style.setProperty('--product-gallery-drag-offset', '0px')
+      stage.dataset.dragAnimate = 'true'
 
       for (const thumb of thumbs) {
         if (!(thumb instanceof HTMLElement)) continue
         thumb.setAttribute('aria-current', thumb === nextThumb ? 'true' : 'false')
       }
+
+      for (const [slideIndex, slide] of slides.entries()) {
+        if (!(slide instanceof HTMLElement)) continue
+        slide.setAttribute('aria-hidden', slideIndex === activeIndex ? 'false' : 'true')
+      }
     }
+
+    const getActiveImage = () => {
+      const activeSlide = slides[activeIndex]
+      if (!(activeSlide instanceof HTMLElement)) return null
+      const image = activeSlide.querySelector('[data-product-gallery-main-image]')
+      return image instanceof HTMLImageElement ? image : null
+    }
+
+    const setModalOpen = (open) => {
+      if (!(modal instanceof HTMLElement) || !(modalImage instanceof HTMLImageElement)) return
+
+      if (modalCloseTimer) {
+        window.clearTimeout(modalCloseTimer)
+        modalCloseTimer = null
+      }
+
+      if (open) {
+        const activeImage = getActiveImage()
+        if (!(activeImage instanceof HTMLImageElement)) return
+
+        modalImage.src = activeImage.currentSrc || activeImage.src
+        modalImage.alt = activeImage.alt || ''
+        modal.hidden = false
+        modal.setAttribute('aria-hidden', 'false')
+        window.requestAnimationFrame(() => {
+          modal.dataset.open = 'true'
+        })
+        return
+      }
+
+      modal.dataset.open = 'false'
+      modal.setAttribute('aria-hidden', 'true')
+      modalCloseTimer = window.setTimeout(() => {
+        modal.hidden = true
+        modalImage.removeAttribute('src')
+        modalImage.alt = ''
+        modalCloseTimer = null
+      }, 260)
+    }
+
+    const maxIndex = Math.max(0, slides.length - 1)
 
     root.__setCurrentImageById = (imageId) => {
       const thumbIndex = thumbs.findIndex((thumb) => Number(thumb.dataset.imageId || '0') === Number(imageId))
@@ -231,8 +282,70 @@ const initProductGalleries = () => {
       nextButton.addEventListener('click', () => setActiveIndex(activeIndex + 1))
     }
 
+    root.addEventListener('click', (event) => {
+      const target = event.target instanceof Element ? event.target : null
+      if (!target) return
+
+      if (!stage.contains(target)) return
+      if (target.closest('[data-product-gallery-prev], [data-product-gallery-next]')) return
+      event.preventDefault()
+      setModalOpen(true)
+    })
+
+    for (const closeButton of modalCloseButtons) {
+      if (!(closeButton instanceof HTMLButtonElement)) continue
+      closeButton.addEventListener('click', () => setModalOpen(false))
+    }
+
+    const handleGalleryKeydown = (event) => {
+      if (event.key === 'Escape') {
+        setModalOpen(false)
+      }
+    }
+    document.addEventListener('keydown', handleGalleryKeydown)
+
+    const resetStageDrag = ({ animate = true } = {}) => {
+      if (!(stage instanceof HTMLElement)) return
+      stage.style.setProperty('--product-gallery-drag-offset', '0px')
+      stage.dataset.dragging = 'false'
+      stage.dataset.dragAnimate = animate ? 'true' : 'false'
+    }
+
+    const swipeController = createSwipeController({
+        element: stage,
+        threshold: SWIPE_PROGRESS_THRESHOLD,
+        isEnabled: () => slides.length > 1,
+        getIndex: () => activeIndex,
+        getMaxIndex: () => maxIndex,
+        getWidth: () => stage.clientWidth || 1,
+        shouldIgnoreTarget: (target) => {
+          const interactiveTarget = target instanceof Element
+            ? target.closest('a, button, input, select, textarea, summary')
+            : null
+          return Boolean(interactiveTarget && stage.contains(interactiveTarget))
+        },
+        onStart: () => {
+          stage.dataset.dragging = 'true'
+          stage.dataset.dragAnimate = 'false'
+          stage.style.setProperty('--product-gallery-drag-offset', '0px')
+        },
+        onMove: ({ offsetX }) => {
+          stage.style.setProperty('--product-gallery-drag-offset', `${offsetX}px`)
+        },
+        onRelease: ({ index }) => {
+          resetStageDrag({ animate: true })
+          setActiveIndex(index)
+        },
+        onCancel: () => resetStageDrag({ animate: true }),
+      })
+
     setActiveIndex(activeIndex)
     syncButtons()
+    resetStageDrag({ animate: false })
+    root.__productGallerySwipeCleanup = () => {
+      swipeController?.destroy()
+      document.removeEventListener('keydown', handleGalleryKeydown)
+    }
   }
 }
 
@@ -253,11 +366,8 @@ const createCarousel = (root) => {
 
   let currentIndex = 0
   let autoplayTimer = null
-  let suppressClick = false
   const drag = {
     active: false,
-    pointerId: null,
-    startX: 0,
     offsetX: 0,
   }
 
@@ -358,71 +468,42 @@ const createCarousel = (root) => {
     queueAutoplay()
   }
 
-  const resolveReleaseIndex = (offsetX) => {
-    const threshold = Math.max(slideWidth(), 1) * SWIPE_PROGRESS_THRESHOLD
-    if (Math.abs(offsetX) < threshold) return currentIndex
-    if (offsetX < 0) return clamp(currentIndex + 1, 0, maxIndex)
-    if (offsetX > 0) return clamp(currentIndex - 1, 0, maxIndex)
-    return currentIndex
-  }
-
-  const handlePointerDown = (event) => {
-    if (!hasMultiple()) return
-    if (event.button !== undefined && event.button !== 0) return
-
-    const interactiveTarget = event.target instanceof Element
-      ? event.target.closest('a, button, input, select, textarea, summary')
-      : null
-    if (interactiveTarget && viewport.contains(interactiveTarget)) return
-
-    stopAutoplay()
-    drag.active = true
-    drag.pointerId = event.pointerId
-    drag.startX = event.clientX
-    drag.offsetX = 0
-    viewport.setPointerCapture?.(event.pointerId)
-    viewport.dataset.dragging = 'true'
-    updateTrack({ animate: false })
-  }
-
-  const handlePointerMove = (event) => {
-    if (!drag.active) return
-    if (drag.pointerId !== null && event.pointerId !== drag.pointerId) return
-
-    const rawDelta = event.clientX - drag.startX
-    let delta = rawDelta
-    if ((currentIndex === 0 && rawDelta > 0) || (currentIndex === maxIndex && rawDelta < 0)) {
-      delta = rawDelta * 0.35
-    }
-
-    drag.offsetX = delta
-    updateTrack({ animate: false })
-  }
-
-  const handlePointerEnd = (event) => {
-    if (!drag.active) return
-    if (drag.pointerId !== null && event.pointerId !== drag.pointerId) return
-
-    viewport.releasePointerCapture?.(event.pointerId)
-    viewport.dataset.dragging = 'false'
-
-    const moved = Math.abs(drag.offsetX)
-    const nextIndex = resolveReleaseIndex(drag.offsetX)
-    drag.active = false
-    drag.pointerId = null
-    drag.offsetX = 0
-    suppressClick = moved > 6
-
-    goTo(nextIndex, { animate: true, force: true })
-    startAutoplay()
-  }
-
-  const handleViewportClick = (event) => {
-    if (!suppressClick) return
-    event.preventDefault()
-    event.stopPropagation()
-    suppressClick = false
-  }
+  const swipeController = createSwipeController({
+    element: viewport,
+    threshold: SWIPE_PROGRESS_THRESHOLD,
+    isEnabled: hasMultiple,
+    getIndex: () => currentIndex,
+    getMaxIndex: () => maxIndex,
+    getWidth: slideWidth,
+    shouldIgnoreTarget: (target) => {
+      const interactiveTarget = target instanceof Element
+        ? target.closest('a, button, input, select, textarea, summary')
+        : null
+      return Boolean(interactiveTarget && viewport.contains(interactiveTarget))
+    },
+    onStart: () => {
+      stopAutoplay()
+      drag.active = true
+      drag.offsetX = 0
+      updateTrack({ animate: false })
+    },
+    onMove: ({ offsetX }) => {
+      drag.offsetX = offsetX
+      updateTrack({ animate: false })
+    },
+    onRelease: ({ index }) => {
+      drag.active = false
+      drag.offsetX = 0
+      goTo(index, { animate: true, force: true })
+      startAutoplay()
+    },
+    onCancel: () => {
+      drag.active = false
+      drag.offsetX = 0
+      updateTrack({ animate: true })
+      startAutoplay()
+    },
+  })
 
   const handlePrevClick = () => {
     prev()
@@ -454,11 +535,6 @@ const createCarousel = (root) => {
   }
   const handleResize = () => updateTrack({ animate: false })
 
-  viewport.addEventListener('pointerdown', handlePointerDown)
-  viewport.addEventListener('pointermove', handlePointerMove)
-  viewport.addEventListener('pointerup', handlePointerEnd)
-  viewport.addEventListener('pointercancel', handlePointerEnd)
-  viewport.addEventListener('click', handleViewportClick)
   prevButton?.addEventListener('click', handlePrevClick)
   nextButton?.addEventListener('click', handleNextClick)
   dots?.addEventListener('click', handleDotClick)
@@ -476,11 +552,7 @@ const createCarousel = (root) => {
 
   const destroy = () => {
     stopAutoplay()
-    viewport.removeEventListener('pointerdown', handlePointerDown)
-    viewport.removeEventListener('pointermove', handlePointerMove)
-    viewport.removeEventListener('pointerup', handlePointerEnd)
-    viewport.removeEventListener('pointercancel', handlePointerEnd)
-    viewport.removeEventListener('click', handleViewportClick)
+    swipeController?.destroy()
     prevButton?.removeEventListener('click', handlePrevClick)
     nextButton?.removeEventListener('click', handleNextClick)
     dots?.removeEventListener('click', handleDotClick)
@@ -600,6 +672,144 @@ const getVariantSetPriceData = ({ product, variants }) => {
   return {
     label: minPrice !== maxPrice ? `Desde ${formatMoney(minPrice)}` : formatMoney(minPrice),
     compareLabel,
+  }
+}
+
+const getVariantStock = (variant) => {
+  if (!variant || typeof variant.stock !== 'number') return null
+  return Math.max(0, variant.stock)
+}
+
+const sanitizeQuantityValue = (value, max = null) => {
+  const parsed = Number.parseInt(String(value), 10)
+  const minimum = 1
+  const quantity = Number.isFinite(parsed) ? parsed : minimum
+  if (typeof max === 'number' && max > 0) return Math.min(Math.max(quantity, minimum), max)
+  return Math.max(quantity, minimum)
+}
+
+const syncProductQuantityRoot = (root) => {
+  if (!(root instanceof HTMLElement)) return
+
+  const input = root.querySelector('[data-product-quantity-input]')
+  const decrement = root.querySelector('[data-product-quantity-decrement]')
+  const increment = root.querySelector('[data-product-quantity-increment]')
+  if (!(input instanceof HTMLInputElement)) return
+
+  const maxValue = Number(root.dataset.quantityMax)
+  const max = Number.isFinite(maxValue) ? maxValue : null
+  const disabled = root.dataset.quantityDisabled === 'true'
+
+  if (max == null) {
+    input.removeAttribute('max')
+  } else {
+    input.max = String(max)
+  }
+
+  input.disabled = disabled
+  input.value = String(sanitizeQuantityValue(input.value, max))
+
+  const quantity = Number.parseInt(input.value, 10) || 1
+  if (decrement instanceof HTMLButtonElement) {
+    decrement.disabled = disabled || quantity <= 1
+  }
+  if (increment instanceof HTMLButtonElement) {
+    increment.disabled = disabled || (typeof max === 'number' && quantity >= max)
+  }
+}
+
+const setProductQuantityStock = (productRoot, variant) => {
+  if (!(productRoot instanceof HTMLElement)) return
+
+  const stock = getVariantStock(variant)
+  for (const root of productRoot.querySelectorAll('[data-product-quantity-root]')) {
+    if (!(root instanceof HTMLElement)) continue
+
+    if (stock == null) {
+      delete root.dataset.quantityMax
+      delete root.dataset.quantityDisabled
+    } else {
+      root.dataset.quantityMax = String(stock)
+      root.dataset.quantityDisabled = stock <= 0 ? 'true' : 'false'
+    }
+
+    syncProductQuantityRoot(root)
+  }
+}
+
+const getProductQuantity = (productRoot) => {
+  const root = productRoot?.querySelector('[data-product-quantity-root]')
+  const input = root?.querySelector('[data-product-quantity-input]')
+  if (!(root instanceof HTMLElement) || !(input instanceof HTMLInputElement)) return 1
+
+  syncProductQuantityRoot(root)
+  return sanitizeQuantityValue(input.value, Number.isFinite(Number(root.dataset.quantityMax)) ? Number(root.dataset.quantityMax) : null)
+}
+
+const validateProductQuantity = (productRoot, variant) => {
+  const root = productRoot?.querySelector('[data-product-quantity-root]')
+  const input = root?.querySelector('[data-product-quantity-input]')
+  if (!(root instanceof HTMLElement) || !(input instanceof HTMLInputElement)) return true
+
+  const requestedQuantity = Number.parseInt(input.value, 10) || 1
+  const variantStock = getVariantStock(variant)
+  const maxValue = Number(root.dataset.quantityMax)
+  const max = variantStock ?? (Number.isFinite(maxValue) ? maxValue : null)
+
+  if (typeof max === 'number' && requestedQuantity > max) {
+    window.alert(root.dataset.stockAlert || 'No hay suficiente stock para la cantidad seleccionada.')
+    syncProductQuantityRoot(root)
+    return false
+  }
+
+  return true
+}
+
+const initProductQuantityInputs = (scope = document) => {
+  const root = scope instanceof HTMLElement ? scope : document.documentElement
+  const quantityRoots = root.matches('[data-product-quantity-root]')
+    ? [root]
+    : Array.from(root.querySelectorAll('[data-product-quantity-root]'))
+
+  for (const quantityRoot of quantityRoots) {
+    if (!(quantityRoot instanceof HTMLElement)) continue
+    if (quantityRoot.dataset.quantityBound === 'true') continue
+
+    quantityRoot.dataset.quantityBound = 'true'
+    const input = quantityRoot.querySelector('[data-product-quantity-input]')
+    const decrement = quantityRoot.querySelector('[data-product-quantity-decrement]')
+    const increment = quantityRoot.querySelector('[data-product-quantity-increment]')
+
+    if (decrement instanceof HTMLButtonElement) {
+      decrement.addEventListener('click', () => {
+        if (!(input instanceof HTMLInputElement)) return
+        input.value = String((Number.parseInt(input.value, 10) || 1) - 1)
+        syncProductQuantityRoot(quantityRoot)
+      })
+    }
+
+    if (increment instanceof HTMLButtonElement) {
+      increment.addEventListener('click', () => {
+        if (!(input instanceof HTMLInputElement)) return
+        input.value = String((Number.parseInt(input.value, 10) || 1) + 1)
+        syncProductQuantityRoot(quantityRoot)
+      })
+    }
+
+    if (input instanceof HTMLInputElement) {
+      input.addEventListener('input', () => {
+        const maxValue = Number(quantityRoot.dataset.quantityMax)
+        const max = Number.isFinite(maxValue) ? maxValue : null
+        const requestedQuantity = Number.parseInt(input.value, 10)
+        if (typeof max === 'number' && Number.isFinite(requestedQuantity) && requestedQuantity > max) {
+          window.alert(quantityRoot.dataset.stockAlert || 'No hay suficiente stock para la cantidad seleccionada.')
+        }
+        syncProductQuantityRoot(quantityRoot)
+      })
+      input.addEventListener('change', () => syncProductQuantityRoot(quantityRoot))
+    }
+
+    syncProductQuantityRoot(quantityRoot)
   }
 }
 
@@ -786,6 +996,7 @@ const initVariantSelectors = () => {
     syncSelectorState()
     syncPrice()
     syncAddToCart()
+    setProductQuantityStock(productRoot, currentVariant)
     syncGallery()
     scheduleVariantViewTracking()
   }
@@ -1016,9 +1227,12 @@ const bindButtonAction = (button) => {
           }
         }
 
+        if (!validateProductQuantity(productRoot, variant)) return
+        const quantity = getProductQuantity(productRoot)
+
         await tiendu.cart.addProductVariant(
           variant,
-          1,
+          quantity,
           ({ updatedCartItemsQuantity }) => setCartQuantity(updatedCartItemsQuantity),
           productData
         )
@@ -1108,6 +1322,7 @@ const initButtonActions = () => {
   initStickyHeaders()
   initNewsletterForms()
   initNewsletterPopups()
+  initProductQuantityInputs()
   initCarousels()
 
   if (buttons.some((button) => button.dataset.buttonAction === 'cart')) {

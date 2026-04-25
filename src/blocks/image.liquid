@@ -136,17 +136,17 @@
 
 {% schema %}
 {
-    "name": "Imagen",
+    "name": "Image",
     "settings": [
         {
             "type": "image",
             "id": "image",
-            "label": "Imagen"
+            "label": "Image"
         },
         {
             "type": "select",
             "id": "size",
-            "label": "Tamano",
+            "label": "Size",
             "default": "full",
             "options": [
                 {
@@ -187,7 +187,7 @@
                 },
                 {
                     "value": "full",
-                    "label": "Completa"
+                    "label": "Full"
                 }
             ]
         },
@@ -199,31 +199,31 @@
             "options": [
                 {
                     "value": "product_default",
-                    "label": "Por defecto del producto"
+                    "label": "Product default"
                 },
                 {
                     "value": "collection_default",
-                    "label": "Por defecto de la categoría"
+                    "label": "Collection default"
                 },
                 {
                     "value": "proportional",
-                    "label": "Proporción de la imagen"
+                    "label": "Image proportion"
                 },
                 {
                     "value": "square",
-                    "label": "Cuadrada (1:1)"
+                    "label": "Square (1:1)"
                 },
                 {
                     "value": "portrait",
-                    "label": "Vertical (3:4)"
+                    "label": "Portrait (3:4)"
                 },
                 {
                     "value": "landscape",
-                    "label": "Horizontal (4:3)"
+                    "label": "Landscape (4:3)"
                 },
                 {
                     "value": "wide",
-                    "label": "Panorámica (16:9)"
+                    "label": "Wide (16:9)"
                 },
                 {
                     "value": "ultrawide",
@@ -234,12 +234,12 @@
         {
             "type": "select",
             "id": "rounding",
-            "label": "Redondeado",
+            "label": "Rounding",
             "default": "none",
             "options": [
                 {
                     "value": "theme",
-                    "label": "Defecto del tema"
+                    "label": "Theme default"
                 },
                 {
                     "value": "none",
@@ -279,12 +279,12 @@
             "type": "text",
             "id": "alt",
             "label": "Alt",
-            "info": "Si se deja vacio, no se agrega alt."
+            "info": "If left empty, no alt is added."
         }
     ],
     "presets": [
         {
-            "name": "Imagen"
+            "name": "Image"
         }
     ]
 }

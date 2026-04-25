@@ -190,7 +190,6 @@
                             "size_desktop": "2xl",
                             "size_tablet": "",
                             "size_mobile": "",
-                            "custom_color": "#000000",
                             "css_styles_desktop": "",
                             "css_styles_tablet": "",
                             "css_styles_mobile": ""
@@ -280,7 +279,7 @@
                                 "card_image": {
                                   "type": "product__image",
                                   "settings": {
-                                    "transition_to_second_image": false,
+                                    "transition_to_second_image": true,
                                     "css_styles_desktop": "",
                                     "css_styles_tablet": "",
                                     "css_styles_mobile": ""
@@ -313,7 +312,6 @@
                                       "settings": {
                                         "text_type": "text",
                                         "color": "custom",
-                                        "custom_color": "#000000",
                                         "bold": false,
                                         "italic": false,
                                         "underline": false,

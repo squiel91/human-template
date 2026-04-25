@@ -15,6 +15,55 @@
     {% assign first_image = primary_image %}
 {% endif %}
 {% assign gallery_image_ratio = settings.product_image_ratio | default: 'square' %}
+{% assign show_thumbnails = block.settings.show_thumbnails | default: 'desktop' %}
+{% assign show_arrows = block.settings.show_arrows %}
+{% if show_arrows == nil %}
+    {% assign show_arrows = true %}
+{% endif %}
+{% assign main_rounding = block.settings.main_rounding | default: 'theme' %}
+{% assign thumbnail_rounding = block.settings.thumbnail_rounding | default: 'theme' %}
+
+{% case main_rounding %}
+    {% when 'theme' %}
+        {% assign main_border_radius = 'var(--product-image-border-radius, 0)' %}
+    {% when 'sm' %}
+        {% assign main_border_radius = '0.125rem' %}
+    {% when 'md' %}
+        {% assign main_border_radius = '0.375rem' %}
+    {% when 'lg' %}
+        {% assign main_border_radius = '0.5rem' %}
+    {% when 'xl' %}
+        {% assign main_border_radius = '0.75rem' %}
+    {% when '2xl' %}
+        {% assign main_border_radius = '1rem' %}
+    {% when '3xl' %}
+        {% assign main_border_radius = '1.5rem' %}
+    {% when 'full' %}
+        {% assign main_border_radius = '9999px' %}
+    {% else %}
+        {% assign main_border_radius = '0' %}
+{% endcase %}
+
+{% case thumbnail_rounding %}
+    {% when 'theme' %}
+        {% assign thumbnail_border_radius = 'var(--product-image-border-radius, 0)' %}
+    {% when 'sm' %}
+        {% assign thumbnail_border_radius = '0.125rem' %}
+    {% when 'md' %}
+        {% assign thumbnail_border_radius = '0.375rem' %}
+    {% when 'lg' %}
+        {% assign thumbnail_border_radius = '0.5rem' %}
+    {% when 'xl' %}
+        {% assign thumbnail_border_radius = '0.75rem' %}
+    {% when '2xl' %}
+        {% assign thumbnail_border_radius = '1rem' %}
+    {% when '3xl' %}
+        {% assign thumbnail_border_radius = '1.5rem' %}
+    {% when 'full' %}
+        {% assign thumbnail_border_radius = '9999px' %}
+    {% else %}
+        {% assign thumbnail_border_radius = '0' %}
+{% endcase %}
 
 {% case gallery_image_ratio %}
     {% when 'portrait' %}
@@ -40,6 +89,9 @@
         position: relative;
         overflow: hidden;
         background: #f3f4f6;
+        touch-action: pan-y;
+        cursor: pointer;
+        border-radius: {{ main_border_radius }};
         {% if gallery_image_ratio == 'proportional' %}
             height: auto;
         {% else %}
@@ -47,9 +99,24 @@
         {% endif %}
     }
 
+    #{{ gallery_id }} .tiendu-product-gallery__track {
+        display: flex;
+        width: 100%;
+        height: 100%;
+        transform: translate3d(calc(var(--product-gallery-index, 0) * -100% + var(--product-gallery-drag-offset, 0px)), 0, 0);
+        transition: transform 320ms cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    #{{ gallery_id }} .tiendu-product-gallery__slide {
+        flex: 0 0 100%;
+        width: 100%;
+        height: 100%;
+    }
+
     #{{ gallery_id }} .tiendu-product-gallery__main-image {
         display: block;
         width: 100%;
+        cursor: pointer;
         {% if gallery_image_ratio == 'proportional' %}
             height: auto;
             object-fit: contain;
@@ -68,6 +135,7 @@
         width: 2.5rem;
         height: 2.5rem;
         border: none;
+        border-radius: var(--button-input-border-radius, 0.375rem);
         background: rgba(255, 255, 255, 0.92);
         color: #000000;
         cursor: pointer;
@@ -91,6 +159,96 @@
         right: 12px;
     }
 
+    #{{ gallery_id }} .tiendu-product-gallery__zoom-trigger {
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        z-index: 3;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 2.5rem;
+        height: 2.5rem;
+        padding: 0;
+        border: none;
+        border-radius: var(--button-input-border-radius, 0.375rem);
+        background: rgba(255, 255, 255, 0.92);
+        color: #000000;
+        cursor: pointer;
+        opacity: 0;
+        transition: opacity 0.18s ease;
+    }
+
+    #{{ gallery_id }} .tiendu-product-gallery__stage:is(:hover, :focus-within) .tiendu-product-gallery__zoom-trigger {
+        opacity: 1;
+    }
+
+    #{{ gallery_id }} .tiendu-product-gallery__modal[hidden] {
+        display: none !important;
+    }
+
+    #{{ gallery_id }} .tiendu-product-gallery__modal {
+        position: fixed;
+        inset: 0;
+        z-index: 80;
+        display: grid;
+        place-items: center;
+        padding: 24px;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.24s ease;
+    }
+
+    #{{ gallery_id }} .tiendu-product-gallery__modal[data-open='true'] {
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    #{{ gallery_id }} .tiendu-product-gallery__modal-backdrop {
+        position: absolute;
+        inset: 0;
+        border: 0;
+        background: rgba(0, 0, 0, 0.72);
+        cursor: pointer;
+    }
+
+    #{{ gallery_id }} .tiendu-product-gallery__modal-image {
+        position: relative;
+        z-index: 1;
+        display: block;
+        max-width: min(94vw, 1200px);
+        max-height: 88vh;
+        width: auto;
+        height: auto;
+        object-fit: contain;
+        opacity: 0;
+        transform: scale(0.96);
+        transition: opacity 0.24s ease, transform 0.24s ease;
+    }
+
+    #{{ gallery_id }} .tiendu-product-gallery__modal[data-open='true'] .tiendu-product-gallery__modal-image {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    #{{ gallery_id }} .tiendu-product-gallery__modal-close {
+        position: absolute;
+        top: 16px;
+        right: 16px;
+        z-index: 2;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 2.75rem;
+        height: 2.75rem;
+        padding: 0;
+        border: none;
+        border-radius: var(--button-input-border-radius, 0.375rem);
+        background: rgba(255, 255, 255, 0.94);
+        color: #000000;
+        cursor: pointer;
+    }
+
     #{{ gallery_id }} .tiendu-product-gallery__thumbs {
         display: flex;
         gap: 12px;
@@ -106,6 +264,7 @@
         {% endif %}
         padding: 0;
         border: 1px solid transparent;
+        border-radius: {{ thumbnail_border_radius }};
         background: #ffffff;
         cursor: pointer;
         overflow: hidden;
@@ -132,25 +291,74 @@
             width: 56px;
         }
     }
+
+    {% if show_thumbnails == 'never' %}
+        #{{ gallery_id }} .tiendu-product-gallery__thumbs {
+            display: none !important;
+        }
+    {% elsif show_thumbnails == 'desktop' %}
+        @media (width <= 64rem) {
+            #{{ gallery_id }} .tiendu-product-gallery__thumbs {
+                display: none !important;
+            }
+        }
+    {% elsif show_thumbnails == 'desktop_tablet' %}
+        @media (width <= 48rem) {
+            #{{ gallery_id }} .tiendu-product-gallery__thumbs {
+                display: none !important;
+            }
+        }
+    {% endif %}
+
+    #{{ gallery_id }} .tiendu-product-gallery__stage[data-dragging='true'] .tiendu-product-gallery__track,
+    #{{ gallery_id }} .tiendu-product-gallery__stage[data-drag-animate='false'] .tiendu-product-gallery__track {
+        transition: none;
+    }
 </style>
 
 {% if product_obj or design_mode or preview_mode %}
     <div {{ block.shopify_attributes }} id="{{ gallery_id }}" data-product-gallery-root>
-        <div class="tiendu-product-gallery__stage">
-            <img
-                class="tiendu-product-gallery__main-image"
-                src="{{ first_image.url | default: placeholder_image }}"
-                alt="{{ first_image.alt | default: product_obj.title | escape }}"
-                data-product-gallery-main-image
-            >
+        <div class="tiendu-product-gallery__stage" data-product-gallery-stage data-dragging="false" style="--product-gallery-index: 0; --product-gallery-drag-offset: 0px;">
+            <div class="tiendu-product-gallery__track" data-product-gallery-track>
+                {% if gallery_images and gallery_images.size > 0 %}
+                    {% for image in gallery_images %}
+                        <div class="tiendu-product-gallery__slide" data-product-gallery-slide aria-hidden="{% if forloop.first %}false{% else %}true{% endif %}">
+                            <img
+                                class="tiendu-product-gallery__main-image"
+                                src="{{ image.url | default: placeholder_image }}"
+                                alt="{{ image.alt | default: product_obj.title | escape }}"
+                                data-product-gallery-main-image
+                                draggable="false"
+                                {% unless forloop.first %}loading="lazy"{% endunless %}
+                            >
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="tiendu-product-gallery__slide" data-product-gallery-slide aria-hidden="false">
+                        <img
+                            class="tiendu-product-gallery__main-image"
+                            src="{{ first_image.url | default: placeholder_image }}"
+                            alt="{{ first_image.alt | default: product_obj.title | escape }}"
+                            data-product-gallery-main-image
+                            draggable="false"
+                        >
+                    </div>
+                {% endif %}
+            </div>
 
-            <button class="tiendu-product-gallery__nav tiendu-product-gallery__nav--prev" type="button" data-product-gallery-prev{% if gallery_images == blank or gallery_images.size <= 1 %} hidden{% endif %}>
-                {% render 'icon-arrow-right', size: 18, stroke_width: 2 %}
-            </button>
+            {% if show_arrows %}
+                <button class="tiendu-product-gallery__nav tiendu-product-gallery__nav--prev" type="button" data-product-gallery-prev{% if gallery_images == blank or gallery_images.size <= 1 %} hidden{% endif %}>
+                    {% render 'icon-arrow-right', size: 18, stroke_width: 2 %}
+                </button>
 
-            <button class="tiendu-product-gallery__nav tiendu-product-gallery__nav--next" type="button" data-product-gallery-next{% if gallery_images == blank or gallery_images.size <= 1 %} hidden{% endif %}>
-                {% render 'icon-arrow-right', size: 18, stroke_width: 2 %}
-            </button>
+                <button class="tiendu-product-gallery__nav tiendu-product-gallery__nav--next" type="button" data-product-gallery-next{% if gallery_images == blank or gallery_images.size <= 1 %} hidden{% endif %}>
+                    {% render 'icon-arrow-right', size: 18, stroke_width: 2 %}
+                </button>
+            {% endif %}
+
+            <span class="tiendu-product-gallery__zoom-trigger" aria-hidden="true">
+                {% render 'icon-search', size: 18, stroke_width: 2 %}
+            </span>
         </div>
 
         <div class="tiendu-product-gallery__thumbs" data-product-gallery-thumbs{% if gallery_images == blank or gallery_images.size <= 1 %} hidden{% endif %}>
@@ -166,17 +374,144 @@
                         {% if image.id != blank %}data-image-id="{{ image.id }}"{% endif %}
                         aria-current="{% if forloop.first %}true{% else %}false{% endif %}"
                     >
-                        <img src="{{ image.url | escape_attr }}" alt="{{ image.alt | default: product_obj.title | escape_attr }}" loading="lazy">
+                        <img src="{{ image.url | escape_attr }}" alt="{{ image.alt | default: product_obj.title | escape_attr }}" loading="lazy" draggable="false">
                     </button>
                 {% endfor %}
             {% endif %}
+        </div>
+
+        <div class="tiendu-product-gallery__modal" data-product-gallery-modal data-open="false" aria-hidden="true" hidden>
+            <button class="tiendu-product-gallery__modal-backdrop" type="button" data-product-gallery-modal-close aria-label="Cerrar imagen ampliada"></button>
+            <img class="tiendu-product-gallery__modal-image" src="" alt="" data-product-gallery-modal-image>
+            <button class="tiendu-product-gallery__modal-close" type="button" data-product-gallery-modal-close aria-label="Cerrar imagen ampliada">
+                {% render 'icon-x', size: 20, stroke_width: 2 %}
+            </button>
         </div>
     </div>
 {% endif %}
 
 {% schema %}
 {
-    "name": "product: Galería",
-    "settings": []
+    "name": "product: Gallery",
+    "settings": [
+        {
+            "type": "select",
+            "id": "show_thumbnails",
+            "label": "Show thumbnails",
+            "default": "desktop",
+            "options": [
+                {
+                    "value": "always",
+                    "label": "Always"
+                },
+                {
+                    "value": "never",
+                    "label": "Never"
+                },
+                {
+                    "value": "desktop",
+                    "label": "Desktop only"
+                },
+                {
+                    "value": "desktop_tablet",
+                    "label": "Desktop and tablet only"
+                }
+            ]
+        },
+        {
+            "type": "checkbox",
+            "id": "show_arrows",
+            "label": "Show arrows",
+            "default": true
+        },
+        {
+            "type": "select",
+            "id": "main_rounding",
+            "label": "Main carousel rounding",
+            "default": "theme",
+            "options": [
+                {
+                    "value": "theme",
+                    "label": "Theme default"
+                },
+                {
+                    "value": "none",
+                    "label": "None"
+                },
+                {
+                    "value": "sm",
+                    "label": "Sm"
+                },
+                {
+                    "value": "md",
+                    "label": "Md"
+                },
+                {
+                    "value": "lg",
+                    "label": "Lg"
+                },
+                {
+                    "value": "xl",
+                    "label": "Xl"
+                },
+                {
+                    "value": "2xl",
+                    "label": "2xl"
+                },
+                {
+                    "value": "3xl",
+                    "label": "3xl"
+                },
+                {
+                    "value": "full",
+                    "label": "Full"
+                }
+            ]
+        },
+        {
+            "type": "select",
+            "id": "thumbnail_rounding",
+            "label": "Thumbnail rounding",
+            "default": "theme",
+            "options": [
+                {
+                    "value": "theme",
+                    "label": "Theme default"
+                },
+                {
+                    "value": "none",
+                    "label": "None"
+                },
+                {
+                    "value": "sm",
+                    "label": "Sm"
+                },
+                {
+                    "value": "md",
+                    "label": "Md"
+                },
+                {
+                    "value": "lg",
+                    "label": "Lg"
+                },
+                {
+                    "value": "xl",
+                    "label": "Xl"
+                },
+                {
+                    "value": "2xl",
+                    "label": "2xl"
+                },
+                {
+                    "value": "3xl",
+                    "label": "3xl"
+                },
+                {
+                    "value": "full",
+                    "label": "Full"
+                }
+            ]
+        }
+    ]
 }
 {% endschema %}

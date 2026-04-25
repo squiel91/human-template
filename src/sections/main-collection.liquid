@@ -2,13 +2,13 @@
     {% if section.blocks and section.blocks.size > 0 %}
         {% content_for 'blocks' %}
     {% elsif design_mode or preview_mode %}
-        <div>Agrega bloques para construir la página de colección.</div>
+        <div>Add blocks to build the collection page.</div>
     {% endif %}
 </section>
 
 {% schema %}
 {
-    "name": "Colección principal",
+    "name": "Main collection",
     "enabled_on": {
         "templates": [
             "collection"
@@ -23,7 +23,7 @@
     ],
     "presets": [
         {
-            "name": "Colección principal",
+            "name": "Main collection",
             "blocks": {
                 "layout_outer": {
                     "type": "layout",
@@ -47,9 +47,9 @@
                                             "static": true,
                                             "settings": {
                                                 "text_type": "page_title",
-                                                "custom_color": "#000000",
+                                                "vertical_margin": "default",
                                                 "bold": true,
-                                                "size_desktop": "3xl"
+                                                "size_desktop": "5xl"
                                             }
                                         }
                                     },
@@ -61,8 +61,8 @@
                                     "type": "layout",
                                     "settings": {
                                         "css_styles_desktop": "display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px;",
-                                        "css_styles_tablet": "grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px;",
-                                        "css_styles_mobile": "grid-template-columns: 1fr; gap: 16px;"
+                                        "css_styles_tablet": "grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px;",
+                                        "css_styles_mobile": "grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px;"
                                     },
                                     "blocks": {
                                         "products": {
@@ -85,7 +85,7 @@
                                                                 "card_image": {
                                                                     "type": "product__image",
                                                                     "settings": {
-                                                                        "transition_to_second_image": false
+                                                                        "transition_to_second_image": true
                                                                     },
                                                                     "blocks": {
                                                                         "default-image": {
@@ -109,7 +109,6 @@
                                                                             "type": "text",
                                                                             "static": true,
                                                                             "settings": {
-                                                                                "custom_color": "#000000"
                                                                             }
                                                                         }
                                                                     },
@@ -130,7 +129,6 @@
                                                                                     "type": "text",
                                                                                     "static": true,
                                                                                     "settings": {
-                                                                                        "custom_color": "#000000",
                                                                                         "bold": true
                                                                                     }
                                                                                 }

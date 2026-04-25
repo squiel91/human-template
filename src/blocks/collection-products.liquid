@@ -34,19 +34,19 @@
 
 {% schema %}
 {
-    "name": "Productos de colección",
+    "name": "Collection products",
     "max_blocks": 1,
     "settings": [
         {
             "type": "number",
             "id": "products_per_page",
-            "label": "Productos por página",
+            "label": "Products per page",
             "default": 12
         },
         {
             "type": "checkbox",
             "id": "show_pagination",
-            "label": "Mostrar paginación",
+            "label": "Show pagination",
             "default": false
         }
     ],
@@ -57,7 +57,7 @@
     ],
     "presets": [
         {
-            "name": "Productos de colección",
+            "name": "Collection products",
             "blocks": {
                 "product_card": {
                     "type": "product",
@@ -72,7 +72,7 @@
                                 "card_image": {
                                     "type": "product__image",
                                     "settings": {
-                                        "transition_to_second_image": false
+                                        "transition_to_second_image": true
                                     },
                                     "blocks": {
                                         "default-image": {
@@ -96,7 +96,6 @@
                                             "type": "text",
                                             "static": true,
                                             "settings": {
-                                                "custom_color": "#000000"
                                             }
                                         }
                                     },
@@ -117,7 +116,6 @@
                                                     "type": "text",
                                                     "static": true,
                                                     "settings": {
-                                                        "custom_color": "#000000",
                                                         "bold": true
                                                     }
                                                 }

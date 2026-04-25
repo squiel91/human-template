@@ -1,0 +1,107 @@
+{% assign collection_object = closest.collection | default: collection | default: category %}
+{% assign collection_url = collection_object.url | default: '#' %}
+
+{% assign collection_rounding = block.settings.rounding | default: 'theme' %}
+
+{% case collection_rounding %}
+    {% when 'theme' %}
+        {% assign collection_border_radius = 'var(--product-image-border-radius, 0)' %}
+    {% when 'none' %}
+        {% assign collection_border_radius = '0' %}
+    {% when 'sm' %}
+        {% assign collection_border_radius = '0.125rem' %}
+    {% when 'md' %}
+        {% assign collection_border_radius = '0.375rem' %}
+    {% when 'lg' %}
+        {% assign collection_border_radius = '0.5rem' %}
+    {% when 'xl' %}
+        {% assign collection_border_radius = '0.75rem' %}
+    {% when '2xl' %}
+        {% assign collection_border_radius = '1rem' %}
+    {% when '3xl' %}
+        {% assign collection_border_radius = '1.5rem' %}
+    {% else %}
+        {% assign collection_border_radius = '9999px' %}
+{% endcase %}
+
+<a
+    {{ block.shopify_attributes }}
+    href="{{ collection_url }}"
+    style="
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        text-decoration: none;
+        color: inherit;
+        border-radius: {{ collection_border_radius }};
+        {{ block.settings.css_styles_desktop }}
+    "
+>
+    {% if block.blocks and block.blocks.size > 0 %}
+        {% content_for 'blocks' %}
+    {% elsif design_mode or preview_mode %}
+        <div>Add blocks to the collection (image, title, etc.).</div>
+    {% endif %}
+</a>
+
+{% schema %}
+{
+    "name": "Collection",
+    "settings": [
+        {
+            "type": "select",
+            "id": "rounding",
+            "label": "Rounding",
+            "default": "theme",
+            "options": [
+                { "value": "theme", "label": "Theme default" },
+                { "value": "none", "label": "None" },
+                { "value": "sm", "label": "Sm" },
+                { "value": "md", "label": "Md" },
+                { "value": "lg", "label": "Lg" },
+                { "value": "xl", "label": "Xl" },
+                { "value": "2xl", "label": "2xl" },
+                { "value": "3xl", "label": "3xl" },
+                { "value": "full", "label": "Full" }
+            ]
+        },
+        {
+            "type": "header",
+            "content": "Desktop"
+        },
+        {
+            "type": "textarea",
+            "id": "css_styles_desktop",
+            "label": "CSS styles"
+        },
+        {
+            "type": "header",
+            "content": "Tablet"
+        },
+        {
+            "type": "textarea",
+            "id": "css_styles_tablet",
+            "label": "CSS styles"
+        },
+        {
+            "type": "header",
+            "content": "Mobile"
+        },
+        {
+            "type": "textarea",
+            "id": "css_styles_mobile",
+            "label": "CSS styles"
+        }
+    ],
+    "blocks": [
+        {
+            "type": "@theme"
+        }
+    ],
+    "presets": [
+        {
+            "name": "Collection"
+        }
+    ]
+}
+{% endschema %}

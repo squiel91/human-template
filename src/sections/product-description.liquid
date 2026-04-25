@@ -2,13 +2,13 @@
     {% if section.blocks and section.blocks.size > 0 %}
         {% content_for 'blocks' %}
     {% elsif design_mode or preview_mode %}
-        <div>Agrega bloques para construir la descripción.</div>
+        <div>Add blocks to build the description.</div>
     {% endif %}
 </section>
 
 {% schema %}
 {
-    "name": "Descripción del producto",
+    "name": "Product description",
     "enabled_on": {
         "templates": [
             "product"
@@ -23,7 +23,7 @@
     ],
     "presets": [
         {
-            "name": "Descripción del producto",
+            "name": "Product description",
             "blocks": {
                 "layout_outer": {
                     "type": "layout",
@@ -42,7 +42,6 @@
                                     "settings": {
                                         "text": "Descripción",
                                         "text_type": "section_title",
-                                        "custom_color": "#000000",
                                         "bold": true,
                                         "size_desktop": "2xl"
                                     }

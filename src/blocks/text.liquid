@@ -2,7 +2,7 @@
 {% assign text_size_desktop = block.settings.size_desktop %}
 {% assign text_size_tablet = block.settings.size_tablet %}
 {% assign text_size_mobile = block.settings.size_mobile %}
-{% assign text_color_option = block.settings.color | default: 'primary' %}
+{% assign text_color_option = block.settings.color | default: 'custom' %}
 {% assign text_content = block.settings.text | default: default_text | default: default_content %}
 {% assign text_type = block.settings.text_type | default: 'text' %}
 {% assign text_id = text_id | default: generated_text_id %}
@@ -126,40 +126,40 @@
 
 {% schema %}
 {
-    "name": "Texto",
+    "name": "Text",
     "settings": [
         {
             "type": "text",
             "id": "text",
-            "label": "Texto",
+            "label": "Text",
             "default": "",
             "placeholder": "Hola mundo..."
         },
         {
             "type": "select",
             "id": "text_type",
-            "label": "Tipo",
+            "label": "Type",
             "default": "text",
             "options": [
                 {
                     "value": "text",
-                    "label": "Texto"
+                    "label": "Text"
                 },
                 {
                     "value": "paragraph",
-                    "label": "Párrafo"
+                    "label": "Paragraph"
                 },
                 {
                     "value": "page_title",
-                    "label": "Título de página"
+                    "label": "Page title"
                 },
                 {
                     "value": "section_title",
-                    "label": "Título de sección"
+                    "label": "Section title"
                 },
                 {
                     "value": "subtitle",
-                    "label": "Subtítulo"
+                    "label": "Subtitle"
                 },
                 {
                     "value": "heading_4",
@@ -174,16 +174,16 @@
         {
             "type": "select",
             "id": "vertical_margin",
-            "label": "Margen vertical",
+            "label": "Vertical margin",
             "default": "none",
             "options": [
                 {
                     "value": "none",
-                    "label": "Sin espaciado vertical"
+                    "label": "No vertical spacing"
                 },
                 {
                     "value": "default",
-                    "label": "Margen vertical por defecto"
+                    "label": "Default vertical margin"
                 }
             ]
         },
@@ -195,92 +195,92 @@
             "options": [
                 {
                     "value": "primary",
-                    "label": "Primario"
+                    "label": "Primary"
                 },
                 {
                     "value": "secondary",
-                    "label": "Secundario"
+                    "label": "Secondary"
                 },
                 {
                     "value": "accent",
-                    "label": "Acento"
+                    "label": "Accent"
                 },
                 {
                     "value": "custom",
-                    "label": "Personalizado"
+                    "label": "Custom"
                 }
             ]
         },
         {
             "type": "color",
             "id": "custom_color",
-            "label": "Color personalizado"
+            "label": "Custom color"
         },
         {
             "type": "select",
             "id": "alignment",
-            "label": "Alineación",
+            "label": "Alignment",
             "default": "inherit",
             "options": [
                 {
                     "value": "inherit",
-                    "label": "Heredado"
+                    "label": "Inherited"
                 },
                 {
                     "value": "left",
-                    "label": "Izquierda"
+                    "label": "Left"
                 },
                 {
                     "value": "center",
-                    "label": "Centrado"
+                    "label": "Center"
                 },
                 {
                     "value": "justify",
-                    "label": "Justificado"
+                    "label": "Justify"
                 },
                 {
                     "value": "right",
-                    "label": "Derecha"
+                    "label": "Right"
                 }
             ]
         },
         {
             "type": "checkbox",
             "id": "bold",
-            "label": "Negrita",
+            "label": "Bold",
             "default": false
         },
         {
             "type": "checkbox",
             "id": "italic",
-            "label": "Italica",
+            "label": "Italic",
             "default": false
         },
         {
             "type": "checkbox",
             "id": "underline",
-            "label": "Subrayado",
+            "label": "Underline",
             "default": false
         },
         {
             "type": "checkbox",
             "id": "line_through",
-            "label": "Tachado",
+            "label": "Strikethrough",
             "default": false
         },
         {
             "type": "header",
-            "content": "Laptop"
+            "content": "Desktop"
         },
         {
             "type": "select",
             "id": "size_desktop",
-            "label": "Tamano",
+            "label": "Size",
             "default": "inherit",
             "options": [
                 {
                     "value": "inherit",
-                    "label": "Heredado"
+                    "label": "Inherited"
                 },
                 {
                     "value": "xs",
@@ -339,8 +339,8 @@
         {
             "type": "textarea",
             "id": "css_styles_desktop",
-            "label": "Estilos CSS",
-            "info": "Los estilos serán heradados para el resto de los tamaños, a menos que se sobre-escriban."
+            "label": "CSS styles",
+            "info": "Styles will be inherited for other sizes unless overridden."
         },
         {
             "type": "header",
@@ -349,16 +349,16 @@
         {
             "type": "select",
             "id": "size_tablet",
-            "label": "Tamano",
+            "label": "Size",
             "default": "",
             "options": [
                 {
                     "value": "",
-                    "label": "Igual que laptop"
+                    "label": "Same as desktop"
                 },
                 {
                     "value": "inherit",
-                    "label": "Heredado"
+                    "label": "Inherited"
                 },
                 {
                     "value": "xs",
@@ -417,8 +417,8 @@
         {
             "type": "textarea",
             "id": "css_styles_tablet",
-            "label": "Estilos CSS",
-            "info": "Los estilos serán heradados para teléfonos, a menos que se sobre-escriban."
+            "label": "CSS styles",
+            "info": "Styles will be inherited for phones unless overridden."
         },
         {
             "type": "header",
@@ -427,16 +427,16 @@
         {
             "type": "select",
             "id": "size_mobile",
-            "label": "Tamano",
+            "label": "Size",
             "default": "",
             "options": [
                 {
                     "value": "",
-                    "label": "Igual que tablet"
+                    "label": "Same as tablet"
                 },
                 {
                     "value": "inherit",
-                    "label": "Heredado"
+                    "label": "Inherited"
                 },
                 {
                     "value": "xs",
@@ -495,13 +495,13 @@
         {
             "type": "textarea",
             "id": "css_styles_mobile",
-            "label": "Estilos CSS",
-            "info": "Se aplican unicamente al formato teléfono."
+            "label": "CSS styles",
+            "info": "Only applied to phone format."
         }
     ],
     "presets": [
         {
-            "name": "Texto"
+            "name": "Text"
         }
     ]
 }

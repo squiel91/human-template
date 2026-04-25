@@ -25,6 +25,71 @@ a:is(:hover, :focus-within) .tiendu-image__hover-image {
     opacity: 1;
 }
 
+.tiendu-product-gallery__stage {
+    touch-action: pan-y;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.tiendu-product-gallery__stage .tiendu-product-gallery__main-image {
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-user-drag: none;
+}
+
+.tiendu-product-gallery__zoom-trigger {
+    pointer-events: none;
+}
+
+.tiendu-product-description__content,
+.tiendu-product-description__specifications {
+    width: 100%;
+    max-width: 72ch;
+}
+
+.tiendu-product-description__content {
+    line-height: 1.7;
+}
+
+.tiendu-product-description__content > :first-child {
+    margin-top: 0;
+}
+
+.tiendu-product-description__content > :last-child {
+    margin-bottom: 0;
+}
+
+.tiendu-product-description__specifications {
+    margin-top: 24px;
+}
+
+.tiendu-product-description__specifications-table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.tiendu-product-description__specifications-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+.tiendu-product-description__specifications-table th,
+.tiendu-product-description__specifications-table td {
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+    text-align: left;
+    vertical-align: top;
+    overflow-wrap: anywhere;
+}
+
+.tiendu-product-description__specifications-table th {
+    width: 38%;
+    padding-right: 24px;
+    font-weight: 700;
+}
+
 .tiendu-no-default-margin {
     margin-top: 0;
     margin-bottom: 0;
@@ -130,6 +195,14 @@ a:is(:hover, :focus-within) .tiendu-image__hover-image {
     overflow: hidden;
     touch-action: pan-y;
     user-select: none;
+    -webkit-user-select: none;
+}
+
+.tiendu-carousel__viewport img,
+.tiendu-carousel__slide img {
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-user-drag: none;
 }
 
 .tiendu-carousel__track {

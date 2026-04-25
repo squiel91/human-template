@@ -1,0 +1,39 @@
+{% assign collection_obj = closest.collection | default: collection | default: category %}
+{% assign collection_title = collection_obj.name | default: 'Categoría' %}
+
+{% if collection_title != blank or design_mode or preview_mode %}
+    <div {{ block.shopify_attributes }}>
+        {% content_for 'block', id: 'default-text', type: 'text', default_text: collection_title %}
+    </div>
+{% endif %}
+
+{% schema %}
+{
+    "name": "collection: Title",
+    "max_blocks": 1,
+    "settings": [],
+    "blocks": [
+        {
+            "type": "text"
+        }
+    ],
+    "presets": [
+        {
+            "name": "collection: Title",
+            "blocks": {
+                "default-text": {
+                    "type": "text",
+                    "static": true,
+                    "settings": {
+                        "bold": true,
+                        "css_styles_desktop": "overflow-wrap: anywhere;"
+                    }
+                }
+            },
+            "block_order": [
+                "default-text"
+            ]
+        }
+    ]
+}
+{% endschema %}

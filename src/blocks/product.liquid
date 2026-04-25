@@ -40,23 +40,23 @@
     {% if block.blocks and block.blocks.size > 0 %}
         {% content_for 'blocks' %}
     {% elsif design_mode or preview_mode %}
-        <div>Agrega bloques al producto (título, precio, etc.).</div>
+        <div>Add blocks to the product (title, price, etc.).</div>
     {% endif %}
 </a>
 
 {% schema %}
 {
-    "name": "Producto",
+    "name": "Product",
     "settings": [
         {
             "type": "select",
             "id": "rounding",
-            "label": "Redondeado",
+            "label": "Rounding",
             "default": "theme",
             "options": [
                 {
                     "value": "theme",
-                    "label": "Defecto del tema"
+                    "label": "Theme default"
                 },
                 {
                     "value": "none",
@@ -99,7 +99,7 @@
         {
             "type": "textarea",
             "id": "css_styles_desktop",
-            "label": "Estilos CSS"
+            "label": "CSS styles"
         },
         {
             "type": "header",
@@ -108,7 +108,7 @@
         {
             "type": "textarea",
             "id": "css_styles_tablet",
-            "label": "Estilos CSS"
+            "label": "CSS styles"
         },
         {
             "type": "header",
@@ -117,7 +117,7 @@
         {
             "type": "textarea",
             "id": "css_styles_mobile",
-            "label": "Estilos CSS"
+            "label": "CSS styles"
         }
     ],
     "blocks": [
@@ -127,7 +127,7 @@
     ],
     "presets": [
         {
-            "name": "Producto"
+            "name": "Product"
         }
     ]
 }

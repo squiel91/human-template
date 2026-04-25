@@ -1,0 +1,167 @@
+<section class="tiendu-featured-collections" style="padding: 32px 0;">
+    {% if section.blocks and section.blocks.size > 0 %}
+        {% content_for 'blocks' %}
+    {% elsif design_mode or preview_mode %}
+        <div>Add blocks to build the featured collections.</div>
+    {% endif %}
+</section>
+
+{% schema %}
+{
+    "name": "Featured collections",
+    "max_blocks": 1,
+    "settings": [
+        {
+            "type": "collection_list",
+            "id": "collections",
+            "label": "Collections"
+        }
+    ],
+    "blocks": [
+        {
+            "type": "layout"
+        }
+    ],
+    "presets": [
+        {
+            "name": "Featured collections",
+            "blocks": {
+                "layout_outer": {
+                    "type": "layout",
+                    "settings": {
+                        "css_styles_desktop": "padding: 0 var(--container-horizontal-padding, 8px);"
+                    },
+                    "blocks": {
+                        "layout_inner": {
+                            "type": "layout",
+                            "settings": {
+                                "css_styles_desktop": "max-width: var(--container-max-width, 1024px); margin: 0 auto; display: flex; flex-direction: column; gap: 32px;",
+                                "css_styles_tablet": "gap: 24px;",
+                                "css_styles_mobile": "gap: 20px;"
+                            },
+                            "blocks": {
+                                "layout_header": {
+                                    "type": "layout",
+                                    "settings": {
+                                        "css_styles_desktop": "display: flex; align-items: center; justify-content: space-between; gap: 16px;",
+                                        "css_styles_mobile": "flex-direction: column; align-items: flex-start;"
+                                    },
+                                    "blocks": {
+                                        "title": {
+                                            "type": "text",
+                                            "settings": {
+                                                "text": "Categorías destacadas",
+                                                "text_type": "section_title",
+                                                "bold": true,
+                                                "size_desktop": "2xl"
+                                            }
+                                        },
+                                        "cta": {
+                                            "type": "button",
+                                            "settings": {
+                                                "text": "Ver más",
+                                                "variant": "secondary",
+                                                "rounding": "theme",
+                                                "link": "/categorias"
+                                            }
+                                        }
+                                    },
+                                    "block_order": [
+                                        "title",
+                                        "cta"
+                                    ]
+                                },
+                                "layout_grid": {
+                                    "type": "layout",
+                                    "settings": {
+                                        "css_styles_desktop": "display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px;",
+                                        "css_styles_tablet": "grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px;",
+                                        "css_styles_mobile": "grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px;"
+                                    },
+                                    "blocks": {
+                                        "collections": {
+                                            "type": "selected-collections",
+                                            "blocks": {
+                                                "collection_card": {
+                                                    "type": "collection",
+                                                    "static": true,
+                                                    "blocks": {
+                                                        "card_wrap": {
+                                                            "type": "layout",
+                                                            "settings": {
+                                                                "css_styles_desktop": "display: flex; flex-direction: column; gap: 10px;"
+                                                            },
+                                                            "blocks": {
+                                                                "card_image": {
+                                                                    "type": "collection__image",
+                                                                    "blocks": {
+                                                                        "default-image": {
+                                                                            "type": "image",
+                                                                            "static": true,
+                                                                            "settings": {
+                                                                                "size": "full",
+                                                                                "image_ratio": "collection_default",
+                                                                                "rounding": "theme"
+                                                                            }
+                                                                        }
+                                                                    },
+                                                                    "block_order": [
+                                                                        "default-image"
+                                                                    ]
+                                                                },
+                                                                "card_title": {
+                                                                    "type": "collection__title",
+                                                                    "blocks": {
+                                                                        "default-text": {
+                                                                            "type": "text",
+                                                                            "static": true,
+                                                                            "settings": {
+                                                                                "bold": true,
+                                                                                "css_styles_desktop": "overflow-wrap: anywhere;"
+                                                                            }
+                                                                        }
+                                                                    },
+                                                                    "block_order": [
+                                                                        "default-text"
+                                                                    ]
+                                                                }
+                                                            },
+                                                            "block_order": [
+                                                                "card_image",
+                                                                "card_title"
+                                                            ]
+                                                        }
+                                                    },
+                                                    "block_order": [
+                                                        "card_wrap"
+                                                    ]
+                                                }
+                                            },
+                                            "block_order": [
+                                                "collection_card"
+                                            ]
+                                        }
+                                    },
+                                    "block_order": [
+                                        "collections"
+                                    ]
+                                }
+                            },
+                            "block_order": [
+                                "layout_header",
+                                "layout_grid"
+                            ]
+                        }
+                    },
+                    "block_order": [
+                        "layout_inner"
+                    ]
+                }
+            },
+            "block_order": [
+                "layout_outer"
+            ]
+        }
+    ]
+}
+{% endschema %}

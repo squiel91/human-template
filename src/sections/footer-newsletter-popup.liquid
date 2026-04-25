@@ -58,14 +58,14 @@
         {% if section.blocks and section.blocks.size > 0 %}
             {% content_for 'blocks' %}
         {% elsif design_mode or preview_mode %}
-            <div>Agrega bloques para construir el popup de newsletter.</div>
+            <div>Add blocks to build the newsletter popup.</div>
         {% endif %}
     </div>
 </section>
 
 {% schema %}
 {
-    "name": "Popup newsletter",
+    "name": "Newsletter popup",
     "enabled_on": {
         "groups": [
             "footer"
@@ -76,7 +76,7 @@
         {
             "type": "range",
             "id": "delay_seconds",
-            "label": "Mostrar después de",
+            "label": "Show after",
             "min": 0,
             "max": 30,
             "step": 1,
@@ -86,8 +86,8 @@
         {
             "type": "text",
             "id": "popup_key",
-            "label": "Clave del popup",
-            "info": "Cambiá esta clave para volver a mostrar el popup o usar más de una versión.",
+            "label": "Popup key",
+            "info": "Change this key to show the popup again or use more than one version.",
             "default": "newsletter-popup"
         }
     ],
@@ -98,7 +98,7 @@
     ],
     "presets": [
         {
-            "name": "Popup newsletter",
+            "name": "Newsletter popup",
             "blocks": {
                 "popup_card": {
                     "type": "layout",

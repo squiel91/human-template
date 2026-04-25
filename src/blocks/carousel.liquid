@@ -43,23 +43,23 @@
             </div>
         {% endif %}
     {% elsif design_mode or preview_mode %}
-        <div style="padding: 4rem 1rem; text-align: center;">Agrega slides dentro de este carrusel.</div>
+        <div style="padding: 4rem 1rem; text-align: center;">Add slides inside this carousel.</div>
     {% endif %}
 </div>
 
 {% schema %}
 {
-    "name": "Carrusel",
+    "name": "Carousel",
     "max_blocks": 8,
     "settings": [
         {
             "type": "select",
             "id": "height_desktop",
-            "label": "Altura desktop",
+            "label": "Desktop height",
             "options": [
                 {
                     "value": "0rem",
-                    "label": "Sin altura mínima"
+                    "label": "No minimum height"
                 },
                 {
                     "value": "20rem",
@@ -95,15 +95,15 @@
         {
             "type": "select",
             "id": "height_tablet",
-            "label": "Altura tablet",
+            "label": "Tablet height",
             "options": [
                 {
                     "value": "",
-                    "label": "Igual a desktop"
+                    "label": "Same as desktop"
                 },
                 {
                     "value": "0rem",
-                    "label": "Sin altura mínima"
+                    "label": "No minimum height"
                 },
                 {
                     "value": "20rem",
@@ -139,15 +139,15 @@
         {
             "type": "select",
             "id": "height_mobile",
-            "label": "Altura mobile",
+            "label": "Mobile height",
             "options": [
                 {
                     "value": "",
-                    "label": "Igual a tablet"
+                    "label": "Same as tablet"
                 },
                 {
                     "value": "0rem",
-                    "label": "Sin altura mínima"
+                    "label": "No minimum height"
                 },
                 {
                     "value": "20rem",
@@ -183,13 +183,13 @@
         {
             "type": "checkbox",
             "id": "show_arrows",
-            "label": "Mostrar flechas",
+            "label": "Show arrows",
             "default": true
         },
         {
             "type": "checkbox",
             "id": "show_dots",
-            "label": "Mostrar puntos",
+            "label": "Show dots",
             "default": true
         },
         {
@@ -201,7 +201,7 @@
         {
             "type": "range",
             "id": "autoplay_seconds",
-            "label": "Autoplay segundos",
+            "label": "Autoplay seconds",
             "min": 1,
             "max": 10,
             "step": 1,
@@ -215,7 +215,7 @@
     ],
     "presets": [
         {
-            "name": "Carrusel"
+            "name": "Carousel"
         }
     ]
 }

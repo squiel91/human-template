@@ -2,7 +2,7 @@
     {% if section.blocks and section.blocks.size > 0 %}
         {% content_for 'blocks' %}
     {% elsif design_mode or preview_mode %}
-        <div>Agrega bloques para construir la página de producto.</div>
+        <div>Add blocks to build the product page.</div>
     {% endif %}
 
     <script id="product-json" type="application/json">{{ product | json }}</script>
@@ -10,7 +10,7 @@
 
 {% schema %}
 {
-    "name": "Producto principal",
+    "name": "Main product",
     "enabled_on": {
         "templates": [
             "product"
@@ -25,7 +25,7 @@
     ],
     "presets": [
         {
-            "name": "Producto principal",
+            "name": "Main product",
             "blocks": {
                 "layout_outer": {
                     "type": "layout",
@@ -42,7 +42,13 @@
                             },
                             "blocks": {
                                 "gallery": {
-                                    "type": "product__gallery"
+                                    "type": "product__gallery",
+                                    "settings": {
+                                        "show_thumbnails": "desktop",
+                                        "show_arrows": true,
+                                        "main_rounding": "theme",
+                                        "thumbnail_rounding": "theme"
+                                    }
                                 },
                                 "content_column": {
                                     "type": "layout",
@@ -58,7 +64,6 @@
                                                     "static": true,
                                                     "settings": {
                                                         "text_type": "page_title",
-                                                        "custom_color": "#000000",
                                                         "bold": true,
                                                         "size_desktop": "4xl"
                                                     }
@@ -81,7 +86,6 @@
                                                             "type": "text",
                                                             "static": true,
                                                             "settings": {
-                                                                "custom_color": "#000000",
                                                                 "bold": true,
                                                                 "size_desktop": "2xl"
                                                             }
@@ -158,7 +162,6 @@
                                                             "settings": {
                                                                 "icon": "forward",
                                                                 "color": "custom",
-                                                                "custom_color": "#000000",
                                                                 "size": "md",
                                                                 "stroke_width": "2"
                                                             }
@@ -175,12 +178,20 @@
                                         },
                                         "selectors": {
                                             "type": "product__attribute-selectors"
+                                        },
+                                        "quantity": {
+                                            "type": "product__quantity",
+                                            "settings": {
+                                                "label": "Cantidad",
+                                                "rounding": "theme"
+                                            }
                                         }
                                     },
                                     "block_order": [
                                         "title",
                                         "pricing_row",
                                         "selectors",
+                                        "quantity",
                                         "add_to_cart",
                                         "share"
                                     ]

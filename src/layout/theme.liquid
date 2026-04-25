@@ -182,7 +182,8 @@
         <script type="importmap">
             {
                 "imports": {
-                    "tiendu-sdk": "{{ 'tiendu-sdk.js' | asset_url }}"
+                    "tiendu-sdk": "{{ 'tiendu-sdk.js' | asset_url }}",
+                    "carousel-utils": "{{ 'carousel-utils.js' | asset_url }}"
                 }
             }
         </script>
@@ -214,6 +215,7 @@
                 --color-secondary: {{ settings.secondary_color | default: '#00FF00' }};
                 --color-accent: {{ settings.accent_color | default: '#FF0000' }};
                 --color-background: {{ settings.background_color | default: '#EFEFEF' }};
+                --color-text: {{ settings.text_color | default: 'CanvasText' }};
                 --container-max-width: {{ settings.max_width | default: '1024px' }};
                 --container-horizontal-padding: {{ settings.horizontal_padding | default: '8px' }};
                 --button-input-border-radius: {{ button_input_border_radius }};
@@ -222,6 +224,7 @@
 
             body {
                 font-family: var(--font-body-family);
+                color: var(--color-text, #000000);
             }
 
             h1,

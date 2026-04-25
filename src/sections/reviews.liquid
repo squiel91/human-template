@@ -2,13 +2,13 @@
     {% if section.blocks and section.blocks.size > 0 %}
         {% content_for 'blocks' %}
     {% elsif design_mode or preview_mode %}
-        <div>Agrega bloques para construir la sección de opiniones.</div>
+        <div>Add blocks to build the reviews section.</div>
     {% endif %}
 </section>
 
 {% schema %}
 {
-    "name": "Opiniones",
+    "name": "Reviews",
     "max_blocks": 1,
     "settings": [],
     "blocks": [
@@ -18,7 +18,7 @@
     ],
     "presets": [
         {
-            "name": "Opiniones",
+            "name": "Reviews",
             "blocks": {
                 "layout_outer": {
                     "type": "layout",
@@ -61,7 +61,6 @@
                                                     "settings": {
                                                         "text": "Lo que dicen nuestros clientes.",
                                                         "text_type": "section_title",
-                                                        "custom_color": "#000000",
                                                         "bold": true,
                                                         "size_desktop": "4xl"
                                                     }
@@ -96,7 +95,6 @@
                                                             "type": "text",
                                                             "settings": {
                                                                 "text": "4.9 / 5",
-                                                                "custom_color": "#000000",
                                                                 "bold": true
                                                             }
                                                         }

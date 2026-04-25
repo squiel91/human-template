@@ -142,7 +142,6 @@
                               "settings": {
                                 "icon": "text-align-start",
                                 "color": "custom",
-                                "custom_color": "#000000",
                                 "size": "md",
                                 "stroke_width": "2"
                               },
@@ -176,7 +175,6 @@
                                 "size_desktop": "base",
                                 "size_tablet": "",
                                 "size_mobile": "",
-                                "custom_color": "#000000",
                                 "css_styles_desktop": "",
                                 "css_styles_tablet": "",
                                 "css_styles_mobile": ""
@@ -220,7 +218,7 @@
                             "variant": "secondary",
                             "rounding": "none",
                             "link": "",
-                            "css_styles_desktop": "color: #000000;",
+                            "css_styles_desktop": "",
                             "css_styles_tablet": "",
                             "css_styles_mobile": ""
                           },
@@ -231,7 +229,6 @@
                               "settings": {
                                 "icon": "search",
                                 "color": "custom",
-                                "custom_color": "#000000",
                                 "size": "md",
                                 "stroke_width": "2"
                               },
@@ -253,7 +250,7 @@
                             "variant": "secondary",
                             "rounding": "none",
                             "link": "",
-                            "css_styles_desktop": "color: #000000; position: relative;",
+                            "css_styles_desktop": "position: relative;",
                             "css_styles_tablet": "",
                             "css_styles_mobile": ""
                           },
@@ -264,7 +261,6 @@
                               "settings": {
                                 "icon": "shopping-bag",
                                 "color": "custom",
-                                "custom_color": "#000000",
                                 "size": "md",
                                 "stroke_width": "2"
                               },
@@ -325,7 +321,6 @@
                             "size_desktop": "sm",
                             "size_tablet": "",
                             "size_mobile": "",
-                            "custom_color": "#000000",
                             "css_styles_desktop": "",
                             "css_styles_tablet": "",
                             "css_styles_mobile": ""
@@ -360,7 +355,6 @@
                             "size_desktop": "sm",
                             "size_tablet": "",
                             "size_mobile": "",
-                            "custom_color": "#000000",
                             "css_styles_desktop": "",
                             "css_styles_tablet": "",
                             "css_styles_mobile": ""
@@ -395,7 +389,6 @@
                             "size_desktop": "sm",
                             "size_tablet": "",
                             "size_mobile": "",
-                            "custom_color": "#000000",
                             "css_styles_desktop": "",
                             "css_styles_tablet": "",
                             "css_styles_mobile": ""
@@ -430,7 +423,6 @@
                             "size_desktop": "sm",
                             "size_tablet": "",
                             "size_mobile": "",
-                            "custom_color": "#000000",
                             "css_styles_desktop": "",
                             "css_styles_tablet": "",
                             "css_styles_mobile": ""

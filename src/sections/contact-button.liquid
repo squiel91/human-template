@@ -26,13 +26,13 @@
     {% if section.blocks and section.blocks.size > 0 %}
         {% content_for 'blocks' %}
     {% elsif design_mode or preview_mode %}
-        <div>Agrega un botón para contacto.</div>
+        <div>Add a contact button.</div>
     {% endif %}
 </section>
 
 {% schema %}
 {
-    "name": "Botón de contacto",
+    "name": "Contact button",
     "enabled_on": {
         "groups": [
             "footer"
@@ -47,7 +47,7 @@
     ],
     "presets": [
         {
-            "name": "Botón de contacto",
+            "name": "Contact button",
             "blocks": {
                 "button": {
                     "type": "button",
