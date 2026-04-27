@@ -3,6 +3,8 @@
 {% assign icon_color_option = block.settings.color | default: 'custom' %}
 
 {% case icon_color_option %}
+    {% when 'automatic' %}
+        {% assign icon_color = settings.text_color | default: '#000000' %}
     {% when 'secondary' %}
         {% assign icon_color = settings.secondary_color | default: '#00FF00' %}
     {% when 'accent' %}
@@ -36,7 +38,7 @@
     }
 </style>
 
-<span {{ block.shopify_attributes }} id="{{ icon_id }}" aria-hidden="true">
+<span {{ block.tiendu_attributes }} id="{{ icon_id }}" aria-hidden="true">
     {% case icon_name %}
         {% when 'text-align-start' %}
             {% render 'icon-text-align-start', size: icon_size, stroke_width: block.settings.stroke_width %}
@@ -52,6 +54,16 @@
             {% render 'icon-x', size: icon_size, stroke_width: block.settings.stroke_width %}
         {% when 'messages-square' %}
             {% render 'icon-messages-square', size: icon_size, stroke_width: block.settings.stroke_width %}
+        {% when 'shield-check' %}
+            {% render 'icon-shield-check', size: icon_size, stroke_width: block.settings.stroke_width %}
+        {% when 'facebook' %}
+            {% render 'icon-facebook', size: icon_size %}
+        {% when 'instagram' %}
+            {% render 'icon-instagram', size: icon_size %}
+        {% when 'tiktok' %}
+            {% render 'icon-tiktok', size: icon_size %}
+        {% when 'youtube' %}
+            {% render 'icon-youtube', size: icon_size %}
     {% else %}
         {% render 'icon-search', size: icon_size, stroke_width: block.settings.stroke_width %}
     {% endcase %}
@@ -96,6 +108,26 @@
                     "label": "Messages square"
                 },
                 {
+                    "value": "shield-check",
+                    "label": "Shield check"
+                },
+                {
+                    "value": "facebook",
+                    "label": "Facebook"
+                },
+                {
+                    "value": "instagram",
+                    "label": "Instagram"
+                },
+                {
+                    "value": "tiktok",
+                    "label": "TikTok"
+                },
+                {
+                    "value": "youtube",
+                    "label": "YouTube"
+                },
+                {
                     "value": "x",
                     "label": "X"
                 }
@@ -107,6 +139,10 @@
             "label": "Color",
             "default": "custom",
             "options": [
+                {
+                    "value": "automatic",
+                    "label": "Automatic"
+                },
                 {
                     "value": "primary",
                     "label": "Primary"

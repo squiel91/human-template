@@ -1,5 +1,6 @@
 {% assign product_obj = closest.product | default: product %}
 {% assign average_rating = product_obj.averageRating %}
+{% assign reviews_quantity = product_obj.reviewsQuantity | default: 0 %}
 {% assign child_blocks = block.children | default: block.blocks %}
 {% assign rating_value = average_rating | default: 0 %}
 {% assign can_render_reviews = false %}
@@ -11,10 +12,10 @@
     <div {{ block.shopify_attributes }}>
         {% if child_blocks and child_blocks.size > 0 %}
             {% for child_block in child_blocks %}
-                {% content_for 'block', id: child_block.id, type: child_block.type, default_rating: rating_value %}
+                {% content_for 'block', id: child_block.id, type: child_block.type, default_rating: rating_value, default_reviews_quantity: reviews_quantity %}
             {% endfor %}
         {% else %}
-            {% content_for 'block', id: 'default-stars', type: 'stars', default_rating: rating_value %}
+            {% content_for 'block', id: 'default-stars', type: 'stars', default_rating: rating_value, default_reviews_quantity: reviews_quantity %}
         {% endif %}
     </div>
 {% endif %}

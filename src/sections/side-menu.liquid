@@ -60,7 +60,29 @@
     }
 </style>
 
-<section class="tiendu-side-menu" data-side-menu-root data-open="false" aria-hidden="true">
+{% if design_mode or preview_mode %}
+    <style>
+        #side-menu-{{ section.id }} {
+            position: relative;
+            visibility: visible;
+            pointer-events: auto;
+            z-index: auto;
+            overflow: visible;
+        }
+        #side-menu-{{ section.id }} .tiendu-side-menu__backdrop {
+            display: none;
+        }
+        #side-menu-{{ section.id }} .tiendu-side-menu__panel {
+            transform: none;
+            width: 100%;
+            max-width: 28rem;
+            box-shadow: none;
+            border: 1px dashed rgba(0, 0, 0, 0.2);
+        }
+    </style>
+{% endif %}
+
+<section id="side-menu-{{ section.id }}" class="tiendu-side-menu" data-side-menu-root data-open="{% if design_mode or preview_mode %}true{% else %}false{% endif %}" aria-hidden="{% if design_mode or preview_mode %}false{% else %}true{% endif %}">
     <button type="button" class="tiendu-side-menu__backdrop" data-side-menu-close aria-label="Cerrar menú"></button>
     <div class="tiendu-side-menu__panel">
         {% content_for 'blocks' %}
@@ -151,8 +173,8 @@
                                             "type": "text",
                                             "settings": {
                                                 "text": "Productos",
-                                                "italic": true,
-                                                "size_desktop": "base"
+                                                "color": "primary",
+                                                "bold": true
                                             }
                                         }
                                     },
@@ -170,8 +192,8 @@
                                             "type": "text",
                                             "settings": {
                                                 "text": "Ofertas",
-                                                "italic": true,
-                                                "size_desktop": "base"
+                                                "color": "primary",
+                                                "bold": true
                                             }
                                         }
                                     },
@@ -189,8 +211,8 @@
                                             "type": "text",
                                             "settings": {
                                                 "text": "Categorias",
-                                                "italic": true,
-                                                "size_desktop": "base"
+                                                "color": "primary",
+                                                "bold": true
                                             }
                                         }
                                     },
@@ -208,8 +230,8 @@
                                             "type": "text",
                                             "settings": {
                                                 "text": "Blog",
-                                                "italic": true,
-                                                "size_desktop": "base"
+                                                "color": "primary",
+                                                "bold": true
                                             }
                                         }
                                     },

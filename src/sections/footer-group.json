@@ -160,20 +160,7 @@
                             "text": {
                               "type": "text",
                               "settings": {
-                                "text": "Verano",
-                                "text_type": "text",
-                                "color": "primary",
-                                "bold": false,
-                                "italic": true,
-                                "underline": false,
-                                "line_through": false,
-                                "size_desktop": "base",
-                                "size_tablet": "",
-                                "size_mobile": "",
-                                "custom_color": "",
-                                "css_styles_desktop": "opacity: 0.8;",
-                                "css_styles_tablet": "",
-                                "css_styles_mobile": ""
+                                "text": "Verano"
                               },
                               "static": false
                             }
@@ -195,20 +182,7 @@
                             "text": {
                               "type": "text",
                               "settings": {
-                                "text": "Nuevos ingresos",
-                                "text_type": "text",
-                                "color": "primary",
-                                "bold": false,
-                                "italic": true,
-                                "underline": false,
-                                "line_through": false,
-                                "size_desktop": "base",
-                                "size_tablet": "",
-                                "size_mobile": "",
-                                "custom_color": "",
-                                "css_styles_desktop": "opacity: 0.8;",
-                                "css_styles_tablet": "",
-                                "css_styles_mobile": ""
+                                "text": "Nuevos ingresos"
                               },
                               "static": false
                             }
@@ -230,20 +204,7 @@
                             "text": {
                               "type": "text",
                               "settings": {
-                                "text": "Favoritos",
-                                "text_type": "text",
-                                "color": "primary",
-                                "bold": false,
-                                "italic": true,
-                                "underline": false,
-                                "line_through": false,
-                                "size_desktop": "base",
-                                "size_tablet": "",
-                                "size_mobile": "",
-                                "custom_color": "",
-                                "css_styles_desktop": "opacity: 0.8;",
-                                "css_styles_tablet": "",
-                                "css_styles_mobile": ""
+                                "text": "Favoritos"
                               },
                               "static": false
                             }
@@ -308,20 +269,7 @@
                             "text": {
                               "type": "text",
                               "settings": {
-                                "text": "Sobre nosotros",
-                                "text_type": "text",
-                                "color": "primary",
-                                "bold": false,
-                                "italic": true,
-                                "underline": false,
-                                "line_through": false,
-                                "size_desktop": "base",
-                                "size_tablet": "",
-                                "size_mobile": "",
-                                "custom_color": "",
-                                "css_styles_desktop": "opacity: 0.8;",
-                                "css_styles_tablet": "",
-                                "css_styles_mobile": ""
+                                "text": "Sobre nosotros"
                               },
                               "static": false
                             }
@@ -343,20 +291,7 @@
                             "text": {
                               "type": "text",
                               "settings": {
-                                "text": "Envios y cambios",
-                                "text_type": "text",
-                                "color": "primary",
-                                "bold": false,
-                                "italic": true,
-                                "underline": false,
-                                "line_through": false,
-                                "size_desktop": "base",
-                                "size_tablet": "",
-                                "size_mobile": "",
-                                "custom_color": "",
-                                "css_styles_desktop": "opacity: 0.8;",
-                                "css_styles_tablet": "",
-                                "css_styles_mobile": ""
+                                "text": "Envios y cambios"
                               },
                               "static": false
                             }
@@ -378,20 +313,7 @@
                             "text": {
                               "type": "text",
                               "settings": {
-                                "text": "Contacto",
-                                "text_type": "text",
-                                "color": "primary",
-                                "bold": false,
-                                "italic": true,
-                                "underline": false,
-                                "line_through": false,
-                                "size_desktop": "base",
-                                "size_tablet": "",
-                                "size_mobile": "",
-                                "custom_color": "",
-                                "css_styles_desktop": "opacity: 0.8;",
-                                "css_styles_tablet": "",
-                                "css_styles_mobile": ""
+                                "text": "Contacto"
                               },
                               "static": false
                             }

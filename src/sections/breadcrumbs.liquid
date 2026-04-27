@@ -1,0 +1,60 @@
+<section class="tiendu-breadcrumbs-section" style="padding: 16px 0;">
+    {% if section.blocks and section.blocks.size > 0 %}
+        {% content_for 'blocks' %}
+    {% elsif design_mode or preview_mode %}
+        <div>Add blocks to build the breadcrumbs section.</div>
+    {% endif %}
+</section>
+
+{% schema %}
+{
+    "name": "Breadcrumbs",
+    "max_blocks": 1,
+    "settings": [],
+    "blocks": [
+        {
+            "type": "layout"
+        }
+    ],
+    "presets": [
+        {
+            "name": "Breadcrumbs",
+            "blocks": {
+                "layout_outer": {
+                    "type": "layout",
+                    "settings": {
+                        "css_styles_desktop": "padding: 0 var(--container-horizontal-padding, 8px);"
+                    },
+                    "blocks": {
+                        "layout_inner": {
+                            "type": "layout",
+                            "settings": {
+                                "css_styles_desktop": "max-width: var(--container-max-width, 1024px); margin: 0 auto;"
+                            },
+                            "blocks": {
+                                "breadcrumbs": {
+                                    "type": "breadcrumbs",
+                                    "settings": {
+                                        "home_label": "Inicio",
+                                        "separator_icon": "chevron-right",
+                                        "show_current": true
+                                    }
+                                }
+                            },
+                            "block_order": [
+                                "breadcrumbs"
+                            ]
+                        }
+                    },
+                    "block_order": [
+                        "layout_inner"
+                    ]
+                }
+            },
+            "block_order": [
+                "layout_outer"
+            ]
+        }
+    ]
+}
+{% endschema %}

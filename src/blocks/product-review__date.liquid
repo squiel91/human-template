@@ -1,0 +1,48 @@
+{% assign review_obj = closest.review %}
+{% assign fallback_date = review_obj.relativeTime %}
+{% if fallback_date == blank and review_obj.createdAt != blank %}
+    {% assign fallback_date = review_obj.createdAt | date: "%d/%m/%Y" %}
+{% endif %}
+
+{% if fallback_date != blank %}
+    <div {{ block.shopify_attributes }}>
+        {% if block.blocks and block.blocks.size > 0 %}
+            {% for child_block in block.blocks %}
+                {% content_for 'block', id: child_block.id, type: child_block.type, default_text: fallback_date %}
+            {% endfor %}
+        {% else %}
+            {% content_for 'block', id: 'text', type: 'text', default_text: fallback_date %}
+        {% endif %}
+    </div>
+{% endif %}
+
+{% schema %}
+{
+    "name": "product review: Date",
+    "max_blocks": 1,
+    "settings": [],
+    "blocks": [
+        {
+            "type": "text"
+        }
+    ],
+    "presets": [
+        {
+            "name": "product review: Date",
+            "blocks": {
+                "text": {
+                    "type": "text",
+                    "static": true,
+                    "settings": {
+                        "custom_color": "#6b7280",
+                        "size_desktop": "sm"
+                    }
+                }
+            },
+            "block_order": [
+                "text"
+            ]
+        }
+    ]
+}
+{% endschema %}

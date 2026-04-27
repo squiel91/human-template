@@ -34,6 +34,8 @@
 {% endcase %}
 
 {% case text_color_option %}
+    {% when 'automatic' %}
+        {% assign text_color = settings.text_color | default: '#000000' %}
     {% when 'secondary' %}
         {% assign text_color = settings.secondary_color | default: '#00FF00' %}
     {% when 'accent' %}
@@ -117,7 +119,7 @@
 </style>
 
 <{{ text_tag }}
-    {{ block.shopify_attributes }}
+    {{ block.tiendu_attributes }}
     id="{{ text_id }}"
     class="{{ text_classes | strip }} {{ text_class | strip }}"
 >
@@ -193,6 +195,10 @@
             "label": "Color",
             "default": "custom",
             "options": [
+                {
+                    "value": "automatic",
+                    "label": "Automatic"
+                },
                 {
                     "value": "primary",
                     "label": "Primary"

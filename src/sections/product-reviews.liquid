@@ -1,0 +1,395 @@
+{% assign product_obj = product %}
+{% assign product_reviews = product_obj.reviews %}
+{% if request.page_type == 'product' and product_page.reviews != blank %}
+    {% assign product_reviews = product_page.reviews %}
+{% endif %}
+
+<section class="tiendu-product-reviews" style="padding: 48px 0;">
+    {% if section.blocks and section.blocks.size > 0 %}
+        {% for section_block in section.blocks %}
+            {% content_for 'block', id: section_block.id, type: section_block.type, closest.product: product_obj %}
+        {% endfor %}
+    {% elsif design_mode or preview_mode %}
+        <div>Add blocks to build the product reviews section.</div>
+    {% endif %}
+</section>
+
+{% schema %}
+{
+    "name": "Product reviews",
+    "enabled_on": {
+        "templates": [
+            "product"
+        ]
+    },
+    "max_blocks": 1,
+    "settings": [],
+    "blocks": [
+        {
+            "type": "layout"
+        }
+    ],
+    "presets": [
+        {
+            "name": "Product reviews",
+            "blocks": {
+                "layout_outer": {
+                    "type": "layout",
+                    "settings": {
+                        "css_styles_desktop": "padding: 0 var(--container-horizontal-padding, 8px);"
+                    },
+                    "blocks": {
+                        "layout_inner": {
+                            "type": "layout",
+                            "settings": {
+                                "css_styles_desktop": "max-width: var(--container-max-width, 1024px); margin: 0 auto; display: flex; flex-direction: column; gap: 40px;",
+                                "css_styles_tablet": "gap: 32px;",
+                                "css_styles_mobile": "gap: 28px;"
+                            },
+                            "blocks": {
+                                "layout_header": {
+                                    "type": "layout",
+                                    "settings": {
+                                        "css_styles_desktop": "display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap;",
+                                        "css_styles_mobile": "flex-direction: column; align-items: flex-start;"
+                                    },
+                                    "blocks": {
+                                        "title": {
+                                            "type": "_text-for-product-reviews",
+                                            "blocks": {
+                                                "default-text": {
+                                                    "type": "text",
+                                                    "static": true,
+                                                    "settings": {
+                                                        "text_type": "section_title",
+                                                        "bold": true,
+                                                        "size_desktop": "4xl",
+                                                        "css_styles_desktop": "line-height: 1.1;"
+                                                    }
+                                                }
+                                            },
+                                            "block_order": [
+                                                "default-text"
+                                            ]
+                                        },
+                                        "verified_badge": {
+                                            "type": "layout",
+                                            "settings": {
+                                                "css_styles_desktop": "display: inline-flex; align-items: center; gap: 8px; width: fit-content; padding: 8px 14px; border: 1px solid #99f6e4; border-radius: 9999px; background-color: #ecfdf5; color: #115e59; font-weight: 700; line-height: 1;"
+                                            },
+                                            "blocks": {
+                                                "icon": {
+                                                    "type": "icon",
+                                                    "settings": {
+                                                        "icon": "shield-check",
+                                                        "color": "custom",
+                                                        "custom_color": "#115e59",
+                                                        "size": "md",
+                                                        "stroke_width": "2"
+                                                    }
+                                                },
+                                                "text": {
+                                                    "type": "text",
+                                                    "settings": {
+                                                        "text": "Verificadas por Tiendu",
+                                                        "bold": true,
+                                                        "size_desktop": "base"
+                                                    }
+                                                }
+                                            },
+                                            "block_order": [
+                                                "icon",
+                                                "text"
+                                            ]
+                                        }
+                                    },
+                                    "block_order": [
+                                        "title",
+                                        "verified_badge"
+                                    ]
+                                },
+                                "summary_panel": {
+                                    "type": "layout",
+                                    "settings": {
+                                        "css_styles_desktop": "display: flex; align-items: center; gap: 20px; padding: 28px 32px; border: 1px solid rgba(15, 23, 42, 0.12); border-radius: 12px; background-color: #ffffff;",
+                                        "css_styles_mobile": "align-items: flex-start; padding: 24px; border-radius: 10px;"
+                                    },
+                                    "blocks": {
+                                        "summary_stack": {
+                                            "type": "layout",
+                                            "settings": {
+                                                "css_styles_desktop": "display: flex; flex-direction: column; gap: 12px;"
+                                            },
+                                            "blocks": {
+                                                "score": {
+                                                    "type": "product-reviews__rating-value",
+                                                    "blocks": {
+                                                        "text": {
+                                                            "type": "text",
+                                                            "static": true,
+                                                            "settings": {
+                                                                "bold": true,
+                                                                "size_desktop": "5xl",
+                                                                "css_styles_desktop": "line-height: 1;"
+                                                            }
+                                                        }
+                                                    },
+                                                    "block_order": [
+                                                        "text"
+                                                    ]
+                                                },
+                                                "stars": {
+                                                    "type": "product__reviews",
+                                                    "blocks": {
+                                                        "default-stars": {
+                                                            "type": "stars",
+                                                            "static": true,
+                                                            "settings": {
+                                                                "size": "xl"
+                                                            }
+                                                        }
+                                                    },
+                                                    "block_order": [
+                                                        "default-stars"
+                                                    ]
+                                                },
+                                                "count": {
+                                                    "type": "product-reviews__count",
+                                                    "blocks": {
+                                                        "text": {
+                                                            "type": "text",
+                                                            "static": true,
+                                                            "settings": {
+                                                                "custom_color": "#6b7280",
+                                                                "size_desktop": "base"
+                                                            }
+                                                        }
+                                                    },
+                                                    "block_order": [
+                                                        "text"
+                                                    ]
+                                                }
+                                            },
+                                            "block_order": [
+                                                "score",
+                                                "stars",
+                                                "count"
+                                            ]
+                                        }
+                                    },
+                                    "block_order": [
+                                        "summary_stack"
+                                    ]
+                                },
+                                "layout_reviews": {
+                                    "type": "layout",
+                                    "settings": {
+                                        "css_styles_desktop": "display: flex; flex-direction: column; "
+                                    },
+                                    "blocks": {
+                                        "reviews": {
+                                            "type": "product-review-list",
+                                            "settings": {
+                                                "reviews_to_show": 6
+                                            },
+                                            "blocks": {
+                                                "review_card": {
+                                                    "type": "product-review",
+                                                    "static": true,
+                                                    "blocks": {
+                                                        "card_layout": {
+                                                            "type": "layout",
+                                                            "settings": {
+                                                                "css_styles_desktop": "display: flex; flex-direction: column; gap: 12px; padding: 28px 20px; border-bottom: 1px solid rgba(15, 23, 42, 0.1);",
+                                                                "css_styles_mobile": "padding: 24px 0;"
+                                                            },
+                                                            "blocks": {
+                                                                "top_row": {
+                                                                    "type": "layout",
+                                                                    "settings": {
+                                                                        "css_styles_desktop": "display: flex; align-items: flex-start; justify-content: space-between; gap: 16px;",
+                                                                        "css_styles_mobile": "flex-direction: column;"
+                                                                    },
+                                                                    "blocks": {
+                                                                        "author_row": {
+                                                                            "type": "layout",
+                                                                            "settings": {
+                                                                                "css_styles_desktop": "display: flex; align-items: center; gap: 12px; flex-wrap: wrap;"
+                                                                            },
+                                                                            "blocks": {
+                                                                                "author": {
+                                                                                    "type": "product-review__author",
+                                                                                    "blocks": {
+                                                                                        "text": {
+                                                                                            "type": "text",
+                                                                                            "static": true,
+                                                                                            "settings": {
+                                                                                                "bold": true,
+                                                                                                "size_desktop": "base"
+                                                                                            }
+                                                                                        }
+                                                                                    },
+                                                                                    "block_order": [
+                                                                                        "text"
+                                                                                    ]
+                                                                                },
+                                                                                "verified": {
+                                                                                    "type": "layout",
+                                                                                    "settings": {
+                                                                                        "css_styles_desktop": "display: inline-flex; align-items: center; gap: 6px; width: fit-content; padding: 6px 10px; border: 1px solid #99f6e4; border-radius: 9999px; background-color: #ecfdf5; color: #115e59; font-size: 0.8125rem; font-weight: 700; line-height: 1;"
+                                                                                    },
+                                                                                    "blocks": {
+                                                                                        "icon": {
+                                                                                            "type": "icon",
+                                                                                            "settings": {
+                                                                                                "icon": "shield-check",
+                                                                                                "color": "custom",
+                                                                                                "custom_color": "#115e59",
+                                                                                                "size": "sm",
+                                                                                                "stroke_width": "2"
+                                                                                            }
+                                                                                        },
+                                                                                        "text": {
+                                                                                            "type": "text",
+                                                                                            "settings": {
+                                                                                                "text": "Compra verificada",
+                                                                                                "bold": true,
+                                                                                                "size_desktop": "sm"
+                                                                                            }
+                                                                                        }
+                                                                                    },
+                                                                                    "block_order": [
+                                                                                        "icon",
+                                                                                        "text"
+                                                                                    ]
+                                                                                }
+                                                                            },
+                                                                            "block_order": [
+                                                                                "author",
+                                                                                "verified"
+                                                                            ]
+                                                                        },
+                                                                        "rating": {
+                                                                            "type": "product-review__rating",
+                                                                            "blocks": {
+                                                                                "stars": {
+                                                                                    "type": "stars",
+                                                                                    "static": true,
+                                                                                    "settings": {
+                                                                                        "size": "md"
+                                                                                    }
+                                                                                }
+                                                                            },
+                                                                            "block_order": [
+                                                                                "stars"
+                                                                            ]
+                                                                        }
+                                                                    },
+                                                                    "block_order": [
+                                                                        "author_row",
+                                                                        "rating"
+                                                                    ]
+                                                                },
+                                                                "date": {
+                                                                    "type": "product-review__date"
+                                                                },
+                                                                "content": {
+                                                                    "type": "product-review__content",
+                                                                    "blocks": {
+                                                                        "text": {
+                                                                            "type": "text",
+                                                                            "static": true,
+                                                                            "settings": {
+                                                                                "text_type": "paragraph",
+                                                                                "size_desktop": "lg",
+                                                                                "css_styles_desktop": "max-width: 72ch; line-height: 1.55;"
+                                                                            }
+                                                                        }
+                                                                    },
+                                                                    "block_order": [
+                                                                        "text"
+                                                                    ]
+                                                                }
+                                                            },
+                                                            "block_order": [
+                                                                "top_row",
+                                                                "date",
+                                                                "content"
+                                                            ]
+                                                        }
+                                                    },
+                                                    "block_order": [
+                                                        "card_layout"
+                                                    ]
+                                                },
+                                                "empty_state": {
+                                                    "type": "product-reviews-empty-state",
+                                                    "static": true,
+                                                    "blocks": {
+                                                        "layout": {
+                                                            "type": "layout",
+                                                            "settings": {
+                                                                "css_styles_desktop": "grid-column: 1 / -1; display: flex; flex-direction: column; align-items: center; gap: 16px; padding: 32px 0; color: #0f172a; text-align: center;"
+                                                            },
+                                                            "blocks": {
+                                                                "icon": {
+                                                                    "type": "icon",
+                                                                    "settings": {
+                                                                        "icon": "messages-square",
+                                                                        "color": "custom",
+                                                                        "custom_color": "#475569",
+                                                                        "size": "lg",
+                                                                        "stroke_width": "1.5"
+                                                                    }
+                                                                },
+                                                                "text": {
+                                                                    "type": "text",
+                                                                    "settings": {
+                                                                        "text": "Este producto aún no tiene reseñas.",
+                                                                        "text_type": "paragraph",
+                                                                        "size_desktop": "xl",
+                                                                        "bold": false
+                                                                    }
+                                                                }
+                                                            },
+                                                            "block_order": [
+                                                                "icon",
+                                                                "text"
+                                                            ]
+                                                        }
+                                                    },
+                                                    "block_order": [
+                                                        "layout"
+                                                    ]
+                                                }
+                                            },
+                                            "block_order": [
+                                                "review_card",
+                                                "empty_state"
+                                            ]
+                                        }
+                                    },
+                                    "block_order": [
+                                        "reviews"
+                                    ]
+                                }
+                            },
+                            "block_order": [
+                                "layout_header",
+                                "summary_panel",
+                                "layout_reviews"
+                            ]
+                        }
+                    },
+                    "block_order": [
+                        "layout_inner"
+                    ]
+                }
+            },
+            "block_order": [
+                "layout_outer"
+            ]
+        }
+    ]
+}
+{% endschema %}

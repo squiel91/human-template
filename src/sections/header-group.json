@@ -165,19 +165,7 @@
                             "text": {
                               "type": "text",
                               "settings": {
-                                "text": "Tu negocio",
-                                "text_type": "text",
-                                "color": "custom",
-                                "bold": true,
-                                "italic": false,
-                                "underline": false,
-                                "line_through": false,
-                                "size_desktop": "base",
-                                "size_tablet": "",
-                                "size_mobile": "",
-                                "css_styles_desktop": "",
-                                "css_styles_tablet": "",
-                                "css_styles_mobile": ""
+                                "text": "Tu negocio"
                               },
                               "static": false
                             }
@@ -311,19 +299,7 @@
                         "text": {
                           "type": "text",
                           "settings": {
-                            "text": "Productos",
-                            "text_type": "text",
-                            "color": "custom",
-                            "bold": false,
-                            "italic": true,
-                            "underline": false,
-                            "line_through": false,
-                            "size_desktop": "sm",
-                            "size_tablet": "",
-                            "size_mobile": "",
-                            "css_styles_desktop": "",
-                            "css_styles_tablet": "",
-                            "css_styles_mobile": ""
+                            "text": "Productos"
                           },
                           "static": false
                         }
@@ -345,19 +321,7 @@
                         "text": {
                           "type": "text",
                           "settings": {
-                            "text": "Ofertas",
-                            "text_type": "text",
-                            "color": "custom",
-                            "bold": false,
-                            "italic": true,
-                            "underline": false,
-                            "line_through": false,
-                            "size_desktop": "sm",
-                            "size_tablet": "",
-                            "size_mobile": "",
-                            "css_styles_desktop": "",
-                            "css_styles_tablet": "",
-                            "css_styles_mobile": ""
+                            "text": "Ofertas"
                           },
                           "static": false
                         }
@@ -379,19 +343,7 @@
                         "text": {
                           "type": "text",
                           "settings": {
-                            "text": "Categorias",
-                            "text_type": "text",
-                            "color": "custom",
-                            "bold": false,
-                            "italic": true,
-                            "underline": false,
-                            "line_through": false,
-                            "size_desktop": "sm",
-                            "size_tablet": "",
-                            "size_mobile": "",
-                            "css_styles_desktop": "",
-                            "css_styles_tablet": "",
-                            "css_styles_mobile": ""
+                            "text": "Categorias"
                           },
                           "static": false
                         }
@@ -413,19 +365,7 @@
                         "text": {
                           "type": "text",
                           "settings": {
-                            "text": "Blog",
-                            "text_type": "text",
-                            "color": "custom",
-                            "bold": false,
-                            "italic": true,
-                            "underline": false,
-                            "line_through": false,
-                            "size_desktop": "sm",
-                            "size_tablet": "",
-                            "size_mobile": "",
-                            "css_styles_desktop": "",
-                            "css_styles_tablet": "",
-                            "css_styles_mobile": ""
+                            "text": "Blog"
                           },
                           "static": false
                         }

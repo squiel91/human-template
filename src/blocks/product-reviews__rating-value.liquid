@@ -1,0 +1,49 @@
+{% assign product_obj = closest.product | default: product %}
+{% assign child_blocks = block.children | default: block.blocks %}
+{% assign rating_value = product_obj.averageRating | default: 0 | round: 1 %}
+{% assign rating_text = rating_value | append: '' %}
+{% unless rating_text contains '.' %}
+    {% assign rating_text = rating_text | append: '.0' %}
+{% endunless %}
+
+<div {{ block.shopify_attributes }}>
+    {% if child_blocks and child_blocks.size > 0 %}
+        {% for child_block in child_blocks %}
+            {% content_for 'block', id: child_block.id, type: child_block.type, default_text: rating_text %}
+        {% endfor %}
+    {% else %}
+        {% content_for 'block', id: 'text', type: 'text', default_text: rating_text %}
+    {% endif %}
+</div>
+
+{% schema %}
+{
+    "name": "product reviews: Rating value",
+    "max_blocks": 1,
+    "settings": [],
+    "blocks": [
+        {
+            "type": "text"
+        }
+    ],
+    "presets": [
+        {
+            "name": "product reviews: Rating value",
+            "blocks": {
+                "text": {
+                    "type": "text",
+                    "static": true,
+                    "settings": {
+                        "bold": true,
+                        "size_desktop": "5xl",
+                        "css_styles_desktop": "line-height: 1;"
+                    }
+                }
+            },
+            "block_order": [
+                "text"
+            ]
+        }
+    ]
+}
+{% endschema %}

@@ -1,0 +1,37 @@
+{% assign reviews_quantity = product.reviewsQuantity | default: 0 %}
+{% assign fallback_text = 'Reseñas' %}
+
+<div {{ block.shopify_attributes }}>
+    {% content_for 'block', id: 'default-text', type: 'text', default_text: fallback_text %}
+</div>
+
+{% schema %}
+{
+    "name": "Text for product reviews",
+    "max_blocks": 1,
+    "blocks": [
+        {
+            "type": "text"
+        }
+    ],
+    "presets": [
+        {
+            "name": "Text for product reviews",
+            "blocks": {
+                "default-text": {
+                    "type": "text",
+                    "static": true,
+                    "settings": {
+                        "text_type": "section_title",
+                        "bold": true,
+                        "size_desktop": "2xl"
+                    }
+                }
+            },
+            "block_order": [
+                "default-text"
+            ]
+        }
+    ]
+}
+{% endschema %}

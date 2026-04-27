@@ -1,0 +1,46 @@
+{% assign review_obj = closest.review %}
+{% assign child_blocks = block.children | default: block.blocks %}
+{% assign review_content = review_obj.content %}
+
+{% if review_content != blank %}
+    <div {{ block.shopify_attributes }}>
+        {% if child_blocks and child_blocks.size > 0 %}
+            {% for child_block in child_blocks %}
+                {% content_for 'block', id: child_block.id, type: child_block.type, default_text: review_content %}
+            {% endfor %}
+        {% else %}
+            {% content_for 'block', id: 'text', type: 'text', default_text: review_content %}
+        {% endif %}
+    </div>
+{% endif %}
+
+{% schema %}
+{
+    "name": "product review: Content",
+    "max_blocks": 1,
+    "settings": [],
+    "blocks": [
+        {
+            "type": "text"
+        }
+    ],
+    "presets": [
+        {
+            "name": "product review: Content",
+            "blocks": {
+                "text": {
+                    "type": "text",
+                    "static": true,
+                    "settings": {
+                        "text_type": "paragraph",
+                        "css_styles_desktop": "line-height: 1.6;"
+                    }
+                }
+            },
+            "block_order": [
+                "text"
+            ]
+        }
+    ]
+}
+{% endschema %}

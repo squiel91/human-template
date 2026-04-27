@@ -1,0 +1,113 @@
+<section class="tiendu-payment-methods" style="padding: 24px 0;">
+    {% if section.blocks and section.blocks.size > 0 %}
+        {% content_for 'blocks' %}
+    {% elsif design_mode or preview_mode %}
+        <div>Add blocks to build the payment methods section.</div>
+    {% endif %}
+</section>
+
+{% schema %}
+{
+    "name": "Payment methods",
+    "max_blocks": 1,
+    "settings": [],
+    "blocks": [
+        {
+            "type": "layout"
+        }
+    ],
+    "presets": [
+        {
+            "name": "Payment methods",
+            "blocks": {
+                "layout_outer": {
+                    "type": "layout",
+                    "settings": {
+                        "css_styles_desktop": "padding: 0 var(--container-horizontal-padding, 8px);"
+                    },
+                    "blocks": {
+                        "layout_inner": {
+                            "type": "layout",
+                            "settings": {
+                                "css_styles_desktop": "max-width: var(--container-max-width, 1024px); margin: 0 auto; display: flex; flex-direction: column; gap: 16px;"
+                            },
+                            "blocks": {
+                                "title": {
+                                    "type": "text",
+                                    "settings": {
+                                        "text": "Medios de pago",
+                                        "text_type": "subtitle",
+                                        "bold": true,
+                                        "size_desktop": "base"
+                                    }
+                                },
+                                "methods": {
+                                    "type": "layout",
+                                    "settings": {
+                                        "css_styles_desktop": "display: flex; align-items: center; gap: 12px; flex-wrap: wrap;",
+                                        "css_styles_mobile": "gap: 10px;"
+                                    },
+                                    "blocks": {
+                                        "visa": {
+                                            "type": "payment-method",
+                                            "settings": {
+                                                "method": "visa",
+                                                "height": 28
+                                            }
+                                        },
+                                        "master": {
+                                            "type": "payment-method",
+                                            "settings": {
+                                                "method": "master",
+                                                "height": 28
+                                            }
+                                        },
+                                        "amex": {
+                                            "type": "payment-method",
+                                            "settings": {
+                                                "method": "amex",
+                                                "height": 28
+                                            }
+                                        },
+                                        "mercadopago": {
+                                            "type": "payment-method",
+                                            "settings": {
+                                                "method": "mercadopago",
+                                                "height": 28
+                                            }
+                                        },
+                                        "oca": {
+                                            "type": "payment-method",
+                                            "settings": {
+                                                "method": "oca",
+                                                "height": 28
+                                            }
+                                        }
+                                    },
+                                    "block_order": [
+                                        "visa",
+                                        "master",
+                                        "amex",
+                                        "mercadopago",
+                                        "oca"
+                                    ]
+                                }
+                            },
+                            "block_order": [
+                                "title",
+                                "methods"
+                            ]
+                        }
+                    },
+                    "block_order": [
+                        "layout_inner"
+                    ]
+                }
+            },
+            "block_order": [
+                "layout_outer"
+            ]
+        }
+    ]
+}
+{% endschema %}

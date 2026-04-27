@@ -1,0 +1,113 @@
+{% assign review_obj = closest.review %}
+{% assign child_blocks = block.children | default: block.blocks %}
+
+<article {{ block.shopify_attributes }} class="tiendu-product-review">
+    {% if child_blocks and child_blocks.size > 0 %}
+        {% content_for 'blocks' %}
+    {% elsif design_mode or preview_mode %}
+        <div>Add blocks to build the review card.</div>
+    {% endif %}
+</article>
+
+{% schema %}
+{
+    "name": "Product review",
+    "settings": [],
+    "blocks": [
+        {
+            "type": "@theme"
+        }
+    ],
+    "presets": [
+        {
+            "name": "Product review",
+            "blocks": {
+                "card_layout": {
+                    "type": "layout",
+                    "settings": {
+                        "css_styles_desktop": "display: flex; flex-direction: column; gap: 12px; padding: 28px 20px; border-bottom: 1px solid rgba(15, 23, 42, 0.1);",
+                        "css_styles_mobile": "padding: 24px 0;"
+                    },
+                    "blocks": {
+                        "top_row": {
+                            "type": "layout",
+                            "settings": {
+                                "css_styles_desktop": "display: flex; align-items: flex-start; justify-content: space-between; gap: 16px;",
+                                "css_styles_mobile": "flex-direction: column;"
+                            },
+                            "blocks": {
+                                "author_row": {
+                                    "type": "layout",
+                                    "settings": {
+                                        "css_styles_desktop": "display: flex; align-items: center; gap: 12px; flex-wrap: wrap;"
+                                    },
+                                    "blocks": {
+                                        "author": {
+                                            "type": "product-review__author"
+                                        },
+                                        "verified": {
+                                            "type": "layout",
+                                            "settings": {
+                                                "css_styles_desktop": "display: inline-flex; align-items: center; gap: 6px; width: fit-content; padding: 6px 10px; border: 1px solid #99f6e4; border-radius: 9999px; background-color: #ecfdf5; color: #115e59; font-size: 0.8125rem; font-weight: 700; line-height: 1;"
+                                            },
+                                            "blocks": {
+                                                "icon": {
+                                                    "type": "icon",
+                                                    "settings": {
+                                                        "icon": "shield-check",
+                                                        "color": "custom",
+                                                        "custom_color": "#115e59",
+                                                        "size": "sm",
+                                                        "stroke_width": "2"
+                                                    }
+                                                },
+                                                "text": {
+                                                    "type": "text",
+                                                    "settings": {
+                                                        "text": "Compra verificada",
+                                                        "bold": true,
+                                                        "size_desktop": "sm"
+                                                    }
+                                                }
+                                            },
+                                            "block_order": [
+                                                "icon",
+                                                "text"
+                                            ]
+                                        }
+                                    },
+                                    "block_order": [
+                                        "author",
+                                        "verified"
+                                    ]
+                                },
+                                "rating": {
+                                    "type": "product-review__rating"
+                                }
+                            },
+                            "block_order": [
+                                "author_row",
+                                "rating"
+                            ]
+                        },
+                        "date": {
+                            "type": "product-review__date"
+                        },
+                        "content": {
+                            "type": "product-review__content"
+                        }
+                    },
+                    "block_order": [
+                        "top_row",
+                        "date",
+                        "content"
+                    ]
+                }
+            },
+            "block_order": [
+                "card_layout"
+            ]
+        }
+    ]
+}
+{% endschema %}

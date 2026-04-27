@@ -3,9 +3,6 @@
 
 <style>
     #{{ link_id }} {
-        display: inline-block;
-        text-decoration: none;
-        color: inherit;
         {{ block.settings.css_styles_desktop }}
     }
 
@@ -23,7 +20,8 @@
 </style>
 
 <a
-    {{ block.shopify_attributes }}
+    class="tiendu-link"
+    {{ block.tiendu_attributes }}
     id="{{ link_id }}"
     href="{{ block.settings.url | default: '#' }}"
     {% if open_in_new_tab %}target="_blank" rel="noopener noreferrer"{% endif %}
@@ -91,7 +89,8 @@
                     "settings": {
                         "text": "Nuevo link",
                         "color": "primary",
-                        "italic": true
+                        "bold": true,
+                        "italic": false
                     }
                 }
             },

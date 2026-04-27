@@ -1,0 +1,27 @@
+{%- comment -%}
+  Lucide icon: chevron-right
+  Usage:
+    {% render 'icon-chevron-right' %}
+    {% render 'icon-chevron-right', size: 16 %}
+    {% render 'icon-chevron-right', class: 'custom-class' %}
+    {% render 'icon-chevron-right', stroke_width: 2 %}
+{%- endcomment -%}
+{%- liquid
+  assign size = size | default: 16
+  assign stroke_width = stroke_width | default: 2
+-%}
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="{{ size }}"
+  height="{{ size }}"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="{{ stroke_width }}"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="lucide lucide-chevron-right{% if class %} {{ class }}{% endif %}"
+  aria-hidden="true"
+>
+  <path d="m9 18 6-6-6-6" />
+</svg>

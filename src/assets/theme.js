@@ -391,11 +391,16 @@ const createCarousel = (root) => {
     stopAutoplay()
     if (!hasMultiple()) return
     if (!autoplayEnabled) return
+    if (document.hidden) return
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
 
     autoplayTimer = window.setTimeout(() => {
       autoplayTimer = null
-      next()
+      try {
+        next()
+      } catch {
+        // defensive: keep the loop alive even if next() throws
+      }
       queueAutoplay()
     }, autoplayInterval)
   }
@@ -534,6 +539,19 @@ const createCarousel = (root) => {
     startAutoplay()
   }
   const handleResize = () => updateTrack({ animate: false })
+  const handleVisibilityChange = () => {
+    if (document.hidden) {
+      stopAutoplay()
+    } else {
+      startAutoplay()
+    }
+  }
+
+  const resizeObserver =
+    typeof ResizeObserver !== 'undefined'
+      ? new ResizeObserver(() => updateTrack({ animate: false }))
+      : null
+  resizeObserver?.observe(viewport)
 
   prevButton?.addEventListener('click', handlePrevClick)
   nextButton?.addEventListener('click', handleNextClick)
@@ -543,6 +561,7 @@ const createCarousel = (root) => {
   root.addEventListener('focusin', handleFocusIn)
   root.addEventListener('focusout', handleFocusOut)
   window.addEventListener('resize', handleResize)
+  document.addEventListener('visibilitychange', handleVisibilityChange)
 
   syncSlides()
   syncDots()
@@ -561,6 +580,8 @@ const createCarousel = (root) => {
     root.removeEventListener('focusin', handleFocusIn)
     root.removeEventListener('focusout', handleFocusOut)
     window.removeEventListener('resize', handleResize)
+    document.removeEventListener('visibilitychange', handleVisibilityChange)
+    resizeObserver?.disconnect()
     delete root.__tienduCarouselCleanup
   }
 
@@ -1308,6 +1329,31 @@ const initNewsletterForms = () => {
   }
 }
 
+const initBreadcrumbContextLinks = () => {
+  if (document.documentElement.dataset.breadcrumbContextBound === 'true') return
+  document.documentElement.dataset.breadcrumbContextBound = 'true'
+
+  document.addEventListener('click', (event) => {
+    const link = event.target instanceof Element
+      ? event.target.closest('[data-breadcrumb-from-current]')
+      : null
+    if (!(link instanceof HTMLAnchorElement)) return
+
+    const fromTitle = String(link.dataset.breadcrumbFromTitle || '').trim()
+    if (!fromTitle) return
+
+    const fromUrl = `${window.location.pathname}${window.location.search}${window.location.hash}`
+    try {
+      const nextUrl = new URL(link.getAttribute('href') || link.href, window.location.origin)
+      nextUrl.searchParams.set('from-title', fromTitle)
+      nextUrl.searchParams.set('from-url', fromUrl)
+      link.href = `${nextUrl.pathname}${nextUrl.search}${nextUrl.hash}`
+    } catch {
+      // Keep the server-rendered fallback href.
+    }
+  })
+}
+
 const initButtonActions = () => {
   const buttons = Array.from(document.querySelectorAll('[data-button-action]'))
   for (const button of buttons) {
@@ -1324,6 +1370,7 @@ const initButtonActions = () => {
   initNewsletterPopups()
   initProductQuantityInputs()
   initCarousels()
+  initBreadcrumbContextLinks()
 
   if (buttons.some((button) => button.dataset.buttonAction === 'cart')) {
     void syncCartQuantity()

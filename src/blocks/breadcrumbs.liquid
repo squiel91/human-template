@@ -1,0 +1,265 @@
+{% assign breadcrumbs_id = 'tiendu__breadcrumbs-' | append: section.id | append: '-' | append: block.id %}
+{% assign home_label = block.settings.home_label | default: 'Inicio' %}
+{% assign separator_icon = block.settings.separator_icon | default: 'chevron-right' %}
+{% assign show_current = true %}
+{% if block.settings.show_current == false or block.settings.show_current == 'false' %}
+    {% assign show_current = false %}
+{% endif %}
+
+{% assign current_title = page_title %}
+{% assign current_url = canonical_url | default: request.path %}
+{% if request.page_type == 'product' and product %}
+    {% assign current_title = product.title %}
+    {% assign current_url = product.url %}
+{% elsif request.page_type == 'collection' and collection %}
+    {% assign current_title = collection.name %}
+    {% assign current_url = collection.url %}
+{% elsif request.page_type == 'page' and page %}
+    {% assign current_title = page.title %}
+    {% assign current_url = page.url %}
+{% elsif request.page_type == 'article' and blogPost %}
+    {% assign current_title = blogPost.title %}
+    {% assign current_url = blogPost.url %}
+{% elsif request.page_type == 'blog' %}
+    {% assign current_title = blog.title | default: 'Blog' %}
+    {% assign current_url = '/blog' %}
+{% elsif request.page_type == 'list-collections' %}
+    {% assign current_title = 'Categorías' %}
+    {% assign current_url = '/categorias' %}
+{% elsif request.page_type == 'search' %}
+    {% assign current_title = 'Búsqueda' %}
+    {% if search.terms != blank %}
+        {% assign current_title = 'Resultados para "' | append: search.terms | append: '"' %}
+    {% endif %}
+    {% assign current_url = '/busqueda' %}
+{% elsif request.page_type == '404' %}
+    {% assign current_title = 'Página no encontrada' %}
+{% elsif request.page_type == 'index' %}
+    {% assign current_title = home_label %}
+    {% assign current_url = '/' %}
+{% endif %}
+
+{% capture separator_markup %}
+    <span class="tiendu-breadcrumbs__separator" aria-hidden="true">
+        {% case separator_icon %}
+            {% when 'arrow-right' %}
+                {% render 'icon-arrow-right', size: 14, stroke_width: 2 %}
+            {% when 'slash' %}
+                <span>/</span>
+            {% else %}
+                {% render 'icon-chevron-right', size: 14, stroke_width: 2 %}
+        {% endcase %}
+    </span>
+{% endcapture %}
+{% assign separator_markup = separator_markup | strip %}
+
+<style>
+    #{{ breadcrumbs_id }} {
+        line-height: 1.4;
+        color: #6b7280;
+        overflow: hidden;
+        {{ block.settings.css_styles_desktop }}
+    }
+
+    #{{ breadcrumbs_id }} .tiendu-breadcrumbs__list {
+        display: flex;
+        align-items: center;
+        flex-wrap: nowrap;
+        gap: 0.375rem;
+        width: 100%;
+        padding: 0;
+        margin: 0;
+        list-style: none;
+        overflow: hidden;
+    }
+
+    #{{ breadcrumbs_id }} .tiendu-breadcrumbs__item {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.375rem;
+        min-width: 0;
+        flex: 0 1 auto;
+        white-space: nowrap;
+        overflow: hidden;
+    }
+
+    #{{ breadcrumbs_id }} .tiendu-breadcrumbs__item:first-child {
+        flex-shrink: 0;
+    }
+
+    #{{ breadcrumbs_id }} .tiendu-breadcrumbs__item:last-child {
+        flex: 1 1 auto;
+    }
+
+    #{{ breadcrumbs_id }} .tiendu-breadcrumbs__link {
+        color: var(--color-primary, #0000FF);
+        font-weight: 700;
+        text-decoration: none;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    #{{ breadcrumbs_id }} .tiendu-breadcrumbs__link:hover {
+        text-decoration: none;
+    }
+
+    #{{ breadcrumbs_id }} .tiendu-breadcrumbs__current {
+        color: currentColor;
+        font-weight: 400;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    #{{ breadcrumbs_id }} .tiendu-breadcrumbs__separator {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        color: currentColor;
+        opacity: 0.55;
+        flex: 0 0 auto;
+        line-height: 0;
+    }
+
+    @media (width <= 64rem) {
+        #{{ breadcrumbs_id }} {
+            {{ block.settings.css_styles_tablet }}
+        }
+    }
+
+    @media (width <= 48rem) {
+        #{{ breadcrumbs_id }} {
+            {{ block.settings.css_styles_mobile }}
+        }
+    }
+</style>
+
+<nav
+    {{ block.shopify_attributes }}
+    id="{{ breadcrumbs_id }}"
+    class="tiendu-breadcrumbs"
+    aria-label="Breadcrumb"
+    data-from-title-param="from-title"
+    data-from-url-param="from-url"
+>
+    <ol class="tiendu-breadcrumbs__list" data-breadcrumb-list>
+        <li class="tiendu-breadcrumbs__item">
+            <a class="tiendu-breadcrumbs__link" href="/">{{ home_label | escape }}</a>
+        </li>
+        {% if show_current and request.page_type != 'index' and current_title != blank %}
+            <li class="tiendu-breadcrumbs__item" data-breadcrumb-current>
+                {{ separator_markup }}
+                <span class="tiendu-breadcrumbs__current" aria-current="page">{{ current_title | escape }}</span>
+            </li>
+        {% endif %}
+    </ol>
+</nav>
+
+<template id="{{ breadcrumbs_id }}-separator-template">{{ separator_markup }}</template>
+
+<script>
+    (() => {
+        const root = document.getElementById({{ breadcrumbs_id | json }});
+        if (!root) return;
+
+        const list = root.querySelector('[data-breadcrumb-list]');
+        const current = root.querySelector('[data-breadcrumb-current]');
+        const separatorTemplate = document.getElementById({{ breadcrumbs_id | append: '-separator-template' | json }});
+        if (!list || !current || !separatorTemplate) return;
+
+        const params = new URLSearchParams(window.location.search);
+        const fromTitle = (params.get(root.dataset.fromTitleParam || 'from-title') || '').trim();
+        const fromUrl = (params.get(root.dataset.fromUrlParam || 'from-url') || '').trim();
+        if (!fromTitle || !fromUrl) return;
+        if (!fromUrl.startsWith('/') || fromUrl.startsWith('//')) return;
+
+        const item = document.createElement('li');
+        item.className = 'tiendu-breadcrumbs__item';
+        item.innerHTML = separatorTemplate.innerHTML;
+
+        const link = document.createElement('a');
+        link.className = 'tiendu-breadcrumbs__link';
+        link.href = fromUrl;
+        link.textContent = fromTitle;
+        item.appendChild(link);
+
+        list.insertBefore(item, current);
+    })();
+</script>
+
+{% schema %}
+{
+    "name": "Breadcrumbs",
+    "settings": [
+        {
+            "type": "text",
+            "id": "home_label",
+            "label": "Home label",
+            "default": "Inicio"
+        },
+        {
+            "type": "select",
+            "id": "separator_icon",
+            "label": "Separator icon",
+            "default": "chevron-right",
+            "options": [
+                {
+                    "value": "chevron-right",
+                    "label": "Chevron"
+                },
+                {
+                    "value": "arrow-right",
+                    "label": "Arrow"
+                },
+                {
+                    "value": "slash",
+                    "label": "Slash"
+                }
+            ]
+        },
+        {
+            "type": "checkbox",
+            "id": "show_current",
+            "label": "Show current page",
+            "default": true
+        },
+        {
+            "type": "header",
+            "content": "Desktop"
+        },
+        {
+            "type": "textarea",
+            "id": "css_styles_desktop",
+            "label": "CSS styles"
+        },
+        {
+            "type": "header",
+            "content": "Tablet"
+        },
+        {
+            "type": "textarea",
+            "id": "css_styles_tablet",
+            "label": "CSS styles"
+        },
+        {
+            "type": "header",
+            "content": "Mobile"
+        },
+        {
+            "type": "textarea",
+            "id": "css_styles_mobile",
+            "label": "CSS styles"
+        }
+    ],
+    "presets": [
+        {
+            "name": "Breadcrumbs",
+            "settings": {
+                "home_label": "Inicio",
+                "separator_icon": "chevron-right",
+                "show_current": true
+            }
+        }
+    ]
+}
+{% endschema %}

@@ -1,0 +1,50 @@
+{% assign product_obj = closest.product | default: product %}
+{% assign child_blocks = block.children | default: block.blocks %}
+{% assign reviews_quantity = product_obj.reviewsQuantity | default: 0 %}
+{% assign count_text = reviews_quantity | append: ' reseñas' %}
+{% if reviews_quantity == 0 %}
+    {% assign count_text = 'Aún sin reseñas' %}
+{% elsif reviews_quantity == 1 %}
+    {% assign count_text = '1 reseña' %}
+{% endif %}
+
+<div {{ block.shopify_attributes }}>
+    {% if child_blocks and child_blocks.size > 0 %}
+        {% for child_block in child_blocks %}
+            {% content_for 'block', id: child_block.id, type: child_block.type, default_text: count_text %}
+        {% endfor %}
+    {% else %}
+        {% content_for 'block', id: 'text', type: 'text', default_text: count_text %}
+    {% endif %}
+</div>
+
+{% schema %}
+{
+    "name": "product reviews: Count",
+    "max_blocks": 1,
+    "settings": [],
+    "blocks": [
+        {
+            "type": "text"
+        }
+    ],
+    "presets": [
+        {
+            "name": "product reviews: Count",
+            "blocks": {
+                "text": {
+                    "type": "text",
+                    "static": true,
+                    "settings": {
+                        "custom_color": "#6b7280",
+                        "size_desktop": "sm"
+                    }
+                }
+            },
+            "block_order": [
+                "text"
+            ]
+        }
+    ]
+}
+{% endschema %}

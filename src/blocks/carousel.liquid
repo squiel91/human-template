@@ -19,28 +19,26 @@
             </div>
         </div>
 
-        {% if block.settings.show_arrows or block.settings.show_dots %}
+        {% if block.settings.show_arrows %}
+            <button class="tiendu-nav-arrow tiendu-nav-arrow--prev" type="button" data-role="prev-image" aria-label="Slide anterior"{% if block.blocks.size <= 1 %} hidden{% endif %}>
+                <span class="tiendu-carousel__arrow-icon">{% render 'icon-arrow-right', size: 16, stroke_width: 2.5 %}</span>
+            </button>
+        {% endif %}
+
+        {% if block.settings.show_dots %}
             <div class="tiendu-carousel__controls" aria-label="Controles del carrusel">
-                {% if block.settings.show_arrows %}
-                    <button class="tiendu-carousel__arrow tiendu-carousel__arrow--prev" type="button" data-role="prev-image" aria-label="Slide anterior"{% if block.blocks.size <= 1 %} hidden{% endif %}>
-                        <span class="tiendu-carousel__arrow-icon tiendu-carousel__arrow-icon--prev">{% render 'icon-arrow-right', size: 16, stroke_width: 2.5 %}</span>
-                    </button>
-                {% endif %}
-
-                {% if block.settings.show_dots %}
-                    <div class="tiendu-carousel__dots" data-role="dots" role="tablist" aria-label="Slides del carrusel"{% if block.blocks.size <= 1 %} hidden{% endif %}>
-                        {% for child_block in block.blocks %}
-                            <button class="tiendu-carousel__dot{% if forloop.first %} is-active{% endif %}" type="button" data-dot-index="{{ forloop.index0 }}" role="tab" aria-label="Ir al slide {{ forloop.index }}" aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"></button>
-                        {% endfor %}
-                    </div>
-                {% endif %}
-
-                {% if block.settings.show_arrows %}
-                    <button class="tiendu-carousel__arrow tiendu-carousel__arrow--next" type="button" data-role="next-image" aria-label="Slide siguiente"{% if block.blocks.size <= 1 %} hidden{% endif %}>
-                        <span class="tiendu-carousel__arrow-icon">{% render 'icon-arrow-right', size: 16, stroke_width: 2.5 %}</span>
-                    </button>
-                {% endif %}
+                <div class="tiendu-carousel__dots" data-role="dots" role="tablist" aria-label="Slides del carrusel"{% if block.blocks.size <= 1 %} hidden{% endif %}>
+                    {% for child_block in block.blocks %}
+                        <button class="tiendu-carousel__dot{% if forloop.first %} is-active{% endif %}" type="button" data-dot-index="{{ forloop.index0 }}" role="tab" aria-label="Ir al slide {{ forloop.index }}" aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"></button>
+                    {% endfor %}
+                </div>
             </div>
+        {% endif %}
+
+        {% if block.settings.show_arrows %}
+            <button class="tiendu-nav-arrow tiendu-nav-arrow--next" type="button" data-role="next-image" aria-label="Slide siguiente"{% if block.blocks.size <= 1 %} hidden{% endif %}>
+                <span class="tiendu-carousel__arrow-icon">{% render 'icon-arrow-right', size: 16, stroke_width: 2.5 %}</span>
+            </button>
         {% endif %}
     {% elsif design_mode or preview_mode %}
         <div style="padding: 4rem 1rem; text-align: center;">Add slides inside this carousel.</div>

@@ -1,0 +1,164 @@
+{% assign payment_id = 'tiendu__payment-method-' | append: section.id | append: '-' | append: block.id %}
+{% assign method = block.settings.method | default: 'visa' %}
+{% assign payment_label = 'Visa' %}
+{% assign asset_name = 'payment__visa.svg' %}
+
+{% case method %}
+    {% when 'abitab' %}
+        {% assign payment_label = 'Abitab' %}
+        {% assign asset_name = 'payment__abitab.svg' %}
+    {% when 'amex' %}
+        {% assign payment_label = 'American Express' %}
+        {% assign asset_name = 'payment__amex.svg' %}
+    {% when 'anda' %}
+        {% assign payment_label = 'Anda' %}
+        {% assign asset_name = 'payment__anda.svg' %}
+    {% when 'cabal' %}
+        {% assign payment_label = 'Cabal' %}
+        {% assign asset_name = 'payment__cabal.svg' %}
+    {% when 'diners' %}
+        {% assign payment_label = 'Diners Club' %}
+        {% assign asset_name = 'payment__diners.svg' %}
+    {% when 'lider' %}
+        {% assign payment_label = 'Lider' %}
+        {% assign asset_name = 'payment__lider.svg' %}
+    {% when 'master' %}
+        {% assign payment_label = 'Mastercard' %}
+        {% assign asset_name = 'payment__master.svg' %}
+    {% when 'mercadopago' %}
+        {% assign payment_label = 'Mercado Pago' %}
+        {% assign asset_name = 'payment__mercadopago.svg' %}
+    {% when 'midinero' %}
+        {% assign payment_label = 'Mi Dinero' %}
+        {% assign asset_name = 'payment__midinero.svg' %}
+    {% when 'oca' %}
+        {% assign payment_label = 'OCA' %}
+        {% assign asset_name = 'payment__oca.svg' %}
+    {% when 'passcard' %}
+        {% assign payment_label = 'Pass Card' %}
+        {% assign asset_name = 'payment__passcard.svg' %}
+    {% when 'prex' %}
+        {% assign payment_label = 'Prex' %}
+        {% assign asset_name = 'payment__prex.svg' %}
+    {% when 'redpagos' %}
+        {% assign payment_label = 'Redpagos' %}
+        {% assign asset_name = 'payment__redpagos.svg' %}
+    {% when 'tarjetad' %}
+        {% assign payment_label = 'Tarjeta D' %}
+        {% assign asset_name = 'payment__tarjetad.svg' %}
+{% endcase %}
+
+{% assign alt_text = block.settings.alt | default: payment_label %}
+
+<style>
+    #{{ payment_id }} {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 0;
+        {{ block.settings.css_styles_desktop }}
+    }
+
+    #{{ payment_id }} img {
+        display: block;
+        width: auto;
+        max-width: 100%;
+        height: {{ block.settings.height | default: 28 }}px;
+        object-fit: contain;
+    }
+
+    @media (width <= 64rem) {
+        #{{ payment_id }} {
+            {{ block.settings.css_styles_tablet }}
+        }
+    }
+
+    @media (width <= 48rem) {
+        #{{ payment_id }} {
+            {{ block.settings.css_styles_mobile }}
+        }
+    }
+</style>
+
+<span {{ block.shopify_attributes }} id="{{ payment_id }}" class="tiendu-payment-method">
+    <img src="{{ asset_name | asset_url }}" alt="{{ alt_text | escape_attr }}" loading="lazy">
+</span>
+
+{% schema %}
+{
+    "name": "Payment method",
+    "settings": [
+        {
+            "type": "select",
+            "id": "method",
+            "label": "Payment method",
+            "default": "visa",
+            "options": [
+                { "value": "abitab", "label": "Abitab" },
+                { "value": "amex", "label": "American Express" },
+                { "value": "anda", "label": "Anda" },
+                { "value": "cabal", "label": "Cabal" },
+                { "value": "diners", "label": "Diners Club" },
+                { "value": "lider", "label": "Lider" },
+                { "value": "master", "label": "Mastercard" },
+                { "value": "mercadopago", "label": "Mercado Pago" },
+                { "value": "midinero", "label": "Mi Dinero" },
+                { "value": "oca", "label": "OCA" },
+                { "value": "passcard", "label": "Pass Card" },
+                { "value": "prex", "label": "Prex" },
+                { "value": "redpagos", "label": "Redpagos" },
+                { "value": "tarjetad", "label": "Tarjeta D" },
+                { "value": "visa", "label": "Visa" }
+            ]
+        },
+        {
+            "type": "number",
+            "id": "height",
+            "label": "Logo height",
+            "default": 28
+        },
+        {
+            "type": "text",
+            "id": "alt",
+            "label": "Alt text",
+            "default": ""
+        },
+        {
+            "type": "header",
+            "content": "Desktop"
+        },
+        {
+            "type": "textarea",
+            "id": "css_styles_desktop",
+            "label": "CSS styles"
+        },
+        {
+            "type": "header",
+            "content": "Tablet"
+        },
+        {
+            "type": "textarea",
+            "id": "css_styles_tablet",
+            "label": "CSS styles"
+        },
+        {
+            "type": "header",
+            "content": "Mobile"
+        },
+        {
+            "type": "textarea",
+            "id": "css_styles_mobile",
+            "label": "CSS styles"
+        }
+    ],
+    "presets": [
+        {
+            "name": "Payment method",
+            "settings": {
+                "method": "visa",
+                "height": 28
+            }
+        }
+    ]
+}
+{% endschema %}

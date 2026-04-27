@@ -1,0 +1,69 @@
+{% assign child_blocks = block.children | default: block.blocks %}
+
+<div {{ block.shopify_attributes }} class="tiendu-product-reviews-empty-state">
+    {% if child_blocks and child_blocks.size > 0 %}
+        {% for child_block in child_blocks %}
+            {% content_for 'block', id: child_block.id, type: child_block.type %}
+        {% endfor %}
+    {% else %}
+        <div style="grid-column: 1 / -1; display: flex; flex-direction: column; align-items: center; gap: 16px; padding: 32px 0; color: #0f172a; text-align: center;">
+            <span style="display: inline-flex; color: #475569; line-height: 0;">
+                {% render 'icon-messages-square', size: 32, stroke_width: 1.8 %}
+            </span>
+            <p style="margin: 0; font-size: 1.25rem; font-weight: 400;">Este producto aún no tiene reseñas.</p>
+        </div>
+    {% endif %}
+</div>
+
+{% schema %}
+{
+    "name": "Product reviews empty state",
+    "settings": [],
+    "blocks": [
+        {
+            "type": "@theme"
+        }
+    ],
+    "presets": [
+        {
+            "name": "Product reviews empty state",
+            "blocks": {
+                "layout": {
+                    "type": "layout",
+                    "settings": {
+                        "css_styles_desktop": "grid-column: 1 / -1; display: flex; flex-direction: column; align-items: center; gap: 16px; padding: 32px 0; color: #0f172a; text-align: center;"
+                    },
+                    "blocks": {
+                        "icon": {
+                            "type": "icon",
+                            "settings": {
+                                "icon": "messages-square",
+                                "color": "custom",
+                                "custom_color": "#475569",
+                                "size": "lg",
+                                "stroke_width": "1.5"
+                            }
+                        },
+                        "text": {
+                            "type": "text",
+                            "settings": {
+                                "text": "Este producto aún no tiene reseñas.",
+                                "text_type": "paragraph",
+                                "size_desktop": "xl",
+                                "bold": false
+                            }
+                        }
+                    },
+                    "block_order": [
+                        "icon",
+                        "text"
+                    ]
+                }
+            },
+            "block_order": [
+                "layout"
+            ]
+        }
+    ]
+}
+{% endschema %}
