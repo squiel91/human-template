@@ -1,4 +1,4 @@
-<section class="tiendu-main-product" data-product-root style="padding: 32px 0;">
+<section class="tiendu-main-product" data-product-root>
     {% if section.blocks and section.blocks.size > 0 %}
         {% content_for 'blocks' %}
     {% elsif design_mode or preview_mode %}
@@ -30,7 +30,9 @@
                 "layout_outer": {
                     "type": "layout",
                     "settings": {
-                        "css_styles_desktop": "padding: 0 var(--container-horizontal-padding, 8px);"
+                        "css_styles_desktop": "padding: 64px var(--container-horizontal-padding, 8px);",
+                        "css_styles_tablet": "padding: 40px var(--container-horizontal-padding, 8px);",
+                        "css_styles_mobile": "padding: 32px var(--container-horizontal-padding, 8px);"
                     },
                     "blocks": {
                         "layout_inner": {
@@ -65,7 +67,9 @@
                                                     "settings": {
                                                         "text_type": "page_title",
                                                         "bold": true,
-                                                        "size_desktop": "4xl"
+                                                        "size_desktop": "4xl",
+                                                        "size_tablet": "3xl",
+                                                        "size_mobile": "2xl"
                                                     }
                                                 }
                                             },
@@ -136,60 +140,56 @@
                                         },
                                         "add_to_cart": {
                                             "type": "button",
+                                            "preset": "primary",
                                             "settings": {
-                                                "text": "Agregar al carrito",
-                                                "action": "add_to_cart",
-                                                "icon_position": "before",
-                                                "rounding": "theme",
-                                                "css_styles_desktop": "width: 100%; margin-top: 8px;"
+                                                "action": "add_to_cart"
                                             },
                                             "blocks": {
                                                 "icon": {
                                                     "type": "icon",
                                                     "settings": {
                                                         "icon": "plus",
-                                                        "color": "custom",
-                                                        "custom_color": "#ffffff",
+                                                        "size": "md",
+                                                        "stroke_width": "2"
+                                                    }
+                                                },
+                                                "text": {
+                                                    "type": "text",
+                                                    "settings": {
+                                                        "text": "Agregar al carrito"
+                                                    }
+                                                }
+                                            },
+                                            "block_order": [
+                                                "icon",
+                                                "text"
+                                            ]
+                                        },
+                                        "share": {
+                                            "type": "button",
+                                            "preset": "secondary",
+                                            "settings": {
+                                                "action": "share"
+                                            },
+                                            "blocks": {
+                                                "text": {
+                                                    "type": "text",
+                                                    "settings": {
+                                                        "text": "Compartir"
+                                                    }
+                                                },
+                                                "icon": {
+                                                    "type": "icon",
+                                                    "settings": {
+                                                        "icon": "forward",
                                                         "size": "md",
                                                         "stroke_width": "2"
                                                     }
                                                 }
                                             },
                                             "block_order": [
+                                                "text",
                                                 "icon"
-                                            ]
-                                        },
-                                        "share": {
-                                            "type": "product__share",
-                                            "blocks": {
-                                                "share-button": {
-                                                    "type": "button",
-                                                    "static": true,
-                                                    "settings": {
-                                                        "text": "",
-                                                        "action": "share",
-                                                        "variant": "secondary",
-                                                        "rounding": "theme",
-                                                        "css_styles_desktop": "width: 100%;"
-                                                    },
-                                                    "blocks": {
-                                                        "icon": {
-                                                            "type": "icon",
-                                                            "settings": {
-                                                                "icon": "forward",
-                                                                "color": "custom",
-                                                                "size": "md",
-                                                                "stroke_width": "2"
-                                                            }
-                                                        }
-                                                    },
-                                                    "block_order": [
-                                                        "icon"
-                                                    ]
-                                                }
-                                            },
-                                            "block_order": [
-                                                "share-button"
                                             ]
                                         },
                                         "selectors": {

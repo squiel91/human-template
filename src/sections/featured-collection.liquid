@@ -1,4 +1,4 @@
-<section class="tiendu-featured-collection" style="padding: 32px 0;">
+<section class="tiendu-featured-collection">
     {% if section.blocks and section.blocks.size > 0 %}
         {% content_for 'blocks' %}
     {% elsif design_mode or preview_mode %}
@@ -41,7 +41,9 @@
                 "layout_outer": {
                     "type": "layout",
                     "settings": {
-                        "css_styles_desktop": "padding: 0 var(--container-horizontal-padding, 8px);"
+                        "css_styles_desktop": "padding: 64px var(--container-horizontal-padding, 8px);",
+                        "css_styles_tablet": "padding: 40px var(--container-horizontal-padding, 8px);",
+                        "css_styles_mobile": "padding: 32px var(--container-horizontal-padding, 8px);"
                     },
                     "blocks": {
                         "layout_inner": {
@@ -55,8 +57,7 @@
                                 "layout_header": {
                                     "type": "layout",
                                     "settings": {
-                                        "css_styles_desktop": "display: flex; align-items: center; justify-content: space-between; gap: 16px;",
-                                        "css_styles_mobile": "flex-direction: column; align-items: flex-start;"
+                                        "css_styles_desktop": "display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; row-gap: 8px; column-gap: 16px;"
                                     },
                                     "blocks": {
                                         "title": {
@@ -68,7 +69,9 @@
                                                     "settings": {
                                                         "text_type": "section_title",
                                                         "bold": true,
-                                                        "size_desktop": "2xl"
+                                                        "size_desktop": "4xl",
+                                                        "size_tablet": "3xl",
+                                                        "size_mobile": "2xl"
                                                     }
                                                 }
                                             },
@@ -77,20 +80,30 @@
                                             ]
                                         },
                                         "cta": {
-                                            "type": "_button-for-featured-collection",
+                                            "type": "link",
+                                            "preset": "secondary",
+                                            "settings": {
+                                                "url": "/categorias"
+                                            },
                                             "blocks": {
-                                                "default-button": {
-                                                    "type": "button",
-                                                    "static": true,
+                                                "text": {
+                                                    "type": "text",
                                                     "settings": {
-                                                        "text": "Ver más",
-                                                        "variant": "secondary",
-                                                        "rounding": "theme"
+                                                        "text": "Ver más"
+                                                    }
+                                                },
+                                                "icon": {
+                                                    "type": "icon",
+                                                    "settings": {
+                                                        "icon": "chevron-right",
+                                                        "size": "sm",
+                                                        "stroke_width": "2.5"
                                                     }
                                                 }
                                             },
                                             "block_order": [
-                                                "default-button"
+                                                "text",
+                                                "icon"
                                             ]
                                         }
                                     },

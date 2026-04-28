@@ -1,4 +1,4 @@
-<section class="tiendu-product-description" style="padding: 16px 0 32px;">
+<section class="tiendu-product-description">
     {% if section.blocks and section.blocks.size > 0 %}
         {% content_for 'blocks' %}
     {% elsif design_mode or preview_mode %}
@@ -28,7 +28,9 @@
                 "layout_outer": {
                     "type": "layout",
                     "settings": {
-                        "css_styles_desktop": "padding: 0 var(--container-horizontal-padding, 8px);"
+                        "css_styles_desktop": "padding: 64px var(--container-horizontal-padding, 8px);",
+                        "css_styles_tablet": "padding: 40px var(--container-horizontal-padding, 8px);",
+                        "css_styles_mobile": "padding: 32px var(--container-horizontal-padding, 8px);"
                     },
                     "blocks": {
                         "layout_inner": {
@@ -40,10 +42,12 @@
                                 "title": {
                                     "type": "text",
                                     "settings": {
-                                        "text": "Descripción",
+                                        "text": "Sobre el producto",
                                         "text_type": "section_title",
                                         "bold": true,
-                                        "size_desktop": "2xl"
+                                        "size_desktop": "2xl",
+                                        "size_tablet": "xl",
+                                        "size_mobile": "lg"
                                     }
                                 },
                                 "description": {

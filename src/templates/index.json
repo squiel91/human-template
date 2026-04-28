@@ -1,7 +1,7 @@
 {
   "sections": {
-    "static-banner_xk1zfl": {
-      "type": "static-banner",
+    "banner_xk1zfl": {
+      "type": "banner",
       "settings": {},
       "blocks": {
         "layout_8b4dm2": {
@@ -53,8 +53,8 @@
                         "underline": false,
                         "line_through": false,
                         "size_desktop": "5xl",
-                        "size_tablet": "",
-                        "size_mobile": "",
+                        "size_tablet": "3xl",
+                        "size_mobile": "2xl",
                         "css_styles_desktop": "margin-bottom: .3em;\nfont-weight: bold; ",
                         "css_styles_tablet": "",
                         "css_styles_mobile": ""
@@ -72,8 +72,8 @@
                         "underline": false,
                         "line_through": false,
                         "size_desktop": "inherit",
-                        "size_tablet": "",
-                        "size_mobile": "",
+                        "size_tablet": "base",
+                        "size_mobile": "sm",
                         "css_styles_desktop": "",
                         "css_styles_tablet": "",
                         "css_styles_mobile": ""
@@ -83,19 +83,19 @@
                     "button_o2vrue": {
                       "type": "button",
                       "settings": {
-                        "text": "Ver productos",
-                        "action": "none",
-                        "icon_position": "after",
-                        "color": "primary",
-                        "size": "md",
-                        "variant": "primary",
-                        "rounding": "none",
-                        "link": "",
-                        "css_styles_desktop": "",
-                        "css_styles_tablet": "",
-                        "css_styles_mobile": ""
                       },
-                      "static": false
+                      "static": false,
+                      "blocks": {
+                        "text": {
+                          "type": "text",
+                          "settings": {
+                            "text": "Ver productos"
+                          }
+                        }
+                      },
+                      "block_order": [
+                        "text"
+                      ]
                     }
                   },
                   "block_order": [
@@ -202,30 +202,20 @@
                       ]
                     },
                     "cta": {
-                      "type": "_button-for-featured-collection",
-                      "settings": {},
+                      "type": "button",
+                      "settings": {
+                      },
                       "static": false,
                       "blocks": {
-                        "default-button": {
-                          "type": "button",
+                        "text": {
+                          "type": "text",
                           "settings": {
-                            "text": "Ver más",
-                            "action": "none",
-                            "icon_position": "after",
-                            "color": "primary",
-                            "size": "md",
-                            "variant": "secondary",
-                            "rounding": "none",
-                            "link": "",
-                            "css_styles_desktop": "",
-                            "css_styles_tablet": "",
-                            "css_styles_mobile": ""
-                          },
-                          "static": true
+                            "text": "Ver más"
+                          }
                         }
                       },
                       "block_order": [
-                        "default-button"
+                        "text"
                       ]
                     }
                   },
@@ -443,7 +433,7 @@
     }
   },
   "order": [
-    "static-banner_xk1zfl",
+    "banner_xk1zfl",
     "featured-collection_1po5cg"
   ]
 }

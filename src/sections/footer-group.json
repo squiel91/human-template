@@ -89,7 +89,7 @@
                         "text_business_body": {
                           "type": "text",
                           "settings": {
-                            "text": "Una selección cuidada de productos, promociones y novedades para que tu tienda se vea clara y actual.",
+                            "text": "Una selecci\u00f3n cuidada de productos, promociones y novedades para que tu tienda se vea clara y actual.",
                             "text_type": "paragraph",
                             "color": "custom",
                             "bold": false,
@@ -167,7 +167,8 @@
                           },
                           "block_order": [
                             "text"
-                          ]
+                          ],
+                          "preset": "default"
                         },
                         "link_collection_two": {
                           "type": "link",
@@ -189,7 +190,8 @@
                           },
                           "block_order": [
                             "text"
-                          ]
+                          ],
+                          "preset": "default"
                         },
                         "link_collection_three": {
                           "type": "link",
@@ -211,7 +213,8 @@
                           },
                           "block_order": [
                             "text"
-                          ]
+                          ],
+                          "preset": "default"
                         }
                       },
                       "block_order": [
@@ -239,7 +242,7 @@
                         "text_info_title": {
                           "type": "text",
                           "settings": {
-                            "text": "+ Información",
+                            "text": "+ Informaci\u00f3n",
                             "text_type": "subtitle",
                             "color": "custom",
                             "bold": true,
@@ -276,7 +279,8 @@
                           },
                           "block_order": [
                             "text"
-                          ]
+                          ],
+                          "preset": "default"
                         },
                         "link_info_two": {
                           "type": "link",
@@ -298,7 +302,8 @@
                           },
                           "block_order": [
                             "text"
-                          ]
+                          ],
+                          "preset": "default"
                         },
                         "link_info_three": {
                           "type": "link",
@@ -320,7 +325,8 @@
                           },
                           "block_order": [
                             "text"
-                          ]
+                          ],
+                          "preset": "default"
                         }
                       },
                       "block_order": [
@@ -340,7 +346,7 @@
                 "text_legal": {
                   "type": "text",
                   "settings": {
-                    "text": "® 2026 Todos los derechos registrados.",
+                    "text": "\u00ae 2026 Todos los derechos registrados.",
                     "text_type": "paragraph",
                     "color": "custom",
                     "bold": false,

@@ -10,7 +10,7 @@
 
 {% schema %}
 {
-    "name": "Slide",
+    "name": "slide",
     "max_blocks": 1,
     "settings": [],
     "blocks": [
@@ -20,7 +20,7 @@
     ],
     "presets": [
         {
-            "name": "Slide",
+            "name": "default",
             "blocks": {
                 "content": {
                     "type": "layout",
@@ -51,7 +51,9 @@
                                         "color": "custom",
                                         "custom_color": "#FFFFFF",
                                         "bold": true,
-                                        "size_desktop": "4xl",
+                                        "size_desktop": "5xl",
+                                        "size_tablet": "3xl",
+                                        "size_mobile": "2xl",
                                         "css_styles_desktop": "max-width: 48ch;"
                                     }
                                 },
@@ -63,17 +65,13 @@
                                         "color": "custom",
                                         "custom_color": "#FFFFFF",
                                         "size_desktop": "lg",
+                                        "size_tablet": "base",
                                         "css_styles_desktop": "max-width: 60ch; line-height: 1.6;"
                                     }
                                 },
                                 "cta": {
-                                    "type": "button",
-                                    "settings": {
-                                        "text": "Ver más",
-                                        "size": "lg",
-                                        "rounding": "theme",
-                                        "link": "/productos"
-                                    }
+                                    "type": "link",
+                                    "preset": "primary"
                                 }
                             },
                             "block_order": [

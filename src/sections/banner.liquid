@@ -1,0 +1,575 @@
+<section class="tiendu-banner">
+    {% content_for "blocks" %}
+</section>
+
+{% schema %}
+{
+    "name": "Banner",
+    "max_blocks": 1,
+    "settings": [],
+    "blocks": [
+        {
+            "type": "@theme"
+        }
+    ],
+    "presets": [
+        {
+            "name": "Hero",
+            "blocks": {
+                "layout_outer": {
+                    "type": "layout",
+                    "settings": {
+                        "css_styles_desktop": "padding: 0 var(--container-horizontal-padding, 8px);",
+                        "background_color_desktop": "#e8e8e8"
+                    },
+                    "blocks": {
+                        "layout_inner": {
+                            "type": "layout",
+                            "settings": {
+                                "css_styles_desktop": "max-width: var(--container-max-width, 1024px);\nmargin: 0 auto;\nmin-height: 400px;\ndisplay: flex;\njustify-content: center;\nflex-direction: column;\nalign-items: flex-start;\ngap: 16px;"
+                            },
+                            "blocks": {
+                                "text_title": {
+                                    "type": "text",
+                                    "settings": {
+                                        "text": "Date una vuelta",
+                                        "text_type": "page_title",
+                                        "size_desktop": "6xl",
+                                        "size_tablet": "4xl",
+                                        "size_mobile": "3xl",
+                                        "css_styles_desktop": "font-weight: bold;"
+                                    }
+                                },
+                                "text_body": {
+                                    "type": "text",
+                                    "settings": {
+                                        "text": "Somos una butique donde encontras todas las promociones de verano.",
+                                        "text_type": "paragraph",
+                                        "size_desktop": "lg",
+                                        "size_tablet": "base"
+                                    }
+                                },
+                                "button_cta": {
+                                    "type": "link",
+                                    "preset": "primary"
+                                }
+                            },
+                            "block_order": [
+                                "text_title",
+                                "text_body",
+                                "button_cta"
+                            ]
+                        }
+                    },
+                    "block_order": [
+                        "layout_inner"
+                    ]
+                }
+            },
+            "block_order": [
+                "layout_outer"
+            ]
+        },
+        {
+            "name": "Split",
+            "blocks": {
+                "layout_outer": {
+                    "type": "layout",
+                    "settings": {
+                        "css_styles_desktop": "padding: 64px var(--container-horizontal-padding, 8px);",
+                        "css_styles_tablet": "padding: 40px var(--container-horizontal-padding, 8px);",
+                        "css_styles_mobile": "padding: 32px var(--container-horizontal-padding, 8px);"
+                    },
+                    "blocks": {
+                        "layout_inner": {
+                            "type": "layout",
+                            "settings": {
+                                "css_styles_desktop": "max-width: var(--container-max-width, 1024px);\nmargin: 0 auto;\ndisplay: grid;\ngrid-template-columns: repeat(2, 1fr);\ngap: 40px;",
+                                "css_styles_tablet": "gap: 32px;",
+                                "css_styles_mobile": "grid-template-columns: 1fr;\ngap: 24px;"
+                            },
+                            "blocks": {
+                                "layout_text": {
+                                    "type": "layout",
+                                    "settings": {
+                                        "css_styles_desktop": "display: flex;\nflex-direction: column;\njustify-content: center;\nalign-items: flex-start;\ngap: 8px;"
+                                    },
+                                    "blocks": {
+                                        "text_title": {
+                                            "type": "text",
+                                            "settings": {
+                                                "text": "Date una vuelta",
+                                                "text_type": "page_title",
+                                                "size_desktop": "5xl",
+                                                "size_tablet": "3xl",
+                                                "size_mobile": "2xl",
+                                                "css_styles_desktop": "margin-bottom: .3em;\nfont-weight: bold;"
+                                            }
+                                        },
+                                        "text_body": {
+                                            "type": "text",
+                                            "settings": {
+                                                "text": "Somos una butique donde encontras todas las promociones de verano.",
+                                                "text_type": "paragraph",
+                                                "size_desktop": "lg",
+                                                "size_tablet": "base"
+                                            }
+                                        },
+                                        "button_cta": {
+                                            "type": "link",
+                                            "preset": "primary"
+                                        }
+                                    },
+                                    "block_order": [
+                                        "text_title",
+                                        "text_body",
+                                        "button_cta"
+                                    ]
+                                },
+                                "image_side": {
+                                    "type": "image",
+                                    "settings": {
+                                        "image": ""
+                                    }
+                                }
+                            },
+                            "block_order": [
+                                "image_side",
+                                "layout_text"
+                            ]
+                        }
+                    },
+                    "block_order": [
+                        "layout_inner"
+                    ]
+                }
+            },
+            "block_order": [
+                "layout_outer"
+            ]
+        },
+        {
+            "name": "Carousel",
+            "blocks": {
+                "carousel": {
+                    "type": "carousel",
+                    "settings": {
+                        "height_desktop": "28rem",
+                        "height_tablet": "",
+                        "height_mobile": "",
+                        "show_arrows": true,
+                        "show_dots": true,
+                        "autoplay": true,
+                        "autoplay_seconds": 5
+                    },
+                    "blocks": {
+                        "slide_1": {
+                            "type": "slide"
+                        },
+                        "slide_2": {
+                            "type": "slide"
+                        }
+                    },
+                    "block_order": [
+                        "slide_1",
+                        "slide_2"
+                    ]
+                }
+            },
+            "block_order": [
+                "carousel"
+            ]
+        },
+        {
+            "name": "Reviews",
+            "blocks": {
+                "layout_outer": {
+                    "type": "layout",
+                    "settings": {
+                        "css_styles_desktop": "padding: 64px var(--container-horizontal-padding, 8px);",
+                        "css_styles_tablet": "padding: 40px var(--container-horizontal-padding, 8px);",
+                        "css_styles_mobile": "padding: 32px var(--container-horizontal-padding, 8px);"
+                    },
+                    "blocks": {
+                        "layout_inner": {
+                            "type": "layout",
+                            "settings": {
+                                "css_styles_desktop": "max-width: var(--container-max-width, 1024px); margin: 0 auto; display: flex; flex-direction: column; gap: 40px;",
+                                "css_styles_tablet": "gap: 32px;",
+                                "css_styles_mobile": "gap: 24px;"
+                            },
+                            "blocks": {
+                                "layout_header": {
+                                    "type": "layout",
+                                    "settings": {
+                                        "css_styles_desktop": "display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; flex-wrap: wrap;",
+                                        "css_styles_mobile": "flex-direction: column; align-items: flex-start;"
+                                    },
+                                    "blocks": {
+                                        "layout_header_left": {
+                                            "type": "layout",
+                                            "settings": {
+                                                "css_styles_desktop": "display: flex; flex-direction: column; gap: 8px;"
+                                            },
+                                            "blocks": {
+                                                "label": {
+                                                    "type": "text",
+                                                    "settings": {
+                                                        "text": "OPINIONES",
+                                                        "color": "automatic",
+                                                        "size_desktop": "sm",
+                                                        "css_styles_desktop": "letter-spacing: 0.1em; text-transform: uppercase;"
+                                                    }
+                                                },
+                                                "heading": {
+                                                    "type": "text",
+                                                    "settings": {
+                                                        "text": "Lo que dicen nuestros clientes.",
+                                                        "text_type": "section_title",
+                                                        "bold": true,
+                                                        "size_desktop": "4xl",
+                                                        "size_tablet": "3xl",
+                                                        "size_mobile": "2xl"
+                                                    }
+                                                }
+                                            },
+                                            "block_order": [
+                                                "label",
+                                                "heading"
+                                            ]
+                                        },
+                                        "layout_header_right": {
+                                            "type": "layout",
+                                            "settings": {
+                                                "css_styles_desktop": "display: flex; flex-direction: column; align-items: flex-end; gap: 4px;",
+                                                "css_styles_mobile": "align-items: flex-start;"
+                                            },
+                                            "blocks": {
+                                                "aggregate_rating": {
+                                                    "type": "layout",
+                                                    "settings": {
+                                                        "css_styles_desktop": "display: flex; align-items: center; gap: 12px;"
+                                                    },
+                                                    "blocks": {
+                                                        "stars": {
+                                                            "type": "stars",
+                                                            "settings": {
+                                                                "rating": 4.9,
+                                                                "size": "lg"
+                                                            }
+                                                        },
+                                                        "rating_text": {
+                                                            "type": "text",
+                                                            "settings": {
+                                                                "text": "4.9 / 5",
+                                                                "bold": true
+                                                            }
+                                                        }
+                                                    },
+                                                    "block_order": [
+                                                        "stars",
+                                                        "rating_text"
+                                                    ]
+                                                },
+                                                "reviews_count": {
+                                                    "type": "text",
+                                                    "settings": {
+                                                        "text": "Sobre 3.400 reseñas",
+                                                        "color": "automatic",
+                                                        "size_desktop": "sm"
+                                                    }
+                                                }
+                                            },
+                                            "block_order": [
+                                                "aggregate_rating",
+                                                "reviews_count"
+                                            ]
+                                        }
+                                    },
+                                    "block_order": [
+                                        "layout_header_left",
+                                        "layout_header_right"
+                                    ]
+                                },
+                                "layout_grid": {
+                                    "type": "layout",
+                                    "settings": {
+                                        "css_styles_desktop": "display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;",
+                                        "css_styles_tablet": "grid-template-columns: repeat(2, 1fr);",
+                                        "css_styles_mobile": "grid-template-columns: 1fr;"
+                                    },
+                                    "blocks": {
+                                        "review_1": {
+                                            "type": "review"
+                                        },
+                                        "review_2": {
+                                            "type": "review"
+                                        },
+                                        "review_3": {
+                                            "type": "review"
+                                        }
+                                    },
+                                    "block_order": [
+                                        "review_1",
+                                        "review_2",
+                                        "review_3"
+                                    ]
+                                }
+                            },
+                            "block_order": [
+                                "layout_header",
+                                "layout_grid"
+                            ]
+                        }
+                    },
+                    "block_order": [
+                        "layout_inner"
+                    ]
+                }
+            },
+            "block_order": [
+                "layout_outer"
+            ]
+        },
+        {
+            "name": "Newsletter",
+            "blocks": {
+                "layout_outer": {
+                    "type": "layout",
+                    "settings": {
+                        "background_color_desktop": "#e8e8e8",
+                        "background_color_tablet": "#e8e8e8",
+                        "background_color_mobile": "#e8e8e8",
+                        "css_styles_desktop": "padding: 64px var(--container-horizontal-padding, 8px);",
+                        "css_styles_tablet": "padding: 40px var(--container-horizontal-padding, 8px);",
+                        "css_styles_mobile": "padding: 32px var(--container-horizontal-padding, 8px);"
+                    },
+                    "blocks": {
+                        "layout_inner": {
+                            "type": "layout",
+                            "settings": {
+                                "css_styles_desktop": "max-width: var(--container-max-width, 1024px); margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 20px; text-align: center;",
+                                "css_styles_tablet": "gap: 16px;",
+                                "css_styles_mobile": "gap: 12px;"
+                            },
+                            "blocks": {
+                                "label": {
+                                    "type": "text",
+                                    "settings": {
+                                        "text": "NEWSLETTER",
+                                        "color": "automatic",
+                                        "alignment": "center",
+                                        "size_desktop": "sm",
+                                        "css_styles_desktop": "letter-spacing: 0.1em; text-transform: uppercase;"
+                                    }
+                                },
+                                "heading": {
+                                    "type": "text",
+                                    "settings": {
+                                        "text": "Sumate a la lista.",
+                                        "text_type": "section_title",
+                                        "bold": true,
+                                        "alignment": "center",
+                                        "size_desktop": "4xl",
+                                        "size_tablet": "3xl",
+                                        "size_mobile": "2xl"
+                                    }
+                                },
+                                "description": {
+                                    "type": "text",
+                                    "settings": {
+                                        "text": "Novedades, lanzamientos y acceso anticipado a ofertas. Sin spam — podés salir cuando quieras.",
+                                        "text_type": "paragraph",
+                                        "color": "automatic",
+                                        "alignment": "center",
+                                        "size_desktop": "base",
+                                        "size_tablet": "base",
+                                        "size_mobile": "sm",
+                                        "css_styles_desktop": "max-width: 640px;"
+                                    }
+                                },
+                                "form": {
+                                    "type": "newsletter-form",
+                                    "blocks": {
+                                        "form_layout": {
+                                            "type": "layout",
+                                            "settings": {
+                                                "css_styles_desktop": "display: flex; align-items: stretch; gap: 8px; width: 100%; max-width: 480px;",
+                                                "css_styles_mobile": "flex-direction: column;"
+                                            },
+                                            "blocks": {
+                                                "email_input": {
+                                                    "type": "newsletter-input",
+                                                    "settings": {
+                                                        "rounding": "theme"
+                                                    }
+                                                },
+                                                "submit_button": {
+                                                    "type": "button",
+                                                    "settings": {
+                                                        "action": "submit"
+                                                    },
+                                                    "preset": "primary"
+                                                }
+                                            },
+                                            "block_order": [
+                                                "email_input",
+                                                "submit_button"
+                                            ]
+                                        }
+                                    },
+                                    "block_order": [
+                                        "form_layout"
+                                    ]
+                                }
+                            },
+                            "block_order": [
+                                "label",
+                                "heading",
+                                "description",
+                                "form"
+                            ]
+                        }
+                    },
+                    "block_order": [
+                        "layout_inner"
+                    ]
+                }
+            },
+            "block_order": [
+                "layout_outer"
+            ]
+        },
+        {
+            "name": "Message",
+            "blocks": {
+                "layout_banner": {
+                    "type": "layout",
+                    "settings": {
+                        "css_styles_desktop": "display: flex; justify-content: center; align-items: center; background-color: var(--color-primary); padding: 10px 8px;"
+                    },
+                    "blocks": {
+                        "text_banner": {
+                            "type": "text",
+                            "settings": {
+                                "text": "Envío GRATIS para pedidos mayores a $2.000",
+                                "color": "custom",
+                                "custom_color": "#FFFFFF",
+                                "bold": true,
+                                "alignment": "center",
+                                "size_desktop": "sm"
+                            }
+                        }
+                    },
+                    "block_order": [
+                        "text_banner"
+                    ]
+                }
+            },
+            "block_order": [
+                "layout_banner"
+            ]
+        },
+        {
+            "name": "Payment methods",
+            "blocks": {
+                "layout_outer": {
+                    "type": "layout",
+                    "settings": {
+                        "css_styles_desktop": "padding: 32px var(--container-horizontal-padding, 8px); display: flex; justify-content: center; align-items: center; gap: 20px; flex-wrap: wrap;",
+                        "css_styles_tablet": "padding: 24px var(--container-horizontal-padding, 8px);",
+                        "css_styles_mobile": "padding: 16px var(--container-horizontal-padding, 8px);"
+                    },
+                    "blocks": {
+                        "visa": {
+                            "type": "payment-method",
+                            "settings": {
+                                "method": "visa",
+                                "alt": "Visa"
+                            }
+                        },
+                        "master": {
+                            "type": "payment-method",
+                            "settings": {
+                                "method": "master",
+                                "alt": "Mastercard"
+                            }
+                        },
+                        "amex": {
+                            "type": "payment-method",
+                            "settings": {
+                                "method": "amex",
+                                "alt": "American Express"
+                            }
+                        },
+                        "cabal": {
+                            "type": "payment-method",
+                            "settings": {
+                                "method": "cabal",
+                                "alt": "Cabal"
+                            }
+                        },
+                        "mercadopago": {
+                            "type": "payment-method",
+                            "settings": {
+                                "method": "mercadopago",
+                                "alt": "Mercado Pago"
+                            }
+                        },
+                        "oca": {
+                            "type": "payment-method",
+                            "settings": {
+                                "method": "oca",
+                                "alt": "OCA"
+                            }
+                        },
+                        "abitab": {
+                            "type": "payment-method",
+                            "settings": {
+                                "method": "abitab",
+                                "alt": "Abitab"
+                            }
+                        },
+                        "redpagos": {
+                            "type": "payment-method",
+                            "settings": {
+                                "method": "redpagos",
+                                "alt": "Redpagos"
+                            }
+                        },
+                        "brou": {
+                            "type": "payment-method",
+                            "settings": {
+                                "method": "brou",
+                                "alt": "BROU"
+                            }
+                        },
+                        "itau": {
+                            "type": "payment-method",
+                            "settings": {
+                                "method": "itau",
+                                "alt": "Itaú"
+                            }
+                        }
+                    },
+                    "block_order": [
+                        "visa",
+                        "master",
+                        "amex",
+                        "cabal",
+                        "mercadopago",
+                        "oca",
+                        "abitab",
+                        "redpagos",
+                        "brou",
+                        "itau"
+                    ]
+                }
+            },
+            "block_order": [
+                "layout_outer"
+            ]
+        }
+    ]
+}
+{% endschema %}

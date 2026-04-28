@@ -103,12 +103,32 @@
                 "popup_card": {
                     "type": "layout",
                     "settings": {
-                        "background_color_desktop": "#f7f3ea",
-                        "css_styles_desktop": "position: relative; display: flex; flex-direction: column; justify-content: flex-end; gap: 14px; min-height: 34rem; padding: 24px; overflow: hidden; border-radius: 1.5rem; box-shadow: 0 30px 80px rgba(0, 0, 0, 0.2); background-position: center; background-size: cover; background-repeat: no-repeat; color: white;",
+                        "background_color_desktop": "#000000",
+                        "css_styles_desktop": "position: relative; display: flex; flex-direction: column; justify-content: flex-end; gap: 14px; min-height: 34rem; padding: 24px; overflow: hidden; border-radius: 1.5rem; box-shadow: 0 30px 80px rgba(0, 0, 0, 0.4); background-position: center; background-size: cover; background-repeat: no-repeat; color: white;",
                         "css_styles_tablet": "min-height: 32rem;",
                         "css_styles_mobile": "min-height: 30rem; padding: 20px; border-radius: 1.25rem;"
                     },
                     "blocks": {
+                        "close_x": {
+                            "type": "button",
+                            "settings": {
+                                "action": "close_popup",
+                                "css_styles_desktop": "position: absolute; top: 16px; right: 16px; z-index: 10; background: transparent; border: none; padding: 4px; color: white; cursor: pointer;"
+                            },
+                            "blocks": {
+                                "icon": {
+                                    "type": "icon",
+                                    "settings": {
+                                        "icon": "x",
+                                        "size": "md",
+                                        "stroke_width": "2.5"
+                                    }
+                                }
+                            },
+                            "block_order": [
+                                "icon"
+                            ]
+                        },
                         "label": {
                             "type": "text",
                             "settings": {
@@ -126,7 +146,7 @@
                                 "bold": true,
                                 "size_desktop": "3xl",
                                 "custom_color": "#ffffff",
-                                "css_styles_desktop": "max-width: 12ch; text-shadow: 0 10px 24px rgba(0, 0, 0, 0.3);"
+                                "css_styles_desktop": "max-width: 12ch;"
                             }
                         },
                         "description": {
@@ -135,7 +155,7 @@
                                 "text": "Dejanos tu email y te mandamos el descuento para tu próximo pedido.",
                                 "text_type": "paragraph",
                                 "custom_color": "#f3f4f6",
-                                "css_styles_desktop": "max-width: 32ch; line-height: 1.5; text-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);"
+                                "css_styles_desktop": "max-width: 32ch; line-height: 1.5;"
                             }
                         },
                         "form": {
@@ -157,11 +177,9 @@
                                         },
                                         "submit_button": {
                                             "type": "button",
+                                            "preset": "primary",
                                             "settings": {
-                                                "text": "Suscribirme",
-                                                "action": "submit",
-                                                "rounding": "theme",
-                                                "css_styles_desktop": "width: 100%; justify-content: center;"
+                                                "action": "submit"
                                             }
                                         }
                                     },
@@ -177,16 +195,14 @@
                         },
                         "dismiss_button": {
                             "type": "button",
+                            "preset": "secondary",
                             "settings": {
-                                "text": "No gracias, prefiero pagar el precio completo",
-                                "action": "close_popup",
-                                "variant": "secondary",
-                                "rounding": "theme",
-                                "css_styles_desktop": "width: 100%; justify-content: center; color: white; border-color: rgba(255, 255, 255, 0.4); background: rgba(255, 255, 255, 0.08); backdrop-filter: blur(4px);"
+                                "action": "close_popup"
                             }
                         }
                     },
                     "block_order": [
+                        "close_x",
                         "label",
                         "heading",
                         "description",

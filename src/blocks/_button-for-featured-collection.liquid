@@ -12,7 +12,7 @@
 
 {% schema %}
 {
-    "name": "Button for featured collection",
+    "name": "button for featured collection",
     "max_blocks": 1,
     "blocks": [
         {
@@ -21,16 +21,25 @@
     ],
     "presets": [
         {
-            "name": "Button for featured collection",
+            "name": "button for featured collection",
             "blocks": {
                 "default-button": {
                     "type": "button",
                     "static": true,
                     "settings": {
-                        "text": "Ver más",
-                        "variant": "secondary",
                         "rounding": "theme"
-                    }
+                    },
+                    "blocks": {
+                        "text": {
+                            "type": "text",
+                            "settings": {
+                                "text": "Ver más"
+                            }
+                        }
+                    },
+                    "block_order": [
+                        "text"
+                    ]
                 }
             },
             "block_order": [

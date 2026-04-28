@@ -1,4 +1,4 @@
-<section class="tiendu-main-collection" style="padding: 32px 0;">
+<section class="tiendu-main-collection">
     {% if section.blocks and section.blocks.size > 0 %}
         {% content_for 'blocks' %}
     {% elsif design_mode or preview_mode %}
@@ -28,7 +28,9 @@
                 "layout_outer": {
                     "type": "layout",
                     "settings": {
-                        "css_styles_desktop": "padding: 0 var(--container-horizontal-padding, 8px);"
+                        "css_styles_desktop": "padding: 64px var(--container-horizontal-padding, 8px);",
+                        "css_styles_tablet": "padding: 40px var(--container-horizontal-padding, 8px);",
+                        "css_styles_mobile": "padding: 32px var(--container-horizontal-padding, 8px);"
                     },
                     "blocks": {
                         "layout_inner": {
@@ -39,22 +41,38 @@
                                 "css_styles_mobile": "gap: 20px;"
                             },
                             "blocks": {
-                                "title": {
-                                    "type": "_text-for-featured-collection",
+                                "layout_header": {
+                                    "type": "layout",
+                                    "settings": {
+                                        "css_styles_desktop": "display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; row-gap: 8px; column-gap: 16px;"
+                                    },
                                     "blocks": {
-                                        "default-text": {
-                                            "type": "text",
-                                            "static": true,
-                                            "settings": {
-                                                "text_type": "page_title",
-                                                "vertical_margin": "default",
-                                                "bold": true,
-                                                "size_desktop": "5xl"
-                                            }
+                                        "title": {
+                                            "type": "_text-for-featured-collection",
+                                            "blocks": {
+                                                "default-text": {
+                                                    "type": "text",
+                                                    "static": true,
+                                                    "settings": {
+                                                        "text_type": "page_title",
+                                                        "bold": true,
+                                                        "size_desktop": "4xl",
+                                                        "size_tablet": "3xl",
+                                                        "size_mobile": "2xl"
+                                                    }
+                                                }
+                                            },
+                                            "block_order": [
+                                                "default-text"
+                                            ]
+                                        },
+                                        "sort": {
+                                            "type": "collection-sort"
                                         }
                                     },
                                     "block_order": [
-                                        "default-text"
+                                        "title",
+                                        "sort"
                                     ]
                                 },
                                 "layout_grid": {
@@ -199,7 +217,7 @@
                                 }
                             },
                             "block_order": [
-                                "title",
+                                "layout_header",
                                 "layout_grid"
                             ]
                         }

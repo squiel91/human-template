@@ -44,6 +44,10 @@
             {% render 'icon-text-align-start', size: icon_size, stroke_width: block.settings.stroke_width %}
         {% when 'arrow-right' %}
             {% render 'icon-arrow-right', size: icon_size, stroke_width: block.settings.stroke_width %}
+        {% when 'chevron-right' %}
+            {% render 'icon-chevron-right', size: icon_size, stroke_width: block.settings.stroke_width %}
+        {% when 'chevron-down' %}
+            {% render 'icon-chevron-down', size: icon_size, stroke_width: block.settings.stroke_width %}
         {% when 'shopping-bag' %}
             {% render 'icon-shopping-bag', size: icon_size, stroke_width: block.settings.stroke_width %}
         {% when 'forward' %}
@@ -64,6 +68,8 @@
             {% render 'icon-tiktok', size: icon_size %}
         {% when 'youtube' %}
             {% render 'icon-youtube', size: icon_size %}
+        {% when 'tiendu-banana' %}
+            {% render 'icon-tiendu-banana', size: icon_size %}
     {% else %}
         {% render 'icon-search', size: icon_size, stroke_width: block.settings.stroke_width %}
     {% endcase %}
@@ -71,7 +77,7 @@
 
 {% schema %}
 {
-    "name": "Icon",
+    "name": "icon",
     "settings": [
         {
             "type": "select",
@@ -90,6 +96,14 @@
                 {
                     "value": "arrow-right",
                     "label": "Arrow right"
+                },
+                {
+                    "value": "chevron-right",
+                    "label": "Chevron right"
+                },
+                {
+                    "value": "chevron-down",
+                    "label": "Chevron down"
                 },
                 {
                     "value": "shopping-bag",
@@ -126,6 +140,10 @@
                 {
                     "value": "youtube",
                     "label": "YouTube"
+                },
+                {
+                    "value": "tiendu-banana",
+                    "label": "Tiendu banana"
                 },
                 {
                     "value": "x",
@@ -221,7 +239,7 @@
     ],
     "presets": [
         {
-            "name": "Icon",
+    "name": "Icon",
             "settings": {
                 "color": "custom",
                 "custom_color": ""

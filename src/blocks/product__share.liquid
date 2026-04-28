@@ -4,7 +4,7 @@
 
 {% schema %}
 {
-    "name": "product: Share",
+    "name": "product: share",
     "max_blocks": 1,
     "blocks": [
         {
@@ -13,16 +13,14 @@
     ],
     "presets": [
         {
-            "name": "product: Share",
+            "name": "product: share",
             "blocks": {
                 "share-button": {
                     "type": "button",
+                    "preset": "secondary",
                     "static": true,
                     "settings": {
-                        "text": "",
                         "action": "share",
-                        "variant": "secondary",
-                        "rounding": "theme",
                         "css_styles_desktop": "width: 100%; margin-top: 8px;"
                     },
                     "blocks": {
@@ -30,7 +28,7 @@
                             "type": "icon",
                             "settings": {
                                 "icon": "forward",
-                                "color": "custom",
+                                "color": "automatic",
                                 "size": "md",
                                 "stroke_width": "2"
                             }

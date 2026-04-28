@@ -8,6 +8,15 @@ const SWIPE_PROGRESS_THRESHOLD = 0.25
 const CAROUSEL_AUTOPLAY_INTERVAL = 5000
 
 const setActionButtonLoading = (button, loading) => {
+  const content = button.querySelector('[data-button-content]')
+  const loader = button.querySelector('[data-button-loader]')
+  if (content) {
+    content.style.opacity = loading ? '0' : ''
+    content.style.pointerEvents = loading ? 'none' : ''
+  }
+  if (loader) loader.hidden = !loading
+
+  // Legacy fallback for old button markup with data-button-action-icon
   for (const iconNode of button.querySelectorAll('[data-button-action-icon]')) {
     iconNode.hidden = iconNode.dataset.buttonActionIcon !== (loading ? 'loader' : 'default')
   }
@@ -1329,6 +1338,23 @@ const initNewsletterForms = () => {
   }
 }
 
+const initCollectionSorts = () => {
+  const selects = Array.from(document.querySelectorAll('[data-collection-sort] select'))
+
+  for (const select of selects) {
+    if (!(select instanceof HTMLSelectElement)) continue
+    if (select.dataset.sortBound === 'true') continue
+
+    select.dataset.sortBound = 'true'
+    select.addEventListener('change', () => {
+      const value = select.value
+      const url = new URL(window.location.href)
+      url.searchParams.set('sort_by', value)
+      window.location.href = url.toString()
+    })
+  }
+}
+
 const initBreadcrumbContextLinks = () => {
   if (document.documentElement.dataset.breadcrumbContextBound === 'true') return
   document.documentElement.dataset.breadcrumbContextBound = 'true'
@@ -1370,6 +1396,7 @@ const initButtonActions = () => {
   initNewsletterPopups()
   initProductQuantityInputs()
   initCarousels()
+  initCollectionSorts()
   initBreadcrumbContextLinks()
 
   if (buttons.some((button) => button.dataset.buttonAction === 'cart')) {

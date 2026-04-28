@@ -4,7 +4,7 @@
     {% assign product_reviews = product_page.reviews %}
 {% endif %}
 
-<section class="tiendu-product-reviews" style="padding: 48px 0;">
+<section class="tiendu-product-reviews">
     {% if section.blocks and section.blocks.size > 0 %}
         {% for section_block in section.blocks %}
             {% content_for 'block', id: section_block.id, type: section_block.type, closest.product: product_obj %}
@@ -36,7 +36,9 @@
                 "layout_outer": {
                     "type": "layout",
                     "settings": {
-                        "css_styles_desktop": "padding: 0 var(--container-horizontal-padding, 8px);"
+                        "css_styles_desktop": "padding: 64px var(--container-horizontal-padding, 8px);",
+                        "css_styles_tablet": "padding: 40px var(--container-horizontal-padding, 8px);",
+                        "css_styles_mobile": "padding: 32px var(--container-horizontal-padding, 8px);"
                     },
                     "blocks": {
                         "layout_inner": {
@@ -63,8 +65,9 @@
                                                     "settings": {
                                                         "text_type": "section_title",
                                                         "bold": true,
-                                                        "size_desktop": "4xl",
-                                                        "css_styles_desktop": "line-height: 1.1;"
+                                                        "size_desktop": "2xl",
+                                                        "size_tablet": "xl",
+                                                        "size_mobile": "lg"
                                                     }
                                                 }
                                             },

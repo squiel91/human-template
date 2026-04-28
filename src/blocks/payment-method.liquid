@@ -10,6 +10,9 @@
     {% when 'amex' %}
         {% assign payment_label = 'American Express' %}
         {% assign asset_name = 'payment__amex.svg' %}
+    {% when 'brou' %}
+        {% assign payment_label = 'BROU' %}
+        {% assign asset_name = 'payment__brou.svg' %}
     {% when 'anda' %}
         {% assign payment_label = 'Anda' %}
         {% assign asset_name = 'payment__anda.svg' %}
@@ -19,6 +22,9 @@
     {% when 'diners' %}
         {% assign payment_label = 'Diners Club' %}
         {% assign asset_name = 'payment__diners.svg' %}
+    {% when 'itau' %}
+        {% assign payment_label = 'Itaú' %}
+        {% assign asset_name = 'payment__itau.svg' %}
     {% when 'lider' %}
         {% assign payment_label = 'Lider' %}
         {% assign asset_name = 'payment__lider.svg' %}
@@ -63,7 +69,7 @@
         display: block;
         width: auto;
         max-width: 100%;
-        height: {{ block.settings.height | default: 28 }}px;
+        height: 28px;
         object-fit: contain;
     }
 
@@ -77,6 +83,9 @@
         #{{ payment_id }} {
             {{ block.settings.css_styles_mobile }}
         }
+        #{{ payment_id }} img {
+            height: 14px;
+        }
     }
 </style>
 
@@ -86,7 +95,7 @@
 
 {% schema %}
 {
-    "name": "Payment method",
+    "name": "payment method",
     "settings": [
         {
             "type": "select",
@@ -99,6 +108,8 @@
                 { "value": "anda", "label": "Anda" },
                 { "value": "cabal", "label": "Cabal" },
                 { "value": "diners", "label": "Diners Club" },
+                { "value": "brou", "label": "BROU" },
+                { "value": "itau", "label": "Itaú" },
                 { "value": "lider", "label": "Lider" },
                 { "value": "master", "label": "Mastercard" },
                 { "value": "mercadopago", "label": "Mercado Pago" },
@@ -110,12 +121,6 @@
                 { "value": "tarjetad", "label": "Tarjeta D" },
                 { "value": "visa", "label": "Visa" }
             ]
-        },
-        {
-            "type": "number",
-            "id": "height",
-            "label": "Logo height",
-            "default": 28
         },
         {
             "type": "text",
@@ -153,10 +158,9 @@
     ],
     "presets": [
         {
-            "name": "Payment method",
+            "name": "default",
             "settings": {
-                "method": "visa",
-                "height": 28
+                "method": "visa"
             }
         }
     ]

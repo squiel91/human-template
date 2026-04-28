@@ -1,4 +1,4 @@
-<section class="tiendu-featured-collections" style="padding: 32px 0;">
+<section class="tiendu-featured-collections">
     {% if section.blocks and section.blocks.size > 0 %}
         {% content_for 'blocks' %}
     {% elsif design_mode or preview_mode %}
@@ -29,7 +29,9 @@
                 "layout_outer": {
                     "type": "layout",
                     "settings": {
-                        "css_styles_desktop": "padding: 0 var(--container-horizontal-padding, 8px);"
+                        "css_styles_desktop": "padding: 64px var(--container-horizontal-padding, 8px);",
+                        "css_styles_tablet": "padding: 40px var(--container-horizontal-padding, 8px);",
+                        "css_styles_mobile": "padding: 32px var(--container-horizontal-padding, 8px);"
                     },
                     "blocks": {
                         "layout_inner": {
@@ -43,8 +45,7 @@
                                 "layout_header": {
                                     "type": "layout",
                                     "settings": {
-                                        "css_styles_desktop": "display: flex; align-items: center; justify-content: space-between; gap: 16px;",
-                                        "css_styles_mobile": "flex-direction: column; align-items: flex-start;"
+                                        "css_styles_desktop": "display: flex; align-items: center; flex-wrap: wrap; row-gap: 8px; column-gap: 16px;"
                                     },
                                     "blocks": {
                                         "title": {
@@ -53,22 +54,14 @@
                                                 "text": "Categorías destacadas",
                                                 "text_type": "section_title",
                                                 "bold": true,
-                                                "size_desktop": "2xl"
-                                            }
-                                        },
-                                        "cta": {
-                                            "type": "button",
-                                            "settings": {
-                                                "text": "Ver más",
-                                                "variant": "secondary",
-                                                "rounding": "theme",
-                                                "link": "/categorias"
+                                                "size_desktop": "4xl",
+                                                "size_tablet": "3xl",
+                                                "size_mobile": "2xl"
                                             }
                                         }
                                     },
                                     "block_order": [
-                                        "title",
-                                        "cta"
+                                        "title"
                                     ]
                                 },
                                 "layout_grid": {
