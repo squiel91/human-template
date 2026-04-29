@@ -1,7 +1,7 @@
 {% assign reviews_quantity = product.reviewsQuantity | default: 0 %}
 {% assign fallback_text = 'Reseñas' %}
 
-<div {{ block.shopify_attributes }}>
+<div {{ block.tiendu_attributes }}>
     {% content_for 'block', id: 'default-text', type: 'text', default_text: fallback_text %}
 </div>
 

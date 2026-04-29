@@ -2,7 +2,7 @@
 {% assign collection_title = collection_obj.name | default: 'Categoría' %}
 
 {% if collection_title != blank or design_mode or preview_mode %}
-    <div {{ block.shopify_attributes }}>
+    <div {{ block.tiendu_attributes }}>
         {% content_for 'block', id: 'default-text', type: 'text', default_text: collection_title %}
     </div>
 {% endif %}

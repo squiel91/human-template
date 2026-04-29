@@ -1,0 +1,119 @@
+{% assign units_sold_id = 'tiendu__product-units-sold-' | append: section.id | append: '-' | append: block.id %}
+{% assign product_obj = closest.product | default: product %}
+{% assign units_sold = product_obj.unitsSold | default: 0 %}
+{% assign singular_label = block.settings.singular_label | default: 'vendido' %}
+{% assign plural_label = block.settings.plural_label | default: 'vendidos' %}
+
+{% if units_sold == 1 %}
+    {% capture units_sold_message %}1 {{ singular_label | strip }}{% endcapture %}
+{% elsif units_sold > 1 %}
+    {% capture units_sold_message %}{{ units_sold }} {{ plural_label | strip }}{% endcapture %}
+{% else %}
+    {% assign units_sold_message = blank %}
+{% endif %}
+
+{% assign should_render_units_sold = false %}
+{% if units_sold > 0 %}
+    {% assign should_render_units_sold = true %}
+{% elsif product_obj == blank and design_mode %}
+    {% assign should_render_units_sold = true %}
+    {% assign units_sold_message = '12 ' | append: plural_label %}
+{% elsif product_obj == blank and preview_mode %}
+    {% assign should_render_units_sold = true %}
+    {% assign units_sold_message = '12 ' | append: plural_label %}
+{% endif %}
+
+{% if should_render_units_sold %}
+    <style>
+        #{{ units_sold_id }} {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.375rem;
+            width: fit-content;
+            max-width: 100%;
+            color: #15803d;
+            font-size: 0.9375rem;
+            font-weight: 600;
+            line-height: 1.4;
+            overflow-wrap: anywhere;
+            {{ block.settings.css_styles_desktop }}
+        }
+
+        #{{ units_sold_id }} .tiendu-product-units-sold__icon {
+            display: inline-flex;
+            flex: 0 0 auto;
+            line-height: 0;
+        }
+
+        @media (width <= 64rem) {
+            #{{ units_sold_id }} {
+                {{ block.settings.css_styles_tablet }}
+            }
+        }
+
+        @media (width <= 48rem) {
+            #{{ units_sold_id }} {
+                {{ block.settings.css_styles_mobile }}
+            }
+        }
+    </style>
+
+    <div {{ block.tiendu_attributes }} id="{{ units_sold_id }}" class="tiendu-product-units-sold">
+        <span class="tiendu-product-units-sold__icon" aria-hidden="true">
+            {% render 'icon-trending-up', size: 16, stroke_width: 2 %}
+        </span>
+        <span>{{ units_sold_message | strip | escape }}</span>
+    </div>
+{% endif %}
+
+{% schema %}
+{
+    "name": "product: units sold",
+    "settings": [
+        {
+            "type": "text",
+            "id": "singular_label",
+            "label": "Singular label",
+            "default": "vendido"
+        },
+        {
+            "type": "text",
+            "id": "plural_label",
+            "label": "Plural label",
+            "default": "vendidos"
+        },
+        {
+            "type": "header",
+            "content": "Desktop"
+        },
+        {
+            "type": "textarea",
+            "id": "css_styles_desktop",
+            "label": "CSS styles"
+        },
+        {
+            "type": "header",
+            "content": "Tablet"
+        },
+        {
+            "type": "textarea",
+            "id": "css_styles_tablet",
+            "label": "CSS styles"
+        },
+        {
+            "type": "header",
+            "content": "Mobile"
+        },
+        {
+            "type": "textarea",
+            "id": "css_styles_mobile",
+            "label": "CSS styles"
+        }
+    ],
+    "presets": [
+        {
+            "name": "product: units sold"
+        }
+    ]
+}
+{% endschema %}

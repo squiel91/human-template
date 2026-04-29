@@ -77,6 +77,12 @@
                                                 "default-text"
                                             ]
                                         },
+                                        "stock_status": {
+                                            "type": "product__stock-status"
+                                        },
+                                        "units_sold": {
+                                            "type": "product__units-sold"
+                                        },
                                         "reviews": {
                                             "type": "product__reviews",
                                             "blocks": {
@@ -192,6 +198,59 @@
                                                 "text"
                                             ]
                                         },
+                                        "purchase_benefits": {
+                                            "type": "layout",
+                                            "settings": {
+                                                "css_styles_desktop": "display: grid; grid-template-columns: min-content 1fr; column-gap: 12px; row-gap: 10px; align-items: center;",
+                                                "css_styles_mobile": "column-gap: 10px; row-gap: 8px;"
+                                            },
+                                            "blocks": {
+                                                "shipping_icon": {
+                                                    "type": "icon",
+                                                    "settings": {
+                                                        "icon": "truck",
+                                                        "color": "custom",
+                                                        "custom_color": "#6b7280",
+                                                        "size": "sm",
+                                                        "stroke_width": "2"
+                                                    }
+                                                },
+                                                "shipping_text": {
+                                                    "type": "text",
+                                                    "settings": {
+                                                        "text": "Envío gratis en pedidos superiores a $ 2.000",
+                                                        "text_type": "paragraph",
+                                                        "size_desktop": "sm",
+                                                        "custom_color": "#6b7280"
+                                                    }
+                                                },
+                                                "bank_transfer_icon": {
+                                                    "type": "icon",
+                                                    "settings": {
+                                                        "icon": "piggy-bank",
+                                                        "color": "custom",
+                                                        "custom_color": "#6b7280",
+                                                        "size": "sm",
+                                                        "stroke_width": "2"
+                                                    }
+                                                },
+                                                "bank_transfer_text": {
+                                                    "type": "text",
+                                                    "settings": {
+                                                        "text": "10% OFF con transferencia bancaria",
+                                                        "text_type": "paragraph",
+                                                        "size_desktop": "sm",
+                                                        "custom_color": "#6b7280"
+                                                    }
+                                                }
+                                            },
+                                            "block_order": [
+                                                "shipping_icon",
+                                                "shipping_text",
+                                                "bank_transfer_icon",
+                                                "bank_transfer_text"
+                                            ]
+                                        },
                                         "selectors": {
                                             "type": "product__attribute-selectors"
                                         },
@@ -205,12 +264,15 @@
                                     },
                                     "block_order": [
                                         "title",
+                                        "units_sold",
                                         "reviews",
                                         "pricing_row",
                                         "selectors",
+                                        "stock_status",
                                         "quantity",
                                         "add_to_cart",
-                                        "share"
+                                        "share",
+                                        "purchase_benefits"
                                     ]
                                 }
                             },

@@ -1,4 +1,4 @@
-<nav class="header-nav" aria-label="Navegacion principal"{% if section.settings.sticky_header %} data-header-sticky-root style="position: sticky; top: 0; z-index: 30; width: 100%; background-color: {{ settings.background_color | default: 'white' }};"{% endif %}>
+<nav class="header-nav" aria-label="Navegacion principal"{% if section.settings.sticky_header %} data-header-sticky-root style="position: sticky; top: 0; z-index: var(--z-sticky-header); width: 100%; background-color: {{ settings.background_color | default: 'white' }};"{% endif %}>
     {% content_for "blocks" %}
 </nav>
 

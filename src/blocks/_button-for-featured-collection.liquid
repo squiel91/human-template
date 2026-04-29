@@ -6,7 +6,7 @@
 {% endif %}
 {% assign fallback_url = current_collection.url | default: '' %}
 
-<div {{ block.shopify_attributes }}>
+<div {{ block.tiendu_attributes }}>
     {% content_for 'block', id: 'default-button', type: 'button', default_url: fallback_url %}
 </div>
 

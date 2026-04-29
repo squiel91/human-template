@@ -1,6 +1,6 @@
 {% assign child_blocks = block.children | default: block.blocks %}
 
-<div {{ block.shopify_attributes }} class="tiendu-product-reviews-empty-state">
+<div {{ block.tiendu_attributes }} class="tiendu-product-reviews-empty-state">
     {% if child_blocks and child_blocks.size > 0 %}
         {% for child_block in child_blocks %}
             {% content_for 'block', id: child_block.id, type: child_block.type %}

@@ -2,7 +2,7 @@
 {% assign height_tablet = block.settings.height_tablet | default: height_desktop %}
 {% assign height_mobile = block.settings.height_mobile | default: height_tablet %}
 {% assign autoplay_seconds = block.settings.autoplay_seconds | default: 5 %}
-{% assign block_attributes = block.tiendu_attributes | default: block.shopify_attributes %}
+{% assign block_attributes = block.tiendu_attributes %}
 
 <div
     class="tiendu-carousel"

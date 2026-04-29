@@ -1,0 +1,28 @@
+{%- comment -%}
+  Lucide icon: trending-up
+  Usage:
+    {% render 'icon-trending-up' %}
+    {% render 'icon-trending-up', size: 32 %}
+    {% render 'icon-trending-up', class: 'custom-class' %}
+    {% render 'icon-trending-up', stroke_width: 1.5 %}
+{%- endcomment -%}
+{%- liquid
+  assign size = size | default: 24
+  assign stroke_width = stroke_width | default: 2
+-%}
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="{{ size }}"
+  height="{{ size }}"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="{{ stroke_width }}"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="lucide lucide-trending-up{% if class %} {{ class }}{% endif %}"
+  aria-hidden="true"
+>
+  <path d="M16 7h6v6" />
+  <path d="m22 7-8.5 8.5-5-5L2 17" />
+</svg>

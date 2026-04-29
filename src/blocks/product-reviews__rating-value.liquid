@@ -6,7 +6,7 @@
     {% assign rating_text = rating_text | append: '.0' %}
 {% endunless %}
 
-<div {{ block.shopify_attributes }}>
+<div {{ block.tiendu_attributes }}>
     {% if child_blocks and child_blocks.size > 0 %}
         {% for child_block in child_blocks %}
             {% content_for 'block', id: child_block.id, type: child_block.type, default_text: rating_text %}

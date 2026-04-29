@@ -1,7 +1,7 @@
 {% assign page_collections = collections %}
 {% assign preview_collections_count = 6 %}
 
-<div {{ block.shopify_attributes }} style="display: contents;">
+<div {{ block.tiendu_attributes }} style="display: contents;">
     {% if page_collections and page_collections.size > 0 %}
         {% for page_collection in page_collections %}
             {% content_for 'block', id: 'collection_card', type: 'collection', closest.collection: page_collection %}

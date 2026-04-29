@@ -1,5 +1,5 @@
 {% assign review_id = 'tiendu__review-' | append: section.id | append: '-' | append: block.id %}
-{% assign block_attributes = block.tiendu_attributes | default: block.shopify_attributes %}
+{% assign block_attributes = block.tiendu_attributes %}
 
 <div {{ block_attributes }} id="{{ review_id }}" class="tiendu-review">
     {% content_for 'blocks' %}

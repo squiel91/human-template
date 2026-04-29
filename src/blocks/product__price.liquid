@@ -37,7 +37,7 @@
 {% assign fallback_text = price_label | default: '$ 1.990' %}
 
 {% if price_label != blank or design_mode or preview_mode %}
-    <div data-product-price-wrap {{ block.shopify_attributes }}{% if price_label == blank %} hidden{% endif %}>
+    <div data-product-price-wrap {{ block.tiendu_attributes }}{% if price_label == blank %} hidden{% endif %}>
         {% if block.children and block.children.size > 0 %}
             {% for child_block in block.children %}
                 {% assign child_price_text_id = price_text_id %}

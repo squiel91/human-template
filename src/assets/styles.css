@@ -325,7 +325,7 @@ a:is(:hover, :focus-within) .tiendu-image__hover-image {
 .tiendu-product-gallery__modal {
     position: fixed;
     inset: 0;
-    z-index: 80;
+    z-index: var(--z-modal, 80);
     display: grid;
     place-items: center;
     padding: 24px;
@@ -685,11 +685,6 @@ a:is(:hover, :focus-within) .tiendu-image__hover-image {
         line-height: inherit;
     }
 
-    .tablet\:text-inherit {
-        font-size: inherit;
-        line-height: inherit;
-    }
-
     .tablet\:text-xs {
         font-size: 0.75rem;
         line-height: 1rem;
@@ -833,7 +828,7 @@ a:is(:hover, :focus-within) .tiendu-image__hover-image {
     bottom: 24px;
     left: 50%;
     transform: translateX(-50%);
-    z-index: 9999;
+    z-index: var(--z-toast, 9999);
     display: flex;
     flex-direction: column;
     align-items: center;

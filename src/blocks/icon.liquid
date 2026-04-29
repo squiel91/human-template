@@ -60,6 +60,10 @@
             {% render 'icon-messages-square', size: icon_size, stroke_width: block.settings.stroke_width %}
         {% when 'shield-check' %}
             {% render 'icon-shield-check', size: icon_size, stroke_width: block.settings.stroke_width %}
+        {% when 'truck' %}
+            {% render 'icon-truck', size: icon_size, stroke_width: block.settings.stroke_width %}
+        {% when 'piggy-bank' %}
+            {% render 'icon-piggy-bank', size: icon_size, stroke_width: block.settings.stroke_width %}
         {% when 'facebook' %}
             {% render 'icon-facebook', size: icon_size %}
         {% when 'instagram' %}
@@ -124,6 +128,14 @@
                 {
                     "value": "shield-check",
                     "label": "Shield check"
+                },
+                {
+                    "value": "truck",
+                    "label": "Truck"
+                },
+                {
+                    "value": "piggy-bank",
+                    "label": "Piggy bank"
                 },
                 {
                     "value": "facebook",

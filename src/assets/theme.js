@@ -706,6 +706,73 @@ const getVariantStock = (variant) => {
   return Math.max(0, variant.stock)
 }
 
+const getSharedVariantStock = (variants) => {
+  if (!Array.isArray(variants) || variants.length === 0) {
+    return { consistent: false, stock: null }
+  }
+
+  const firstStock = getVariantStock(variants[0])
+  const consistent = variants.every((variant) => getVariantStock(variant) === firstStock)
+
+  return {
+    consistent,
+    stock: consistent ? firstStock : null,
+  }
+}
+
+const getProductStockStatusContent = (root, stock) => {
+  if (!(root instanceof HTMLElement)) {
+    return { tone: 'neutral', message: '' }
+  }
+
+  if (typeof stock === 'number') {
+    if (stock > 0) {
+      const prefix = String(root.dataset.stockLabelCountPrefix || 'Tenemos').trim()
+      const suffix = String(root.dataset.stockLabelCountSuffix || 'en stock').trim()
+      return {
+        tone: 'warning',
+        message: `${prefix} ${stock} ${suffix}`.trim(),
+      }
+    }
+
+    return {
+      tone: 'error',
+      message: String(root.dataset.stockLabelUnavailable || 'No tenemos en stock').trim(),
+    }
+  }
+
+  return {
+    tone: 'success',
+    message: String(root.dataset.stockLabelAvailable || 'Tenemos en stock').trim(),
+  }
+}
+
+const syncProductStockStatus = (productRoot, { variants = [], currentVariant = null, isSelectionComplete = false } = {}) => {
+  if (!(productRoot instanceof HTMLElement)) return
+
+  const sharedStock = getSharedVariantStock(variants)
+  for (const root of productRoot.querySelectorAll('[data-product-stock-status-root]')) {
+    if (!(root instanceof HTMLElement)) continue
+
+    let nextStatus = {
+      tone: 'neutral',
+      message: String(root.dataset.stockLabelUnselected || 'Selecciona una para ver el stock.').trim(),
+    }
+
+    if (isSelectionComplete && currentVariant) {
+      nextStatus = getProductStockStatusContent(root, getVariantStock(currentVariant))
+    } else if (variants.length <= 1 || sharedStock.consistent) {
+      nextStatus = getProductStockStatusContent(root, sharedStock.stock)
+    }
+
+    root.dataset.stockTone = nextStatus.tone
+    const messageNode = root.querySelector('[data-product-stock-status-message]')
+    if (messageNode instanceof HTMLElement) {
+      messageNode.textContent = nextStatus.message
+    }
+  }
+}
+
 const sanitizeQuantityValue = (value, max = null) => {
   const parsed = Number.parseInt(String(value), 10)
   const minimum = 1
@@ -1020,6 +1087,7 @@ const initVariantSelectors = () => {
     syncSelectorState()
     syncPrice()
     syncAddToCart()
+    syncProductStockStatus(productRoot, { variants, currentVariant, isSelectionComplete: isSelectionComplete() })
     setProductQuantityStock(productRoot, currentVariant)
     syncGallery()
     scheduleVariantViewTracking()
@@ -1170,7 +1238,7 @@ const initStickyHeaders = () => {
 
     stickyTarget.style.position = 'sticky'
     stickyTarget.style.top = '0'
-    stickyTarget.style.zIndex = '30'
+    stickyTarget.style.zIndex = 'var(--z-sticky-header, 30)'
     stickyTarget.style.width = '100%'
 
     if (!stickyTarget.style.backgroundColor && stickyRoot instanceof HTMLElement) {

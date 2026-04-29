@@ -1,6 +1,6 @@
 {% assign related_limit = block.settings.limit | default: 4 %}
 
-<div {{ block.shopify_attributes }} style="display: contents;">
+<div {{ block.tiendu_attributes }} style="display: contents;">
     {% if product != blank %}
         {% paginate product.related_products by related_limit %}
             {% for related_product in product.related_products %}

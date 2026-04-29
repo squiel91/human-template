@@ -1,4 +1,4 @@
-{% assign block_attributes = block.tiendu_attributes | default: block.shopify_attributes %}
+{% assign block_attributes = block.tiendu_attributes %}
 
 <article class="tiendu-carousel__slide" data-tiendu-carousel-slide aria-hidden="false" {{ block_attributes }}>
     {% if block.blocks and block.blocks.size > 0 %}

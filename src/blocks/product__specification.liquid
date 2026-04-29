@@ -3,12 +3,12 @@
 {% assign specification_value = specification.value %}
 
 {% if specification_name != blank and specification_value != blank %}
-    <tr {{ block.shopify_attributes }}>
+    <tr {{ block.tiendu_attributes }}>
         <th scope="row">{{ specification_name | escape }}</th>
         <td>{{ specification_value | escape | newline_to_br }}</td>
     </tr>
 {% elsif design_mode or preview_mode %}
-    <tr {{ block.shopify_attributes }}>
+    <tr {{ block.tiendu_attributes }}>
         <th scope="row">Material</th>
         <td>Algodón premium</td>
     </tr>

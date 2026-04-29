@@ -6,7 +6,7 @@
 {% endif %}
 {% assign fallback_text = current_collection.name | default: 'Colección destacada' %}
 
-<div {{ block.shopify_attributes }}>
+<div {{ block.tiendu_attributes }}>
     {% content_for 'block', id: 'default-text', type: 'text', default_text: fallback_text %}
 </div>
 

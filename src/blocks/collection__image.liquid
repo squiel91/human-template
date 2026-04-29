@@ -3,7 +3,7 @@
 {% assign collection_title = collection_obj.name | default: 'Categoría' %}
 
 {% if collection_obj != blank or design_mode or preview_mode %}
-    <div {{ block.shopify_attributes }}>
+    <div {{ block.tiendu_attributes }}>
         {% content_for 'block', id: 'default-image', type: 'image', default_image: collection_image, default_alt: collection_title %}
     </div>
 {% endif %}

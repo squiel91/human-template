@@ -6,7 +6,7 @@
 {% assign reviews_to_show = block.settings.reviews_to_show | default: 6 %}
 {% assign child_blocks = block.children | default: block.blocks %}
 
-<div {{ block.shopify_attributes }} style="display: contents;">
+<div {{ block.tiendu_attributes }} style="display: contents;">
     {% if product_reviews and product_reviews.size > 0 %}
         {% for review in product_reviews limit: reviews_to_show %}
             {% content_for 'block', id: 'review_card', type: 'product-review', closest.review: review %}

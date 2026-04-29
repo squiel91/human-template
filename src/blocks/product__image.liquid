@@ -37,7 +37,7 @@
 </style>
 
 {% if product_obj or design_mode or preview_mode %}
-    <div {{ block.shopify_attributes }} id="{{ image_id }}" class="tiendu-product-image">
+    <div {{ block.tiendu_attributes }} id="{{ image_id }}" class="tiendu-product-image">
         {% if child_blocks and child_blocks.size > 0 %}
             {% for child_block in child_blocks %}
                 {% if forloop.index == 1 %}

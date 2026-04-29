@@ -91,7 +91,7 @@
 {% endif %}
 
 {% if product_obj or design_mode or preview_mode %}
-    <div {{ block.shopify_attributes }} id="{{ gallery_id }}" data-product-gallery-root>
+    <div {{ block.tiendu_attributes }} id="{{ gallery_id }}" data-product-gallery-root>
         <div class="tiendu-product-gallery__stage" data-product-gallery-stage data-dragging="false" style="--product-gallery-index: 0; --product-gallery-drag-offset: 0px; border-radius: {{ main_border_radius }}; {{ stage_fit_style }}">
             <div class="tiendu-product-gallery__track" data-product-gallery-track>
                 {% if gallery_images and gallery_images.size > 0 %}

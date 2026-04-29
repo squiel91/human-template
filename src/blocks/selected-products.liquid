@@ -1,7 +1,7 @@
 {% assign selected_products = section.settings.products %}
 {% assign preview_products_count = 4 %}
 
-<div {{ block.shopify_attributes }} style="display: contents;">
+<div {{ block.tiendu_attributes }} style="display: contents;">
     {% if selected_products and selected_products.size > 0 %}
         {% for selected_product in selected_products %}
             {% content_for 'block', id: 'product_card', type: 'product', closest.product: selected_product %}

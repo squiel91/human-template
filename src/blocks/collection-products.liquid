@@ -1,6 +1,6 @@
 {% assign products_per_page = section.settings.products_to_show | default: block.settings.products_per_page | default: 12 %}
 
-<div {{ block.shopify_attributes }} style="display: contents;">
+<div {{ block.tiendu_attributes }} style="display: contents;">
     {% if request.page_type == 'collection' and collection != blank %}
         {% paginate collection.products by products_per_page %}
             {% for product in collection.products %}

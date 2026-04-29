@@ -1,7 +1,7 @@
 {% assign product_obj = closest.product | default: product %}
 
 {% if product_obj or design_mode or preview_mode %}
-    <div id="variant-selector" class="tiendu-variant-selector" {{ block.shopify_attributes }}>
+    <div id="variant-selector" class="tiendu-variant-selector" {{ block.tiendu_attributes }}>
         {% for attribute in product_obj.attributes %}
             {% assign selected_value_id = blank %}
             {% assign selected_value_label = 'Selecciona una opción' %}

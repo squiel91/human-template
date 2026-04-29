@@ -3,7 +3,7 @@
 {% assign description_text = product_obj.description %}
 
 {% if description_text != blank %}
-    <div class="tiendu-product-description__content" {{ block.shopify_attributes }}>
+    <div class="tiendu-product-description__content" {{ block.tiendu_attributes }}>
         {% if child_blocks and child_blocks.size > 0 %}
             {% for child_block in child_blocks %}
                 {% content_for 'block', id: child_block.id, type: child_block.type, default_text: description_text, default_content: description_text %}

@@ -1,5 +1,5 @@
 {% if page.content != blank or design_mode or preview_mode %}
-    <div class="tiendu-page-content" {{ block.shopify_attributes }}>
+    <div class="tiendu-page-content" {{ block.tiendu_attributes }}>
         {% if page.content != blank %}
             {% render 'content-blocks', content: page.content, skip_h1: true %}
         {% else %}

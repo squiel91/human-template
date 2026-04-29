@@ -1,0 +1,200 @@
+{% assign stock_status_id = 'tiendu__product-stock-status-' | append: section.id | append: '-' | append: block.id %}
+{% assign product_obj = closest.product | default: product %}
+{% assign label_count_prefix = block.settings.label_count_prefix | default: 'Tenemos' %}
+{% assign label_count_suffix = block.settings.label_count_suffix | default: 'en stock' %}
+{% assign label_available = block.settings.label_available | default: 'Tenemos en stock' %}
+{% assign label_unavailable = block.settings.label_unavailable | default: 'No tenemos en stock' %}
+{% assign label_unselected = block.settings.label_unselected | default: 'Selecciona una para ver el stock.' %}
+{% assign stock_tone = 'neutral' %}
+{% assign stock_message = label_available %}
+{% assign variants_count = product_obj.variants | size %}
+{% assign shared_stock_signature = blank %}
+{% assign stock_is_consistent = true %}
+{% assign product_selection_complete = false %}
+
+{% if product_obj and product_obj.variants and variants_count > 0 %}
+    {% for variant in product_obj.variants %}
+        {% assign variant_stock = variant.stock %}
+        {% if variant_stock != blank and variant_stock < 0 %}
+            {% assign variant_stock = 0 %}
+        {% endif %}
+        {% if variant_stock == blank %}
+            {% assign stock_signature = 'null' %}
+        {% else %}
+            {% assign stock_signature = variant_stock | append: '' %}
+        {% endif %}
+        {% if forloop.first %}
+            {% assign shared_stock_signature = stock_signature %}
+        {% elsif shared_stock_signature != stock_signature %}
+            {% assign stock_is_consistent = false %}
+        {% endif %}
+    {% endfor %}
+{% endif %}
+
+{% if request.page_type == 'product' and closest.product == blank and product_page and product_obj %}
+    {% assign product_attribute_count = product_obj.attributes | size %}
+    {% assign selected_attribute_count = product_page.default_attribute_values | size %}
+    {% if product_attribute_count == 0 or selected_attribute_count >= product_attribute_count %}
+        {% assign product_selection_complete = true %}
+    {% endif %}
+{% endif %}
+
+{% if product_obj %}
+    {% if request.page_type == 'product' and closest.product == blank and product_page and product_selection_complete %}
+        {% if product_page.quantity_max != blank and product_page.quantity_max > 0 %}
+            {% assign stock_tone = 'warning' %}
+            {% capture stock_message %}{{ label_count_prefix | strip }} {{ product_page.quantity_max }} {{ label_count_suffix | strip }}{% endcapture %}
+        {% elsif product_page.quantity_disabled or product_page.stock_note.tone == 'error' %}
+            {% assign stock_tone = 'error' %}
+            {% assign stock_message = label_unavailable %}
+        {% else %}
+            {% assign stock_tone = 'success' %}
+            {% assign stock_message = label_available %}
+        {% endif %}
+    {% elsif variants_count > 1 and stock_is_consistent == false %}
+        {% assign stock_tone = 'neutral' %}
+        {% assign stock_message = label_unselected %}
+    {% elsif shared_stock_signature == 'null' or variants_count == 0 %}
+        {% assign stock_tone = 'success' %}
+        {% assign stock_message = label_available %}
+    {% else %}
+        {% assign shared_stock_value = shared_stock_signature | plus: 0 %}
+        {% if shared_stock_value > 0 %}
+            {% assign stock_tone = 'warning' %}
+            {% capture stock_message %}{{ label_count_prefix | strip }} {{ shared_stock_value }} {{ label_count_suffix | strip }}{% endcapture %}
+        {% else %}
+            {% assign stock_tone = 'error' %}
+            {% assign stock_message = label_unavailable %}
+        {% endif %}
+    {% endif %}
+{% endif %}
+
+{% if product_obj or design_mode or preview_mode %}
+    <style>
+        #{{ stock_status_id }} {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            width: fit-content;
+            max-width: 100%;
+            font-size: 0.9375rem;
+            font-weight: 600;
+            line-height: 1.4;
+            overflow-wrap: anywhere;
+            {{ block.settings.css_styles_desktop }}
+        }
+
+        #{{ stock_status_id }}[data-stock-tone='success'] {
+            color: #15803d;
+        }
+
+        #{{ stock_status_id }}[data-stock-tone='warning'] {
+            color: #c2410c;
+        }
+
+        #{{ stock_status_id }}[data-stock-tone='error'] {
+            color: #dc2626;
+        }
+
+        #{{ stock_status_id }}[data-stock-tone='neutral'] {
+            color: #6b7280;
+        }
+
+        @media (width <= 64rem) {
+            #{{ stock_status_id }} {
+                {{ block.settings.css_styles_tablet }}
+            }
+        }
+
+        @media (width <= 48rem) {
+            #{{ stock_status_id }} {
+                {{ block.settings.css_styles_mobile }}
+            }
+        }
+    </style>
+
+    <div
+        {{ block.tiendu_attributes }}
+        id="{{ stock_status_id }}"
+        class="tiendu-product-stock-status"
+        data-product-stock-status-root
+        data-stock-tone="{{ stock_tone }}"
+        data-stock-label-count-prefix="{{ label_count_prefix | escape_attr }}"
+        data-stock-label-count-suffix="{{ label_count_suffix | escape_attr }}"
+        data-stock-label-available="{{ label_available | escape_attr }}"
+        data-stock-label-unavailable="{{ label_unavailable | escape_attr }}"
+        data-stock-label-unselected="{{ label_unselected | escape_attr }}"
+    >
+        <span data-product-stock-status-message>{{ stock_message | strip | escape }}</span>
+    </div>
+{% endif %}
+
+{% schema %}
+{
+    "name": "product: stock status",
+    "settings": [
+        {
+            "type": "text",
+            "id": "label_count_prefix",
+            "label": "Count label prefix",
+            "default": "Tenemos"
+        },
+        {
+            "type": "text",
+            "id": "label_count_suffix",
+            "label": "Count label suffix",
+            "default": "en stock"
+        },
+        {
+            "type": "text",
+            "id": "label_available",
+            "label": "Available label",
+            "default": "Tenemos en stock"
+        },
+        {
+            "type": "text",
+            "id": "label_unavailable",
+            "label": "Unavailable label",
+            "default": "No tenemos en stock"
+        },
+        {
+            "type": "text",
+            "id": "label_unselected",
+            "label": "Unselected variants label",
+            "default": "Selecciona una para ver el stock."
+        },
+        {
+            "type": "header",
+            "content": "Desktop"
+        },
+        {
+            "type": "textarea",
+            "id": "css_styles_desktop",
+            "label": "CSS styles"
+        },
+        {
+            "type": "header",
+            "content": "Tablet"
+        },
+        {
+            "type": "textarea",
+            "id": "css_styles_tablet",
+            "label": "CSS styles"
+        },
+        {
+            "type": "header",
+            "content": "Mobile"
+        },
+        {
+            "type": "textarea",
+            "id": "css_styles_mobile",
+            "label": "CSS styles"
+        }
+    ],
+    "presets": [
+        {
+            "name": "product: stock status"
+        }
+    ]
+}
+{% endschema %}

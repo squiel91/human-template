@@ -1,6 +1,6 @@
 {% assign fallback_text = page.title | default: 'Título de la página' %}
 
-<div class="tiendu-page-title-header" {{ block.shopify_attributes }}>
+<div class="tiendu-page-title-header" {{ block.tiendu_attributes }}>
     {% content_for 'block', type: 'text', id: 'page-heading', default_text: fallback_text %}
 </div>
 
