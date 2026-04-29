@@ -66,25 +66,33 @@
                       },
                       "static": false,
                       "blocks": {
-                        "text_business_title": {
-                          "type": "text",
-                          "settings": {
-                            "text": "Tu negocio",
-                            "text_type": "subtitle",
-                            "color": "custom",
-                            "bold": true,
-                            "italic": false,
-                            "underline": false,
-                            "line_through": false,
-                            "size_desktop": "xl",
-                            "size_tablet": "",
-                            "size_mobile": "",
-                            "custom_color": "",
-                            "css_styles_desktop": "",
-                            "css_styles_tablet": "",
-                            "css_styles_mobile": ""
+                        "store_name": {
+                          "type": "store__name",
+                          "static": false,
+                          "blocks": {
+                            "default-text": {
+                              "type": "text",
+                              "settings": {
+                                "text_type": "subtitle",
+                                "color": "custom",
+                                "bold": true,
+                                "italic": false,
+                                "underline": false,
+                                "line_through": false,
+                                "size_desktop": "xl",
+                                "size_tablet": "",
+                                "size_mobile": "",
+                                "custom_color": "",
+                                "css_styles_desktop": "",
+                                "css_styles_tablet": "",
+                                "css_styles_mobile": ""
+                              },
+                              "static": true
+                            }
                           },
-                          "static": false
+                          "block_order": [
+                            "default-text"
+                          ]
                         },
                         "text_business_body": {
                           "type": "text",
@@ -108,7 +116,7 @@
                         }
                       },
                       "block_order": [
-                        "text_business_title",
+                        "store_name",
                         "text_business_body"
                       ]
                     },

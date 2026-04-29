@@ -111,16 +111,23 @@
                           },
                           "static": false,
                           "blocks": {
-                            "text": {
-                              "type": "text",
-                              "settings": {
-                                "text": "Tu negocio"
+                            "store_name": {
+                              "type": "store__name",
+                              "static": false,
+                              "blocks": {
+                                "default-text": {
+                                  "type": "text",
+                                  "settings": {},
+                                  "static": true
+                                }
                               },
-                              "static": false
+                              "block_order": [
+                                "default-text"
+                              ]
                             }
                           },
                           "block_order": [
-                            "text"
+                            "store_name"
                           ],
                           "preset": "default"
                         }

@@ -1,0 +1,41 @@
+{% assign store_name = store.name | default: shop.name | default: 'Tienda' %}
+
+{% if store_name != blank or design_mode or preview_mode %}
+    <div {{ block.tiendu_attributes }}>
+        {% if block.children and block.children.size > 0 %}
+            {% for child_block in block.children %}
+                {% content_for 'block', id: child_block.id, type: child_block.type, default_text: store_name, default_content: store_name %}
+            {% endfor %}
+        {% else %}
+            <span>{{ store_name }}</span>
+        {% endif %}
+    </div>
+{% endif %}
+
+{% schema %}
+{
+    "name": "store: name",
+    "max_blocks": 1,
+    "settings": [],
+    "blocks": [
+        {
+            "type": "text"
+        }
+    ],
+    "presets": [
+        {
+            "name": "store: name",
+            "blocks": {
+                "default-text": {
+                    "type": "text",
+                    "static": true,
+                    "settings": {}
+                }
+            },
+            "block_order": [
+                "default-text"
+            ]
+        }
+    ]
+}
+{% endschema %}

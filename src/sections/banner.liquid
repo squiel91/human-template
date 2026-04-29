@@ -642,6 +642,76 @@
             "block_order": [
                 "layout_outer"
             ]
+        },
+        {
+            "name": "Tiendu",
+            "blocks": {
+                "layout_banner": {
+                    "type": "layout",
+                    "settings": {
+                        "background_color_desktop": "#0000FF",
+                        "css_styles_desktop": "padding: 12px 8px; display: flex; justify-content: center; align-items: center; gap: 4px; flex-wrap: wrap; text-align: center;",
+                        "css_styles_tablet": "padding: 12px 8px;",
+                        "css_styles_mobile": "padding: 12px 8px; row-gap: 6px;"
+                    },
+                    "blocks": {
+                        "icon": {
+                            "type": "icon",
+                            "settings": {
+                                "icon": "tiendu-banana",
+                                "color": "custom",
+                                "custom_color": "#FFFFFF",
+                                "size": "sm"
+                            }
+                        },
+                        "text_prefix": {
+                            "type": "text",
+                            "settings": {
+                                "text": "Tienda co-creada junto a",
+                                "text_type": "paragraph",
+                                "color": "custom",
+                                "custom_color": "#FFFFFF",
+                                "size_desktop": "sm",
+                                "alignment": "center"
+                            }
+                        },
+                        "link_tiendu": {
+                            "type": "link",
+                            "settings": {
+                                "url": "https://tiendu.uy",
+                                "open_in_new_tab": true,
+                                "css_styles_desktop": "display: inline-flex; align-items: center;"
+                            },
+                            "blocks": {
+                                "text": {
+                                    "type": "text",
+                                    "settings": {
+                                        "text": "Tiendu",
+                                        "text_type": "paragraph",
+                                        "color": "custom",
+                                        "custom_color": "#FFFFFF",
+                                        "bold": true,
+                                        "size_desktop": "sm",
+                                        "alignment": "center",
+                                        "css_styles_desktop": "font-weight: 600;"
+                                    }
+                                }
+                            },
+                            "block_order": [
+                                "text"
+                            ]
+                        }
+                    },
+                    "block_order": [
+                        "icon",
+                        "text_prefix",
+                        "link_tiendu"
+                    ]
+                }
+            },
+            "block_order": [
+                "layout_banner"
+            ]
         }
     ]
 }

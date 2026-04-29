@@ -24,10 +24,6 @@
             </figure>
 
         {% when 'html' %}
-            {% if block.code contains 'console.log' or block.code contains 'function' or block.code contains 'var ' or block.code contains 'const ' or block.code contains 'let ' %}
-                <script>{{ block.code }}</script>
-            {% else %}
-                {{ block.code }}
-            {% endif %}
+            {{ block.code }}
     {% endcase %}
 {% endfor %}

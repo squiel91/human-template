@@ -25,9 +25,9 @@
                         "layout_inner": {
                             "type": "layout",
                             "settings": {
-                                "css_styles_desktop": "max-width: var(--container-max-width, 1024px);\nmargin: 0 auto;\ndisplay: flex;\nflex-direction: column;\ngap: 48px;\npadding: 64px 0 32px;",
-                                "css_styles_tablet": "gap: 32px;\npadding: 48px 0 24px;",
-                                "css_styles_mobile": "gap: 24px;\npadding: 40px 0 24px;"
+                                "css_styles_desktop": "max-width: var(--container-max-width, 1024px);\nmargin: 0 auto;\ndisplay: flex;\nflex-direction: column;\ngap: 80px;\npadding: 64px 0 32px;",
+                                "css_styles_tablet": "gap: 72px;\npadding: 48px 0 24px;",
+                                "css_styles_mobile": "gap: 64px;\npadding: 40px 0 24px;"
                             },
                             "blocks": {
                                 "layout_columns": {
@@ -44,14 +44,22 @@
                                                 "css_styles_desktop": "display: flex;\nflex-direction: column;\ngap: 12px;"
                                             },
                                             "blocks": {
-                                                "text_business_title": {
-                                                    "type": "text",
-                                                    "settings": {
-                                                        "text": "Tu negocio",
-                                                        "text_type": "subtitle",
-                                                        "bold": true,
-                                                        "size_desktop": "xl"
-                                                    }
+                                                "store_name": {
+                                                    "type": "store__name",
+                                                    "blocks": {
+                                                        "default-text": {
+                                                            "type": "text",
+                                                            "static": true,
+                                                            "settings": {
+                                                                "text_type": "subtitle",
+                                                                "bold": true,
+                                                                "size_desktop": "xl"
+                                                            }
+                                                        }
+                                                    },
+                                                    "block_order": [
+                                                        "default-text"
+                                                    ]
                                                 },
                                                 "text_business_body": {
                                                     "type": "text",
@@ -61,11 +69,110 @@
                                                         "size_desktop": "base",
                                                         "css_styles_desktop": "max-width: 32ch;\nopacity: 0.8;"
                                                     }
+                                                },
+                                                "layout_social": {
+                                                    "type": "layout",
+                                                    "settings": {
+                                                        "css_styles_desktop": "display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-top: 4px;"
+                                                    },
+                                                    "blocks": {
+                                                        "link_instagram": {
+                                                            "type": "link",
+                                                            "settings": {
+                                                                "url": "",
+                                                                "css_styles_desktop": "display: inline-flex; align-items: center; justify-content: center; width: 2.25rem; height: 2.25rem; border-radius: 9999px; background: rgba(0, 0, 0, 0.04);"
+                                                            },
+                                                            "blocks": {
+                                                                "icon": {
+                                                                    "type": "icon",
+                                                                    "settings": {
+                                                                        "icon": "instagram",
+                                                                        "color": "custom",
+                                                                        "custom_color": "#111827",
+                                                                        "size": "sm"
+                                                                    }
+                                                                }
+                                                            },
+                                                            "block_order": [
+                                                                "icon"
+                                                            ]
+                                                        },
+                                                        "link_facebook": {
+                                                            "type": "link",
+                                                            "settings": {
+                                                                "url": "",
+                                                                "css_styles_desktop": "display: inline-flex; align-items: center; justify-content: center; width: 2.25rem; height: 2.25rem; border-radius: 9999px; background: rgba(0, 0, 0, 0.04);"
+                                                            },
+                                                            "blocks": {
+                                                                "icon": {
+                                                                    "type": "icon",
+                                                                    "settings": {
+                                                                        "icon": "facebook",
+                                                                        "color": "custom",
+                                                                        "custom_color": "#111827",
+                                                                        "size": "sm"
+                                                                    }
+                                                                }
+                                                            },
+                                                            "block_order": [
+                                                                "icon"
+                                                            ]
+                                                        },
+                                                        "link_youtube": {
+                                                            "type": "link",
+                                                            "settings": {
+                                                                "url": "",
+                                                                "css_styles_desktop": "display: inline-flex; align-items: center; justify-content: center; width: 2.25rem; height: 2.25rem; border-radius: 9999px; background: rgba(0, 0, 0, 0.04);"
+                                                            },
+                                                            "blocks": {
+                                                                "icon": {
+                                                                    "type": "icon",
+                                                                    "settings": {
+                                                                        "icon": "youtube",
+                                                                        "color": "custom",
+                                                                        "custom_color": "#111827",
+                                                                        "size": "sm"
+                                                                    }
+                                                                }
+                                                            },
+                                                            "block_order": [
+                                                                "icon"
+                                                            ]
+                                                        },
+                                                        "link_tiktok": {
+                                                            "type": "link",
+                                                            "settings": {
+                                                                "url": "",
+                                                                "css_styles_desktop": "display: inline-flex; align-items: center; justify-content: center; width: 2.25rem; height: 2.25rem; border-radius: 9999px; background: rgba(0, 0, 0, 0.04);"
+                                                            },
+                                                            "blocks": {
+                                                                "icon": {
+                                                                    "type": "icon",
+                                                                    "settings": {
+                                                                        "icon": "tiktok",
+                                                                        "color": "custom",
+                                                                        "custom_color": "#111827",
+                                                                        "size": "sm"
+                                                                    }
+                                                                }
+                                                            },
+                                                            "block_order": [
+                                                                "icon"
+                                                            ]
+                                                        }
+                                                    },
+                                                    "block_order": [
+                                                        "link_instagram",
+                                                        "link_facebook",
+                                                        "link_youtube",
+                                                        "link_tiktok"
+                                                    ]
                                                 }
                                             },
                                             "block_order": [
-                                                "text_business_title",
-                                                "text_business_body"
+                                                "store_name",
+                                                "text_business_body",
+                                                "layout_social"
                                             ]
                                         },
                                         "layout_collections": {

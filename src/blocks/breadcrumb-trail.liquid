@@ -52,6 +52,14 @@
     </span>
 {% endcapture %}
 {% assign separator_markup = separator_markup | strip %}
+{% assign breadcrumb_from_title = request.query_params['from-title'] | default: '' | strip %}
+{% assign breadcrumb_from_url = request.query_params['from-url'] | default: '' | strip %}
+{% assign breadcrumb_from_url_first_character = breadcrumb_from_url | slice: 0, 1 %}
+{% assign breadcrumb_from_url_second_character = breadcrumb_from_url | slice: 1, 1 %}
+{% assign has_valid_breadcrumb_context = false %}
+{% if breadcrumb_from_title != blank and breadcrumb_from_url != blank and breadcrumb_from_url_first_character == '/' and breadcrumb_from_url_second_character != '/' %}
+    {% assign has_valid_breadcrumb_context = true %}
+{% endif %}
 
 <style>
     #{{ breadcrumbs_id }} {
@@ -93,7 +101,7 @@
 
     #{{ breadcrumbs_id }} .tiendu-breadcrumbs__link {
         color: var(--color-primary, #0000FF);
-        font-weight: 700;
+        font-weight: 400;
         text-decoration: none;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -139,53 +147,25 @@
     id="{{ breadcrumbs_id }}"
     class="tiendu-breadcrumbs"
     aria-label="Breadcrumb"
-    data-from-title-param="from-title"
-    data-from-url-param="from-url"
 >
-    <ol class="tiendu-breadcrumbs__list" data-breadcrumb-list>
+    <ol class="tiendu-breadcrumbs__list">
         <li class="tiendu-breadcrumbs__item">
             <a class="tiendu-breadcrumbs__link" href="/">{{ home_label | escape }}</a>
         </li>
+        {% if has_valid_breadcrumb_context and show_current and request.page_type != 'index' and current_title != blank %}
+            <li class="tiendu-breadcrumbs__item">
+                {{ separator_markup }}
+                <a class="tiendu-breadcrumbs__link" href="{{ breadcrumb_from_url | escape_attr }}">{{ breadcrumb_from_title | escape }}</a>
+            </li>
+        {% endif %}
         {% if show_current and request.page_type != 'index' and current_title != blank %}
-            <li class="tiendu-breadcrumbs__item" data-breadcrumb-current>
+            <li class="tiendu-breadcrumbs__item">
                 {{ separator_markup }}
                 <span class="tiendu-breadcrumbs__current" aria-current="page">{{ current_title | escape }}</span>
             </li>
         {% endif %}
     </ol>
 </nav>
-
-<template id="{{ breadcrumbs_id }}-separator-template">{{ separator_markup }}</template>
-
-<script>
-    (() => {
-        const root = document.getElementById({{ breadcrumbs_id | json }});
-        if (!root) return;
-
-        const list = root.querySelector('[data-breadcrumb-list]');
-        const current = root.querySelector('[data-breadcrumb-current]');
-        const separatorTemplate = document.getElementById({{ breadcrumbs_id | append: '-separator-template' | json }});
-        if (!list || !current || !separatorTemplate) return;
-
-        const params = new URLSearchParams(window.location.search);
-        const fromTitle = (params.get(root.dataset.fromTitleParam || 'from-title') || '').trim();
-        const fromUrl = (params.get(root.dataset.fromUrlParam || 'from-url') || '').trim();
-        if (!fromTitle || !fromUrl) return;
-        if (!fromUrl.startsWith('/') || fromUrl.startsWith('//')) return;
-
-        const item = document.createElement('li');
-        item.className = 'tiendu-breadcrumbs__item';
-        item.innerHTML = separatorTemplate.innerHTML;
-
-        const link = document.createElement('a');
-        link.className = 'tiendu-breadcrumbs__link';
-        link.href = fromUrl;
-        link.textContent = fromTitle;
-        item.appendChild(link);
-
-        list.insertBefore(item, current);
-    })();
-</script>
 
 {% schema %}
 {

@@ -84,6 +84,7 @@
         max-width: 100%;
         overflow: hidden;
         border-radius: {{ image_border_radius }};
+        {{ block.settings.css_styles_desktop }}
     }
 
     #{{ image_id }} .tiendu-image__img {
@@ -107,6 +108,18 @@
             aspect-ratio: {{ image_aspect_ratio }};
         }
     {% endif %}
+
+    @media (width <= 64rem) {
+        #{{ image_id }} {
+            {{ block.settings.css_styles_tablet }}
+        }
+    }
+
+    @media (width <= 48rem) {
+        #{{ image_id }} {
+            {{ block.settings.css_styles_mobile }}
+        }
+    }
 
 </style>
 
@@ -280,6 +293,36 @@
             "id": "alt",
             "label": "Alt",
             "info": "If left empty, no alt is added."
+        },
+        {
+            "type": "header",
+            "content": "Desktop"
+        },
+        {
+            "type": "textarea",
+            "id": "css_styles_desktop",
+            "label": "CSS styles",
+            "info": "Styles will be inherited for other sizes unless overridden."
+        },
+        {
+            "type": "header",
+            "content": "Tablet"
+        },
+        {
+            "type": "textarea",
+            "id": "css_styles_tablet",
+            "label": "CSS styles",
+            "info": "Styles will be inherited for phones unless overridden."
+        },
+        {
+            "type": "header",
+            "content": "Mobile"
+        },
+        {
+            "type": "textarea",
+            "id": "css_styles_mobile",
+            "label": "CSS styles",
+            "info": "Only applied to phone format."
         }
     ],
     "presets": [

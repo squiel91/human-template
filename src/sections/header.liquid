@@ -81,15 +81,22 @@
                                                         "url": "/"
                                                     },
                                                     "blocks": {
-                                                        "text": {
-                                                            "type": "text",
-                                                            "settings": {
-                                                                "text": "Tu negocio"
-                                                            }
+                                                        "store_name": {
+                                                            "type": "store__name",
+                                                            "blocks": {
+                                                                "default-text": {
+                                                                    "type": "text",
+                                                                    "static": true,
+                                                                    "settings": {}
+                                                                }
+                                                            },
+                                                            "block_order": [
+                                                                "default-text"
+                                                            ]
                                                         }
                                                     },
                                                     "block_order": [
-                                                        "text"
+                                                        "store_name"
                                                     ]
                                                 }
                                             },
