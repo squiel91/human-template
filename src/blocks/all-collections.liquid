@@ -1,0 +1,90 @@
+{% assign page_collections = collections %}
+{% assign preview_collections_count = 6 %}
+
+<div {{ block.shopify_attributes }} style="display: contents;">
+    {% if page_collections and page_collections.size > 0 %}
+        {% for page_collection in page_collections %}
+            {% content_for 'block', id: 'collection_card', type: 'collection', closest.collection: page_collection %}
+        {% endfor %}
+    {% elsif design_mode or preview_mode %}
+        {% for _i in (1..preview_collections_count) %}
+            {% content_for 'block', id: 'collection_card', type: 'collection', closest.collection: null %}
+        {% endfor %}
+    {% endif %}
+</div>
+
+{% schema %}
+{
+    "name": "All collections",
+    "settings": [],
+    "blocks": [
+        {
+            "type": "collection"
+        }
+    ],
+    "presets": [
+        {
+            "name": "All collections",
+            "blocks": {
+                "collection_card": {
+                    "type": "collection",
+                    "static": true,
+                    "blocks": {
+                        "card_wrap": {
+                            "type": "layout",
+                            "settings": {
+                                "css_styles_desktop": "display: flex; flex-direction: column; gap: 10px;"
+                            },
+                            "blocks": {
+                                "card_image": {
+                                    "type": "collection__image",
+                                    "blocks": {
+                                        "default-image": {
+                                            "type": "image",
+                                            "static": true,
+                                            "settings": {
+                                                "size": "full",
+                                                "image_ratio": "collection_default",
+                                                "rounding": "theme"
+                                            }
+                                        }
+                                    },
+                                    "block_order": [
+                                        "default-image"
+                                    ]
+                                },
+                                "card_title": {
+                                    "type": "collection__title",
+                                    "blocks": {
+                                        "default-text": {
+                                            "type": "text",
+                                            "static": true,
+                                            "settings": {
+                                                "bold": true,
+                                                "css_styles_desktop": "overflow-wrap: anywhere;"
+                                            }
+                                        }
+                                    },
+                                    "block_order": [
+                                        "default-text"
+                                    ]
+                                }
+                            },
+                            "block_order": [
+                                "card_image",
+                                "card_title"
+                            ]
+                        }
+                    },
+                    "block_order": [
+                        "card_wrap"
+                    ]
+                }
+            },
+            "block_order": [
+                "collection_card"
+            ]
+        }
+    ]
+}
+{% endschema %}

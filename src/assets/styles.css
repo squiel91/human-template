@@ -827,3 +827,103 @@ a:is(:hover, :focus-within) .tiendu-image__hover-image {
         line-height: 1;
     }
 }
+
+.tiendu-toast-container {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    pointer-events: none;
+    width: min(100% - 32px, 420px);
+}
+
+.tiendu-toast {
+    pointer-events: auto;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 16px;
+    border-radius: 0.5rem;
+    background-color: #1f2937;
+    color: #ffffff;
+    font-size: 0.875rem;
+    line-height: 1.4;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    transform: translateY(16px) scale(0.96);
+    transition: opacity 0.28s ease, transform 0.28s ease;
+    width: 100%;
+}
+
+.tiendu-toast--visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+.tiendu-toast--exiting {
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+}
+
+.tiendu-toast--success {
+    background-color: #065f46;
+    color: #ecfdf5;
+}
+
+.tiendu-toast--error {
+    background-color: #991b1b;
+    color: #fef2f2;
+}
+
+.tiendu-toast__body {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+.tiendu-toast__close {
+    flex: 0 0 auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    padding: 0;
+    border: none;
+    background: transparent;
+    color: inherit;
+    cursor: pointer;
+    opacity: 0.7;
+    border-radius: 0.25rem;
+    transition: opacity 0.15s ease, background-color 0.15s ease;
+}
+
+.tiendu-toast__close:hover {
+    opacity: 1;
+    background-color: rgba(255, 255, 255, 0.12);
+}
+
+.tiendu-toast__progress {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 3px;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.35);
+    border-radius: 0 0 0.5rem 0.5rem;
+    animation: tiendu-toast-progress linear forwards;
+    transform-origin: left;
+}
+
+@keyframes tiendu-toast-progress {
+    from {
+        transform: scaleX(1);
+    }
+    to {
+        transform: scaleX(0);
+    }
+}

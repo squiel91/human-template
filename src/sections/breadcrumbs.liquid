@@ -1,9 +1,5 @@
 <section class="tiendu-breadcrumbs-section" style="padding: 16px 0;">
-    {% if section.blocks and section.blocks.size > 0 %}
-        {% content_for 'blocks' %}
-    {% elsif design_mode or preview_mode %}
-        <div>Add blocks to build the breadcrumbs section.</div>
-    {% endif %}
+    {% content_for 'blocks' %}
 </section>
 
 {% schema %}
@@ -18,7 +14,7 @@
     ],
     "presets": [
         {
-            "name": "Breadcrumbs",
+            "name": "default",
             "blocks": {
                 "layout_outer": {
                     "type": "layout",
@@ -33,7 +29,7 @@
                             },
                             "blocks": {
                                 "breadcrumbs": {
-                                    "type": "breadcrumbs",
+                                    "type": "breadcrumb-trail",
                                     "settings": {
                                         "home_label": "Inicio",
                                         "separator_icon": "chevron-right",

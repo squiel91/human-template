@@ -1,42 +1,8 @@
 {% assign product_obj = closest.product | default: product %}
-{% assign visible_specifications_count = 0 %}
 
-{% if product_obj.specifications %}
-    {% for specification in product_obj.specifications %}
-        {% assign specification_name_first_character = specification.name | slice: 0, 1 %}
-        {% if specification.name != blank and specification.value != blank and specification_name_first_character != '_' %}
-            {% assign visible_specifications_count = visible_specifications_count | plus: 1 %}
-        {% endif %}
-    {% endfor %}
-{% endif %}
-
-{% if product_obj.description != blank or visible_specifications_count > 1 or design_mode or preview_mode %}
-    <div {{ block.shopify_attributes }}>
-        {% if product_obj.description != blank or design_mode or preview_mode %}
-            <div class="tiendu-product-description__content">
-                {{ product_obj.description | default: '<p>Descripción del producto.</p>' | newline_to_br }}
-            </div>
-        {% endif %}
-
-        {% if visible_specifications_count > 1 %}
-            <div class="tiendu-product-description__specifications">
-                <div class="tiendu-product-description__specifications-table-wrapper">
-                    <table class="tiendu-product-description__specifications-table">
-                        <tbody>
-                            {% for specification in product_obj.specifications %}
-                                {% assign specification_name_first_character = specification.name | slice: 0, 1 %}
-                                {% if specification.name != blank and specification.value != blank and specification_name_first_character != '_' %}
-                                    <tr>
-                                        <th scope="row">{{ specification.name | escape }}</th>
-                                        <td>{{ specification.value | escape | newline_to_br }}</td>
-                                    </tr>
-                                {% endif %}
-                            {% endfor %}
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        {% endif %}
+{% if product_obj.description != blank or design_mode or preview_mode %}
+    <div class="tiendu-product-description__content" {{ block.shopify_attributes }}>
+        {{ product_obj.description | default: '<p>Descripción del producto.</p>' | newline_to_br }}
     </div>
 {% endif %}
 

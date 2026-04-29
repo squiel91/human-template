@@ -1,5 +1,6 @@
 import Tiendu from 'tiendu-sdk'
 import { clamp, createSwipeController } from 'carousel-utils'
+import 'toast'
 
 const getTiendu = () => Tiendu()
 const COPY_RESET_MS = 1800
@@ -787,7 +788,7 @@ const validateProductQuantity = (productRoot, variant) => {
   const max = variantStock ?? (Number.isFinite(maxValue) ? maxValue : null)
 
   if (typeof max === 'number' && requestedQuantity > max) {
-    window.alert(root.dataset.stockAlert || 'No hay suficiente stock para la cantidad seleccionada.')
+    window.notify(root.dataset.stockAlert || 'No hay suficiente stock para la cantidad seleccionada.', { type: 'error' })
     syncProductQuantityRoot(root)
     return false
   }
@@ -832,7 +833,7 @@ const initProductQuantityInputs = (scope = document) => {
         const max = Number.isFinite(maxValue) ? maxValue : null
         const requestedQuantity = Number.parseInt(input.value, 10)
         if (typeof max === 'number' && Number.isFinite(requestedQuantity) && requestedQuantity > max) {
-          window.alert(quantityRoot.dataset.stockAlert || 'No hay suficiente stock para la cantidad seleccionada.')
+          window.notify(quantityRoot.dataset.stockAlert || 'No hay suficiente stock para la cantidad seleccionada.', { type: 'error' })
         }
         syncProductQuantityRoot(quantityRoot)
       })
@@ -976,12 +977,10 @@ const initVariantSelectors = () => {
     if (!(addToCartButton instanceof HTMLElement)) return
     if (currentVariant && typeof currentVariant.id === 'number') {
       addToCartButton.dataset.productVariantId = String(currentVariant.id)
-      addToCartButton.removeAttribute('disabled')
       return
     }
 
     delete addToCartButton.dataset.productVariantId
-    addToCartButton.setAttribute('disabled', 'true')
   }
 
   const syncGallery = () => {
@@ -1240,7 +1239,8 @@ const bindButtonAction = (button) => {
       if (action === 'add_to_cart') {
         const variantId = Number(button.dataset.productVariantId || '0')
         if (!variantId) {
-          throw new Error('Missing variant id')
+          window.notify('Seleccioná una opción antes de agregar al carrito', { type: 'error' })
+          return
         }
 
         let productData = null
@@ -1266,14 +1266,16 @@ const bindButtonAction = (button) => {
           ({ updatedCartItemsQuantity }) => setCartQuantity(updatedCartItemsQuantity),
           productData
         )
+        window.notify('Producto agregado al carrito', { type: 'success' })
       }
     } catch {
-      window.alert(
+      window.notify(
         action === 'cart'
           ? 'No se pudo abrir el carrito'
           : action === 'add_to_cart'
             ? 'No se pudo agregar el producto al carrito'
-            : 'No se pudo abrir el buscador'
+            : 'No se pudo abrir el buscador',
+        { type: 'error' }
       )
     } finally {
       if (shouldShowLoading) {
@@ -1298,7 +1300,7 @@ const initNewsletterForms = () => {
     form.dataset.newsletterBound = 'true'
     const submitButton = form.querySelector('button[type="submit"]')
     const emailInput = form.querySelector('[data-newsletter-email]')
-    const defaultButtonText = submitButton instanceof HTMLButtonElement ? submitButton.textContent : 'Suscribirme'
+    const defaultButtonText = submitButton instanceof HTMLButtonElement ? submitButton.innerText.trim() : 'Suscribirme'
 
     form.addEventListener('submit', async (event) => {
       event.preventDefault()
@@ -1307,7 +1309,7 @@ const initNewsletterForms = () => {
 
       const email = emailInput.value.trim()
       if (!isValidEmail(email)) {
-        window.alert('Por favor ingresá un email válido.')
+        window.notify('Por favor ingresá un email válido.', { type: 'error' })
         return
       }
 
@@ -1319,7 +1321,7 @@ const initNewsletterForms = () => {
       try {
         const tiendu = getTiendu()
         await tiendu.subscribers.add(email)
-        window.alert('¡Te mandamos un email! Ahora solo te falta tocar el botón de ese email para confirmar tu subscripción.')
+        window.notify('¡Te mandamos un email! Ahora solo te falta tocar el botón de ese email para confirmar tu subscripción.', { type: 'success' })
         emailInput.value = ''
 
         const popupRoot = form.closest('[data-newsletter-popup-root]')
@@ -1327,7 +1329,7 @@ const initNewsletterForms = () => {
           dismissPopup(popupRoot)
         }
       } catch {
-        window.alert('No se pudo completar la suscripción. Intentá de nuevo más tarde.')
+        window.notify('No se pudo completar la suscripción. Intentá de nuevo más tarde.', { type: 'error' })
       } finally {
         if (submitButton instanceof HTMLButtonElement) {
           submitButton.disabled = false

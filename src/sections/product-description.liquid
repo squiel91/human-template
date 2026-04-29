@@ -50,13 +50,26 @@
                                         "size_mobile": "lg"
                                     }
                                 },
-                                "description": {
-                                    "type": "product__description"
+                                 "description": {
+                                     "type": "product__description"
+                                },
+                                "specifications": {
+                                    "type": "product__specifications",
+                                    "blocks": {
+                                        "specification_row": {
+                                            "type": "product__specification",
+                                            "static": true
+                                        }
+                                    },
+                                    "block_order": [
+                                        "specification_row"
+                                    ]
                                 }
                             },
                             "block_order": [
                                 "title",
-                                "description"
+                                "description",
+                                "specifications"
                             ]
                         }
                     },
