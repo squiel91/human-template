@@ -70,6 +70,7 @@
                       "blocks": {
                         "button_menu": {
                           "type": "button",
+                          "preset": "icon",
                           "settings": {
                             "text": "",
                             "action": "menu",
@@ -146,6 +147,7 @@
                       "blocks": {
                         "button_search": {
                           "type": "button",
+                          "preset": "icon",
                           "settings": {
                             "text": "",
                             "action": "search",
@@ -178,6 +180,7 @@
                         },
                         "button_cart": {
                           "type": "button",
+                          "preset": "icon",
                           "settings": {
                             "text": "",
                             "action": "cart",
@@ -187,7 +190,7 @@
                             "variant": "secondary",
                             "rounding": "none",
                             "link": "",
-                            "css_styles_desktop": "position: relative;",
+                            "css_styles_desktop": "",
                             "css_styles_tablet": "",
                             "css_styles_mobile": ""
                           },

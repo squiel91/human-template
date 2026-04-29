@@ -10,21 +10,17 @@
     {% endfor %}
 {% endif %}
 
-{% if visible_specifications_count > 1 or design_mode or preview_mode %}
+{% if visible_specifications_count > 0 %}
     <div class="tiendu-product-description__specifications" {{ block.shopify_attributes }}>
         <div class="tiendu-product-description__specifications-table-wrapper">
             <table class="tiendu-product-description__specifications-table">
                 <tbody>
-                    {% if visible_specifications_count > 1 %}
-                        {% for specification in product_obj.specifications %}
-                            {% assign specification_name_first_character = specification.name | slice: 0, 1 %}
-                            {% if specification.name != blank and specification.value != blank and specification_name_first_character != '_' %}
-                                {% content_for 'block', id: 'specification_row', type: 'product__specification', closest.specification: specification %}
-                            {% endif %}
-                        {% endfor %}
-                    {% elsif design_mode or preview_mode %}
-                        {% content_for 'block', id: 'specification_row', type: 'product__specification', closest.specification: null %}
-                    {% endif %}
+                    {% for specification in product_obj.specifications %}
+                        {% assign specification_name_first_character = specification.name | slice: 0, 1 %}
+                        {% if specification.name != blank and specification.value != blank and specification_name_first_character != '_' %}
+                            {% content_for 'block', id: 'specification_row', type: 'product__specification', closest.specification: specification %}
+                        {% endif %}
+                    {% endfor %}
                 </tbody>
             </table>
         </div>

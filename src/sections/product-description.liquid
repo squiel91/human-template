@@ -1,10 +1,22 @@
-<section class="tiendu-product-description">
-    {% if section.blocks and section.blocks.size > 0 %}
-        {% content_for 'blocks' %}
-    {% elsif design_mode or preview_mode %}
-        <div>Add blocks to build the description.</div>
-    {% endif %}
-</section>
+{% assign product_obj = product %}
+{% assign visible_specifications_count = 0 %}
+
+{% if product_obj.specifications %}
+    {% for specification in product_obj.specifications %}
+        {% assign specification_name_first_character = specification.name | slice: 0, 1 %}
+        {% if specification.name != blank and specification.value != blank and specification_name_first_character != '_' %}
+            {% assign visible_specifications_count = visible_specifications_count | plus: 1 %}
+        {% endif %}
+    {% endfor %}
+{% endif %}
+
+{% if product_obj.description != blank or visible_specifications_count > 0 %}
+    <section class="tiendu-product-description">
+        {% if section.blocks and section.blocks.size > 0 %}
+            {% content_for 'blocks' %}
+        {% endif %}
+    </section>
+{% endif %}
 
 {% schema %}
 {
@@ -50,8 +62,21 @@
                                         "size_mobile": "lg"
                                     }
                                 },
-                                 "description": {
-                                     "type": "product__description"
+                                "description": {
+                                    "type": "product__description",
+                                    "blocks": {
+                                        "text": {
+                                            "type": "text",
+                                            "static": true,
+                                            "settings": {
+                                                "text_type": "paragraph",
+                                                "css_styles_desktop": "line-height: 1.7; white-space: pre-line;"
+                                            }
+                                        }
+                                    },
+                                    "block_order": [
+                                        "text"
+                                    ]
                                 },
                                 "specifications": {
                                     "type": "product__specifications",

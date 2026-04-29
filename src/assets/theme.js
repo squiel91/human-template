@@ -9,12 +9,8 @@ const SWIPE_PROGRESS_THRESHOLD = 0.25
 const CAROUSEL_AUTOPLAY_INTERVAL = 5000
 
 const setActionButtonLoading = (button, loading) => {
-  const content = button.querySelector('[data-button-content]')
   const loader = button.querySelector('[data-button-loader]')
-  if (content) {
-    content.style.opacity = loading ? '0' : ''
-    content.style.pointerEvents = loading ? 'none' : ''
-  }
+  button.dataset.loading = loading ? 'true' : 'false'
   if (loader) loader.hidden = !loading
 
   // Legacy fallback for old button markup with data-button-action-icon

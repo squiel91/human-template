@@ -1,14 +1,46 @@
 {% assign product_obj = closest.product | default: product %}
+{% assign child_blocks = block.children | default: block.blocks %}
+{% assign description_text = product_obj.description %}
 
-{% if product_obj.description != blank or design_mode or preview_mode %}
+{% if description_text != blank %}
     <div class="tiendu-product-description__content" {{ block.shopify_attributes }}>
-        {{ product_obj.description | default: '<p>Descripción del producto.</p>' | newline_to_br }}
+        {% if child_blocks and child_blocks.size > 0 %}
+            {% for child_block in child_blocks %}
+                {% content_for 'block', id: child_block.id, type: child_block.type, default_text: description_text, default_content: description_text %}
+            {% endfor %}
+        {% else %}
+            {% content_for 'block', id: 'text', type: 'text', default_text: description_text, default_content: description_text %}
+        {% endif %}
     </div>
 {% endif %}
 
 {% schema %}
 {
     "name": "product: description",
-    "settings": []
+    "max_blocks": 1,
+    "settings": [],
+    "blocks": [
+        {
+            "type": "text"
+        }
+    ],
+    "presets": [
+        {
+            "name": "default",
+            "blocks": {
+                "text": {
+                    "type": "text",
+                    "static": true,
+                    "settings": {
+                        "text_type": "paragraph",
+                        "css_styles_desktop": "line-height: 1.7; white-space: pre-line;"
+                    }
+                }
+            },
+            "block_order": [
+                "text"
+            ]
+        }
+    ]
 }
 {% endschema %}
