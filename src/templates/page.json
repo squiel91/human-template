@@ -1,4 +1,105 @@
 {
-  "sections": {},
-  "order": []
+  "sections": {
+    "main-page_eifaqn": {
+      "type": "main-page",
+      "settings": {},
+      "blocks": {
+        "page-wrapper": {
+          "type": "layout",
+          "settings": {
+            "css_styles_desktop": "display: flex; flex-direction: column; gap: 24px;"
+          },
+          "static": false,
+          "blocks": {
+            "title": {
+              "type": "page-title-header",
+              "settings": {},
+              "static": false,
+              "blocks": {
+                "page-heading": {
+                  "type": "text",
+                  "settings": {
+                    "text": "",
+                    "text_type": "page_title",
+                    "vertical_margin": "none",
+                    "color": "custom",
+                    "alignment": "inherit",
+                    "bold": true,
+                    "italic": false,
+                    "underline": false,
+                    "line_through": false,
+                    "size_desktop": "4xl",
+                    "size_tablet": "",
+                    "size_mobile": ""
+                  },
+                  "static": true
+                }
+              },
+              "block_order": [
+                "page-heading"
+              ]
+            },
+            "content": {
+              "type": "page-content",
+              "settings": {},
+              "static": false
+            }
+          },
+          "block_order": [
+            "title",
+            "content"
+          ]
+        }
+      },
+      "block_order": [
+        "page-wrapper"
+      ]
+    },
+    "breadcrumbs_t7fcpb": {
+      "type": "breadcrumbs",
+      "settings": {},
+      "blocks": {
+        "layout_outer": {
+          "type": "layout",
+          "settings": {
+            "css_styles_desktop": "padding: 0 var(--container-horizontal-padding, 8px);"
+          },
+          "static": false,
+          "blocks": {
+            "layout_inner": {
+              "type": "layout",
+              "settings": {
+                "css_styles_desktop": "max-width: var(--container-max-width, 1024px); margin: 0 auto;"
+              },
+              "static": false,
+              "blocks": {
+                "breadcrumbs": {
+                  "type": "breadcrumb-trail",
+                  "settings": {
+                    "home_label": "Inicio",
+                    "separator_icon": "chevron-right",
+                    "show_current": true
+                  },
+                  "static": false
+                }
+              },
+              "block_order": [
+                "breadcrumbs"
+              ]
+            }
+          },
+          "block_order": [
+            "layout_inner"
+          ]
+        }
+      },
+      "block_order": [
+        "layout_outer"
+      ]
+    }
+  },
+  "order": [
+    "breadcrumbs_t7fcpb",
+    "main-page_eifaqn"
+  ]
 }

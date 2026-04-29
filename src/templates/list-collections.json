@@ -1,4 +1,215 @@
 {
-  "sections": {},
-  "order": []
+  "sections": {
+    "breadcrumbs_fypv1s": {
+      "type": "breadcrumbs",
+      "settings": {},
+      "blocks": {
+        "layout_outer": {
+          "type": "layout",
+          "settings": {
+            "css_styles_desktop": "padding: 0 var(--container-horizontal-padding, 8px);"
+          },
+          "static": false,
+          "blocks": {
+            "layout_inner": {
+              "type": "layout",
+              "settings": {
+                "css_styles_desktop": "max-width: var(--container-max-width, 1024px); margin: 0 auto;"
+              },
+              "static": false,
+              "blocks": {
+                "breadcrumbs": {
+                  "type": "breadcrumb-trail",
+                  "settings": {
+                    "home_label": "Inicio",
+                    "separator_icon": "chevron-right",
+                    "show_current": true
+                  },
+                  "static": false
+                }
+              },
+              "block_order": [
+                "breadcrumbs"
+              ]
+            }
+          },
+          "block_order": [
+            "layout_inner"
+          ]
+        }
+      },
+      "block_order": [
+        "layout_outer"
+      ]
+    },
+    "main-collections_zt5ys0": {
+      "type": "main-collections",
+      "settings": {},
+      "blocks": {
+        "layout_outer": {
+          "type": "layout",
+          "settings": {
+            "css_styles_desktop": "padding: 64px var(--container-horizontal-padding, 8px);",
+            "css_styles_tablet": "padding: 40px var(--container-horizontal-padding, 8px);",
+            "css_styles_mobile": "padding: 32px var(--container-horizontal-padding, 8px);"
+          },
+          "static": false,
+          "blocks": {
+            "layout_inner": {
+              "type": "layout",
+              "settings": {
+                "css_styles_desktop": "max-width: var(--container-max-width, 1024px); margin: 0 auto; display: flex; flex-direction: column; gap: 32px;",
+                "css_styles_tablet": "gap: 24px;",
+                "css_styles_mobile": "gap: 20px;"
+              },
+              "static": false,
+              "blocks": {
+                "layout_header": {
+                  "type": "layout",
+                  "settings": {
+                    "css_styles_desktop": "display: flex; align-items: center; flex-wrap: wrap; row-gap: 8px; column-gap: 16px;"
+                  },
+                  "static": false,
+                  "blocks": {
+                    "title": {
+                      "type": "text",
+                      "settings": {
+                        "text": "Categorías",
+                        "text_type": "page_title",
+                        "vertical_margin": "none",
+                        "color": "custom",
+                        "alignment": "inherit",
+                        "bold": true,
+                        "italic": false,
+                        "underline": false,
+                        "line_through": false,
+                        "size_desktop": "4xl",
+                        "size_tablet": "3xl",
+                        "size_mobile": "2xl"
+                      },
+                      "static": false
+                    }
+                  },
+                  "block_order": [
+                    "title"
+                  ]
+                },
+                "layout_grid": {
+                  "type": "layout",
+                  "settings": {
+                    "css_styles_desktop": "display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px;",
+                    "css_styles_tablet": "grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px;",
+                    "css_styles_mobile": "grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px;"
+                  },
+                  "static": false,
+                  "blocks": {
+                    "collections": {
+                      "type": "all-collections",
+                      "settings": {},
+                      "static": false,
+                      "blocks": {
+                        "collection_card": {
+                          "type": "collection",
+                          "settings": {
+                            "rounding": "theme"
+                          },
+                          "static": true,
+                          "blocks": {
+                            "card_wrap": {
+                              "type": "layout",
+                              "settings": {
+                                "css_styles_desktop": "display: flex; flex-direction: column; gap: 10px;"
+                              },
+                              "static": false,
+                              "blocks": {
+                                "card_image": {
+                                  "type": "collection__image",
+                                  "settings": {},
+                                  "static": false,
+                                  "blocks": {
+                                    "default-image": {
+                                      "type": "image",
+                                      "settings": {
+                                        "size": "full",
+                                        "image_ratio": "collection_default",
+                                        "rounding": "theme"
+                                      },
+                                      "static": true
+                                    }
+                                  },
+                                  "block_order": [
+                                    "default-image"
+                                  ]
+                                },
+                                "card_title": {
+                                  "type": "collection__title",
+                                  "settings": {},
+                                  "static": false,
+                                  "blocks": {
+                                    "default-text": {
+                                      "type": "text",
+                                      "settings": {
+                                        "text": "",
+                                        "text_type": "text",
+                                        "vertical_margin": "none",
+                                        "color": "custom",
+                                        "alignment": "inherit",
+                                        "bold": true,
+                                        "italic": false,
+                                        "underline": false,
+                                        "line_through": false,
+                                        "size_desktop": "inherit",
+                                        "size_tablet": "",
+                                        "size_mobile": "",
+                                        "css_styles_desktop": "overflow-wrap: anywhere;"
+                                      },
+                                      "static": true
+                                    }
+                                  },
+                                  "block_order": [
+                                    "default-text"
+                                  ]
+                                }
+                              },
+                              "block_order": [
+                                "card_image",
+                                "card_title"
+                              ]
+                            }
+                          },
+                          "block_order": [
+                            "card_wrap"
+                          ]
+                        }
+                      },
+                      "block_order": [
+                        "collection_card"
+                      ]
+                    }
+                  },
+                  "block_order": [
+                    "collections"
+                  ]
+                }
+              },
+              "block_order": [
+                "layout_header",
+                "layout_grid"
+              ]
+            }
+          },
+          "block_order": [
+            "layout_inner"
+          ]
+        }
+      },
+      "block_order": [
+        "layout_outer"
+      ]
+    }
+  },
+  "order": [
+    "breadcrumbs_fypv1s",
+    "main-collections_zt5ys0"
+  ]
 }
