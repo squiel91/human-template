@@ -71,6 +71,79 @@
             ]
         },
         {
+            "name": "404",
+            "blocks": {
+                "layout_outer": {
+                    "type": "layout",
+                    "settings": {
+                        "css_styles_desktop": "padding: 64px var(--container-horizontal-padding, 8px); display: flex; justify-content: center;",
+                        "css_styles_tablet": "padding: 40px var(--container-horizontal-padding, 8px);",
+                        "css_styles_mobile": "padding: 32px var(--container-horizontal-padding, 8px);"
+                    },
+                    "blocks": {
+                        "layout_inner": {
+                            "type": "layout",
+                            "settings": {
+                                "css_styles_desktop": "max-width: var(--container-max-width, 1024px); flex-grow: 1; display: flex; flex-direction: column; align-items: flex-start; gap: 16px;"
+                            },
+                            "blocks": {
+                                "text_title": {
+                                    "type": "text",
+                                    "settings": {
+                                        "text": "Página no encontrada",
+                                        "text_type": "section_title",
+                                        "bold": true,
+                                        "size_desktop": "5xl",
+                                        "size_tablet": "3xl",
+                                        "size_mobile": "2xl"
+                                    }
+                                },
+                                "text_message": {
+                                    "type": "text",
+                                    "settings": {
+                                        "text": "La página que buscás no existe o fue movida.",
+                                        "text_type": "paragraph",
+                                        "size_desktop": "lg",
+                                        "size_tablet": "base",
+                                        "size_mobile": "base"
+                                    }
+                                },
+                                "button_home": {
+                                    "type": "link",
+                                    "preset": "primary",
+                                    "settings": {
+                                        "url": "/"
+                                    },
+                                    "blocks": {
+                                        "text": {
+                                            "type": "text",
+                                            "settings": {
+                                                "text": "Volver al inicio"
+                                            }
+                                        }
+                                    },
+                                    "block_order": [
+                                        "text"
+                                    ]
+                                }
+                            },
+                            "block_order": [
+                                "text_title",
+                                "text_message",
+                                "button_home"
+                            ]
+                        }
+                    },
+                    "block_order": [
+                        "layout_inner"
+                    ]
+                }
+            },
+            "block_order": [
+                "layout_outer"
+            ]
+        },
+        {
             "name": "Split",
             "blocks": {
                 "layout_outer": {

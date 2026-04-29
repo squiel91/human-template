@@ -3,7 +3,6 @@ import { clamp, createSwipeController } from 'carousel-utils'
 import 'toast'
 
 const getTiendu = () => Tiendu()
-const COPY_RESET_MS = 1800
 const POPUP_STORAGE_PREFIX = 'tiendu:popup:'
 const SWIPE_PROGRESS_THRESHOLD = 0.25
 const CAROUSEL_AUTOPLAY_INTERVAL = 5000
@@ -1135,14 +1134,13 @@ const initProductShareButtons = () => {
     if (button.dataset.shareBound === 'true') continue
 
     button.dataset.shareBound = 'true'
-    const label = button.querySelector('[data-share-label]')
-    const defaultLabel = label?.textContent ?? 'Compartir'
 
     button.addEventListener('click', async (event) => {
       event.preventDefault()
+      const canUseWebShare = typeof navigator.share === 'function'
 
       try {
-        if (navigator.share) {
+        if (canUseWebShare) {
           await navigator.share({
             title: document.title,
             url: window.location.href,
@@ -1151,15 +1149,10 @@ const initProductShareButtons = () => {
         }
 
         await navigator.clipboard.writeText(window.location.href)
-        if (label) {
-          label.textContent = 'Link copiado'
-          window.setTimeout(() => {
-            label.textContent = defaultLabel
-          }, COPY_RESET_MS)
-        }
+        window.notify('Link copiado', { type: 'success' })
       } catch {
-        if (label) {
-          label.textContent = defaultLabel
+        if (!canUseWebShare) {
+          window.notify('No se pudo copiar el link', { type: 'error' })
         }
       }
     })
@@ -1348,6 +1341,7 @@ const initCollectionSorts = () => {
       const value = select.value
       const url = new URL(window.location.href)
       url.searchParams.set('sort_by', value)
+      url.searchParams.delete('page')
       window.location.href = url.toString()
     })
   }

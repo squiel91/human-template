@@ -156,7 +156,6 @@
     type="{% if button_action == 'submit' %}submit{% else %}button{% endif %}"
     {% if button_action != 'none' and button_action != 'submit' %}data-button-action="{{ button_action }}"{% endif %}
     {% if button_action == 'add_to_cart' and action_variant != blank %}data-product-variant-id="{{ action_variant.id }}"{% endif %}
-    {% if button_action == 'share' %}data-share-label{% endif %}
 >
     <span class="tiendu-button__content" data-button-content>
         {% content_for 'blocks' %}

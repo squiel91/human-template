@@ -119,7 +119,7 @@
         class="tiendu-image__img"
         src="{{ image_url | default: placeholder_image }}"
         alt="{{ image_alt | escape }}"
-        loading="lazy"
+        loading="eager"
     >
     {% if hover_image_url != '' %}
         <img
