@@ -39,7 +39,7 @@
             {{ block.settings.css_styles_desktop }}
         }
 
-        #{{ units_sold_id }} .tiendu-product-units-sold__icon {
+        #{{ units_sold_id }} .t-product-units-sold__icon {
             display: inline-flex;
             flex: 0 0 auto;
             line-height: 0;
@@ -58,8 +58,8 @@
         }
     </style>
 
-    <div {{ block.tiendu_attributes }} id="{{ units_sold_id }}" class="tiendu-product-units-sold">
-        <span class="tiendu-product-units-sold__icon" aria-hidden="true">
+    <div {{ block.tiendu_attributes }} id="{{ units_sold_id }}" class="t-product-units-sold">
+        <span class="t-product-units-sold__icon" aria-hidden="true">
             {% render 'icon-trending-up', size: 16, stroke_width: 2 %}
         </span>
         <span>{{ units_sold_message | strip | escape }}</span>

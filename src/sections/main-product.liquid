@@ -1,4 +1,4 @@
-<section class="tiendu-main-product" data-product-root>
+<section class="t-main-product" data-product-root>
     {% if section.blocks and section.blocks.size > 0 %}
         {% content_for 'blocks' %}
     {% elsif design_mode or preview_mode %}
@@ -66,7 +66,6 @@
                                                     "static": true,
                                                     "settings": {
                                                         "text_type": "page_title",
-                                                        "bold": true,
                                                         "size_desktop": "4xl",
                                                         "size_tablet": "3xl",
                                                         "size_mobile": "2xl"
@@ -112,7 +111,7 @@
                                                             "type": "text",
                                                             "static": true,
                                                             "settings": {
-                                                                "bold": true,
+                                                                "font_weight": "700",
                                                                 "size_desktop": "2xl"
                                                             }
                                                         }
@@ -144,38 +143,59 @@
                                                 "compare_price"
                                             ]
                                         },
-                                        "add_to_cart": {
-                                            "type": "button",
-                                            "preset": "primary",
+                                        "quantity_cart_row": {
+                                            "type": "layout",
                                             "settings": {
-                                                "action": "add_to_cart"
+                                                "css_styles_desktop": "display: flex; align-items: center; gap: 12px; flex-wrap: wrap;"
                                             },
                                             "blocks": {
-                                                "icon": {
-                                                    "type": "icon",
+                                                "quantity": {
+                                                    "type": "product__quantity",
                                                     "settings": {
-                                                        "icon": "plus",
-                                                        "size": "md",
-                                                        "stroke_width": "2"
+                                                        "label": "Cantidad",
+                                                        "rounding": "theme"
                                                     }
                                                 },
-                                                "text": {
-                                                    "type": "text",
+                                                "add_to_cart": {
+                                                    "type": "button",
+                                                    "preset": "primary",
                                                     "settings": {
-                                                        "text": "Agregar al carrito"
-                                                    }
+                                                        "action": "add_to_cart",
+                                                        "css_styles_desktop": "position: relative;\ndisplay: flex;\nalign-items: center;\njustify-content: center;\ngap: 8px;\ntext-decoration: none;\ncursor: pointer;\nborder: none;\nfont-family: inherit;\nline-height: 1;\npadding: 0.75rem 1.125rem;\nfont-size: 1rem;\nborder-radius: var(--button-input-border-radius, 0.375rem);\nbackground-color: var(--primary-color);\ncolor: white;\ntransition: opacity 0.2s ease;\n&:hover { opacity: 0.9; }\n&:disabled { opacity: 0.7; cursor: wait; }\nflex-grow: 1;"
+                                                    },
+                                                    "blocks": {
+                                                        "icon": {
+                                                            "type": "icon",
+                                                            "settings": {
+                                                                "icon": "plus",
+                                                                "size": "md",
+                                                                "stroke_width": "2"
+                                                            }
+                                                        },
+                                                        "text": {
+                                                            "type": "text",
+                                                            "settings": {
+                                                                "text": "Agregar al carrito"
+                                                            }
+                                                        }
+                                                    },
+                                                    "block_order": [
+                                                        "icon",
+                                                        "text"
+                                                    ]
                                                 }
                                             },
                                             "block_order": [
-                                                "icon",
-                                                "text"
+                                                "quantity",
+                                                "add_to_cart"
                                             ]
                                         },
                                         "share": {
                                             "type": "button",
                                             "preset": "secondary",
                                             "settings": {
-                                                "action": "share"
+                                                "action": "share",
+                                                "css_styles_desktop": "position: relative;\ndisplay: flex;\nalign-items: center;\njustify-content: center;\ngap: 8px;\ntext-decoration: none;\ncursor: pointer;\nborder: none;\nfont-family: inherit;\nline-height: 1;\npadding: 0.75rem 1.125rem;\nfont-size: 1rem;\nborder-radius: var(--button-input-border-radius, 0.375rem);\nbackground-color: transparent;\ncolor: var(--primary-color);\ntransition: background-color 0.2s ease;\n&:hover { background-color: rgba(0, 0, 0, 0.06); }\n&:disabled { opacity: 0.7; cursor: wait; }\nalign-self: flex-start;"
                                             },
                                             "blocks": {
                                                 "icon": {
@@ -245,21 +265,14 @@
                                                 }
                                             },
                                             "block_order": [
-                                                "shipping_icon",
-                                                "shipping_text",
                                                 "bank_transfer_icon",
-                                                "bank_transfer_text"
+                                                "bank_transfer_text",
+                                                "shipping_icon",
+                                                "shipping_text"
                                             ]
                                         },
                                         "selectors": {
                                             "type": "product__attribute-selectors"
-                                        },
-                                        "quantity": {
-                                            "type": "product__quantity",
-                                            "settings": {
-                                                "label": "Cantidad",
-                                                "rounding": "theme"
-                                            }
                                         }
                                     },
                                     "block_order": [
@@ -269,10 +282,9 @@
                                         "pricing_row",
                                         "selectors",
                                         "stock_status",
-                                        "quantity",
-                                        "add_to_cart",
-                                        "share",
-                                        "purchase_benefits"
+                                        "quantity_cart_row",
+                                        "purchase_benefits",
+                                        "share"
                                     ]
                                 }
                             },

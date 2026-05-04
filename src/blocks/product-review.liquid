@@ -1,7 +1,7 @@
 {% assign review_obj = closest.review %}
 {% assign child_blocks = block.children | default: block.blocks %}
 
-<article {{ block.tiendu_attributes }} class="tiendu-product-review">
+<article {{ block.tiendu_attributes }} class="t-product-review">
     {% if child_blocks and child_blocks.size > 0 %}
         {% content_for 'blocks' %}
     {% elsif design_mode or preview_mode %}
@@ -48,7 +48,7 @@
                                         "verified": {
                                             "type": "layout",
                                             "settings": {
-                                                "css_styles_desktop": "display: inline-flex; align-items: center; gap: 6px; width: fit-content; padding: 6px 10px; border: 1px solid #99f6e4; border-radius: 9999px; background-color: #ecfdf5; color: #115e59; font-size: 0.8125rem; font-weight: 700; line-height: 1;"
+                                                "css_styles_desktop": "display: inline-flex; align-items: center; gap: 6px; width: fit-content; padding: 6px 10px; border: 1px solid #99f6e4; border-radius: 9999px; background-color: #ecfdf5; color: #115e59; font-size: 0.8125rem; line-height: 1;"
                                             },
                                             "blocks": {
                                                 "icon": {
@@ -65,7 +65,7 @@
                                                     "type": "text",
                                                     "settings": {
                                                         "text": "Compra verificada",
-                                                        "bold": true,
+                                                        "font_weight": "700",
                                                         "size_desktop": "sm"
                                                     }
                                                 }

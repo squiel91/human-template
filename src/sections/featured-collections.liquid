@@ -1,4 +1,4 @@
-<section class="tiendu-featured-collections">
+<section class="t-featured-collections">
     {% if section.blocks and section.blocks.size > 0 %}
         {% content_for 'blocks' %}
     {% elsif design_mode or preview_mode %}
@@ -53,7 +53,6 @@
                                             "settings": {
                                                 "text": "Categorías destacadas",
                                                 "text_type": "section_title",
-                                                "bold": true,
                                                 "size_desktop": "4xl",
                                                 "size_tablet": "3xl",
                                                 "size_mobile": "2xl"
@@ -109,7 +108,7 @@
                                                                             "type": "text",
                                                                             "static": true,
                                                                             "settings": {
-                                                                                "bold": true,
+                                                                                "font_weight": "700",
                                                                                 "css_styles_desktop": "overflow-wrap: anywhere;"
                                                                             }
                                                                         }

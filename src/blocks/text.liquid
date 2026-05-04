@@ -63,11 +63,19 @@
     {% if block.settings.underline %}underline{% endif %}{% if block.settings.underline and block.settings.line_through %} {% endif %}{% if block.settings.line_through %}line-through{% endif %}
 {% endcapture %}
 {% assign text_decoration_value = text_decoration | strip %}
+{% assign font_weight = block.settings.font_weight | default: 'inherit' %}
+{% if font_weight == 'inherit' and block.settings.bold %}
+    {% assign font_weight = '700' %}
+{% endif %}
 
 {% capture text_classes %}
-    tiendu-text
+    t-unformated
+    {% if text_tag != 'span' %}
+        t-{{ text_tag }}
+    {% endif %}
+    t-text
     {% if vertical_margin == 'none' %}
-        tiendu-no-default-margin
+        t-no-default-margin
     {% endif %}
     {% if text_size_desktop != 'inherit' %}
         text-{{ text_size_desktop }}
@@ -90,8 +98,8 @@
         {% if text_color != blank %}
             color: {{ text_color }};
         {% endif %}
-        {% if block.settings.bold %}
-            font-weight: 700;
+        {% if font_weight != 'inherit' %}
+            font-weight: {{ font_weight }};
         {% endif %}
         {% if block.settings.italic %}
             font-style: italic;
@@ -251,10 +259,48 @@
             ]
         },
         {
-            "type": "checkbox",
-            "id": "bold",
-            "label": "Bold",
-            "default": false
+            "type": "select",
+            "id": "font_weight",
+            "label": "Font weight",
+            "default": "inherit",
+            "options": [
+                {
+                    "value": "inherit",
+                    "label": "Inherit"
+                },
+                {
+                    "value": "100",
+                    "label": "Extra thin"
+                },
+                {
+                    "value": "200",
+                    "label": "Thin"
+                },
+                {
+                    "value": "400",
+                    "label": "Regular"
+                },
+                {
+                    "value": "500",
+                    "label": "Medium"
+                },
+                {
+                    "value": "600",
+                    "label": "Semi bold"
+                },
+                {
+                    "value": "700",
+                    "label": "Bold"
+                },
+                {
+                    "value": "800",
+                    "label": "Extra bold"
+                },
+                {
+                    "value": "900",
+                    "label": "Black"
+                }
+            ]
         },
         {
             "type": "checkbox",

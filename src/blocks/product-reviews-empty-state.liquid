@@ -1,6 +1,6 @@
 {% assign child_blocks = block.children | default: block.blocks %}
 
-<div {{ block.tiendu_attributes }} class="tiendu-product-reviews-empty-state">
+<div {{ block.tiendu_attributes }} class="t-product-reviews-empty-state">
     {% if child_blocks and child_blocks.size > 0 %}
         {% for child_block in child_blocks %}
             {% content_for 'block', id: child_block.id, type: child_block.type %}
@@ -10,7 +10,7 @@
             <span style="display: inline-flex; color: #475569; line-height: 0;">
                 {% render 'icon-messages-square', size: 32, stroke_width: 1.8 %}
             </span>
-            <p style="margin: 0; font-size: 1.25rem; font-weight: 400;">Este producto aún no tiene reseñas.</p>
+            <p class="t-unformated" style="font-size: 1.25rem; font-weight: 400;">Este producto aún no tiene reseñas.</p>
         </div>
     {% endif %}
 </div>
@@ -49,8 +49,7 @@
                             "settings": {
                                 "text": "Este producto aún no tiene reseñas.",
                                 "text_type": "paragraph",
-                                "size_desktop": "xl",
-                                "bold": false
+                                "size_desktop": "xl"
                             }
                         }
                     },

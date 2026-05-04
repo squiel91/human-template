@@ -11,9 +11,9 @@
 {% endif %}
 
 {% if visible_specifications_count > 0 %}
-    <div class="tiendu-product-description__specifications" {{ block.tiendu_attributes }}>
-        <div class="tiendu-product-description__specifications-table-wrapper">
-            <table class="tiendu-product-description__specifications-table">
+    <div class="t-product-description__specifications" {{ block.tiendu_attributes }}>
+        <div class="t-product-description__specifications-table-wrapper">
+            <table class="t-product-description__specifications-table">
                 <tbody>
                     {% for specification in product_obj.specifications %}
                         {% assign specification_name_first_character = specification.name | slice: 0, 1 %}

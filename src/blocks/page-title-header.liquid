@@ -1,6 +1,6 @@
 {% assign fallback_text = page.title | default: 'Título de la página' %}
 
-<div class="tiendu-page-title-header" {{ block.tiendu_attributes }}>
+<div class="t-page-title-header" {{ block.tiendu_attributes }}>
     {% content_for 'block', type: 'text', id: 'page-heading', default_text: fallback_text %}
 </div>
 
@@ -22,7 +22,6 @@
                     "static": true,
                     "settings": {
                         "text_type": "page_title",
-                        "bold": true,
                         "size_desktop": "4xl"
                     }
                 }

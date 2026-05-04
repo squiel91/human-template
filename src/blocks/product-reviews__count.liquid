@@ -1,6 +1,18 @@
 {% assign product_obj = closest.product | default: product %}
 {% assign child_blocks = block.children | default: block.blocks %}
 {% assign reviews_quantity = product_obj.reviewsQuantity | default: 0 %}
+
+{% assign product_reviews = product_obj.reviews %}
+{% if request.page_type == 'product' and product_page.reviews != blank %}
+    {% assign product_reviews = product_page.reviews %}
+{% endif %}
+
+{% if reviews_quantity == 0 %}
+    {% if product_reviews and product_reviews.size > 0 %}
+        {% assign reviews_quantity = product_reviews.size %}
+    {% endif %}
+{% endif %}
+
 {% assign count_text = reviews_quantity | append: ' reseñas' %}
 {% if reviews_quantity == 0 %}
     {% assign count_text = 'Aún sin reseñas' %}

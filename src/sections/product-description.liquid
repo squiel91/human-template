@@ -11,7 +11,7 @@
 {% endif %}
 
 {% if product_obj.description != blank or visible_specifications_count > 0 %}
-    <section class="tiendu-product-description">
+    <section class="t-product-description">
         {% if section.blocks and section.blocks.size > 0 %}
             {% content_for 'blocks' %}
         {% endif %}
@@ -56,7 +56,6 @@
                                     "settings": {
                                         "text": "Sobre el producto",
                                         "text_type": "section_title",
-                                        "bold": true,
                                         "size_desktop": "2xl",
                                         "size_tablet": "xl",
                                         "size_mobile": "lg"

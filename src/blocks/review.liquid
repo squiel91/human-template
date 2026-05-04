@@ -1,7 +1,7 @@
 {% assign review_id = 'tiendu__review-' | append: section.id | append: '-' | append: block.id %}
 {% assign block_attributes = block.tiendu_attributes %}
 
-<div {{ block_attributes }} id="{{ review_id }}" class="tiendu-review">
+<div {{ block_attributes }} id="{{ review_id }}" class="t-review">
     {% content_for 'blocks' %}
 </div>
 
@@ -50,7 +50,7 @@
                                     "type": "text",
                                     "settings": {
                                         "text": "Sofía P.",
-                                        "bold": true,
+                                        "font_weight": "700",
                                         "css_styles_desktop": "font-size: 0.9375rem;"
                                     }
                                 },

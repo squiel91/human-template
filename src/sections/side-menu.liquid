@@ -1,5 +1,5 @@
 <style>
-    .tiendu-side-menu {
+    .t-side-menu {
         position: fixed;
         inset: 0;
         z-index: var(--z-side-menu, 9998);
@@ -8,17 +8,17 @@
         overflow: hidden;
     }
 
-    .tiendu-side-menu[data-open='true'] {
+    .t-side-menu[data-open='true'] {
         visibility: visible;
         pointer-events: auto;
     }
 
-    .tiendu-side-menu[data-closing='true'] {
+    .t-side-menu[data-closing='true'] {
         visibility: visible;
         pointer-events: none;
     }
 
-    .tiendu-side-menu__backdrop {
+    .t-side-menu__backdrop {
         position: absolute;
         inset: 0;
         background: rgba(0, 0, 0, 0.28);
@@ -26,7 +26,7 @@
         transition: opacity 0.24s ease;
     }
 
-    .tiendu-side-menu__panel {
+    .t-side-menu__panel {
         position: relative;
         z-index: 1;
         width: min(28rem, calc(100vw - 2rem));
@@ -41,20 +41,20 @@
         will-change: transform;
     }
 
-    .tiendu-side-menu[data-open='true'] .tiendu-side-menu__backdrop {
+    .t-side-menu[data-open='true'] .t-side-menu__backdrop {
         opacity: 1;
     }
 
-    .tiendu-side-menu[data-open='true'] .tiendu-side-menu__panel {
+    .t-side-menu[data-open='true'] .t-side-menu__panel {
         transform: translateX(0);
     }
 
-    body.tiendu-side-menu-open {
+    body.t-side-menu-open {
         overflow: hidden;
     }
 
     @media (width <= 48rem) {
-        .tiendu-side-menu__panel {
+        .t-side-menu__panel {
             width: min(24rem, calc(100vw - 1rem));
         }
     }
@@ -69,10 +69,10 @@
             z-index: auto;
             overflow: visible;
         }
-        #side-menu-{{ section.id }} .tiendu-side-menu__backdrop {
+        #side-menu-{{ section.id }} .t-side-menu__backdrop {
             display: none;
         }
-        #side-menu-{{ section.id }} .tiendu-side-menu__panel {
+        #side-menu-{{ section.id }} .t-side-menu__panel {
             transform: none;
             width: 100%;
             max-width: 28rem;
@@ -82,9 +82,9 @@
     </style>
 {% endif %}
 
-<section id="side-menu-{{ section.id }}" class="tiendu-side-menu" data-side-menu-root data-open="{% if design_mode or preview_mode %}true{% else %}false{% endif %}" aria-hidden="{% if design_mode or preview_mode %}false{% else %}true{% endif %}">
-    <button type="button" class="tiendu-side-menu__backdrop" data-side-menu-close aria-label="Cerrar menú"></button>
-    <div class="tiendu-side-menu__panel">
+<section id="side-menu-{{ section.id }}" class="t-side-menu" data-side-menu-root data-open="{% if design_mode or preview_mode %}true{% else %}false{% endif %}" aria-hidden="{% if design_mode or preview_mode %}false{% else %}true{% endif %}">
+    <button type="button" class="t-side-menu__backdrop" data-side-menu-close aria-label="Cerrar menú"></button>
+    <div class="t-side-menu__panel">
         {% content_for 'blocks' %}
     </div>
 </section>
@@ -123,7 +123,6 @@
                                     "settings": {
                                         "text": "Menú",
                                         "text_type": "section_title",
-                                        "bold": true,
                                         "size_desktop": "xl"
                                     }
                                 },

@@ -4,11 +4,9 @@
     {% assign product_reviews = product_page.reviews %}
 {% endif %}
 
-<section class="tiendu-product-reviews">
+<section class="t-product-reviews">
     {% if section.blocks and section.blocks.size > 0 %}
-        {% for section_block in section.blocks %}
-            {% content_for 'block', id: section_block.id, type: section_block.type, closest.product: product_obj %}
-        {% endfor %}
+        {% content_for 'blocks' %}
     {% elsif design_mode or preview_mode %}
         <div>Add blocks to build the product reviews section.</div>
     {% endif %}
@@ -64,7 +62,6 @@
                                                     "static": true,
                                                     "settings": {
                                                         "text_type": "section_title",
-                                                        "bold": true,
                                                         "size_desktop": "2xl",
                                                         "size_tablet": "xl",
                                                         "size_mobile": "lg"
@@ -78,7 +75,7 @@
                                         "verified_badge": {
                                             "type": "layout",
                                             "settings": {
-                                                "css_styles_desktop": "display: inline-flex; align-items: center; gap: 8px; width: fit-content; padding: 8px 14px; border: 1px solid #99f6e4; border-radius: 9999px; background-color: #ecfdf5; color: #115e59; font-weight: 700; line-height: 1;"
+                                                "css_styles_desktop": "display: inline-flex; align-items: center; gap: 8px; width: fit-content; padding: 8px 14px; border: 1px solid #99f6e4; border-radius: 9999px; background-color: #ecfdf5; color: #115e59; line-height: 1;"
                                             },
                                             "blocks": {
                                                 "icon": {
@@ -95,7 +92,7 @@
                                                     "type": "text",
                                                     "settings": {
                                                         "text": "Verificadas por Tiendu",
-                                                        "bold": true,
+                                                        "font_weight": "700",
                                                         "size_desktop": "base"
                                                     }
                                                 }
@@ -131,7 +128,7 @@
                                                             "type": "text",
                                                             "static": true,
                                                             "settings": {
-                                                                "bold": true,
+                                                                "font_weight": "700",
                                                                 "size_desktop": "5xl",
                                                                 "css_styles_desktop": "line-height: 1;"
                                                             }
@@ -227,7 +224,7 @@
                                                                                             "type": "text",
                                                                                             "static": true,
                                                                                             "settings": {
-                                                                                                "bold": true,
+                                                                                                "font_weight": "700",
                                                                                                 "size_desktop": "base"
                                                                                             }
                                                                                         }
@@ -239,7 +236,7 @@
                                                                                 "verified": {
                                                                                     "type": "layout",
                                                                                     "settings": {
-                                                                                        "css_styles_desktop": "display: inline-flex; align-items: center; gap: 6px; width: fit-content; padding: 6px 10px; border: 1px solid #99f6e4; border-radius: 9999px; background-color: #ecfdf5; color: #115e59; font-size: 0.8125rem; font-weight: 700; line-height: 1;"
+                                                                                        "css_styles_desktop": "display: inline-flex; align-items: center; gap: 6px; width: fit-content; padding: 6px 10px; border: 1px solid #99f6e4; border-radius: 9999px; background-color: #ecfdf5; color: #115e59; font-size: 0.8125rem; line-height: 1;"
                                                                                     },
                                                                                     "blocks": {
                                                                                         "icon": {
@@ -256,7 +253,7 @@
                                                                                             "type": "text",
                                                                                             "settings": {
                                                                                                 "text": "Compra verificada",
-                                                                                                "bold": true,
+                                                                                                "font_weight": "700",
                                                                                                 "size_desktop": "sm"
                                                                                             }
                                                                                         }
@@ -350,8 +347,7 @@
                                                                     "settings": {
                                                                         "text": "Este producto aún no tiene reseñas.",
                                                                         "text_type": "paragraph",
-                                                                        "size_desktop": "xl",
-                                                                        "bold": false
+                                                                        "size_desktop": "xl"
                                                                     }
                                                                 }
                                                             },

@@ -24,8 +24,6 @@
             border: none;
             font-family: inherit;
             line-height: 1;
-            font-weight: bold;
-            text-transform: uppercase;
             padding: 0.75rem 1.125rem;
             font-size: 1rem;
             border-radius: var(--button-input-border-radius, 0.375rem);
@@ -45,8 +43,6 @@
             border: none;
             font-family: inherit;
             line-height: 1;
-            font-weight: bold;
-            text-transform: uppercase;
             padding: 0.75rem 1.125rem;
             font-size: 1rem;
             border-radius: var(--button-input-border-radius, 0.375rem);
@@ -66,8 +62,6 @@
             border: none;
             font-family: inherit;
             line-height: 1;
-            font-weight: bold;
-            text-transform: uppercase;
             padding: 0.75rem;
             font-size: 1rem;
             border-radius: var(--button-input-border-radius, 0.375rem);
@@ -96,7 +90,7 @@
         }
     }
 
-    #{{ button_id }} .tiendu-button__badge {
+    #{{ button_id }} .t-button__badge {
         position: absolute;
         top: 0;
         right: 0;
@@ -114,11 +108,11 @@
         line-height: 1;
     }
 
-    #{{ button_id }} .tiendu-button__badge[hidden] {
+    #{{ button_id }} .t-button__badge[hidden] {
         display: none;
     }
 
-    #{{ button_id }} .tiendu-button__loader {
+    #{{ button_id }} .t-button__loader {
         position: absolute;
         inset: 0;
         display: flex;
@@ -127,46 +121,46 @@
         color: currentColor;
     }
 
-    #{{ button_id }} .tiendu-button__loader[hidden] {
+    #{{ button_id }} .t-button__loader[hidden] {
         display: none;
     }
 
-    #{{ button_id }} .tiendu-button__loader svg {
-        animation: tiendu-spin 1s linear infinite;
+    #{{ button_id }} .t-button__loader svg {
+        animation: t-spin 1s linear infinite;
         transform-origin: center;
     }
 
-    #{{ button_id }} .tiendu-button__content {
+    #{{ button_id }} .t-button__content {
         display: contents;
     }
 
-    #{{ button_id }} .tiendu-button__content > :not(style) {
+    #{{ button_id }} .t-button__content > :not(style) {
         transition: opacity 0.2s ease;
     }
 
-    #{{ button_id }}[data-loading='true'] .tiendu-button__content > :not(style) {
+    #{{ button_id }}[data-loading='true'] .t-button__content > :not(style) {
         opacity: 0;
     }
 </style>
 
 <button
     {{ block.tiendu_attributes }}
-    class="tiendu-button"
+    class="t-unformated t-button"
     id="{{ button_id }}"
     type="{% if button_action == 'submit' %}submit{% else %}button{% endif %}"
     {% if button_action != 'none' and button_action != 'submit' %}data-button-action="{{ button_action }}"{% endif %}
     {% if button_action == 'add_to_cart' and action_variant != blank %}data-product-variant-id="{{ action_variant.id }}"{% endif %}
 >
-    <span class="tiendu-button__content" data-button-content>
+    <span class="t-button__content" data-button-content>
         {% content_for 'blocks' %}
     </span>
     {% if button_has_loading_state %}
-        <span class="tiendu-button__loader" data-button-loader hidden>
+        <span class="t-button__loader" data-button-loader hidden>
             {% render 'icon-loader-circle', size: 24, stroke_width: 2 %}
         </span>
     {% endif %}
     {% if button_action == 'cart' %}
-        <span class="tiendu-button__badge" id="cart-quantity-badge" hidden>0</span>
+        <span class="t-button__badge" id="cart-quantity-badge" hidden>0</span>
     {% endif %}
 </button>
 
@@ -254,7 +248,7 @@
         {
             "name": "primary",
             "settings": {
-                "css_styles_desktop": "position: relative;\ndisplay: flex;\nalign-items: center;\njustify-content: center;\ngap: 8px;\ntext-decoration: none;\ncursor: pointer;\nborder: none;\nfont-family: inherit;\nline-height: 1;\nfont-weight: bold;\ntext-transform: uppercase;\npadding: 0.75rem 1.125rem;\nfont-size: 1rem;\nborder-radius: var(--button-input-border-radius, 0.375rem);\nbackground-color: var(--primary-color);\ncolor: white;\ntransition: opacity 0.2s ease;\n&:hover { opacity: 0.9; }\n&:disabled { opacity: 0.7; cursor: wait; }"
+                "css_styles_desktop": "position: relative;\ndisplay: flex;\nalign-items: center;\njustify-content: center;\ngap: 8px;\ntext-decoration: none;\ncursor: pointer;\nborder: none;\nfont-family: inherit;\nline-height: 1;\npadding: 0.75rem 1.125rem;\nfont-size: 1rem;\nborder-radius: var(--button-input-border-radius, 0.375rem);\nbackground-color: var(--primary-color);\ncolor: white;\ntransition: opacity 0.2s ease;\n&:hover { opacity: 0.9; }\n&:disabled { opacity: 0.7; cursor: wait; }"
             },
             "blocks": {
                 "text": {
@@ -271,7 +265,7 @@
         {
             "name": "secondary",
             "settings": {
-                "css_styles_desktop": "position: relative;\ndisplay: flex;\nalign-items: center;\njustify-content: center;\ngap: 8px;\ntext-decoration: none;\ncursor: pointer;\nborder: none;\nfont-family: inherit;\nline-height: 1;\nfont-weight: bold;\ntext-transform: uppercase;\npadding: 0.75rem 1.125rem;\nfont-size: 1rem;\nborder-radius: var(--button-input-border-radius, 0.375rem);\nbackground-color: transparent;\ncolor: var(--primary-color);\ntransition: background-color 0.2s ease;\n&:hover { background-color: rgba(0, 0, 0, 0.06); }\n&:disabled { opacity: 0.7; cursor: wait; }"
+                "css_styles_desktop": "position: relative;\ndisplay: flex;\nalign-items: center;\njustify-content: center;\ngap: 8px;\ntext-decoration: none;\ncursor: pointer;\nborder: none;\nfont-family: inherit;\nline-height: 1;\npadding: 0.75rem 1.125rem;\nfont-size: 1rem;\nborder-radius: var(--button-input-border-radius, 0.375rem);\nbackground-color: transparent;\ncolor: var(--primary-color);\ntransition: background-color 0.2s ease;\n&:hover { background-color: rgba(0, 0, 0, 0.06); }\n&:disabled { opacity: 0.7; cursor: wait; }"
             },
             "blocks": {
                 "text": {
@@ -288,7 +282,7 @@
         {
             "name": "icon",
             "settings": {
-                "css_styles_desktop": "position: relative;\ndisplay: flex;\nalign-items: center;\njustify-content: center;\ngap: 8px;\ntext-decoration: none;\ncursor: pointer;\nborder: none;\nfont-family: inherit;\nline-height: 1;\nfont-weight: bold;\ntext-transform: uppercase;\npadding: 0.75rem;\nfont-size: 1rem;\nborder-radius: var(--button-input-border-radius, 0.375rem);\nbackground-color: transparent;\ntransition: background-color 0.2s ease;\n&:hover { background-color: rgba(0, 0, 0, 0.06); }\n&:disabled { opacity: 0.7; cursor: wait; }"
+                "css_styles_desktop": "position: relative;\ndisplay: flex;\nalign-items: center;\njustify-content: center;\ngap: 8px;\ntext-decoration: none;\ncursor: pointer;\nborder: none;\nfont-family: inherit;\nline-height: 1;\npadding: 0.75rem;\nfont-size: 1rem;\nborder-radius: var(--button-input-border-radius, 0.375rem);\nbackground-color: transparent;\ntransition: background-color 0.2s ease;\n&:hover { background-color: rgba(0, 0, 0, 0.06); }\n&:disabled { opacity: 0.7; cursor: wait; }"
             },
             "blocks": {
                 "icon": {

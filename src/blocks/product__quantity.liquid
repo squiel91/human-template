@@ -1,6 +1,5 @@
 {% assign quantity_id = 'tiendu__product-quantity-' | append: section.id | append: '-' | append: block.id %}
 {% assign quantity_rounding = block.settings.rounding | default: 'theme' %}
-{% assign quantity_label = block.settings.label | default: 'Cantidad' %}
 {% assign quantity_max = product_page.quantity_max %}
 {% assign quantity_disabled = product_page.quantity_disabled %}
 {% assign quantity_hidden = product_page.quantity_hidden %}
@@ -29,39 +28,27 @@
 {% if quantity_hidden != true or design_mode or preview_mode %}
     <style>
         #{{ quantity_id }} {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-            {{ block.settings.css_styles_desktop }}
-        }
-
-        #{{ quantity_id }} .tiendu-product-quantity__label {
-            font-size: 0.875rem;
-            font-weight: 700;
-            line-height: 1.25rem;
-        }
-
-        #{{ quantity_id }} .tiendu-product-quantity__control {
             display: inline-grid;
             grid-template-columns: 2.75rem minmax(4rem, 1fr) 2.75rem;
-            width: min(100%, 11rem);
+            width: min(100%, 10rem);
             min-height: 3rem;
             overflow: hidden;
             border: 1px solid rgba(0, 0, 0, 0.2);
             border-radius: {{ quantity_border_radius }};
             background: white;
             color: inherit;
+            {{ block.settings.css_styles_desktop }}
         }
 
-        #{{ quantity_id }} .tiendu-product-quantity__button,
-        #{{ quantity_id }} .tiendu-product-quantity__input {
+        #{{ quantity_id }} .t-product-quantity__button,
+        #{{ quantity_id }} .t-product-quantity__input {
             border: 0;
             background: transparent;
             color: inherit;
             font: inherit;
         }
 
-        #{{ quantity_id }} .tiendu-product-quantity__button {
+        #{{ quantity_id }} .t-product-quantity__button {
             display: inline-flex;
             align-items: center;
             justify-content: center;
@@ -69,16 +56,16 @@
             cursor: pointer;
         }
 
-        #{{ quantity_id }} .tiendu-product-quantity__button:hover:not(:disabled) {
+        #{{ quantity_id }} .t-product-quantity__button:hover:not(:disabled) {
             background: rgba(0, 0, 0, 0.06);
         }
 
-        #{{ quantity_id }} .tiendu-product-quantity__button:disabled {
+        #{{ quantity_id }} .t-product-quantity__button:disabled {
             opacity: 0.45;
             cursor: not-allowed;
         }
 
-        #{{ quantity_id }} .tiendu-product-quantity__input {
+        #{{ quantity_id }} .t-product-quantity__input {
             width: 100%;
             min-width: 0;
             padding: 0;
@@ -86,14 +73,14 @@
             -moz-appearance: textfield;
         }
 
-        #{{ quantity_id }} .tiendu-product-quantity__input::-webkit-outer-spin-button,
-        #{{ quantity_id }} .tiendu-product-quantity__input::-webkit-inner-spin-button {
+        #{{ quantity_id }} .t-product-quantity__input::-webkit-outer-spin-button,
+        #{{ quantity_id }} .t-product-quantity__input::-webkit-inner-spin-button {
             margin: 0;
             -webkit-appearance: none;
         }
 
-        #{{ quantity_id }} .tiendu-product-quantity__input:focus,
-        #{{ quantity_id }} .tiendu-product-quantity__button:focus-visible {
+        #{{ quantity_id }} .t-product-quantity__input:focus,
+        #{{ quantity_id }} .t-product-quantity__button:focus-visible {
             outline: 2px solid var(--color-primary, #0000FF);
             outline-offset: -2px;
         }
@@ -114,47 +101,44 @@
     <div
         {{ block.tiendu_attributes }}
         id="{{ quantity_id }}"
-        class="tiendu-product-quantity"
+        class="t-product-quantity"
         data-product-quantity-root
         data-stock-alert="No hay suficiente stock para la cantidad seleccionada."
         {% if quantity_max != blank %}data-quantity-max="{{ quantity_max }}"{% endif %}
         {% if quantity_disabled %}data-quantity-disabled="true"{% endif %}
     >
-        <label class="tiendu-product-quantity__label" for="{{ quantity_id }}-input">{{ quantity_label | escape }}</label>
-        <div class="tiendu-product-quantity__control">
-            <button
-                class="tiendu-product-quantity__button"
-                type="button"
-                aria-label="Reducir cantidad"
-                data-product-quantity-decrement
-                {% if quantity_disabled %}disabled{% endif %}
-            >
-                {% render 'icon-minus', size: 18, stroke_width: 2 %}
-            </button>
-            <input
-                id="{{ quantity_id }}-input"
-                class="tiendu-product-quantity__input"
-                type="number"
-                name="quantity"
-                value="1"
-                min="1"
-                step="1"
-                inputmode="numeric"
-                aria-label="{{ quantity_label | escape_attr }}"
-                data-product-quantity-input
-                {% if quantity_max != blank %}max="{{ quantity_max }}"{% endif %}
-                {% if quantity_disabled %}disabled{% endif %}
-            >
-            <button
-                class="tiendu-product-quantity__button"
-                type="button"
-                aria-label="Aumentar cantidad"
-                data-product-quantity-increment
-                {% if quantity_disabled %}disabled{% endif %}
-            >
-                {% render 'icon-plus', size: 18, stroke_width: 2 %}
-            </button>
-        </div>
+        <button
+            class="t-unformated t-product-quantity__button"
+            type="button"
+            aria-label="Reducir cantidad"
+            data-product-quantity-decrement
+            {% if quantity_disabled %}disabled{% endif %}
+        >
+            {% render 'icon-minus', size: 18, stroke_width: 2 %}
+        </button>
+        <input
+            id="{{ quantity_id }}-input"
+            class="t-unformated t-product-quantity__input"
+            type="number"
+            name="quantity"
+            value="1"
+            min="1"
+            step="1"
+            inputmode="numeric"
+            aria-label="Cantidad"
+            data-product-quantity-input
+            {% if quantity_max != blank %}max="{{ quantity_max }}"{% endif %}
+            {% if quantity_disabled %}disabled{% endif %}
+        >
+        <button
+            class="t-unformated t-product-quantity__button"
+            type="button"
+            aria-label="Aumentar cantidad"
+            data-product-quantity-increment
+            {% if quantity_disabled %}disabled{% endif %}
+        >
+            {% render 'icon-plus', size: 18, stroke_width: 2 %}
+        </button>
     </div>
 {% endif %}
 
@@ -162,12 +146,6 @@
 {
     "name": "product: quantity",
     "settings": [
-        {
-            "type": "text",
-            "id": "label",
-            "label": "Label",
-            "default": "Cantidad"
-        },
         {
             "type": "select",
             "id": "rounding",

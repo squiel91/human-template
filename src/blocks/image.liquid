@@ -87,7 +87,7 @@
         {{ block.settings.css_styles_desktop }}
     }
 
-    #{{ image_id }} .tiendu-image__img {
+    #{{ image_id }} .t-image__img {
         display: block;
         position: relative;
         z-index: 0;
@@ -126,17 +126,17 @@
 <span
     {{ block.tiendu_attributes }}
     id="{{ image_id }}"
-    class="tiendu-image"
+    class="t-image"
     >
     <img
-        class="tiendu-image__img"
+        class="t-image__img"
         src="{{ image_url | default: placeholder_image }}"
         alt="{{ image_alt | escape }}"
         loading="eager"
     >
     {% if hover_image_url != '' %}
         <img
-            class="tiendu-image__hover-image"
+            class="t-image__hover-image"
             src="{{ hover_image_url | escape_attr }}"
             alt="{{ hover_image_alt | escape }}"
             aria-hidden="true"

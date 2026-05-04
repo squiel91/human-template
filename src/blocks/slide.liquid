@@ -1,8 +1,8 @@
 {% assign block_attributes = block.tiendu_attributes %}
 
-<article class="tiendu-carousel__slide" data-tiendu-carousel-slide aria-hidden="false" {{ block_attributes }}>
+<article class="t-carousel__slide" data-t-carousel-slide aria-hidden="false" {{ block_attributes }}>
     {% if block.blocks and block.blocks.size > 0 %}
-        <div class="tiendu-carousel__slide-content">
+        <div class="t-carousel__slide-content">
             {% content_for 'blocks' %}
         </div>
     {% endif %}
@@ -50,7 +50,6 @@
                                         "text_type": "section_title",
                                         "color": "custom",
                                         "custom_color": "#FFFFFF",
-                                        "bold": true,
                                         "size_desktop": "5xl",
                                         "size_tablet": "3xl",
                                         "size_mobile": "2xl",

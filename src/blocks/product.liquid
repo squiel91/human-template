@@ -33,6 +33,7 @@
 
 <a
     {{ block.tiendu_attributes }}
+    class="t-unformated"
     href="{{ product_url | escape_attr }}"
     {% if breadcrumb_from_current %}data-breadcrumb-from-current="true" data-breadcrumb-from-title="{{ collection.name | escape_attr }}"{% endif %}
     style="
@@ -204,7 +205,7 @@
                                             "type": "text",
                                             "static": true,
                                             "settings": {
-                                                "bold": true
+                                                "font_weight": "700"
                                             }
                                         }
                                     },

@@ -1,6 +1,24 @@
 {% assign product_obj = closest.product | default: product %}
 {% assign child_blocks = block.children | default: block.blocks %}
-{% assign rating_value = product_obj.averageRating | default: 0 | round: 1 %}
+
+{% assign average_rating = product_obj.averageRating %}
+
+{% assign product_reviews = product_obj.reviews %}
+{% if request.page_type == 'product' and product_page.reviews != blank %}
+    {% assign product_reviews = product_page.reviews %}
+{% endif %}
+
+{% if average_rating == blank %}
+    {% if product_reviews and product_reviews.size > 0 %}
+        {% assign total_rating = 0 %}
+        {% for review in product_reviews %}
+            {% assign total_rating = total_rating | plus: review.rating %}
+        {% endfor %}
+        {% assign average_rating = total_rating | times: 1.0 | divided_by: product_reviews.size %}
+    {% endif %}
+{% endif %}
+
+{% assign rating_value = average_rating | default: 0 | round: 1 %}
 {% assign rating_text = rating_value | append: '' %}
 {% unless rating_text contains '.' %}
     {% assign rating_text = rating_text | append: '.0' %}
@@ -34,7 +52,7 @@
                     "type": "text",
                     "static": true,
                     "settings": {
-                        "bold": true,
+                        "font_weight": "700",
                         "size_desktop": "5xl",
                         "css_styles_desktop": "line-height: 1;"
                     }

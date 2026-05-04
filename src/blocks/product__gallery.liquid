@@ -14,6 +14,12 @@
 {% elsif primary_image != blank %}
     {% assign first_image = primary_image %}
 {% endif %}
+{% assign gallery_image_count = 0 %}
+{% if gallery_images and gallery_images.size > 0 %}
+    {% assign gallery_image_count = gallery_images.size %}
+{% elsif first_image != blank %}
+    {% assign gallery_image_count = 1 %}
+{% endif %}
 {% assign gallery_image_ratio = settings.product_image_ratio | default: 'square' %}
 {% assign show_thumbnails = block.settings.show_thumbnails | default: 'desktop' %}
 {% assign show_arrows = block.settings.show_arrows %}
@@ -92,13 +98,13 @@
 
 {% if product_obj or design_mode or preview_mode %}
     <div {{ block.tiendu_attributes }} id="{{ gallery_id }}" data-product-gallery-root>
-        <div class="tiendu-product-gallery__stage" data-product-gallery-stage data-dragging="false" style="--product-gallery-index: 0; --product-gallery-drag-offset: 0px; border-radius: {{ main_border_radius }}; {{ stage_fit_style }}">
-            <div class="tiendu-product-gallery__track" data-product-gallery-track>
+        <div class="t-product-gallery__stage" data-product-gallery-stage data-dragging="false" style="--product-gallery-index: 0; --product-gallery-drag-offset: 0px; border-radius: {{ main_border_radius }}; {{ stage_fit_style }}">
+            <div class="t-product-gallery__track" data-product-gallery-track>
                 {% if gallery_images and gallery_images.size > 0 %}
                     {% for image in gallery_images %}
-                        <div class="tiendu-product-gallery__slide" data-product-gallery-slide aria-hidden="{% if forloop.first %}false{% else %}true{% endif %}">
+                        <div class="t-product-gallery__slide" data-product-gallery-slide aria-hidden="{% if forloop.first %}false{% else %}true{% endif %}">
                             <img
-                                class="tiendu-product-gallery__main-image"
+                                class="t-product-gallery__main-image"
                                 src="{{ image.url | default: placeholder_image }}"
                                 alt="{{ image.alt | default: product_obj.title | escape }}"
                                 data-product-gallery-main-image
@@ -109,9 +115,9 @@
                         </div>
                     {% endfor %}
                 {% else %}
-                    <div class="tiendu-product-gallery__slide" data-product-gallery-slide aria-hidden="false">
+                    <div class="t-product-gallery__slide" data-product-gallery-slide aria-hidden="false">
                         <img
-                            class="tiendu-product-gallery__main-image"
+                            class="t-product-gallery__main-image"
                             src="{{ first_image.url | default: placeholder_image }}"
                             alt="{{ first_image.alt | default: product_obj.title | escape }}"
                             data-product-gallery-main-image
@@ -122,26 +128,26 @@
                 {% endif %}
             </div>
 
-            {% if show_arrows %}
-                <button class="tiendu-product-gallery__nav tiendu-nav-arrow tiendu-nav-arrow--prev" type="button" data-product-gallery-prev{% if gallery_images == blank or gallery_images.size <= 1 %} hidden{% endif %}>
+            {% if show_arrows and gallery_image_count > 1 %}
+                <button class="t-unformated t-product-gallery__nav t-nav-arrow t-nav-arrow--prev" type="button" data-product-gallery-prev>
                     {% render 'icon-arrow-right', size: 18, stroke_width: 2 %}
                 </button>
 
-                <button class="tiendu-product-gallery__nav tiendu-nav-arrow tiendu-nav-arrow--next" type="button" data-product-gallery-next{% if gallery_images == blank or gallery_images.size <= 1 %} hidden{% endif %}>
+                <button class="t-unformated t-product-gallery__nav t-nav-arrow t-nav-arrow--next" type="button" data-product-gallery-next>
                     {% render 'icon-arrow-right', size: 18, stroke_width: 2 %}
                 </button>
             {% endif %}
 
-            <span class="tiendu-product-gallery__zoom-trigger" aria-hidden="true">
+            <span class="t-product-gallery__zoom-trigger" aria-hidden="true">
                 {% render 'icon-search', size: 18, stroke_width: 2 %}
             </span>
         </div>
 
-        <div class="tiendu-product-gallery__thumbs" data-product-gallery-thumbs data-show-thumbnails="{{ show_thumbnails }}"{% if gallery_images == blank or gallery_images.size <= 1 %} hidden{% endif %}>
-            {% if gallery_images and gallery_images.size > 0 %}
+        {% if gallery_image_count > 1 and gallery_images and gallery_images.size > 0 %}
+            <div class="t-product-gallery__thumbs" data-product-gallery-thumbs data-show-thumbnails="{{ show_thumbnails }}">
                 {% for image in gallery_images %}
                     <button
-                        class="tiendu-product-gallery__thumb"
+                        class="t-unformated t-product-gallery__thumb"
                         type="button"
                         data-product-gallery-thumb
                         data-image-url="{{ image.url | escape_attr }}"
@@ -154,13 +160,13 @@
                         <img src="{{ image.url | escape_attr }}" alt="{{ image.alt | default: product_obj.title | escape_attr }}" loading="lazy" draggable="false" style="{{ thumb_img_fit_style }}">
                     </button>
                 {% endfor %}
-            {% endif %}
-        </div>
+            </div>
+        {% endif %}
 
-        <div class="tiendu-product-gallery__modal" data-product-gallery-modal data-open="false" aria-hidden="true" hidden>
-            <button class="tiendu-product-gallery__modal-backdrop" type="button" data-product-gallery-modal-close aria-label="Cerrar imagen ampliada"></button>
-            <img class="tiendu-product-gallery__modal-image" src="" alt="" data-product-gallery-modal-image>
-            <button class="tiendu-product-gallery__modal-close" type="button" data-product-gallery-modal-close aria-label="Cerrar imagen ampliada">
+        <div class="t-product-gallery__modal" data-product-gallery-modal data-open="false" aria-hidden="true" hidden>
+            <button class="t-unformated t-product-gallery__modal-backdrop" type="button" data-product-gallery-modal-close aria-label="Cerrar imagen ampliada"></button>
+            <img class="t-product-gallery__modal-image" src="" alt="" data-product-gallery-modal-image>
+            <button class="t-unformated t-product-gallery__modal-close" type="button" data-product-gallery-modal-close aria-label="Cerrar imagen ampliada">
                 {% render 'icon-x', size: 20, stroke_width: 2 %}
             </button>
         </div>

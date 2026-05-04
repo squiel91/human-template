@@ -199,7 +199,7 @@ const createCarousel = (root) => {
   const dots = root.querySelector('[data-role="dots"]')
   const prevButton = root.querySelector('[data-role="prev-image"]')
   const nextButton = root.querySelector('[data-role="next-image"]')
-  const slides = Array.from(track?.querySelectorAll('[data-tiendu-carousel-slide]') || [])
+  const slides = Array.from(track?.querySelectorAll('[data-t-carousel-slide]') || [])
 
   if (!(viewport instanceof HTMLElement) || !(track instanceof HTMLElement) || slides.length === 0) {
     return null
@@ -432,9 +432,9 @@ const createCarousel = (root) => {
 
 export const initCarousels = (scope = document) => {
   const root = scope instanceof HTMLElement ? scope : document.documentElement
-  const carousels = root.matches('[data-tiendu-carousel]')
+  const carousels = root.matches('[data-t-carousel]')
     ? [root]
-    : Array.from(root.querySelectorAll('[data-tiendu-carousel]'))
+    : Array.from(root.querySelectorAll('[data-t-carousel]'))
 
   for (const carousel of carousels) {
     createCarousel(carousel)

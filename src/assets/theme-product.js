@@ -302,7 +302,7 @@ export const initProductQuantityInputs = (scope = document) => {
 }
 
 export const initVariantSelectors = () => {
-  const productRoot = document.querySelector('.tiendu-main-product[data-product-root]')
+  const productRoot = document.querySelector('.t-main-product[data-product-root]')
   if (!(productRoot instanceof HTMLElement)) return
   if (productRoot.dataset.variantBound === 'true') return
 
@@ -563,7 +563,7 @@ const resolveInitialProductVariant = (productData, variantSelectorRoot) => {
 }
 
 export const initProductViewTracking = () => {
-  const productRoot = document.querySelector('.tiendu-main-product[data-product-root]')
+  const productRoot = document.querySelector('.t-main-product[data-product-root]')
   if (!(productRoot instanceof HTMLElement)) return
   if (productRoot.dataset.viewTrackingFired === 'true') return
 

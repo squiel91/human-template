@@ -94,7 +94,6 @@
                             "vertical_margin": "none",
                             "color": "custom",
                             "alignment": "inherit",
-                            "bold": true,
                             "italic": false,
                             "underline": false,
                             "line_through": false,
@@ -157,7 +156,7 @@
                                 "vertical_margin": "none",
                                 "color": "custom",
                                 "alignment": "inherit",
-                                "bold": true,
+                                "font_weight": "700",
                                 "italic": false,
                                 "underline": false,
                                 "line_through": false,
@@ -185,7 +184,6 @@
                                 "vertical_margin": "none",
                                 "color": "custom",
                                 "alignment": "inherit",
-                                "bold": false,
                                 "italic": false,
                                 "underline": false,
                                 "line_through": true,
@@ -223,62 +221,74 @@
                       },
                       "static": false
                     },
-                    "quantity": {
-                      "type": "product__quantity",
+                    "quantity_cart_row": {
+                      "type": "layout",
                       "settings": {
-                        "label": "Cantidad",
-                        "rounding": "theme"
-                      },
-                      "static": false
-                    },
-                    "add_to_cart": {
-                      "type": "button",
-                      "settings": {
-                        "action": "add_to_cart",
-                        "css_styles_desktop": "position: relative;\ndisplay: flex;\nalign-items: center;\njustify-content: center;\ngap: 8px;\ntext-decoration: none;\ncursor: pointer;\nborder: none;\nfont-family: inherit;\nline-height: 1;\nfont-weight: bold;\ntext-transform: uppercase;\npadding: 0.75rem 1.125rem;\nfont-size: 1rem;\nborder-radius: var(--button-input-border-radius, 0.375rem);\nbackground-color: var(--primary-color);\ncolor: white;\ntransition: opacity 0.2s ease;\n&:hover { opacity: 0.9; }\n&:disabled { opacity: 0.7; cursor: wait; }"
+                        "css_styles_desktop": "display: flex; align-items: center; gap: 12px; flex-wrap: wrap;"
                       },
                       "static": false,
                       "blocks": {
-                        "icon": {
-                          "type": "icon",
+                        "quantity": {
+                          "type": "product__quantity",
                           "settings": {
-                            "icon": "plus",
-                            "color": "custom",
-                            "size": "md",
-                            "stroke_width": "2",
-                            "custom_color": ""
+                            "label": "Cantidad",
+                            "rounding": "theme"
                           },
                           "static": false
                         },
-                        "text": {
-                          "type": "text",
+                        "add_to_cart": {
+                          "type": "button",
                           "settings": {
-                            "text": "Agregar al carrito",
-                            "text_type": "text",
-                            "vertical_margin": "none",
-                            "color": "custom",
-                            "alignment": "inherit",
-                            "bold": false,
-                            "italic": false,
-                            "underline": false,
-                            "line_through": false,
-                            "size_desktop": "inherit",
-                            "size_tablet": "",
-                            "size_mobile": ""
+                            "action": "add_to_cart",
+                            "css_styles_desktop": "position: relative;\ndisplay: flex;\nalign-items: center;\njustify-content: center;\ngap: 8px;\ntext-decoration: none;\ncursor: pointer;\nborder: none;\nfont-family: inherit;\nline-height: 1;\npadding: 0.75rem 1.125rem;\nfont-size: 1rem;\nborder-radius: var(--button-input-border-radius, 0.375rem);\nbackground-color: var(--primary-color);\ncolor: white;\ntransition: opacity 0.2s ease;\n&:hover { opacity: 0.9; }\n&:disabled { opacity: 0.7; cursor: wait; }"
                           },
-                          "static": false
+                          "static": false,
+                          "blocks": {
+                            "icon": {
+                              "type": "icon",
+                              "settings": {
+                                "icon": "plus",
+                                "color": "custom",
+                                "size": "md",
+                                "stroke_width": "2",
+                                "custom_color": ""
+                              },
+                              "static": false
+                            },
+                            "text": {
+                              "type": "text",
+                              "settings": {
+                                "text": "Agregar al carrito",
+                                "text_type": "text",
+                                "vertical_margin": "none",
+                                "color": "custom",
+                                "alignment": "inherit",
+                                "italic": false,
+                                "underline": false,
+                                "line_through": false,
+                                "size_desktop": "inherit",
+                                "size_tablet": "",
+                                "size_mobile": ""
+                              },
+                              "static": false
+                            }
+                          },
+                          "block_order": [
+                            "icon",
+                            "text"
+                          ]
                         }
                       },
                       "block_order": [
-                        "icon",
-                        "text"
+                        "quantity",
+                        "add_to_cart"
                       ]
                     },
                     "share": {
                       "type": "button",
                       "settings": {
                         "action": "share",
-                        "css_styles_desktop": "position: relative;\ndisplay: flex;\nalign-items: center;\njustify-content: center;\ngap: 8px;\ntext-decoration: none;\ncursor: pointer;\nborder: none;\nfont-family: inherit;\nline-height: 1;\nfont-weight: bold;\ntext-transform: uppercase;\npadding: 0.75rem 1.125rem;\nfont-size: 1rem;\nborder-radius: var(--button-input-border-radius, 0.375rem);\nbackground-color: transparent;\ncolor: var(--primary-color);\ntransition: background-color 0.2s ease;\n&:hover { background-color: rgba(0, 0, 0, 0.06); }\n&:disabled { opacity: 0.7; cursor: wait; }"
+                        "css_styles_desktop": "position: relative;\ndisplay: flex;\nalign-items: center;\njustify-content: center;\ngap: 8px;\ntext-decoration: none;\ncursor: pointer;\nborder: none;\nfont-family: inherit;\nline-height: 1;\npadding: 0.75rem 1.125rem;\nfont-size: 1rem;\nborder-radius: var(--button-input-border-radius, 0.375rem);\nbackground-color: transparent;\ncolor: var(--primary-color);\ntransition: background-color 0.2s ease;\n&:hover { background-color: rgba(0, 0, 0, 0.06); }\n&:disabled { opacity: 0.7; cursor: wait; }"
                       },
                       "static": false,
                       "blocks": {
@@ -301,7 +311,6 @@
                             "vertical_margin": "none",
                             "color": "custom",
                             "alignment": "inherit",
-                            "bold": false,
                             "italic": false,
                             "underline": false,
                             "line_through": false,
@@ -344,7 +353,6 @@
                             "vertical_margin": "none",
                             "color": "custom",
                             "alignment": "inherit",
-                            "bold": false,
                             "italic": false,
                             "underline": false,
                             "line_through": false,
@@ -374,7 +382,6 @@
                             "vertical_margin": "none",
                             "color": "custom",
                             "alignment": "inherit",
-                            "bold": false,
                             "italic": false,
                             "underline": false,
                             "line_through": false,
@@ -401,8 +408,7 @@
                     "pricing_row",
                     "selectors",
                     "stock_status",
-                    "quantity",
-                    "add_to_cart",
+                    "quantity_cart_row",
                     "share",
                     "purchase_benefits"
                   ]
@@ -451,7 +457,6 @@
                     "vertical_margin": "none",
                     "color": "custom",
                     "alignment": "inherit",
-                    "bold": true,
                     "italic": false,
                     "underline": false,
                     "line_through": false,
@@ -474,7 +479,6 @@
                         "vertical_margin": "none",
                         "color": "custom",
                         "alignment": "inherit",
-                        "bold": false,
                         "italic": false,
                         "underline": false,
                         "line_through": false,
@@ -565,7 +569,6 @@
                             "vertical_margin": "none",
                             "color": "custom",
                             "alignment": "inherit",
-                            "bold": true,
                             "italic": false,
                             "underline": false,
                             "line_through": false,
@@ -583,7 +586,7 @@
                     "verified_badge": {
                       "type": "layout",
                       "settings": {
-                        "css_styles_desktop": "display: inline-flex; align-items: center; gap: 8px; width: fit-content; padding: 8px 14px; border: 1px solid #99f6e4; border-radius: 9999px; background-color: #ecfdf5; color: #115e59; font-weight: 700; line-height: 1;"
+                        "css_styles_desktop": "display: inline-flex; align-items: center; gap: 8px; width: fit-content; padding: 8px 14px; border: 1px solid #99f6e4; border-radius: 9999px; background-color: #ecfdf5; color: #115e59; line-height: 1;"
                       },
                       "static": false,
                       "blocks": {
@@ -606,7 +609,7 @@
                             "vertical_margin": "none",
                             "color": "custom",
                             "alignment": "inherit",
-                            "bold": true,
+                            "font_weight": "700",
                             "italic": false,
                             "underline": false,
                             "line_through": false,
@@ -656,7 +659,7 @@
                                 "vertical_margin": "none",
                                 "color": "custom",
                                 "alignment": "inherit",
-                                "bold": true,
+                                "font_weight": "700",
                                 "italic": false,
                                 "underline": false,
                                 "line_through": false,
@@ -705,7 +708,6 @@
                                 "vertical_margin": "none",
                                 "color": "custom",
                                 "alignment": "inherit",
-                                "bold": false,
                                 "italic": false,
                                 "underline": false,
                                 "line_through": false,
@@ -788,7 +790,7 @@
                                                 "vertical_margin": "none",
                                                 "color": "custom",
                                                 "alignment": "inherit",
-                                                "bold": true,
+                                                "font_weight": "700",
                                                 "italic": false,
                                                 "underline": false,
                                                 "line_through": false,
@@ -806,7 +808,7 @@
                                         "verified": {
                                           "type": "layout",
                                           "settings": {
-                                            "css_styles_desktop": "display: inline-flex; align-items: center; gap: 6px; width: fit-content; padding: 6px 10px; border: 1px solid #99f6e4; border-radius: 9999px; background-color: #ecfdf5; color: #115e59; font-size: 0.8125rem; font-weight: 700; line-height: 1;"
+                                            "css_styles_desktop": "display: inline-flex; align-items: center; gap: 6px; width: fit-content; padding: 6px 10px; border: 1px solid #99f6e4; border-radius: 9999px; background-color: #ecfdf5; color: #115e59; font-size: 0.8125rem; line-height: 1;"
                                           },
                                           "static": false,
                                           "blocks": {
@@ -829,7 +831,7 @@
                                                 "vertical_margin": "none",
                                                 "color": "custom",
                                                 "alignment": "inherit",
-                                                "bold": true,
+                                                "font_weight": "700",
                                                 "italic": false,
                                                 "underline": false,
                                                 "line_through": false,
@@ -890,7 +892,6 @@
                                         "vertical_margin": "none",
                                         "color": "custom",
                                         "alignment": "inherit",
-                                        "bold": false,
                                         "italic": false,
                                         "underline": false,
                                         "line_through": false,
@@ -919,7 +920,6 @@
                                         "vertical_margin": "none",
                                         "color": "custom",
                                         "alignment": "inherit",
-                                        "bold": false,
                                         "italic": false,
                                         "underline": false,
                                         "line_through": false,
@@ -978,7 +978,6 @@
                                     "vertical_margin": "none",
                                     "color": "custom",
                                     "alignment": "inherit",
-                                    "bold": false,
                                     "italic": false,
                                     "underline": false,
                                     "line_through": false,
@@ -1055,7 +1054,6 @@
                     "vertical_margin": "none",
                     "color": "custom",
                     "alignment": "inherit",
-                    "bold": true,
                     "italic": false,
                     "underline": false,
                     "line_through": false,
@@ -1129,7 +1127,6 @@
                                         "vertical_margin": "none",
                                         "color": "custom",
                                         "alignment": "inherit",
-                                        "bold": false,
                                         "italic": false,
                                         "underline": false,
                                         "line_through": false,
@@ -1184,7 +1181,7 @@
                                             "vertical_margin": "none",
                                             "color": "custom",
                                             "alignment": "inherit",
-                                            "bold": true,
+                                            "font_weight": "700",
                                             "italic": false,
                                             "underline": false,
                                             "line_through": false,
@@ -1212,7 +1209,6 @@
                                             "vertical_margin": "none",
                                             "color": "custom",
                                             "alignment": "inherit",
-                                            "bold": false,
                                             "italic": false,
                                             "underline": false,
                                             "line_through": true,

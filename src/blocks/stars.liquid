@@ -53,7 +53,7 @@
         {{ block.settings.css_styles_desktop }}
     }
 
-    #{{ stars_id }} .tiendu-stars__container {
+    #{{ stars_id }} .t-stars__container {
         position: relative;
         display: inline-flex;
         align-items: center;
@@ -70,18 +70,18 @@
         stroke: currentColor;
     }
 
-    #{{ stars_id }} .tiendu-stars__background,
-    #{{ stars_id }} .tiendu-stars__fill {
+    #{{ stars_id }} .t-stars__background,
+    #{{ stars_id }} .t-stars__fill {
         display: inline-flex;
         align-items: center;
         gap: 0.125rem;
     }
 
-    #{{ stars_id }} .tiendu-stars__background {
+    #{{ stars_id }} .t-stars__background {
         color: #d1d5db;
     }
 
-    #{{ stars_id }} .tiendu-stars__fill {
+    #{{ stars_id }} .t-stars__fill {
         position: absolute;
         top: 0;
         left: 0;
@@ -90,7 +90,7 @@
         width: {{ fill_percentage }}%;
     }
 
-    #{{ stars_id }} .tiendu-stars__value {
+    #{{ stars_id }} .t-stars__value {
         display: inline-flex;
         align-items: center;
         font-size: 0.875rem;
@@ -111,21 +111,21 @@
     }
 </style>
 
-<div {{ block.tiendu_attributes }} id="{{ stars_id }}" class="tiendu-stars">
-    <div class="tiendu-stars__container">
-        <div class="tiendu-stars__background" aria-hidden="true">
+<div {{ block.tiendu_attributes }} id="{{ stars_id }}" class="t-stars">
+    <div class="t-stars__container">
+        <div class="t-stars__background" aria-hidden="true">
             {% for i in (1..star_count) %}
                 {{ star_icon }}
             {% endfor %}
         </div>
-        <div class="tiendu-stars__fill" aria-hidden="true">
+        <div class="t-stars__fill" aria-hidden="true">
             {% for i in (1..star_count) %}
                 {{ star_icon }}
             {% endfor %}
         </div>
     </div>
     {% if show_value_and_quantity %}
-        <span class="tiendu-stars__value">{{ rating_label }} ({{ reviews_quantity }})</span>
+        <span class="t-stars__value">{{ rating_label }} ({{ reviews_quantity }})</span>
     {% endif %}
 </div>
 

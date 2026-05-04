@@ -1,4 +1,4 @@
-{% assign input_id = 'tiendu__newsletter-input-' | append: section.id | append: '-' | append: block.id %}
+{% assign input_id = 'tiendu__input-' | append: section.id | append: '-' | append: block.id %}
 {% assign placeholder = block.settings.placeholder | default: 'tu@email.com' %}
 {% assign input_type = block.settings.input_type | default: 'email' %}
 {% assign input_rounding = block.settings.rounding | default: 'theme' %}
@@ -66,6 +66,7 @@
 <input
     {{ block.tiendu_attributes }}
     id="{{ input_id }}"
+    class="t-unformated"
     type="{{ input_type }}"
     name="{{ input_type }}"
     placeholder="{{ placeholder }}"
@@ -194,7 +195,7 @@
     ],
     "presets": [
         {
-            "name": "input",
+            "name": "default",
             "settings": {
                 "rounding": "theme"
             }

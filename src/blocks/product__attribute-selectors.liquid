@@ -1,7 +1,7 @@
 {% assign product_obj = closest.product | default: product %}
 
-{% if product_obj or design_mode or preview_mode %}
-    <div id="variant-selector" class="tiendu-variant-selector" {{ block.tiendu_attributes }}>
+{% if product_obj and product_obj.attributes and product_obj.attributes.size > 0 %}
+    <div id="variant-selector" class="t-variant-selector" {{ block.tiendu_attributes }}>
         {% for attribute in product_obj.attributes %}
             {% assign selected_value_id = blank %}
             {% assign selected_value_label = 'Selecciona una opción' %}
@@ -30,10 +30,10 @@
                     {% endif %}
                 {% endfor %}
 
-                <fieldset class="tiendu-variant-selector__field">
-                    <legend class="tiendu-variant-selector__legend">{{ attribute.name | escape }}</legend>
+                <fieldset class="t-unformated t-variant-selector__field">
+                    <legend class="t-unformated t-variant-selector__legend">{{ attribute.name | escape }}</legend>
                     <div class="variant-select" data-attribute-id="{{ attribute.id }}">
-                        <button class="variant-select__trigger" type="button" data-variant-select-trigger aria-haspopup="listbox" aria-expanded="false">
+                        <button class="t-unformated variant-select__trigger" type="button" data-variant-select-trigger aria-haspopup="listbox" aria-expanded="false">
                             <span class="variant-select__trigger-swatch{% if has_selected_value == false or selected_value_image_url == blank and selected_value_color == blank %} variant-select__trigger-swatch--hidden{% endif %}" data-variant-select-trigger-swatch aria-hidden="true">
                                 {% if has_selected_value and selected_value_image_url != blank %}
                                     <span class="variant-select__swatch"><img src="{{ selected_value_image_url | escape_attr }}" alt="" loading="lazy"></span>
@@ -46,7 +46,7 @@
                         </button>
                         <div class="variant-select__menu" data-variant-select-menu role="listbox" hidden>
                             {% for value in attribute.values %}
-                                <button class="variant-select__option" type="button" data-value-id="{{ value.id }}" data-label="{{ value.value | escape_attr }}"{% if value.color != blank %} data-color="{{ value.color | escape_attr }}"{% endif %}{% if value.image != blank and value.image.url != blank %} data-image-url="{{ value.image.url | escape_attr }}"{% endif %} aria-selected="{% if selected_value_id == value.id %}true{% else %}false{% endif %}">
+                                <button class="t-unformated variant-select__option" type="button" data-value-id="{{ value.id }}" data-label="{{ value.value | escape_attr }}"{% if value.color != blank %} data-color="{{ value.color | escape_attr }}"{% endif %}{% if value.image != blank and value.image.url != blank %} data-image-url="{{ value.image.url | escape_attr }}"{% endif %} aria-selected="{% if selected_value_id == value.id %}true{% else %}false{% endif %}">
                                     {% if value.image != blank and value.image.url != blank %}
                                         <span class="variant-select__swatch"><img src="{{ value.image.url | escape_attr }}" alt="" loading="lazy"></span>
                                     {% elsif value.color != blank %}
@@ -59,11 +59,11 @@
                     </div>
                 </fieldset>
             {% else %}
-                <fieldset class="tiendu-variant-selector__field" data-attribute-name="{{ attribute.name | escape_attr }}">
-                    <legend class="tiendu-variant-selector__legend">{{ attribute.name | escape }}</legend>
-                    <div class="tiendu-variant-selector__chips">
+                <fieldset class="t-unformated t-variant-selector__field" data-attribute-name="{{ attribute.name | escape_attr }}">
+                    <legend class="t-unformated t-variant-selector__legend">{{ attribute.name | escape }}</legend>
+                    <div class="t-variant-selector__chips">
                         {% for value in attribute.values %}
-                            <button type="button" class="option-chip{% if value.image == blank and value.color == blank %} option-chip--text{% endif %}" data-attribute-id="{{ attribute.id }}" data-value-id="{{ value.id }}" aria-pressed="{% if selected_value_id == value.id %}true{% else %}false{% endif %}">
+                            <button type="button" class="t-unformated option-chip{% if value.image == blank and value.color == blank %} option-chip--text{% endif %}" data-attribute-id="{{ attribute.id }}" data-value-id="{{ value.id }}" aria-pressed="{% if selected_value_id == value.id %}true{% else %}false{% endif %}">
                                 {% if value.image != blank and value.image.url != blank %}
                                     <span class="variant-select__swatch"><img src="{{ value.image.url | escape_attr }}" alt="" loading="lazy"></span>
                                 {% elsif value.color != blank %}

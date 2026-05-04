@@ -1,6 +1,23 @@
 {% assign product_obj = closest.product | default: product %}
 {% assign average_rating = product_obj.averageRating %}
 {% assign reviews_quantity = product_obj.reviewsQuantity | default: 0 %}
+
+{% assign product_reviews = product_obj.reviews %}
+{% if request.page_type == 'product' and product_page.reviews != blank %}
+    {% assign product_reviews = product_page.reviews %}
+{% endif %}
+
+{% if reviews_quantity == 0 or average_rating == blank %}
+    {% if product_reviews and product_reviews.size > 0 %}
+        {% assign reviews_quantity = product_reviews.size %}
+        {% assign total_rating = 0 %}
+        {% for review in product_reviews %}
+            {% assign total_rating = total_rating | plus: review.rating %}
+        {% endfor %}
+        {% assign average_rating = total_rating | times: 1.0 | divided_by: reviews_quantity %}
+    {% endif %}
+{% endif %}
+
 {% assign child_blocks = block.children | default: block.blocks %}
 {% assign rating_value = average_rating | default: 0 %}
 {% assign can_render_reviews = false %}

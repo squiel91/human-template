@@ -1,7 +1,7 @@
 {% assign popup_id = 'tiendu__newsletter-popup-' | append: section.id %}
 
 <style>
-    .tiendu-popup-open {
+    .t-popup-open {
         overflow: hidden;
     }
 
@@ -19,13 +19,13 @@
         display: none;
     }
 
-    #{{ popup_id }} .tiendu-newsletter-popup__overlay {
+    #{{ popup_id }} .t-newsletter-popup__overlay {
         position: absolute;
         inset: 0;
         background: rgba(17, 24, 39, 0.45);
     }
 
-    #{{ popup_id }} .tiendu-newsletter-popup__surface {
+    #{{ popup_id }} .t-newsletter-popup__surface {
         position: relative;
         z-index: 1;
         width: min(100%, 28rem);
@@ -36,7 +36,7 @@
             padding: 16px;
         }
 
-        #{{ popup_id }} .tiendu-newsletter-popup__surface {
+        #{{ popup_id }} .t-newsletter-popup__surface {
             width: 100%;
         }
     }
@@ -44,7 +44,7 @@
 
 <section
     id="{{ popup_id }}"
-    class="tiendu-newsletter-popup"
+    class="t-newsletter-popup"
     data-newsletter-popup-root
     data-popup-key="{{ section.settings.popup_key | escape }}"
     data-popup-delay-seconds="{{ section.settings.delay_seconds | default: 6 }}"
@@ -52,9 +52,9 @@
     hidden
     aria-hidden="true"
 >
-    <div class="tiendu-newsletter-popup__overlay" aria-hidden="true"></div>
+    <div class="t-newsletter-popup__overlay" aria-hidden="true"></div>
 
-    <div class="tiendu-newsletter-popup__surface" role="dialog" aria-modal="true" aria-label="Newsletter">
+    <div class="t-newsletter-popup__surface" role="dialog" aria-modal="true" aria-label="Newsletter">
         {% if section.blocks and section.blocks.size > 0 %}
             {% content_for 'blocks' %}
         {% elsif design_mode or preview_mode %}
@@ -136,7 +136,7 @@
                                 "text": "NEWSLETTER",
                                 "size_desktop": "sm",
                                 "custom_color": "#f9fafb",
-                                "css_styles_desktop": "letter-spacing: 0.12em; text-transform: uppercase;"
+                                "css_styles_desktop": "letter-spacing: 0.12em;"
                             }
                         },
                         "heading": {
@@ -144,7 +144,6 @@
                             "settings": {
                                 "text": "Llevate un beneficio especial.",
                                 "text_type": "section_title",
-                                "bold": true,
                                 "size_desktop": "3xl",
                                 "custom_color": "#ffffff",
                                 "css_styles_desktop": "max-width: 12ch;"
@@ -169,7 +168,7 @@
                                     },
                                     "blocks": {
                                         "email_input": {
-                                            "type": "newsletter-input",
+                                            "type": "input",
                                             "settings": {
                                                 "rounding": "theme",
                                                 "placeholder": "Ingresá tu email",

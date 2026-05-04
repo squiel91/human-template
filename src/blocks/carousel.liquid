@@ -5,39 +5,39 @@
 {% assign block_attributes = block.tiendu_attributes %}
 
 <div
-    class="tiendu-carousel"
-    data-tiendu-carousel
+    class="t-carousel"
+    data-t-carousel
     data-autoplay-enabled="{% if block.settings.autoplay %}true{% else %}false{% endif %}"
     data-autoplay-interval="{{ autoplay_seconds | times: 1000 }}"
     style="--carousel-min-height-mobile: {{ height_mobile }}; --carousel-min-height-tablet: {{ height_tablet }}; --carousel-min-height-desktop: {{ height_desktop }};"
     {{ block_attributes }}
 >
     {% if block.blocks and block.blocks.size > 0 %}
-        <div class="tiendu-carousel__viewport" data-role="viewport" data-dragging="false">
-            <div class="tiendu-carousel__track" data-role="track">
+        <div class="t-carousel__viewport" data-role="viewport" data-dragging="false">
+            <div class="t-carousel__track" data-role="track">
                 {% content_for 'blocks' %}
             </div>
         </div>
 
         {% if block.settings.show_arrows %}
-            <button class="tiendu-nav-arrow tiendu-nav-arrow--prev" type="button" data-role="prev-image" aria-label="Slide anterior"{% if block.blocks.size <= 1 %} hidden{% endif %}>
-                <span class="tiendu-carousel__arrow-icon">{% render 'icon-arrow-right', size: 16, stroke_width: 2.5 %}</span>
+            <button class="t-unformated t-nav-arrow t-nav-arrow--prev" type="button" data-role="prev-image" aria-label="Slide anterior"{% if block.blocks.size <= 1 %} hidden{% endif %}>
+                <span class="t-carousel__arrow-icon">{% render 'icon-arrow-right', size: 16, stroke_width: 2.5 %}</span>
             </button>
         {% endif %}
 
         {% if block.settings.show_dots %}
-            <div class="tiendu-carousel__controls" aria-label="Controles del carrusel">
-                <div class="tiendu-carousel__dots" data-role="dots" role="tablist" aria-label="Slides del carrusel"{% if block.blocks.size <= 1 %} hidden{% endif %}>
+            <div class="t-carousel__controls" aria-label="Controles del carrusel">
+                <div class="t-carousel__dots" data-role="dots" role="tablist" aria-label="Slides del carrusel"{% if block.blocks.size <= 1 %} hidden{% endif %}>
                     {% for child_block in block.blocks %}
-                        <button class="tiendu-carousel__dot{% if forloop.first %} is-active{% endif %}" type="button" data-dot-index="{{ forloop.index0 }}" role="tab" aria-label="Ir al slide {{ forloop.index }}" aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"></button>
+                        <button class="t-unformated t-carousel__dot{% if forloop.first %} is-active{% endif %}" type="button" data-dot-index="{{ forloop.index0 }}" role="tab" aria-label="Ir al slide {{ forloop.index }}" aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"></button>
                     {% endfor %}
                 </div>
             </div>
         {% endif %}
 
         {% if block.settings.show_arrows %}
-            <button class="tiendu-nav-arrow tiendu-nav-arrow--next" type="button" data-role="next-image" aria-label="Slide siguiente"{% if block.blocks.size <= 1 %} hidden{% endif %}>
-                <span class="tiendu-carousel__arrow-icon">{% render 'icon-arrow-right', size: 16, stroke_width: 2.5 %}</span>
+            <button class="t-unformated t-nav-arrow t-nav-arrow--next" type="button" data-role="next-image" aria-label="Slide siguiente"{% if block.blocks.size <= 1 %} hidden{% endif %}>
+                <span class="t-carousel__arrow-icon">{% render 'icon-arrow-right', size: 16, stroke_width: 2.5 %}</span>
             </button>
         {% endif %}
     {% elsif design_mode or preview_mode %}

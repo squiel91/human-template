@@ -45,7 +45,7 @@
         outline-offset: 2px;
     }
 
-    #{{ sort_id }} .tiendu-collection-sort__icon {
+    #{{ sort_id }} .t-collection-sort__icon {
         position: absolute;
         right: 0.75rem;
         top: 50%;
@@ -59,6 +59,7 @@
 <div id="{{ sort_id }}" data-collection-sort>
     <select
         {{ block.tiendu_attributes }}
+        class="t-unformated"
         name="sort_by"
         aria-label="Ordenar productos"
     >
@@ -71,7 +72,7 @@
             </option>
         {% endfor %}
     </select>
-    <span class="tiendu-collection-sort__icon" aria-hidden="true">
+    <span class="t-collection-sort__icon" aria-hidden="true">
         {% render 'icon-chevron-down', size: 16, stroke_width: 2 %}
     </span>
 </div>

@@ -15,13 +15,13 @@ export const setSideMenuOpen = (open) => {
     root.dataset.closing = 'false'
     root.dataset.open = 'true'
     root.setAttribute('aria-hidden', 'false')
-    document.body.classList.add('tiendu-side-menu-open')
+    document.body.classList.add('t-side-menu-open')
     return
   }
 
   root.dataset.closing = 'true'
   root.dataset.open = 'false'
-  document.body.classList.remove('tiendu-side-menu-open')
+  document.body.classList.remove('t-side-menu-open')
   root.__sideMenuCloseTimer = window.setTimeout(() => {
     root.dataset.closing = 'false'
     root.setAttribute('aria-hidden', 'true')
@@ -39,7 +39,7 @@ const getPopupStorage = () => {
 
 const syncPopupBodyState = () => {
   const hasOpenPopup = document.querySelector('[data-newsletter-popup-root]:not([hidden])')
-  document.body.classList.toggle('tiendu-popup-open', Boolean(hasOpenPopup))
+  document.body.classList.toggle('t-popup-open', Boolean(hasOpenPopup))
 }
 
 const getPopupStorageKey = (root) => {

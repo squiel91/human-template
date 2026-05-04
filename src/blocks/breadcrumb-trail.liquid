@@ -40,7 +40,7 @@
 {% endif %}
 
 {% capture separator_markup %}
-    <span class="tiendu-breadcrumbs__separator" aria-hidden="true">
+    <span class="t-breadcrumbs__separator" aria-hidden="true">
         {% case separator_icon %}
             {% when 'arrow-right' %}
                 {% render 'icon-arrow-right', size: 14, stroke_width: 2 %}
@@ -69,7 +69,7 @@
         {{ block.settings.css_styles_desktop }}
     }
 
-    #{{ breadcrumbs_id }} .tiendu-breadcrumbs__list {
+    #{{ breadcrumbs_id }} .t-breadcrumbs__list {
         display: flex;
         align-items: center;
         flex-wrap: nowrap;
@@ -81,7 +81,7 @@
         overflow: hidden;
     }
 
-    #{{ breadcrumbs_id }} .tiendu-breadcrumbs__item {
+    #{{ breadcrumbs_id }} .t-breadcrumbs__item {
         display: inline-flex;
         align-items: center;
         gap: 0.375rem;
@@ -91,15 +91,15 @@
         overflow: hidden;
     }
 
-    #{{ breadcrumbs_id }} .tiendu-breadcrumbs__item:first-child {
+    #{{ breadcrumbs_id }} .t-breadcrumbs__item:first-child {
         flex-shrink: 0;
     }
 
-    #{{ breadcrumbs_id }} .tiendu-breadcrumbs__item:last-child {
+    #{{ breadcrumbs_id }} .t-breadcrumbs__item:last-child {
         flex: 1 1 auto;
     }
 
-    #{{ breadcrumbs_id }} .tiendu-breadcrumbs__link {
+    #{{ breadcrumbs_id }} .t-breadcrumbs__link {
         color: var(--color-primary, #0000FF);
         font-weight: 400;
         text-decoration: none;
@@ -107,11 +107,11 @@
         text-overflow: ellipsis;
     }
 
-    #{{ breadcrumbs_id }} .tiendu-breadcrumbs__link:hover {
+    #{{ breadcrumbs_id }} .t-breadcrumbs__link:hover {
         text-decoration: none;
     }
 
-    #{{ breadcrumbs_id }} .tiendu-breadcrumbs__current {
+    #{{ breadcrumbs_id }} .t-breadcrumbs__current {
         color: currentColor;
         font-weight: 400;
         overflow: hidden;
@@ -119,7 +119,7 @@
         white-space: nowrap;
     }
 
-    #{{ breadcrumbs_id }} .tiendu-breadcrumbs__separator {
+    #{{ breadcrumbs_id }} .t-breadcrumbs__separator {
         display: inline-flex;
         align-items: center;
         justify-content: center;
@@ -145,23 +145,23 @@
 <nav
     {{ block.tiendu_attributes }}
     id="{{ breadcrumbs_id }}"
-    class="tiendu-breadcrumbs"
+    class="t-breadcrumbs"
     aria-label="Breadcrumb"
 >
-    <ol class="tiendu-breadcrumbs__list">
-        <li class="tiendu-breadcrumbs__item">
-            <a class="tiendu-breadcrumbs__link" href="/">{{ home_label | escape }}</a>
+    <ol class="t-unformated t-breadcrumbs__list">
+        <li class="t-unformated t-breadcrumbs__item">
+            <a class="t-unformated t-breadcrumbs__link" href="/">{{ home_label | escape }}</a>
         </li>
         {% if has_valid_breadcrumb_context and show_current and request.page_type != 'index' and current_title != blank %}
-            <li class="tiendu-breadcrumbs__item">
+            <li class="t-unformated t-breadcrumbs__item">
                 {{ separator_markup }}
-                <a class="tiendu-breadcrumbs__link" href="{{ breadcrumb_from_url | escape_attr }}">{{ breadcrumb_from_title | escape }}</a>
+                <a class="t-unformated t-breadcrumbs__link" href="{{ breadcrumb_from_url | escape_attr }}">{{ breadcrumb_from_title | escape }}</a>
             </li>
         {% endif %}
         {% if show_current and request.page_type != 'index' and current_title != blank %}
-            <li class="tiendu-breadcrumbs__item">
+            <li class="t-unformated t-breadcrumbs__item">
                 {{ separator_markup }}
-                <span class="tiendu-breadcrumbs__current" aria-current="page">{{ current_title | escape }}</span>
+                <span class="t-breadcrumbs__current" aria-current="page">{{ current_title | escape }}</span>
             </li>
         {% endif %}
     </ol>
