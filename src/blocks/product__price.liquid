@@ -10,9 +10,7 @@
     {% assign price_text_id = 'product-price-' | append: block_render_id %}
 {% endif %}
 
-{% if product_page and product_page.price and product_page.price.price_in_cents != blank %}
-    {% capture price_label %}{% if product_page.price.price_is_from %}Desde {% endif %}{{ product_page.price.price_in_cents | money }}{% endcapture %}
-{% elsif product_obj and product_obj.variants and product_obj.variants.size > 0 %}
+{% if product_obj and product_obj.variants and product_obj.variants.size > 0 %}
     {% assign min_price = blank %}
     {% assign max_price = blank %}
     {% for variant in product_obj.variants %}

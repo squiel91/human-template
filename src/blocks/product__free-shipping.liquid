@@ -5,12 +5,7 @@
 {% assign all_variants_above = true %}
 {% assign variant_count = 0 %}
 
-{% if product_page and product_page.price and product_page.price.price_in_cents != blank %}
-    {% if product_page.price.price_in_cents < threshold_cents %}
-        {% assign all_variants_above = false %}
-    {% endif %}
-    {% assign variant_count = variant_count | plus: 1 %}
-{% elsif product_obj and product_obj.variants and product_obj.variants.size > 0 %}
+{% if product_obj and product_obj.variants and product_obj.variants.size > 0 %}
     {% for variant in product_obj.variants %}
         {% if variant.priceInCents != blank %}
             {% if variant.priceInCents < threshold_cents %}
