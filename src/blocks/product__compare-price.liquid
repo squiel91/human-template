@@ -3,10 +3,11 @@
 {% assign compare_text_id = 'product-compare' %}
 
 {% if closest.product != blank or request.page_type != 'product' %}
-    {% assign compare_text_id = 'product-compare-' | append: section.id | append: '-' | append: block.id %}
-    {% if product_obj.id != blank %}
-        {% assign compare_text_id = compare_text_id | append: '-' | append: product_obj.id %}
+    {% assign block_render_id = block.render_id %}
+    {% if block_render_id == blank %}
+        {% assign block_render_id = section.id | append: '-' | append: block.id %}
     {% endif %}
+    {% assign compare_text_id = 'product-compare-' | append: block_render_id %}
 {% endif %}
 
 {% if product_page and product_page.price and product_page.price.compare_at_price_in_cents != blank %}

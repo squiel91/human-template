@@ -1,4 +1,8 @@
-{% assign gallery_id = 'tiendu__product-gallery-' | append: section.id | append: '-' | append: block.id %}
+{% assign block_render_id = block.render_id %}
+{% if block_render_id == blank %}
+    {% assign block_render_id = section.id | append: '-' | append: block.id %}
+{% endif %}
+{% assign gallery_id = 'tiendu__product-gallery-' | append: block_render_id %}
 {% assign product_obj = closest.product | default: product %}
 {% assign gallery_images = product_page.gallery_images %}
 {% assign primary_image = product_obj.coverImage %}

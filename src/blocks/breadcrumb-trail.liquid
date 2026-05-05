@@ -1,4 +1,8 @@
-{% assign breadcrumbs_id = 'tiendu__breadcrumbs-' | append: section.id | append: '-' | append: block.id %}
+{% assign block_render_id = block.render_id %}
+{% if block_render_id == blank %}
+    {% assign block_render_id = section.id | append: '-' | append: block.id %}
+{% endif %}
+{% assign breadcrumbs_id = 'tiendu__breadcrumbs-' | append: block_render_id %}
 {% assign home_label = block.settings.home_label | default: 'Inicio' %}
 {% assign separator_icon = block.settings.separator_icon | default: 'chevron-right' %}
 {% assign show_current = true %}
@@ -150,7 +154,7 @@
 >
     <ol class="t-unformated t-breadcrumbs__list">
         <li class="t-unformated t-breadcrumbs__item">
-            <a class="t-unformated t-breadcrumbs__link" href="/">{{ home_label | escape }}</a>
+            <a class="t-unformated t-breadcrumbs__link" href="/" data-editable-text="home_label">{{ home_label | escape }}</a>
         </li>
         {% if has_valid_breadcrumb_context and show_current and request.page_type != 'index' and current_title != blank %}
             <li class="t-unformated t-breadcrumbs__item">

@@ -1,4 +1,8 @@
-{% assign units_sold_id = 'tiendu__product-units-sold-' | append: section.id | append: '-' | append: block.id %}
+{% assign block_render_id = block.render_id %}
+{% if block_render_id == blank %}
+    {% assign block_render_id = section.id | append: '-' | append: block.id %}
+{% endif %}
+{% assign units_sold_id = 'tiendu__product-units-sold-' | append: block_render_id %}
 {% assign product_obj = closest.product | default: product %}
 {% assign units_sold = product_obj.unitsSold | default: 0 %}
 {% assign singular_label = block.settings.singular_label | default: 'vendido' %}

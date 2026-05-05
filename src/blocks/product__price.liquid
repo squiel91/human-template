@@ -3,10 +3,11 @@
 {% assign price_text_id = 'product-price' %}
 
 {% if closest.product != blank or request.page_type != 'product' %}
-    {% assign price_text_id = 'product-price-' | append: section.id | append: '-' | append: block.id %}
-    {% if product_obj.id != blank %}
-        {% assign price_text_id = price_text_id | append: '-' | append: product_obj.id %}
+    {% assign block_render_id = block.render_id %}
+    {% if block_render_id == blank %}
+        {% assign block_render_id = section.id | append: '-' | append: block.id %}
     {% endif %}
+    {% assign price_text_id = 'product-price-' | append: block_render_id %}
 {% endif %}
 
 {% if product_page and product_page.price and product_page.price.price_in_cents != blank %}

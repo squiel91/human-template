@@ -1,4 +1,8 @@
-{% assign image_id = 'tiendu__image-' | append: section.id | append: '-' | append: block.id %}
+{% assign block_render_id = block.render_id %}
+{% if block_render_id == blank %}
+    {% assign block_render_id = section.id | append: '-' | append: block.id %}
+{% endif %}
+{% assign image_id = 'tiendu__image-' | append: block_render_id %}
 {% assign configured_image = block.settings.image %}
 {% assign image_url = configured_image.url | default: configured_image | default: default_image.url | default: default_image %}
 {% assign image_rounding = block.settings.rounding | default: 'none' %}

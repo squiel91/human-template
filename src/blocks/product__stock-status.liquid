@@ -1,4 +1,8 @@
-{% assign stock_status_id = 'tiendu__product-stock-status-' | append: section.id | append: '-' | append: block.id %}
+{% assign block_render_id = block.render_id %}
+{% if block_render_id == blank %}
+    {% assign block_render_id = section.id | append: '-' | append: block.id %}
+{% endif %}
+{% assign stock_status_id = 'tiendu__product-stock-status-' | append: block_render_id %}
 {% assign product_obj = closest.product | default: product %}
 {% assign label_count_prefix = block.settings.label_count_prefix | default: 'Tenemos' %}
 {% assign label_count_suffix = block.settings.label_count_suffix | default: 'en stock' %}

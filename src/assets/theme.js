@@ -1,5 +1,5 @@
 import 'toast'
-import { getTiendu, setActionButtonLoading, setCartQuantity, syncCartQuantity } from 'theme-core'
+import { getTiendu, initFlyInIntros, setActionButtonLoading, setCartQuantity, syncCartQuantity } from 'theme-core'
 import { setSideMenuOpen, dismissPopup, initSideMenu, initNewsletterPopups, initProductShareButtons, initStickyHeaders } from 'theme-overlays'
 import { initProductGalleries, initCarousels } from 'theme-carousels'
 import { getProductQuantity, validateProductQuantity, initProductQuantityInputs, initVariantSelectors, initProductViewTracking } from 'theme-product'
@@ -120,6 +120,7 @@ const initTheme = () => {
   initCarousels()
   initCollectionSorts()
   initBreadcrumbContextLinks()
+  initFlyInIntros()
 
   if (buttons.some((button) => button.dataset.buttonAction === 'cart')) {
     void syncCartQuantity()

@@ -1,4 +1,8 @@
-{% assign icon_id = 'tiendu__icon-' | append: section.id | append: '-' | append: block.id %}
+{% assign block_render_id = block.render_id %}
+{% if block_render_id == blank %}
+    {% assign block_render_id = section.id | append: '-' | append: block.id %}
+{% endif %}
+{% assign icon_id = 'tiendu__icon-' | append: block_render_id %}
 {% assign icon_name = block.settings.icon | default: 'search' %}
 {% assign icon_color_option = block.settings.color | default: 'custom' %}
 

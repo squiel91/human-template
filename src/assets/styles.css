@@ -28,6 +28,27 @@ textarea.t-unformated {
     -webkit-appearance: none;
 }
 
+[data-fly-in-intro][data-fly-in-ready='true'] {
+    opacity: 0;
+    transform: translateY(1.5rem);
+    transition:
+        opacity 520ms ease,
+        transform 520ms ease;
+}
+
+[data-fly-in-intro][data-fly-in-visible='true'] {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    [data-fly-in-intro][data-fly-in-ready='true'] {
+        opacity: 1;
+        transform: none;
+        transition: none;
+    }
+}
+
 .t-image {
     position: relative;
 }

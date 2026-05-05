@@ -1,7 +1,11 @@
-{% assign stars_id = 'tiendu__stars-' | append: section.id | append: '-' | append: block.id %}
-{% assign rating = default_rating %}
-{% if rating == blank %}
-    {% assign rating = block.settings.rating | default: 5 %}
+{% assign stars_render_id = block.render_id %}
+{% if stars_render_id == blank %}
+    {% assign stars_render_id = section.id | append: '-' | append: block.id %}
+{% endif %}
+{% assign stars_id = 'tiendu__stars-' | append: stars_render_id %}
+{% assign rating = block.settings.rating | default: 0 %}
+{% if rating == 0 and default_rating != blank %}
+    {% assign rating = default_rating %}
 {% endif %}
 {% assign reviews_quantity = default_reviews_quantity | default: 0 %}
 {% assign star_color = block.settings.color | default: 'primary' %}
@@ -140,7 +144,7 @@
             "min": 0,
             "max": 5,
             "step": 0.1,
-            "default": 5
+            "default": 0
         },
         {
             "type": "select",

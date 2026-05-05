@@ -1,4 +1,4 @@
-<section class="t-main-collection">
+<section class="t-main-collection"{% if settings.animations %} data-fly-in-intro{% endif %}>
     {% if section.blocks and section.blocks.size > 0 %}
         {% content_for 'blocks' %}
     {% elsif design_mode or preview_mode %}

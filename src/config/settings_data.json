@@ -1,3 +1,5 @@
 {
-    "current": {}
+    "current": {
+        "animations": true
+    }
 }

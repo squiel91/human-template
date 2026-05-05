@@ -1,4 +1,8 @@
-{% assign link_id = 'tiendu__link-' | append: section.id | append: '-' | append: block.id %}
+{% assign block_render_id = block.render_id %}
+{% if block_render_id == blank %}
+    {% assign block_render_id = section.id | append: '-' | append: block.id %}
+{% endif %}
+{% assign link_id = 'tiendu__link-' | append: block_render_id %}
 {% assign open_in_new_tab = block.settings.open_in_new_tab %}
 
 <style>

@@ -1,4 +1,8 @@
-{% assign review_id = 'tiendu__review-' | append: section.id | append: '-' | append: block.id %}
+{% assign block_render_id = block.render_id %}
+{% if block_render_id == blank %}
+    {% assign block_render_id = section.id | append: '-' | append: block.id %}
+{% endif %}
+{% assign review_id = 'tiendu__review-' | append: block_render_id %}
 {% assign block_attributes = block.tiendu_attributes %}
 
 <div {{ block_attributes }} id="{{ review_id }}" class="t-review">

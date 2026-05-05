@@ -680,7 +680,7 @@
                                     "default-stars": {
                                       "type": "stars",
                                       "settings": {
-                                        "rating": 5,
+                                        "rating": 0,
                                         "color": "primary",
                                         "size": "md",
                                         "show_value_and_quantity": true
@@ -1226,7 +1226,7 @@
                                     "default-stars": {
                                       "type": "stars",
                                       "settings": {
-                                        "rating": 5,
+                                        "rating": 0,
                                         "color": "primary",
                                         "size": "md",
                                         "show_value_and_quantity": true

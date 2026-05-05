@@ -1,4 +1,8 @@
-{% assign quantity_id = 'tiendu__product-quantity-' | append: section.id | append: '-' | append: block.id %}
+{% assign block_render_id = block.render_id %}
+{% if block_render_id == blank %}
+    {% assign block_render_id = section.id | append: '-' | append: block.id %}
+{% endif %}
+{% assign quantity_id = 'tiendu__product-quantity-' | append: block_render_id %}
 {% assign quantity_rounding = block.settings.rounding | default: 'theme' %}
 {% assign quantity_max = product_page.quantity_max %}
 {% assign quantity_disabled = product_page.quantity_disabled %}

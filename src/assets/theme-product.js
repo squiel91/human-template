@@ -122,7 +122,7 @@ const getProductStockStatusContent = (root, stock) => {
 
   if (typeof stock === 'number') {
     if (stock > 0) {
-      const prefix = String(root.dataset.stockLabelCountPrefix || 'Tenemos').trim()
+      const prefix = String(root.dataset.stockLabelCountPrefix || 'Quedan').trim()
       const suffix = String(root.dataset.stockLabelCountSuffix || 'en stock').trim()
       return {
         tone: 'warning',

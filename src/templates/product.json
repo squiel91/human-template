@@ -124,7 +124,7 @@
                         "default-stars": {
                           "type": "stars",
                           "settings": {
-                            "rating": 5,
+                            "rating": 0,
                             "color": "primary",
                             "size": "lg",
                             "show_value_and_quantity": true
@@ -213,7 +213,7 @@
                     "stock_status": {
                       "type": "product__stock-status",
                       "settings": {
-                        "label_count_prefix": "Tenemos",
+                        "label_count_prefix": "Quedan",
                         "label_count_suffix": "en stock",
                         "label_available": "Tenemos en stock",
                         "label_unavailable": "No tenemos en stock",
@@ -683,7 +683,7 @@
                             "default-stars": {
                               "type": "stars",
                               "settings": {
-                                "rating": 5,
+                                "rating": 0,
                                 "color": "primary",
                                 "size": "xl",
                                 "show_value_and_quantity": false
@@ -861,7 +861,7 @@
                                         "stars-1": {
                                           "type": "stars",
                                           "settings": {
-                                            "rating": 5,
+                                            "rating": 0,
                                             "color": "primary",
                                             "size": "md",
                                             "show_value_and_quantity": false
@@ -1149,7 +1149,7 @@
                                     "default-stars": {
                                       "type": "stars",
                                       "settings": {
-                                        "rating": 5,
+                                        "rating": 0,
                                         "color": "primary",
                                         "size": "md",
                                         "show_value_and_quantity": true

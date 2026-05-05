@@ -1,4 +1,8 @@
-{% assign payment_id = 'tiendu__payment-method-' | append: section.id | append: '-' | append: block.id %}
+{% assign block_render_id = block.render_id %}
+{% if block_render_id == blank %}
+    {% assign block_render_id = section.id | append: '-' | append: block.id %}
+{% endif %}
+{% assign payment_id = 'tiendu__payment-method-' | append: block_render_id %}
 {% assign method = block.settings.method | default: 'visa' %}
 {% assign payment_label = 'Visa' %}
 {% assign asset_name = 'payment__visa.svg' %}

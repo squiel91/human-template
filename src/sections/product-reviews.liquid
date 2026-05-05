@@ -4,7 +4,7 @@
     {% assign product_reviews = product_page.reviews %}
 {% endif %}
 
-<section class="t-product-reviews">
+<section class="t-product-reviews"{% if settings.animations %} data-fly-in-intro{% endif %}>
     {% if section.blocks and section.blocks.size > 0 %}
         {% content_for 'blocks' %}
     {% elsif design_mode or preview_mode %}

@@ -35,6 +35,17 @@
         ]
     },
     {
+        "name": "Animations",
+        "settings": [
+            {
+                "type": "checkbox",
+                "id": "animations",
+                "label": "Intro fly in animation",
+                "default": true
+            }
+        ]
+    },
+    {
         "name": "Container",
         "settings": [
             {
@@ -61,14 +72,38 @@
                 "label": "Buttons and inputs",
                 "default": "md",
                 "options": [
-                    { "value": "none", "label": "None" },
-                    { "value": "sm", "label": "Sm" },
-                    { "value": "md", "label": "Md" },
-                    { "value": "lg", "label": "Lg" },
-                    { "value": "xl", "label": "Xl" },
-                    { "value": "2xl", "label": "2xl" },
-                    { "value": "3xl", "label": "3xl" },
-                    { "value": "full", "label": "Full" }
+                    {
+                        "value": "none",
+                        "label": "None"
+                    },
+                    {
+                        "value": "sm",
+                        "label": "Sm"
+                    },
+                    {
+                        "value": "md",
+                        "label": "Md"
+                    },
+                    {
+                        "value": "lg",
+                        "label": "Lg"
+                    },
+                    {
+                        "value": "xl",
+                        "label": "Xl"
+                    },
+                    {
+                        "value": "2xl",
+                        "label": "2xl"
+                    },
+                    {
+                        "value": "3xl",
+                        "label": "3xl"
+                    },
+                    {
+                        "value": "full",
+                        "label": "Full"
+                    }
                 ]
             },
             {
@@ -77,14 +112,38 @@
                 "label": "Product images",
                 "default": "none",
                 "options": [
-                    { "value": "none", "label": "None" },
-                    { "value": "sm", "label": "Sm" },
-                    { "value": "md", "label": "Md" },
-                    { "value": "lg", "label": "Lg" },
-                    { "value": "xl", "label": "Xl" },
-                    { "value": "2xl", "label": "2xl" },
-                    { "value": "3xl", "label": "3xl" },
-                    { "value": "full", "label": "Full" }
+                    {
+                        "value": "none",
+                        "label": "None"
+                    },
+                    {
+                        "value": "sm",
+                        "label": "Sm"
+                    },
+                    {
+                        "value": "md",
+                        "label": "Md"
+                    },
+                    {
+                        "value": "lg",
+                        "label": "Lg"
+                    },
+                    {
+                        "value": "xl",
+                        "label": "Xl"
+                    },
+                    {
+                        "value": "2xl",
+                        "label": "2xl"
+                    },
+                    {
+                        "value": "3xl",
+                        "label": "3xl"
+                    },
+                    {
+                        "value": "full",
+                        "label": "Full"
+                    }
                 ]
             }
         ]
@@ -99,12 +158,30 @@
                 "info": "Used when an image has the product default option selected.",
                 "default": "square",
                 "options": [
-                    { "value": "proportional", "label": "Image proportion" },
-                    { "value": "square", "label": "Square (1:1)" },
-                    { "value": "portrait", "label": "Portrait (3:4)" },
-                    { "value": "landscape", "label": "Landscape (4:3)" },
-                    { "value": "wide", "label": "Wide (16:9)" },
-                    { "value": "ultrawide", "label": "Ultrawide (21:9)" }
+                    {
+                        "value": "proportional",
+                        "label": "Image proportion"
+                    },
+                    {
+                        "value": "square",
+                        "label": "Square (1:1)"
+                    },
+                    {
+                        "value": "portrait",
+                        "label": "Portrait (3:4)"
+                    },
+                    {
+                        "value": "landscape",
+                        "label": "Landscape (4:3)"
+                    },
+                    {
+                        "value": "wide",
+                        "label": "Wide (16:9)"
+                    },
+                    {
+                        "value": "ultrawide",
+                        "label": "Ultrawide (21:9)"
+                    }
                 ]
             },
             {
@@ -114,12 +191,30 @@
                 "info": "Used when an image has the collection default option selected.",
                 "default": "square",
                 "options": [
-                    { "value": "proportional", "label": "Image proportion" },
-                    { "value": "square", "label": "Square (1:1)" },
-                    { "value": "portrait", "label": "Portrait (3:4)" },
-                    { "value": "landscape", "label": "Landscape (4:3)" },
-                    { "value": "wide", "label": "Wide (16:9)" },
-                    { "value": "ultrawide", "label": "Ultrawide (21:9)" }
+                    {
+                        "value": "proportional",
+                        "label": "Image proportion"
+                    },
+                    {
+                        "value": "square",
+                        "label": "Square (1:1)"
+                    },
+                    {
+                        "value": "portrait",
+                        "label": "Portrait (3:4)"
+                    },
+                    {
+                        "value": "landscape",
+                        "label": "Landscape (4:3)"
+                    },
+                    {
+                        "value": "wide",
+                        "label": "Wide (16:9)"
+                    },
+                    {
+                        "value": "ultrawide",
+                        "label": "Ultrawide (21:9)"
+                    }
                 ]
             }
         ]

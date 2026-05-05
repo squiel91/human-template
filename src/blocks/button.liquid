@@ -1,4 +1,8 @@
-{% assign button_id = 'tiendu__button-' | append: section.id | append: '-' | append: block.id %}
+{% assign block_render_id = block.render_id %}
+{% if block_render_id == blank %}
+    {% assign block_render_id = section.id | append: '-' | append: block.id %}
+{% endif %}
+{% assign button_id = 'tiendu__button-' | append: block_render_id %}
 {% assign button_action = block.settings.action | default: 'none' %}
 {% assign button_preset = block.preset | default: '' %}
 {% assign action_product = closest.product | default: product %}
