@@ -1,4 +1,4 @@
-<section class="t-main-collection"{% if settings.animations %} data-fly-in-intro{% endif %}>
+<section class="t-main-collection"{% assign show_animation = settings.animations %}{% if section.settings.enter_animation == "yes" %}{% assign show_animation = true %}{% elsif section.settings.enter_animation == "no" %}{% assign show_animation = false %}{% endif %}{% if show_animation %} data-fly-in-intro{% endif %}>
     {% if section.blocks and section.blocks.size > 0 %}
         {% content_for 'blocks' %}
     {% elsif design_mode or preview_mode %}
@@ -15,7 +15,28 @@
         ]
     },
     "max_blocks": 1,
-    "settings": [],
+    "settings": [
+        {
+            "type": "select",
+            "id": "enter_animation",
+            "label": "Enter animation",
+            "default": "theme_default",
+            "options": [
+                {
+                    "value": "theme_default",
+                    "label": "Theme default"
+                },
+                {
+                    "value": "no",
+                    "label": "No enter animation"
+                },
+                {
+                    "value": "yes",
+                    "label": "Enter animation"
+                }
+            ]
+        }
+    ],
     "blocks": [
         {
             "type": "layout"

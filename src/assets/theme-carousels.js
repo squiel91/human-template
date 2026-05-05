@@ -79,6 +79,7 @@ export const initProductGalleries = () => {
 
         modalImage.src = activeImage.currentSrc || activeImage.src
         modalImage.alt = activeImage.alt || ''
+        document.body.appendChild(modal)
         modal.hidden = false
         modal.setAttribute('aria-hidden', 'false')
         window.requestAnimationFrame(() => {
@@ -93,6 +94,11 @@ export const initProductGalleries = () => {
         modal.hidden = true
         modalImage.removeAttribute('src')
         modalImage.alt = ''
+        if (root.contains(modal)) {
+          // already back in root
+        } else {
+          root.appendChild(modal)
+        }
         modalCloseTimer = null
       }, 260)
     }

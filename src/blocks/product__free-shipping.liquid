@@ -1,0 +1,95 @@
+{% assign product_obj = closest.product | default: product %}
+{% assign threshold_raw = settings.free_shipping_threshold | default: 2000 %}
+{% assign threshold_cents = threshold_raw | times: 100 %}
+
+{% assign all_variants_above = true %}
+{% assign variant_count = 0 %}
+
+{% if product_page and product_page.price and product_page.price.price_in_cents != blank %}
+    {% if product_page.price.price_in_cents < threshold_cents %}
+        {% assign all_variants_above = false %}
+    {% endif %}
+    {% assign variant_count = variant_count | plus: 1 %}
+{% elsif product_obj and product_obj.variants and product_obj.variants.size > 0 %}
+    {% for variant in product_obj.variants %}
+        {% if variant.priceInCents != blank %}
+            {% if variant.priceInCents < threshold_cents %}
+                {% assign all_variants_above = false %}
+            {% endif %}
+            {% assign variant_count = variant_count | plus: 1 %}
+        {% endif %}
+    {% endfor %}
+{% endif %}
+
+{% if variant_count == 0 and product_obj and product_obj.basePriceInCents != blank %}
+    {% if product_obj.basePriceInCents < threshold_cents %}
+        {% assign all_variants_above = false %}
+    {% endif %}
+    {% assign variant_count = variant_count | plus: 1 %}
+{% endif %}
+
+{% assign show_badge = false %}
+{% if variant_count > 0 and all_variants_above %}
+    {% assign show_badge = true %}
+{% endif %}
+
+{% assign child_block = block.children | default: block.blocks | first %}
+
+<div {{ block.tiendu_attributes }}{% unless show_badge %} hidden{% endunless %}>
+    {% if child_block %}
+        {% content_for 'block', id: child_block.id, type: child_block.type %}
+    {% endif %}
+</div>
+
+{% schema %}
+{
+    "name": "product: free shipping",
+    "max_blocks": 1,
+    "settings": [],
+    "blocks": [
+        {
+            "type": "layout"
+        }
+    ],
+    "presets": [
+        {
+            "name": "default",
+            "blocks": {
+                "badge_layout": {
+                    "type": "layout",
+                    "static": true,
+                    "settings": {
+                        "css_styles_desktop": "display: inline-flex; align-items: center; gap: 6px; padding: 2px 8px; background-color: #16a34a; color: white; border-radius: 0.375rem; font-size: 0.75rem; width: fit-content; line-height: 1; text-transform: uppercase;"
+                    },
+                    "blocks": {
+                        "icon": {
+                            "type": "icon",
+                            "settings": {
+                                "icon": "truck",
+                                "color": "custom",
+                                "custom_color": "#ffffff",
+                                "size": "sm",
+                                "stroke_width": "2"
+                            }
+                        },
+                        "text": {
+                            "type": "text",
+                            "settings": {
+                                "text": "Envío gratis",
+                                "font_weight": "700"
+                            }
+                        }
+                    },
+                    "block_order": [
+                        "icon",
+                        "text"
+                    ]
+                }
+            },
+            "block_order": [
+                "badge_layout"
+            ]
+        }
+    ]
+}
+{% endschema %}

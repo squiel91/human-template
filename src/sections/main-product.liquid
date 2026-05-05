@@ -1,4 +1,4 @@
-<section class="t-main-product" data-product-root{% if settings.animations %} data-fly-in-intro{% endif %}>
+<section class="t-main-product" data-product-root{% assign show_animation = settings.animations %}{% if section.settings.enter_animation == "yes" %}{% assign show_animation = true %}{% elsif section.settings.enter_animation == "no" %}{% assign show_animation = false %}{% endif %}{% if show_animation %} data-fly-in-intro{% endif %}>
     {% if section.blocks and section.blocks.size > 0 %}
         {% content_for 'blocks' %}
     {% elsif design_mode or preview_mode %}
@@ -17,7 +17,28 @@
         ]
     },
     "max_blocks": 1,
-    "settings": [],
+    "settings": [
+        {
+            "type": "select",
+            "id": "enter_animation",
+            "label": "Enter animation",
+            "default": "theme_default",
+            "options": [
+                {
+                    "value": "theme_default",
+                    "label": "Theme default"
+                },
+                {
+                    "value": "no",
+                    "label": "No enter animation"
+                },
+                {
+                    "value": "yes",
+                    "label": "Enter animation"
+                }
+            ]
+        }
+    ],
     "blocks": [
         {
             "type": "layout"
@@ -221,17 +242,15 @@
                                         "purchase_benefits": {
                                             "type": "layout",
                                             "settings": {
-                                                "css_styles_desktop": "display: grid; grid-template-columns: min-content 1fr; column-gap: 12px; row-gap: 10px; align-items: center;",
-                                                "css_styles_mobile": "column-gap: 10px; row-gap: 8px;"
+                                                "css_styles_desktop": "display: grid; grid-template-columns: min-content 1fr; column-gap: 12px; row-gap: 4px; align-items: center;"
                                             },
                                             "blocks": {
                                                 "shipping_icon": {
                                                     "type": "icon",
                                                     "settings": {
                                                         "icon": "truck",
-                                                        "color": "custom",
-                                                        "custom_color": "#6b7280",
-                                                        "size": "sm",
+                                                        "color": "automatic",
+                                                        "size": "md",
                                                         "stroke_width": "2"
                                                     }
                                                 },
@@ -240,17 +259,15 @@
                                                     "settings": {
                                                         "text": "Envío gratis en pedidos superiores a $ 2.000",
                                                         "text_type": "paragraph",
-                                                        "size_desktop": "sm",
-                                                        "custom_color": "#6b7280"
+                                                        "size_desktop": "base"
                                                     }
                                                 },
                                                 "bank_transfer_icon": {
                                                     "type": "icon",
                                                     "settings": {
                                                         "icon": "piggy-bank",
-                                                        "color": "custom",
-                                                        "custom_color": "#6b7280",
-                                                        "size": "sm",
+                                                        "color": "automatic",
+                                                        "size": "md",
                                                         "stroke_width": "2"
                                                     }
                                                 },
@@ -259,8 +276,7 @@
                                                     "settings": {
                                                         "text": "10% OFF con transferencia bancaria",
                                                         "text_type": "paragraph",
-                                                        "size_desktop": "sm",
-                                                        "custom_color": "#6b7280"
+                                                        "size_desktop": "base"
                                                     }
                                                 }
                                             },

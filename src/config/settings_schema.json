@@ -38,15 +38,23 @@
         "name": "Animations",
         "settings": [
             {
+                "type": "header",
+                "content": "Section intro"
+            },
+            {
                 "type": "checkbox",
                 "id": "animations",
-                "label": "Intro fly in animation",
+                "label": "Activate fly in",
                 "default": true
+            },
+            {
+                "type": "header",
+                "content": "Page transition"
             },
             {
                 "type": "checkbox",
                 "id": "activate_page_transition",
-                "label": "Activate page transition",
+                "label": "Activate",
                 "default": false
             },
             {
@@ -253,6 +261,18 @@
                         "label": "Ultrawide (21:9)"
                     }
                 ]
+            }
+        ]
+    },
+    {
+        "name": "Product",
+        "settings": [
+            {
+                "type": "number",
+                "id": "free_shipping_threshold",
+                "label": "Free shipping threshold",
+                "info": "Products with a price equal to or above this value will show a free shipping badge.",
+                "default": 2000
             }
         ]
     },

@@ -39,7 +39,28 @@
         ]
     },
     "max_blocks": 1,
-    "settings": [],
+    "settings": [
+        {
+            "type": "select",
+            "id": "enter_animation",
+            "label": "Enter animation",
+            "default": "theme_default",
+            "options": [
+                {
+                    "value": "theme_default",
+                    "label": "Theme default"
+                },
+                {
+                    "value": "no",
+                    "label": "No enter animation"
+                },
+                {
+                    "value": "yes",
+                    "label": "Enter animation"
+                }
+            ]
+        }
+    ],
     "blocks": [
         {
             "type": "link"
