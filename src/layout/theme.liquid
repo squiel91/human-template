@@ -16,6 +16,15 @@
         {% assign seo_image_alt = blank %}
         {% assign search_query = blank %}
         {% assign product_share_image = blank %}
+        {% assign page_transition_enabled = false %}
+        {% if settings.activate_page_transition == true or settings.activate_page_transition == 'true' %}
+            {% assign page_transition_enabled = true %}
+        {% endif %}
+        {% assign page_transition_background_color = settings.page_transition_background_color | default: '#FFFFFF' %}
+        {% assign page_transition_opacity = settings.page_transition_opacity | default: 85 %}
+        {% assign page_transition_image = settings.page_transition_image %}
+        {% assign page_transition_image_url = page_transition_image.url | default: page_transition_image %}
+        {% assign page_transition_max_wait_ms = settings.page_transition_max_time_seconds | default: 2 | times: 1000 %}
 
         {% if seo_default_share_image and seo_default_share_image.url != blank %}
             {% assign seo_image_width = seo_default_share_image.width %}
@@ -261,8 +270,97 @@
         {{ meta_tracking_script }}
         {{ google_tracking_script }}
         {{ content_for_header }}
+        {% if page_transition_enabled %}
+            <script>
+                (() => {
+                    const OPEN_MS = 250
+                    const CLOSE_MS = 750
+                    let openTimer = null
+                    let closeTimer = null
+
+                    const getOverlay = () => document.getElementById('page-transition-overlay')
+
+                    const clearTimers = () => {
+                        if (openTimer) {
+                            window.clearTimeout(openTimer)
+                            openTimer = null
+                        }
+
+                        if (closeTimer) {
+                            window.clearTimeout(closeTimer)
+                            closeTimer = null
+                        }
+                    }
+
+                    const show = ({ animate = true } = {}) => {
+                        const overlay = getOverlay()
+                        if (!overlay) return
+
+                        clearTimers()
+                        overlay.dataset.open = 'true'
+                        overlay.dataset.animateIn = animate ? 'true' : 'false'
+                        overlay.dataset.state = animate ? 'opening' : 'open'
+
+                        if (animate) {
+                            openTimer = window.setTimeout(() => {
+                                const nextOverlay = getOverlay()
+                                if (!nextOverlay) return
+                                if (nextOverlay.dataset.open === 'true') {
+                                    nextOverlay.dataset.state = 'open'
+                                }
+                                openTimer = null
+                            }, OPEN_MS)
+                        }
+                    }
+
+                    const hideImmediately = () => {
+                        const overlay = getOverlay()
+                        if (!overlay) return
+
+                        clearTimers()
+                        overlay.dataset.open = 'false'
+                        overlay.dataset.state = 'closed'
+                        overlay.dataset.animateIn = 'false'
+                    }
+
+                    const hide = () => {
+                        const overlay = getOverlay()
+                        if (!overlay) return
+                        if (overlay.dataset.open !== 'true') return
+                        if (overlay.dataset.state === 'closing') return
+
+                        clearTimers()
+                        overlay.dataset.state = 'closing'
+                        closeTimer = window.setTimeout(() => {
+                            const nextOverlay = getOverlay()
+                            if (!nextOverlay) return
+                            nextOverlay.dataset.open = 'false'
+                            nextOverlay.dataset.state = 'closed'
+                            nextOverlay.dataset.animateIn = 'false'
+                            closeTimer = null
+                        }, CLOSE_MS)
+                    }
+
+                    window.__tienduPageTransition = { show, hide, hideImmediately }
+                })()
+            </script>
+        {% endif %}
     </head>
     <body style="background-color: {{ settings.background_color |  default: "white" }};">
+        {% if page_transition_enabled %}
+            <div
+                id="page-transition-overlay"
+                class="t-page-transition"
+                data-open="true"
+                data-state="open"
+                data-animate-in="false"
+                data-max-wait-ms="{{ page_transition_max_wait_ms }}"
+                style="--t-page-transition-opacity: {{ page_transition_opacity | default: 85 | times: 0.01 }}; background-color: {{ page_transition_background_color | escape_attr }};{% if page_transition_image_url != blank %} background-image: url('{{ page_transition_image_url }}');{% endif %}"
+                role="status"
+                aria-live="polite"
+                aria-label="Cargando página"
+            ></div>
+        {% endif %}
         {{ meta_tracking_noscript }}
         {% sections 'header-group' %}
 

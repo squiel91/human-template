@@ -42,6 +42,43 @@
                 "id": "animations",
                 "label": "Intro fly in animation",
                 "default": true
+            },
+            {
+                "type": "checkbox",
+                "id": "activate_page_transition",
+                "label": "Activate page transition",
+                "default": false
+            },
+            {
+                "type": "color",
+                "id": "page_transition_background_color",
+                "label": "Page transition background color",
+                "default": "#FFFFFF"
+            },
+            {
+                "type": "range",
+                "id": "page_transition_opacity",
+                "label": "Page transition opacity",
+                "min": 0,
+                "max": 100,
+                "step": 5,
+                "unit": "%",
+                "default": 85
+            },
+            {
+                "type": "image",
+                "id": "page_transition_image",
+                "label": "Page transition image"
+            },
+            {
+                "type": "range",
+                "id": "page_transition_max_time_seconds",
+                "label": "Page transition max time",
+                "min": 1,
+                "max": 10,
+                "step": 1,
+                "unit": "s",
+                "default": 2
             }
         ]
     },
