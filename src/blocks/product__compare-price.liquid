@@ -39,7 +39,7 @@
 {% assign fallback_text = compare_label | default: '$ 2.490' %}
 
 {% if compare_label != blank or design_mode or preview_mode %}
-    <div data-product-compare-wrap {{ block.tiendu_attributes }}{% if compare_label == blank %} hidden{% endif %}>
+    <div class="t-product-compare" data-product-compare-wrap {{ block.tiendu_attributes }}{% if compare_label == blank %} hidden{% endif %}>
         {% if block.children and block.children.size > 0 %}
             {% for child_block in block.children %}
                 {% assign child_compare_text_id = compare_text_id %}
