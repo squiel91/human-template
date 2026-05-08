@@ -322,10 +322,18 @@ export const Tiendu = () => {
       rejectOpen = null
     }
 
+    let isPopStateClose = false
+
+    const handlePopState = () => {
+      isPopStateClose = true
+      iframe.contentWindow?.postMessage({ type: 'close' }, window.location.origin)
+    }
+
     const cleanup = () => {
       if (isClosed) return
       isClosed = true
       window.removeEventListener('message', handleIframeMessage)
+      window.removeEventListener('popstate', handlePopState)
       iframe.onload = null
       iframe.onerror = null
       iframe.remove()
@@ -334,12 +342,18 @@ export const Tiendu = () => {
         activeOverlayCleanup = null
       }
 
+      if (!isPopStateClose) {
+        history.back()
+      }
+
       if (waitForReady) {
         settleReject(new Error('Overlay closed before it became ready'))
       }
     }
 
     activeOverlayCleanup = cleanup
+    window.addEventListener('popstate', handlePopState)
+    history.pushState({ searchOverlay: true }, '', window.location.href)
 
     const handleIframeMessage = (event) => {
       if (!isTrustedIframeMessage(event)) return
