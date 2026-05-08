@@ -92,6 +92,265 @@
             ]
         },
         {
+            "name": "Google Maps",
+            "blocks": {
+                "layout_outer": {
+                    "type": "layout",
+                    "settings": {
+                        "css_styles_desktop": "padding: 0;",
+                        "css_styles_tablet": "padding: 0;",
+                        "css_styles_mobile": "padding: 0;"
+                    },
+                    "blocks": {
+                        "map": {
+                            "type": "google-maps",
+                            "settings": {
+                                "embed_url": "",
+                                "title": "Ubicacion del negocio",
+                                "allow_fullscreen": true,
+                                "loading": "lazy",
+                                "referrer_policy": "no-referrer-when-downgrade",
+                                "height_desktop": "28rem",
+                                "height_tablet": "24rem",
+                                "height_mobile": "20rem"
+                            }
+                        }
+                    },
+                    "block_order": [
+                        "map"
+                    ]
+                }
+            },
+            "block_order": [
+                "layout_outer"
+            ]
+        },
+        {
+            "name": "Features",
+            "blocks": {
+                "layout_outer": {
+                    "type": "layout",
+                    "settings": {
+                        "css_styles_desktop": "padding: 32px var(--container-horizontal-padding, 8px); background-color: #f8fafc;",
+                        "css_styles_tablet": "padding: 24px var(--container-horizontal-padding, 8px);",
+                        "css_styles_mobile": "padding: 20px var(--container-horizontal-padding, 8px);"
+                    },
+                    "blocks": {
+                        "layout_inner": {
+                            "type": "layout",
+                            "settings": {
+                                "css_styles_desktop": "max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px;",
+                                "css_styles_tablet": "gap: 18px;",
+                                "css_styles_mobile": "grid-template-columns: 1fr; gap: 16px;"
+                            },
+                            "blocks": {
+                                "feature_card_1": {
+                                    "type": "layout",
+                                    "settings": {
+                                        "background_color_desktop": "#ffffff",
+                                        "css_styles_desktop": "display: flex; flex-direction: column; align-items: center; text-align: center; gap: 18px; min-height: 220px; padding: 32px 24px; border-radius: 24px; box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08), 0 2px 8px rgba(15, 23, 42, 0.04);",
+                                        "css_styles_mobile": "min-height: 0; padding: 28px 20px;"
+                                    },
+                                    "blocks": {
+                                        "icon_wrap_1": {
+                                            "type": "layout",
+                                            "settings": {
+                                                "background_color_desktop": "#f3f0ff",
+                                                "css_styles_desktop": "display: inline-flex; align-items: center; justify-content: center; width: 76px; height: 76px; border-radius: 9999px;"
+                                            },
+                                            "blocks": {
+                                                "icon_1": {
+                                                    "type": "icon",
+                                                    "settings": {
+                                                        "icon": "wrench",
+                                                        "color": "custom",
+                                                        "custom_color": "#312e81",
+                                                        "size": "lg",
+                                                        "stroke_width": "2"
+                                                    }
+                                                }
+                                            },
+                                            "block_order": [
+                                                "icon_1"
+                                            ]
+                                        },
+                                        "title_1": {
+                                            "type": "text",
+                                            "settings": {
+                                                "text": "Reparacion Profesional",
+                                                "text_type": "section_title",
+                                                "vertical_margin": "none",
+                                                "alignment": "center",
+                                                "font_weight": "700",
+                                                "size_desktop": "2xl",
+                                                "size_tablet": "xl",
+                                                "size_mobile": "xl"
+                                            }
+                                        },
+                                        "description_1": {
+                                            "type": "text",
+                                            "settings": {
+                                                "text": "Tecnicos especializados en todas las marcas",
+                                                "text_type": "paragraph",
+                                                "vertical_margin": "none",
+                                                "alignment": "center",
+                                                "size_desktop": "lg",
+                                                "size_tablet": "base",
+                                                "size_mobile": "base",
+                                                "custom_color": "#6b7280"
+                                            }
+                                        }
+                                    },
+                                    "block_order": [
+                                        "icon_wrap_1",
+                                        "title_1",
+                                        "description_1"
+                                    ]
+                                },
+                                "feature_card_2": {
+                                    "type": "layout",
+                                    "settings": {
+                                        "background_color_desktop": "#ffffff",
+                                        "css_styles_desktop": "display: flex; flex-direction: column; align-items: center; text-align: center; gap: 18px; min-height: 220px; padding: 32px 24px; border-radius: 24px; box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08), 0 2px 8px rgba(15, 23, 42, 0.04);",
+                                        "css_styles_mobile": "min-height: 0; padding: 28px 20px;"
+                                    },
+                                    "blocks": {
+                                        "icon_wrap_2": {
+                                            "type": "layout",
+                                            "settings": {
+                                                "background_color_desktop": "#f3f0ff",
+                                                "css_styles_desktop": "display: inline-flex; align-items: center; justify-content: center; width: 76px; height: 76px; border-radius: 9999px;"
+                                            },
+                                            "blocks": {
+                                                "icon_2": {
+                                                    "type": "icon",
+                                                    "settings": {
+                                                        "icon": "shield-check",
+                                                        "color": "custom",
+                                                        "custom_color": "#312e81",
+                                                        "size": "lg",
+                                                        "stroke_width": "2"
+                                                    }
+                                                }
+                                            },
+                                            "block_order": [
+                                                "icon_2"
+                                            ]
+                                        },
+                                        "title_2": {
+                                            "type": "text",
+                                            "settings": {
+                                                "text": "Garantia Asegurada",
+                                                "text_type": "section_title",
+                                                "vertical_margin": "none",
+                                                "alignment": "center",
+                                                "font_weight": "700",
+                                                "size_desktop": "2xl",
+                                                "size_tablet": "xl",
+                                                "size_mobile": "xl"
+                                            }
+                                        },
+                                        "description_2": {
+                                            "type": "text",
+                                            "settings": {
+                                                "text": "Respaldo en todas nuestras reparaciones",
+                                                "text_type": "paragraph",
+                                                "vertical_margin": "none",
+                                                "alignment": "center",
+                                                "size_desktop": "lg",
+                                                "size_tablet": "base",
+                                                "size_mobile": "base",
+                                                "custom_color": "#6b7280"
+                                            }
+                                        }
+                                    },
+                                    "block_order": [
+                                        "icon_wrap_2",
+                                        "title_2",
+                                        "description_2"
+                                    ]
+                                },
+                                "feature_card_3": {
+                                    "type": "layout",
+                                    "settings": {
+                                        "background_color_desktop": "#ffffff",
+                                        "css_styles_desktop": "display: flex; flex-direction: column; align-items: center; text-align: center; gap: 18px; min-height: 220px; padding: 32px 24px; border-radius: 24px; box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08), 0 2px 8px rgba(15, 23, 42, 0.04);",
+                                        "css_styles_mobile": "min-height: 0; padding: 28px 20px;"
+                                    },
+                                    "blocks": {
+                                        "icon_wrap_3": {
+                                            "type": "layout",
+                                            "settings": {
+                                                "background_color_desktop": "#f3f0ff",
+                                                "css_styles_desktop": "display: inline-flex; align-items: center; justify-content: center; width: 76px; height: 76px; border-radius: 9999px;"
+                                            },
+                                            "blocks": {
+                                                "icon_3": {
+                                                    "type": "icon",
+                                                    "settings": {
+                                                        "icon": "clock",
+                                                        "color": "custom",
+                                                        "custom_color": "#312e81",
+                                                        "size": "lg",
+                                                        "stroke_width": "2"
+                                                    }
+                                                }
+                                            },
+                                            "block_order": [
+                                                "icon_3"
+                                            ]
+                                        },
+                                        "title_3": {
+                                            "type": "text",
+                                            "settings": {
+                                                "text": "Servicio Rapido",
+                                                "text_type": "section_title",
+                                                "vertical_margin": "none",
+                                                "alignment": "center",
+                                                "font_weight": "700",
+                                                "size_desktop": "2xl",
+                                                "size_tablet": "xl",
+                                                "size_mobile": "xl"
+                                            }
+                                        },
+                                        "description_3": {
+                                            "type": "text",
+                                            "settings": {
+                                                "text": "La mayoria de reparaciones en el mismo dia",
+                                                "text_type": "paragraph",
+                                                "vertical_margin": "none",
+                                                "alignment": "center",
+                                                "size_desktop": "lg",
+                                                "size_tablet": "base",
+                                                "size_mobile": "base",
+                                                "custom_color": "#6b7280"
+                                            }
+                                        }
+                                    },
+                                    "block_order": [
+                                        "icon_wrap_3",
+                                        "title_3",
+                                        "description_3"
+                                    ]
+                                }
+                            },
+                            "block_order": [
+                                "feature_card_1",
+                                "feature_card_2",
+                                "feature_card_3"
+                            ]
+                        }
+                    },
+                    "block_order": [
+                        "layout_inner"
+                    ]
+                }
+            },
+            "block_order": [
+                "layout_outer"
+            ]
+        },
+        {
             "name": "404",
             "blocks": {
                 "layout_outer": {

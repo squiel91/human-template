@@ -1,0 +1,265 @@
+{% assign block_render_id = block.render_id %}
+{% if block_render_id == blank %}
+    {% assign block_render_id = section.id | append: '-' | append: block.id %}
+{% endif %}
+{% assign map_id = 'tiendu__google-maps-' | append: block_render_id %}
+{% assign embed_url = block.settings.embed_url | strip %}
+{% assign map_title = block.settings.title | default: 'Ubicacion del negocio' %}
+{% assign map_height_desktop = block.settings.height_desktop | default: '28rem' %}
+{% assign map_height_tablet = block.settings.height_tablet | default: map_height_desktop %}
+{% assign map_height_mobile = block.settings.height_mobile | default: map_height_tablet %}
+{% assign map_rounding = block.settings.rounding | default: 'none' %}
+
+{% case map_rounding %}
+    {% when 'theme' %}
+        {% assign map_border_radius = 'var(--product-image-border-radius, 0)' %}
+    {% when 'none' %}
+        {% assign map_border_radius = '0' %}
+    {% when 'sm' %}
+        {% assign map_border_radius = '0.125rem' %}
+    {% when 'md' %}
+        {% assign map_border_radius = '0.375rem' %}
+    {% when 'lg' %}
+        {% assign map_border_radius = '0.5rem' %}
+    {% when 'xl' %}
+        {% assign map_border_radius = '0.75rem' %}
+    {% when '2xl' %}
+        {% assign map_border_radius = '1rem' %}
+    {% when '3xl' %}
+        {% assign map_border_radius = '1.5rem' %}
+    {% else %}
+        {% assign map_border_radius = '9999px' %}
+{% endcase %}
+
+<style>
+    #{{ map_id }} {
+        display: block;
+        width: 100%;
+        max-width: 100%;
+        height: {{ map_height_desktop }};
+        overflow: hidden;
+        border-radius: {{ map_border_radius }};
+        {{ block.settings.css_styles_desktop }}
+    }
+
+    #{{ map_id }} iframe {
+        display: block;
+        width: 100%;
+        height: 100%;
+        border: 0;
+    }
+
+    #{{ map_id }} .t-google-maps__placeholder {
+        display: flex;
+        width: 100%;
+        height: 100%;
+        align-items: center;
+        justify-content: center;
+        padding: 1rem;
+        background: rgba(0, 0, 0, 0.04);
+        color: rgba(0, 0, 0, 0.7);
+        text-align: center;
+    }
+
+    @media (width <= 64rem) {
+        #{{ map_id }} {
+            height: {{ map_height_tablet }};
+            {{ block.settings.css_styles_tablet }}
+        }
+    }
+
+    @media (width <= 48rem) {
+        #{{ map_id }} {
+            height: {{ map_height_mobile }};
+            {{ block.settings.css_styles_mobile }}
+        }
+    }
+</style>
+
+<div {{ block.tiendu_attributes }} id="{{ map_id }}" class="t-google-maps">
+    {% if embed_url != blank %}
+        <iframe
+            src="{{ embed_url | escape_attr }}"
+            title="{{ map_title | escape_attr }}"
+            loading="{{ block.settings.loading | default: 'lazy' | escape_attr }}"
+            referrerpolicy="{{ block.settings.referrer_policy | default: 'no-referrer-when-downgrade' | escape_attr }}"
+            {% if block.settings.allow_fullscreen %}allowfullscreen{% endif %}
+        ></iframe>
+    {% elsif design_mode or preview_mode %}
+        <div class="t-google-maps__placeholder">
+            Pega una URL de Google Maps Embed para mostrar el mapa.
+        </div>
+    {% endif %}
+</div>
+
+{% schema %}
+{
+    "name": "Google Maps",
+    "settings": [
+        {
+            "type": "text",
+            "id": "embed_url",
+            "label": "Embed URL",
+            "info": "Paste only the Google Maps embed src URL, not the full iframe HTML.",
+            "placeholder": "https://www.google.com/maps/embed?pb=..."
+        },
+        {
+            "type": "text",
+            "id": "title",
+            "label": "Iframe title",
+            "default": "Ubicacion del negocio"
+        },
+        {
+            "type": "select",
+            "id": "rounding",
+            "label": "Rounding",
+            "default": "none",
+            "options": [
+                {
+                    "value": "theme",
+                    "label": "Theme default"
+                },
+                {
+                    "value": "none",
+                    "label": "None"
+                },
+                {
+                    "value": "sm",
+                    "label": "Sm"
+                },
+                {
+                    "value": "md",
+                    "label": "Md"
+                },
+                {
+                    "value": "lg",
+                    "label": "Lg"
+                },
+                {
+                    "value": "xl",
+                    "label": "Xl"
+                },
+                {
+                    "value": "2xl",
+                    "label": "2xl"
+                },
+                {
+                    "value": "3xl",
+                    "label": "3xl"
+                },
+                {
+                    "value": "full",
+                    "label": "Full"
+                }
+            ]
+        },
+        {
+            "type": "checkbox",
+            "id": "allow_fullscreen",
+            "label": "Allow fullscreen",
+            "default": true
+        },
+        {
+            "type": "select",
+            "id": "loading",
+            "label": "Loading",
+            "default": "lazy",
+            "options": [
+                {
+                    "value": "lazy",
+                    "label": "Lazy"
+                },
+                {
+                    "value": "eager",
+                    "label": "Eager"
+                }
+            ]
+        },
+        {
+            "type": "select",
+            "id": "referrer_policy",
+            "label": "Referrer policy",
+            "default": "no-referrer-when-downgrade",
+            "options": [
+                {
+                    "value": "no-referrer-when-downgrade",
+                    "label": "No referrer when downgrade"
+                },
+                {
+                    "value": "no-referrer",
+                    "label": "No referrer"
+                },
+                {
+                    "value": "origin",
+                    "label": "Origin"
+                },
+                {
+                    "value": "strict-origin-when-cross-origin",
+                    "label": "Strict origin when cross origin"
+                }
+            ]
+        },
+        {
+            "type": "header",
+            "content": "Desktop"
+        },
+        {
+            "type": "text",
+            "id": "height_desktop",
+            "label": "Height",
+            "default": "28rem"
+        },
+        {
+            "type": "textarea",
+            "id": "css_styles_desktop",
+            "label": "CSS styles",
+            "info": "Styles will be inherited for other sizes unless overridden."
+        },
+        {
+            "type": "header",
+            "content": "Tablet"
+        },
+        {
+            "type": "text",
+            "id": "height_tablet",
+            "label": "Height",
+            "default": "24rem"
+        },
+        {
+            "type": "textarea",
+            "id": "css_styles_tablet",
+            "label": "CSS styles",
+            "info": "Styles will be inherited for phones unless overridden."
+        },
+        {
+            "type": "header",
+            "content": "Mobile"
+        },
+        {
+            "type": "text",
+            "id": "height_mobile",
+            "label": "Height",
+            "default": "20rem"
+        },
+        {
+            "type": "textarea",
+            "id": "css_styles_mobile",
+            "label": "CSS styles",
+            "info": "Only applied to phone format."
+        }
+    ],
+    "presets": [
+        {
+            "name": "Google Maps",
+            "settings": {
+                "allow_fullscreen": true,
+                "loading": "lazy",
+                "referrer_policy": "no-referrer-when-downgrade",
+                "height_desktop": "28rem",
+                "height_tablet": "24rem",
+                "height_mobile": "20rem"
+            }
+        }
+    ]
+}
+{% endschema %}

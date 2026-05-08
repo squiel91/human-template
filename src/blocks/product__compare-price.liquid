@@ -11,8 +11,7 @@
 {% endif %}
 
 {% if product_obj and product_obj.variants and product_obj.variants.size > 0 %}
-    {% assign shared_compare = 0 %}
-    {% assign shared_compare_set = false %}
+    {% assign shared_compare = blank %}
     {% assign compare_consistent = true %}
     {% assign has_comparable_variant = false %}
     {% for variant in product_obj.variants %}
@@ -20,16 +19,15 @@
             {% assign compare_consistent = false %}
         {% else %}
             {% assign has_comparable_variant = true %}
-            {% if shared_compare_set == false %}
+            {% if shared_compare == blank %}
                 {% assign shared_compare = variant.compareAtPriceInCents %}
-                {% assign shared_compare_set = true %}
             {% elsif shared_compare != variant.compareAtPriceInCents %}
                 {% assign compare_consistent = false %}
             {% endif %}
         {% endif %}
     {% endfor %}
 
-    {% if compare_consistent and has_comparable_variant and shared_compare_set %}
+    {% if compare_consistent and has_comparable_variant and shared_compare != blank %}
         {% capture compare_label %}{{ shared_compare | money }}{% endcapture %}
     {% endif %}
 {% endif %}
@@ -38,28 +36,23 @@
     {% capture compare_label %}{{ product_obj.baseCompareAtPriceInCents | money }}{% endcapture %}
 {% endif %}
 
-{% assign fallback_text = compare_label %}
-{% if fallback_text == blank %}
-    {% capture fallback_text %}NO_COMPARE{% endcapture %}
+{% assign fallback_text = compare_label | default: '$ 2.490' %}
+
+{% if compare_label != blank or design_mode or preview_mode %}
+    <div data-product-compare-wrap {{ block.tiendu_attributes }}{% if compare_label == blank %} hidden{% endif %}>
+        {% if block.children and block.children.size > 0 %}
+            {% for child_block in block.children %}
+                {% assign child_compare_text_id = compare_text_id %}
+                {% if child_block.id != 'default-text' %}
+                    {% assign child_compare_text_id = compare_text_id | append: '-' | append: child_block.id %}
+                {% endif %}
+                {% content_for 'block', id: child_block.id, type: child_block.type, default_content: fallback_text, text_id: child_compare_text_id %}
+            {% endfor %}
+        {% else %}
+            <span id="{{ compare_text_id }}" style="font-size: 1.5rem; color: #94a3b8; text-decoration: line-through;">{{ fallback_text }}</span>
+        {% endif %}
+    </div>
 {% endif %}
-
-<div style="font-size: 0.7rem; color: #666; background: #f0f0f0; padding: 2px 4px; margin-bottom: 2px; border-radius: 2px; font-family: monospace;">
-  DEBUG: id={{ product_obj.id | default: 'nil' }} v={{ product_obj.variants.size | default: '0' }} fp={{ product_obj.variants.first.priceInCents | default: 'nil' }} fc={{ product_obj.variants.first.compareAtPriceInCents | default: 'nil' }} s={{ shared_compare | default: 'nil' }} sset={% if shared_compare_set %}Y{% else %}N{% endif %} c={% if compare_consistent %}Y{% else %}N{% endif %} h={% if has_comparable_variant %}Y{% else %}N{% endif %} bCA={{ product_obj.baseCompareAtPriceInCents | default: 'nil' }} bP={{ product_obj.basePriceInCents | default: 'nil' }}
-</div>
-
-<div data-product-compare-wrap {{ block.tiendu_attributes }}>
-    {% if block.children and block.children.size > 0 %}
-        {% for child_block in block.children %}
-            {% assign child_compare_text_id = compare_text_id %}
-            {% if child_block.id != 'default-text' %}
-                {% assign child_compare_text_id = compare_text_id | append: '-' | append: child_block.id %}
-            {% endif %}
-            {% content_for 'block', id: child_block.id, type: child_block.type, default_content: fallback_text, text_id: child_compare_text_id %}
-        {% endfor %}
-    {% else %}
-        <span id="{{ compare_text_id }}" style="font-size: 1rem; color: #ef4444; text-decoration: none; background: #fef2f2; padding: 2px 6px; border-radius: 4px; font-weight: 700;">{{ fallback_text }}</span>
-    {% endif %}
-</div>
 
 {% schema %}
 {

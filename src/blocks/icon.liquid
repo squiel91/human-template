@@ -68,6 +68,10 @@
             {% render 'icon-truck', size: icon_size, stroke_width: block.settings.stroke_width %}
         {% when 'piggy-bank' %}
             {% render 'icon-piggy-bank', size: icon_size, stroke_width: block.settings.stroke_width %}
+        {% when 'wrench' %}
+            {% render 'icon-wrench', size: icon_size, stroke_width: block.settings.stroke_width %}
+        {% when 'clock' %}
+            {% render 'icon-clock', size: icon_size, stroke_width: block.settings.stroke_width %}
         {% when 'facebook' %}
             {% render 'icon-facebook', size: icon_size %}
         {% when 'instagram' %}
@@ -140,6 +144,14 @@
                 {
                     "value": "piggy-bank",
                     "label": "Piggy bank"
+                },
+                {
+                    "value": "wrench",
+                    "label": "Wrench"
+                },
+                {
+                    "value": "clock",
+                    "label": "Clock"
                 },
                 {
                     "value": "facebook",
